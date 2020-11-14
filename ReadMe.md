@@ -18,7 +18,7 @@
 ├── src
 │   ├── main
 │   │   ├── java
-│   │   │   ├── com.hknp.controller.admin
+│   │   │   ├── com.hknp.controller
 │   │   │   │   └── admin
 │   │   │   │   └── delivery
 │   │   │   │   └── employee
