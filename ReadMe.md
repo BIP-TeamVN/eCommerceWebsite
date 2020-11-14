@@ -14,7 +14,6 @@
 
 ## Project Structure
 <pre>
-<pre>
 <b>eCommerceWebsite</b>
 ├── src
 │   ├── main
