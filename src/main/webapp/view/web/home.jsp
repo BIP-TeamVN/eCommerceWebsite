@@ -5,9 +5,8 @@
 </head>
 <body>
     <h1>Customer - Home</h1>
-<<<<<<< HEAD
+
     <p>test commit by hoang/p>
-=======
->>>>>>> 040ead1e6f3b42d011ef27f36058cdc9a17f559b
+
 </body>
 </html>
