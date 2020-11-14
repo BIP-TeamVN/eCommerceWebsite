@@ -6,6 +6,6 @@
 <body>
 
     <h1>Customer - Home</h1>
-    <p>test commit by hoangggggggggggg</p>
+    <p>test commit by hoang/p>
 </body>
 </html>
