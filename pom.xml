@@ -16,6 +16,7 @@
         <junit.version>5.6.2</junit.version>
         <jsp-api.version>2.0</jsp-api.version>
         <jstl.version>1.2</jstl.version>
+        <mysql-connector-java.version>5.1.45</mysql-connector-java.version>
     </properties>
 
     <dependencies>
@@ -49,6 +50,12 @@
             <groupId>jstl</groupId>
             <artifactId>jstl</artifactId>
             <version>${jstl.version}</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/mysql/mysql-connector-java -->
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>${mysql-connector-java.version}</version>
         </dependency>
     </dependencies>
 
