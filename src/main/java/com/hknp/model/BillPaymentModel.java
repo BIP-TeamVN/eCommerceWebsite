@@ -8,7 +8,7 @@ public class BillPaymentModel {
     Long billId;
 
     public BillPaymentModel (ResultSet resultSet) throws SQLException{
-        billPaymentId = resultSet.getLong("");
-        billId = resultSet.getLong("");
+        billPaymentId = resultSet.getLong("BILL_PAYMENT_ID");
+        billId = resultSet.getLong("BILL_ID");
     }
 }

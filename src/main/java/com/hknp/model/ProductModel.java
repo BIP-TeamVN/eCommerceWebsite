@@ -1,5 +1,6 @@
 package com.hknp.model;
 
+import java.math.BigDecimal;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
@@ -12,8 +13,8 @@ public class ProductModel {
     String productOrigin;
     String productDesc;
     Integer quantity;
-    Double priceOrigin;
-    Double priceOrder;
+    BigDecimal priceOrigin;
+    BigDecimal priceOrder;
 
     public ProductModel (ResultSet resultSet) throws SQLException {
         productId = resultSet.getLong("PRODUCT_ID");
@@ -24,7 +25,7 @@ public class ProductModel {
         productOrigin = resultSet.getString("PRODUCT_ORIGIN");
         productDesc = resultSet.getString("PRODUCT_DESC");
         quantity = resultSet.getInt("QUANTITY");
-        priceOrigin = resultSet.getDouble("PRICE_ORIGIN");
-        priceOrder = resultSet.getDouble("PRICE_ORDER");
+        priceOrigin = resultSet.getBigDecimal("PRICE_ORIGIN");
+        priceOrder = resultSet.getBigDecimal("PRICE_ORDER");
     }
 }

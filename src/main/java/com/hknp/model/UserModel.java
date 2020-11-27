@@ -17,7 +17,7 @@ public class UserModel {
     String userName;
     String password;
     String userType;
-    Short status;
+    Boolean status;
 
     public UserModel(ResultSet resultSet) throws SQLException {
         userId = resultSet.getLong("USER_ID");
@@ -32,6 +32,6 @@ public class UserModel {
         userName = resultSet.getString("USER_NAME");
         password = resultSet.getString("PASSWORD");
         userType = resultSet.getString("USER_TYPE");
-        status = resultSet.getShort("STATUS");
+        status = resultSet.getBoolean("STATUS");
     }
 }
