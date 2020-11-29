@@ -1,14 +1,14 @@
-package com.hknp.model;
+package com.hknp.model.dto;
 
 import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class CustomerModel {
+public class CustomerDTO {
     Long userId;
     Date registerDate;
 
-    public CustomerModel (ResultSet resultSet) throws SQLException {
+    public CustomerDTO (ResultSet resultSet) throws SQLException {
         userId = resultSet.getLong("USER_ID");
         registerDate = resultSet.getDate("REGISTER_DATE");
     }

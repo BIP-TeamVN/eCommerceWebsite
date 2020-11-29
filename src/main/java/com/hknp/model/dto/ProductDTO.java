@@ -1,10 +1,10 @@
-package com.hknp.model;
+package com.hknp.model.dto;
 
 import java.math.BigDecimal;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class ProductModel {
+public class ProductDTO {
     Long productId;
     Long brandId;
     Long sellerId;
@@ -16,7 +16,7 @@ public class ProductModel {
     BigDecimal priceOrigin;
     BigDecimal priceOrder;
 
-    public ProductModel (ResultSet resultSet) throws SQLException {
+    public ProductDTO (ResultSet resultSet) throws SQLException {
         productId = resultSet.getLong("PRODUCT_ID");
         brandId = resultSet.getLong("BRAND_ID");
         sellerId = resultSet.getLong("SELLER_ID");

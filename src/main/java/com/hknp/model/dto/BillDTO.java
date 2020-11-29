@@ -1,14 +1,14 @@
-package com.hknp.model;
+package com.hknp.model.dto;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class BillModel {
+public class BillDTO {
     Long billId;
     Long addressId;
     Long discountId;
 
-    public BillModel (ResultSet resultSet) throws SQLException {
+    public BillDTO (ResultSet resultSet) throws SQLException {
         billId = resultSet.getLong("BILL_ID");
         addressId = resultSet.getLong("ADDRESS_ID");
         discountId = resultSet.getLong("DISCOUNT_ID");

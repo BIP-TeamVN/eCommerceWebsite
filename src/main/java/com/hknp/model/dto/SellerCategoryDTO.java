@@ -1,13 +1,13 @@
-package com.hknp.model;
+package com.hknp.model.dto;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class SellerCategoryModel {
+public class SellerCategoryDTO {
     Long sellerCategoryId;
     String categoryName;
 
-    public SellerCategoryModel (ResultSet resultSet) throws SQLException {
+    public SellerCategoryDTO (ResultSet resultSet) throws SQLException {
         sellerCategoryId = resultSet.getLong("SELLER_CATEGORY_ID");
         categoryName = resultSet.getString("CATEGORY_NAME");
     }

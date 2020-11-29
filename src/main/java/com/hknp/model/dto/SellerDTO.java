@@ -1,9 +1,9 @@
-package com.hknp.model;
+package com.hknp.model.dto;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class SellerModel {
+public class SellerDTO {
     Long userId;
     String storeName;
     String storeLink;
@@ -11,7 +11,7 @@ public class SellerModel {
     Long sellerCategoryId;
     Long bankAccountId;
 
-    public SellerModel (ResultSet resultSet) throws SQLException {
+    public SellerDTO (ResultSet resultSet) throws SQLException {
         userId = resultSet.getLong("USER_ID");
         storeName = resultSet.getString("STORE_NAME");
         storeLink = resultSet.getString("STORE_LINK");

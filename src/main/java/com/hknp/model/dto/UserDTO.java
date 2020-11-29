@@ -1,10 +1,10 @@
-package com.hknp.model;
+package com.hknp.model.dto;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Date;
 
-public class UserModel {
+public class UserDTO {
     Long userId;
     String lastName;
     String firstName;
@@ -19,7 +19,7 @@ public class UserModel {
     String userType;
     Boolean status;
 
-    public UserModel(ResultSet resultSet) throws SQLException {
+    public UserDTO(ResultSet resultSet) throws SQLException {
         userId = resultSet.getLong("USER_ID");
         lastName = resultSet.getString("LAST_NAME");
         firstName = resultSet.getString("FIRST_NAME");

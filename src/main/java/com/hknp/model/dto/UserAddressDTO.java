@@ -1,16 +1,16 @@
-package com.hknp.model;
+package com.hknp.model.dto;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class UserAddressModel {
+public class UserAddressDTO {
     Long userId;
     Long addressId;
     String fullName;
     String phoneNumber;
     String addressName;
 
-    public UserAddressModel(ResultSet resultSet) throws SQLException {
+    public UserAddressDTO(ResultSet resultSet) throws SQLException {
         userId = resultSet.getLong("USER_ID");
         addressId = resultSet.getLong("ADDRESS_ID");
         fullName = resultSet.getString("FULL_NAME");
