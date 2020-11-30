@@ -4,11 +4,11 @@ import com.hknp.interfaces.IDatabaseAccess;
 import com.hknp.model.dto.ProvinceDTO;
 import com.hknp.utils.DatabaseUtils;
 
-import java.sql.Array;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 public class ProvinceDAO implements IDatabaseAccess<String, ProvinceDTO> {
@@ -29,8 +29,7 @@ public class ProvinceDAO implements IDatabaseAccess<String, ProvinceDTO> {
             ProvinceDTO provinceModel = new ProvinceDTO(resultSet);
             result.add(provinceModel);
          }
-      }
-      catch (SQLException exception) {
+      } catch (SQLException exception) {
          exception.printStackTrace();
       }
 
@@ -47,21 +46,29 @@ public class ProvinceDAO implements IDatabaseAccess<String, ProvinceDTO> {
    @Override
    public Object insert(ProvinceDTO dto) {
       String sql = "INSERT INTO PROVINCE(PROVINCE_ID, PROVINCE_NAME, PROVINCE_TYPE) VALUES (?, ?, ?);";
-      List<Object> parameters = Arrays.asList(dto.getProvinceId(), dto.getProvinceName(), dto.getProvinceType());
+      List<Object> parameters = Arrays.asList(
+              dto.getProvinceId(),
+              dto.getProvinceName(),
+              dto.getProvinceType()
+      );
       return DatabaseUtils.executeUpdate(sql, parameters);
    }
 
    @Override
    public int update(ProvinceDTO dto) {
       String sql = "UPDATE PROVINCE SET PROVINCE_NAME = ?, PROVINCE_TYPE = ? WHERE PROVINCE_ID = ?";
-      List<Object> parameters = Arrays.asList(dto.getProvinceName(), dto.getProvinceType(), dto.getProvinceId());
+      List<Object> parameters = Arrays.asList(
+              dto.getProvinceName(),
+              dto.getProvinceType(),
+              dto.getProvinceId()
+      );
       return DatabaseUtils.executeUpdate(sql, parameters);
    }
 
    @Override
    public int delete(String id) {
       String sql = "DELETE FROM PROVINCE WHERE PROVINCE_ID = ?";
-      List<Object> parameters = Arrays.asList(id);
+      List<Object> parameters = Collections.singletonList(id);
       return DatabaseUtils.executeUpdate(sql, parameters);
    }
 

@@ -1,12 +1,10 @@
 package com.hknp.model.dao;
 
 import com.hknp.interfaces.IDatabaseAccess;
-import com.hknp.model.dto.ProvinceDTO;
 import com.hknp.model.dto.UserDTO;
 import com.hknp.utils.DatabaseUtils;
 import com.hknp.utils.FormatUtils;
 
-import javax.print.DocFlavor;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -16,7 +14,7 @@ import java.util.List;
 public class UserDAO implements IDatabaseAccess<Long, UserDTO> {
    @Override
    public ArrayList<UserDTO> gets() {
-      ArrayList<UserDTO> result = new ArrayList<UserDTO>();
+      ArrayList<UserDTO> result = new ArrayList<>();
 
       String query = "SELECT * FROM USER;";
       ResultSet resultSet = DatabaseUtils.executeQuery(query, null);
@@ -47,19 +45,19 @@ public class UserDAO implements IDatabaseAccess<Long, UserDTO> {
       String sql = "INSERT INTO USER(LAST_NAME, FIRST_NAME, GENDER, DATE_OF_BIRTH, SSN, IMAGE_PATH, PHONE_NUMBER, EMAIL, USER_NAME, PASSWORD, USER_TYPE)" +
               "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
 
-      List<Object> parameters = new ArrayList<>();
-      parameters.add(dto.getLastName());
-      parameters.add(dto.getFirstName());
-      parameters.add(dto.getGender());
-      parameters.add(FormatUtils.dateToString(dto.getDateOfBirth(), "yyyyMMdd"));
-      parameters.add(dto.getSsn());
-      parameters.add(dto.getImagePath());
-      parameters.add(dto.getPhoneNumber());
-      parameters.add(dto.getEmail());
-      parameters.add(dto.getUserName());
-      parameters.add(dto.getPassword());
-      parameters.add(dto.getUserType());
-
+      List<Object> parameters = Arrays.asList(
+              dto.getLastName(),
+              dto.getFirstName(),
+              dto.getGender(),
+              FormatUtils.dateToString(dto.getDateOfBirth(), "yyyyMMdd"),
+              dto.getSsn(),
+              dto.getImagePath(),
+              dto.getPhoneNumber(),
+              dto.getEmail(),
+              dto.getUserName(),
+              dto.getPassword(),
+              dto.getUserType()
+              );
       return DatabaseUtils.executeUpdateAutoIncrement(sql, parameters);
    }
 
