@@ -14,6 +14,8 @@
         </c:forEach>
     </select>
 
+    <p>New id ${newId}</p>
+
 
 </body>
 </html>

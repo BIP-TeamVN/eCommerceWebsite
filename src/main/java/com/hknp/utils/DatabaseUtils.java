@@ -1,8 +1,11 @@
 package com.hknp.utils;
 
+import com.sun.corba.se.spi.ior.ObjectKey;
+
 import java.math.BigDecimal;
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class DatabaseUtils {
@@ -26,19 +29,6 @@ public class DatabaseUtils {
         } catch (SQLException exception) {
             exception.printStackTrace();
         }
-    }
-
-    private static PreparedStatement getPreparedStatement(Connection connection, String sqlQuery, List<Object> parameters) {
-        PreparedStatement preparedStatement = null;
-        if (connection != null) {
-            try {
-                preparedStatement = connection.prepareStatement(sqlQuery);
-                setParameters(preparedStatement, parameters);
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-        }
-        return preparedStatement;
     }
 
     public static ResultSet executeQuery(String sqlQuery, List<Object> parameters) {
@@ -78,9 +68,81 @@ public class DatabaseUtils {
             executeResult = prepStmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+            if (prepStmt != null) {
+                try {
+                    prepStmt.close();
+                } catch (SQLException ex) {
+                    // ignore
+                }
+            }
         }
 
         return executeResult;
+    }
+
+    public static Object executeUpdateAutoIncrement(String sqlQuery, List<Object> parameters){
+        Connection conn = DatabaseConnection.getConnection();
+        PreparedStatement prepStmt = null;
+        ResultSet rs = null;
+        Object autoIncKeyFromApi = null;
+
+        if (conn == null) {
+            return null;   // 0
+        }
+
+        try {
+            prepStmt = conn.prepareStatement(sqlQuery, Statement.RETURN_GENERATED_KEYS);
+            if (parameters != null) {
+                setParameters(prepStmt, parameters);
+            }
+            if (prepStmt.executeUpdate() != 0) {
+                rs = prepStmt.getGeneratedKeys();
+                if (rs.next()) {
+                    autoIncKeyFromApi = rs.getObject(1);
+                }
+            }
+        } catch (SQLException exception) {
+            exception.printStackTrace();
+        } finally {
+            if (rs != null) {
+                try {
+                    rs.close();
+                } catch (SQLException ex) {
+                    ex.printStackTrace();
+                }
+            }
+
+            if (prepStmt != null) {
+                try {
+                    prepStmt.close();
+                } catch (SQLException ex) {
+                    ex.printStackTrace();
+                }
+            }
+        }
+        return autoIncKeyFromApi;
+    }
+
+    public static Object getLastInsertId() {
+        Connection conn = DatabaseConnection.getConnection();
+        Statement stmt = null;
+        ResultSet rs = null;
+        Object lastId = null;
+
+        try {
+            stmt = conn.createStatement();
+
+            rs = stmt.executeQuery("SELECT LAST_INSERT_ID()");
+
+            if (rs.next()) {
+                lastId = rs.getObject(1);
+            }
+
+        } catch (SQLException exception) {
+            exception.printStackTrace();
+        }
+        return lastId;
     }
 
     /*under construct*/
@@ -94,7 +156,8 @@ public class DatabaseUtils {
 
                 PreparedStatement statement = null;
                 for (int i = 0; i < listSqlQuery.size(); i++) {
-                    statement = getPreparedStatement(connection, listSqlQuery.get(i), listParameters.get(i));
+                    statement = connection.prepareStatement(listSqlQuery.get(i));
+                    setParameters(statement, listParameters.get(i));
                     executeResult += statement.executeUpdate();
                     statement.close();
                 }
