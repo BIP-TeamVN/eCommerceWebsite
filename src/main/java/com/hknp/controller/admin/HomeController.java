@@ -22,17 +22,17 @@ public class HomeController extends HttpServlet {
    @Override
    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        /*ProvinceDTO provinceDTO = new ProvinceDTO("00","Test2","C");
-        ProvinceDAO.getInstance().insert(provinceDTO);
+      /*ProvinceDTO provinceDTO = new ProvinceDTO("00", "Test2", "C");
+      ProvinceDAO.getInstance().insert(provinceDTO);
 
-        ArrayList<ProvinceDTO> listProvince = ProvinceDAO.getInstance().gets();
-        req.setAttribute("listProvince", listProvince);*/
+      ArrayList<ProvinceDTO> listProvince = ProvinceDAO.getInstance().gets();
+      req.setAttribute("listProvince", listProvince);*/
 
-      Date dob = FormatUtils.stringToDate("2000-02-09","yyyy-dd-MM");
-      UserDTO dto = new UserDTO(0l, "Lam","Khanh", "Nam", dob, "ssn", "path", "0956663","email", "username", "pass", "type", true );
+      Date dob = FormatUtils.stringToDate("2000-02-09", "yyyy-dd-MM");
+      UserDTO dto = new UserDTO(0l, "Lam", "Khanh", "Nam", dob, "ssn", "path", "0956663", "email", "username", "pass", "type", true);
       Long newId = (Long) UserDAO.getInstance().insert(dto);
 
-      req.setAttribute("newId",newId);
+      req.setAttribute("newId", newId);
 
       RequestDispatcher reqDispatcher = req.getRequestDispatcher("/view/admin/home.jsp");
       reqDispatcher.forward(req, resp);
