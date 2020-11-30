@@ -23,8 +23,10 @@
 │   │   │   │   └── delivery
 │   │   │   │   └── employee
 │   │   │   │   └── web
+│   │   │   ├── com.hknp.interfaces
 │   │   │   ├── com.hknp.model
-│   │   │   │   └── 
+│   │   │   │   └── dal
+│   │   │   │   └── dto
 │   │   ├── webapp
 │   │   │   ├── WEB-INF
 │   │   │   │   └─── <a href="./resource/tut-1/src/main/webapp/WEB-INF/web.xml" target="_blank">web.xml</a>
