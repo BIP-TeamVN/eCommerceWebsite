@@ -45,7 +45,7 @@ public class ProvinceDAO implements IDatabaseAccess<String, ProvinceDTO> {
     }
 
     @Override
-    public int insert(ProvinceDTO dto) {
+    public Object insert(ProvinceDTO dto) {
         String sql = "INSERT INTO PROVINCE(PROVINCE_ID, PROVINCE_NAME, PROVINCE_TYPE) VALUES (?, ?, ?);";
         List<Object> parameters = Arrays.asList(dto.getProvinceId(), dto.getProvinceName(), dto.getProvinceType());
         return DatabaseUtils.executeUpdate(sql, parameters);
