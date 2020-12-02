@@ -40,7 +40,15 @@ public class ProvinceDAO implements IDatabaseAccess<String, ProvinceDTO> {
    public ProvinceDTO getById(String id) {
       String query = "SELECT * FROM PROVINCE WHERE PROVINCE_ID = '" + id + "';";
       ResultSet resultSet = DatabaseUtils.executeQuery(query, null);
-      return resultSet != null ? new ProvinceDTO(resultSet) : null;
+
+      try {
+         if (resultSet.next()) {
+            return new ProvinceDTO(resultSet);
+         }
+      } catch (SQLException exception) {
+         exception.printStackTrace();
+      }
+      return null;
    }
 
    @Override
