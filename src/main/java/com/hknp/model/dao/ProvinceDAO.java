@@ -1,6 +1,7 @@
 package com.hknp.model.dao;
 
-import com.hknp.interfaces.IDatabaseAccess;
+import com.hknp.interfaces.IDataGet;
+import com.hknp.interfaces.IDataUpdate;
 import com.hknp.model.dto.ProvinceDTO;
 import com.hknp.utils.DatabaseUtils;
 
@@ -11,7 +12,18 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-public class ProvinceDAO implements IDatabaseAccess<String, ProvinceDTO> {
+public class ProvinceDAO implements IDataGet<String, ProvinceDTO>, IDataUpdate<String, ProvinceDTO> {
+   private static ProvinceDAO instance = null;
+
+   private ProvinceDAO() {
+   }
+
+   public static ProvinceDAO getInstance() {
+      if (instance == null) {
+         instance = new ProvinceDAO();
+      }
+      return instance;
+   }
 
    @Override
    public ArrayList<ProvinceDTO> gets() {
@@ -29,8 +41,7 @@ public class ProvinceDAO implements IDatabaseAccess<String, ProvinceDTO> {
             ProvinceDTO provinceModel = new ProvinceDTO(resultSet);
             result.add(provinceModel);
          }
-      }
-      catch (SQLException exception) {
+      } catch (SQLException exception) {
          exception.printStackTrace();
       }
 
@@ -41,12 +52,21 @@ public class ProvinceDAO implements IDatabaseAccess<String, ProvinceDTO> {
    public ProvinceDTO getById(String id) {
       String query = "SELECT * FROM PROVINCE WHERE PROVINCE_ID = '" + id + "';";
       ResultSet resultSet = DatabaseUtils.executeQuery(query, null);
-      return resultSet != null ? new ProvinceDTO(resultSet) : null;
+
+      try {
+         if (resultSet != null && resultSet.next()) {
+            return new ProvinceDTO(resultSet);
+         }
+      } catch (SQLException exception) {
+         exception.printStackTrace();
+      }
+      return null;
    }
 
    @Override
-   public Object insert(ProvinceDTO dto) {
-      String sql = "INSERT INTO PROVINCE(PROVINCE_ID, PROVINCE_NAME, PROVINCE_TYPE) VALUES (?, ?, ?);";
+   public int insert(ProvinceDTO dto) {
+      String sql = "INSERT INTO PROVINCE(PROVINCE_ID, PROVINCE_NAME, PROVINCE_TYPE) " +
+              "VALUES (?, ?, ?);";
       List<Object> parameters = Arrays.asList(
               dto.getProvinceId(),
               dto.getProvinceName(),
@@ -72,16 +92,4 @@ public class ProvinceDAO implements IDatabaseAccess<String, ProvinceDTO> {
       List<Object> parameters = Collections.singletonList(id);
       return DatabaseUtils.executeUpdate(sql, parameters);
    }
-
-   public static ProvinceDAO getInstance() {
-      if (instance == null) {
-         instance = new ProvinceDAO();
-      }
-      return instance;
-   }
-
-   private ProvinceDAO() {
-   }
-
-   private static ProvinceDAO instance = null;
 }

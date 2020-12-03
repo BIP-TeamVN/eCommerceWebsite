@@ -7,7 +7,7 @@ import java.util.ArrayList;
  * @param <DtoType> Data type of DTO object
  * @param <IdType> Data type of identity column
  */
-public interface IDatabaseAccess<IdType, DtoType> {
+public interface IDataGet<IdType, DtoType> {
    /**
     * Select from database and convert to ArrayList&#60;DTOObject&#62;
     *
@@ -22,28 +22,4 @@ public interface IDatabaseAccess<IdType, DtoType> {
     * @return either (1) DTOObject get from first record in table or (2) null for not record match
     */
    DtoType getById(IdType id);
-
-   /**
-    * Insert new record to table
-    *
-    * @param dto ObjectDto to insert
-    * @return null if insert failed, 1 or inserted id of new record
-    */
-   Object insert(DtoType dto);
-
-   /**
-    * Update table
-    *
-    * @param dto ObjectDto to update
-    * @return number of the row changed in table
-    */
-   int update(DtoType dto);
-
-   /**
-    * Delete record in table
-    *
-    * @param id identity of record
-    * @return number of the row changed in table
-    */
-   int delete(IdType id);
 }

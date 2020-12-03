@@ -1,6 +1,7 @@
 package com.hknp.model.dao;
 
-import com.hknp.interfaces.IDatabaseAccess;
+import com.hknp.interfaces.IDataGet;
+import com.hknp.interfaces.IDataUpdateAutoIncrement;
 import com.hknp.model.dto.CustomerDTO;
 import com.hknp.utils.DatabaseUtils;
 
@@ -8,9 +9,22 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
-public class CustomerDAO implements IDatabaseAccess<Long, CustomerDTO> {
+public class CustomerDAO implements IDataGet<Long, CustomerDTO>, IDataUpdateAutoIncrement<Long, CustomerDTO> {
+   private static CustomerDAO instance = null;
+
+   private CustomerDAO() {
+   }
+
+   public static CustomerDAO getInstance() {
+      if (instance == null) {
+         instance = new CustomerDAO();
+      }
+      return instance;
+   }
+
    @Override
    public ArrayList<CustomerDTO> gets() {
       ArrayList<CustomerDTO> result = new ArrayList<>();
@@ -27,8 +41,7 @@ public class CustomerDAO implements IDatabaseAccess<Long, CustomerDTO> {
             CustomerDTO customerModel = new CustomerDTO(resultSet);
             result.add(customerModel);
          }
-      }
-      catch (SQLException exception) {
+      } catch (SQLException exception) {
          exception.printStackTrace();
       }
 
@@ -39,17 +52,31 @@ public class CustomerDAO implements IDatabaseAccess<Long, CustomerDTO> {
    public CustomerDTO getById(Long id) {
       String query = "SELECT * FROM CUSTOMER WHERE USER_ID = " + id + ";";
       ResultSet resultSet = DatabaseUtils.executeQuery(query, null);
-      return resultSet != null ? new CustomerDTO(resultSet) : null;
+
+      try {
+         if (resultSet != null && resultSet.next()) {
+            return new CustomerDTO(resultSet);
+         }
+      } catch (SQLException exception) {
+         exception.printStackTrace();
+      }
+      return null;
    }
 
    @Override
-   public int insert(CustomerDTO dto) {
-      if (UserDAO.getInstance().insert(dto.getUser()) > 0) {
+   public Long insert(CustomerDTO dto) {
+      Long newInsertUserId = UserDAO.getInstance().insert(dto.getUser());
+      if (newInsertUserId > 0) {
          String sql = "INSERT INTO CUSTOMER(USER_ID, REGISTER_DATE) VALUES (?, ?);";
-         List<Object> parameters = Arrays.asList(dto.getUserId(), dto.getRegisterDate());
-         return DatabaseUtils.executeUpdate(sql, parameters);
+         List<Object> parameters = Arrays.asList(
+                 newInsertUserId,
+                 dto.getRegisterDate()
+         );
+         if (DatabaseUtils.executeUpdate(sql, parameters) > 0) {
+            return newInsertUserId;
+         }
       }
-      return 0;
+      return 0l;
    }
 
    @Override
@@ -65,22 +92,10 @@ public class CustomerDAO implements IDatabaseAccess<Long, CustomerDTO> {
    @Override
    public int delete(Long id) {
       String sql = "DELETE FROM CUSTOMER WHERE USER_ID = ?";
-      List<Object> parameters = Arrays.asList(id);
+      List<Object> parameters = Collections.singletonList(id);
       if (DatabaseUtils.executeUpdate(sql, parameters) > 0) {
          return UserDAO.getInstance().delete(id);
       }
       return 0;
    }
-
-   public static CustomerDAO getInstance() {
-      if (instance == null) {
-         instance = new CustomerDAO();
-      }
-      return instance;
-   }
-
-   private CustomerDAO() {
-   }
-
-   private static CustomerDAO instance = null;
 }

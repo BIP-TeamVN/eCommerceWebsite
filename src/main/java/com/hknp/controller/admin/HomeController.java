@@ -13,8 +13,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.Date;
 
 @WebServlet(urlPatterns = {"/admin"})
@@ -27,6 +25,8 @@ public class HomeController extends HttpServlet {
 
       ArrayList<ProvinceDTO> listProvince = ProvinceDAO.getInstance().gets();
       req.setAttribute("listProvince", listProvince);*/
+
+      ProvinceDTO dtoP = ProvinceDAO.getInstance().getById("01");
 
       Date dob = FormatUtils.stringToDate("2000-02-09", "yyyy-dd-MM");
       UserDTO dto = new UserDTO(0l, "Lam", "Khanh", "Nam", dob, "ssn", "path", "0956663", "email", "username", "pass", "type", true);

@@ -1,6 +1,7 @@
 package com.hknp.model.dao;
 
-import com.hknp.interfaces.IDatabaseAccess;
+import com.hknp.interfaces.IDataGet;
+import com.hknp.interfaces.IDataUpdate;
 import com.hknp.model.dto.DistrictDTO;
 import com.hknp.utils.DatabaseUtils;
 
@@ -8,9 +9,22 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
-public class DistrictDAO implements IDatabaseAccess<String, DistrictDTO> {
+public class DistrictDAO implements IDataGet<String, DistrictDTO>, IDataUpdate<String, DistrictDTO> {
+
+   private static DistrictDAO instance = null;
+
+   private DistrictDAO() {
+   }
+
+   public static DistrictDAO getInstance() {
+      if (instance == null) {
+         instance = new DistrictDAO();
+      }
+      return instance;
+   }
 
    @Override
    public ArrayList<DistrictDTO> gets() {
@@ -28,8 +42,7 @@ public class DistrictDAO implements IDatabaseAccess<String, DistrictDTO> {
             DistrictDTO districtModel = new DistrictDTO(resultSet);
             result.add(districtModel);
          }
-      }
-      catch (SQLException exception) {
+      } catch (SQLException exception) {
          exception.printStackTrace();
       }
       return result;
@@ -39,39 +52,46 @@ public class DistrictDAO implements IDatabaseAccess<String, DistrictDTO> {
    public DistrictDTO getById(String id) {
       String query = "SELECT * FROM DISTRICT WHERE DISTRICT_ID = '" + id + "';";
       ResultSet resultSet = DatabaseUtils.executeQuery(query, null);
-      return resultSet != null ? new DistrictDTO(resultSet) : null;
+
+      try {
+         if (resultSet != null && resultSet.next()) {
+            return new DistrictDTO(resultSet);
+         }
+      } catch (SQLException exception) {
+         exception.printStackTrace();
+      }
+      return null;
    }
 
    @Override
    public int insert(DistrictDTO dto) {
-      String sql = "INSERT INTO DISTRICT(DISTRICT_ID, DISTRICT_NAME, DISTRICT_TYPE, PROVINCE_ID) VALUES (?, ?, ?, ?);";
-      List<Object> parameters = Arrays.asList(dto.getDistrictId(), dto.getDistrictName(), dto.getDistrictType(), dto.getProvinceId());
+      String sql = "INSERT INTO DISTRICT(DISTRICT_ID, DISTRICT_NAME, DISTRICT_TYPE, PROVINCE_ID) " +
+              "VALUES (?, ?, ?, ?);";
+      List<Object> parameters = Arrays.asList(
+              dto.getDistrictId(),
+              dto.getDistrictName(),
+              dto.getDistrictType(),
+              dto.getProvinceId()
+      );
       return DatabaseUtils.executeUpdate(sql, parameters);
    }
 
    @Override
    public int update(DistrictDTO dto) {
       String sql = "UPDATE DISTRICT SET DISTRICT_NAME = ?, DISTRICT_TYPE = ?, PROVINCE_ID = ? WHERE DISTRICT_ID = ?";
-      List<Object> parameters = Arrays.asList(dto.getDistrictName(), dto.getDistrictType(), dto.getProvinceId(), dto.getDistrictId());
+      List<Object> parameters = Arrays.asList(
+              dto.getDistrictName(),
+              dto.getDistrictType(),
+              dto.getProvinceId(),
+              dto.getDistrictId()
+      );
       return DatabaseUtils.executeUpdate(sql, parameters);
    }
 
    @Override
    public int delete(String id) {
       String sql = "DELETE FROM DISTRICT WHERE DISTRICT_ID = ?";
-      List<Object> parameters = Arrays.asList(id);
+      List<Object> parameters = Collections.singletonList(id);
       return DatabaseUtils.executeUpdate(sql, parameters);
    }
-
-   public static DistrictDAO getInstance(){
-      if (instance == null){
-         instance = new DistrictDAO();
-      }
-      return instance;
-   }
-
-   private DistrictDAO(){
-   }
-
-   private static DistrictDAO instance = null;
 }

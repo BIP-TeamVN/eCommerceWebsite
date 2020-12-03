@@ -1,17 +1,30 @@
 package com.hknp.model.dao;
 
-import com.hknp.interfaces.IDatabaseAccess;
+import com.hknp.interfaces.IDataGet;
+import com.hknp.interfaces.IDataUpdateAutoIncrement;
 import com.hknp.model.dto.BillDTO;
-import com.hknp.model.dto.ProvinceDTO;
 import com.hknp.utils.DatabaseUtils;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
-public class BillDAO implements IDatabaseAccess<Long, BillDTO> {
+public class BillDAO implements IDataGet<Long, BillDTO>, IDataUpdateAutoIncrement<Long, BillDTO> {
+   private static BillDAO instance = null;
+
+   private BillDAO() {
+   }
+
+   public static BillDAO getInstance() {
+      if (instance == null) {
+         instance = new BillDAO();
+      }
+      return instance;
+   }
+
    @Override
    public ArrayList<BillDTO> gets() {
       ArrayList<BillDTO> result = new ArrayList<>();
@@ -28,8 +41,7 @@ public class BillDAO implements IDatabaseAccess<Long, BillDTO> {
             BillDTO billDTO = new BillDTO(resultSet);
             result.add(billDTO);
          }
-      }
-      catch (SQLException exception) {
+      } catch (SQLException exception) {
          exception.printStackTrace();
       }
 
@@ -40,14 +52,27 @@ public class BillDAO implements IDatabaseAccess<Long, BillDTO> {
    public BillDTO getById(Long id) {
       String query = "SELECT * FROM BILL WHERE BILL_ID = " + id + ";";
       ResultSet resultSet = DatabaseUtils.executeQuery(query, null);
-      return resultSet != null ? new BillDTO(resultSet) : null;
+
+      try {
+         if (resultSet != null && resultSet.next()) {
+            return new BillDTO(resultSet);
+         }
+      } catch (SQLException exception) {
+         exception.printStackTrace();
+      }
+      return null;
    }
 
    @Override
-   public int insert(BillDTO dto) {
-      String sql = "INSERT INTO BILL(BILL_ID, ADDRESS_ID, DISCOUNT_ID) VALUES (?, ?, ?);";
-      List<Object> parameters = Arrays.asList(dto.getBillId(), dto.getAddressId(), dto.getDiscountId());
-      return DatabaseUtils.executeUpdate(sql, parameters);
+   public Long insert(BillDTO dto) {
+      String sql = "INSERT INTO BILL(CUSTOMER_ID, ADDRESS_ID, DISCOUNT_ID) " +
+              "VALUES (?, ?, ?);";
+      List<Object> parameters = Arrays.asList(
+              dto.getCustomerId(),
+              dto.getAddressId(),
+              dto.getDiscountId()
+      );
+      return (Long) DatabaseUtils.executeUpdateAutoIncrement(sql, parameters);
    }
 
    @Override
@@ -60,19 +85,7 @@ public class BillDAO implements IDatabaseAccess<Long, BillDTO> {
    @Override
    public int delete(Long id) {
       String sql = "DELETE FROM BILL WHERE BILL_ID = ?";
-      List<Object> parameters = Arrays.asList(id);
+      List<Object> parameters = Collections.singletonList(id);
       return DatabaseUtils.executeUpdate(sql, parameters);
    }
-
-   public static BillDAO getInstance() {
-      if (instance == null) {
-         instance = new BillDAO();
-      }
-      return instance;
-   }
-
-   private BillDAO() {
-   }
-
-   private static BillDAO instance = null;
 }
