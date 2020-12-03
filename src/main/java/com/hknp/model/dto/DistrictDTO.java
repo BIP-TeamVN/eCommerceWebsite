@@ -4,10 +4,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class DistrictDTO {
-    String districtId;
-    String districtName;
-    String districtType;
-    String provinceId;
+   String districtId;
+   String districtName;
+   String districtType;
+   String provinceId;
 
     public DistrictDTO(ResultSet resultSet) {
         try {

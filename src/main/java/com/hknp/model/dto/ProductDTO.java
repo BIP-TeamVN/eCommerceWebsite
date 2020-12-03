@@ -5,16 +5,16 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class ProductDTO {
-    Long productId;
-    Long brandId;
-    Long sellerId;
-    String productName;
-    Float productRate;
-    String productOrigin;
-    String productDesc;
-    Integer quantity;
-    BigDecimal priceOrigin;
-    BigDecimal priceOrder;
+   Long productId;
+   Long brandId;
+   Long sellerId;
+   String productName;
+   Float productRate;
+   String productOrigin;
+   String productDesc;
+   Integer quantity;
+   BigDecimal priceOrigin;
+   BigDecimal priceOrder;
 
     public ProductDTO (ResultSet resultSet) {
         try {

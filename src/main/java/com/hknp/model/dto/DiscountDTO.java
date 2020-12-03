@@ -5,10 +5,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class DiscountDTO {
-    Long discountId;
-    String discountCode;
-    BigDecimal discountValue;
-    BigDecimal discountMaxValue;
+   Long discountId;
+   String discountCode;
+   BigDecimal discountValue;
+   BigDecimal discountMaxValue;
 
     public DiscountDTO (ResultSet resultSet) {
         try {

@@ -10,14 +10,14 @@ import java.io.IOException;
 
 @WebServlet(urlPatterns = {"/delivery"})
 public class HomeController extends HttpServlet {
-    @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        RequestDispatcher reqDispatcher = req.getRequestDispatcher("/view/delivery/home.jsp");
-        reqDispatcher.forward(req, resp);
-    }
+   @Override
+   protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+      RequestDispatcher reqDispatcher = req.getRequestDispatcher("/view/delivery/home.jsp");
+      reqDispatcher.forward(req, resp);
+   }
 
-    @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        doGet(req, resp);
-    }
+   @Override
+   protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+      doGet(req, resp);
+   }
 }

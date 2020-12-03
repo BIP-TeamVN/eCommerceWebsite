@@ -43,10 +43,24 @@ public class UserDAO implements IDatabaseAccess<Long, UserDTO> {
    }
 
    @Override
-   public int insert(UserDTO dto) {
-      String sql = "INSERT INTO USER(USER_ID, LAST_NAME, FIRST_NAME, GENDER, DATE_OF_BIRTH, SSN, IMAGE_PATH, PHONE_NUMBER, EMAIL, USER_NAME, PASSWORD, USER_TYPE, STATUS) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
-      List<Object> parameters = Arrays.asList(dto.getUserId(), dto.getLastName(), dto.getFirstName(), dto.getGender(), dto.getDateOfBirth(), dto.getSsn(), dto.getImagePath(), dto.getPhoneNumber(), dto.getEmail(), dto.getUserName(), dto.getPassword(), dto.getUserType(), dto.getStatus());
-      return DatabaseUtils.executeUpdate(sql, parameters);
+   public Object insert(UserDTO dto) {
+      String sql = "INSERT INTO USER(LAST_NAME, FIRST_NAME, GENDER, DATE_OF_BIRTH, SSN, IMAGE_PATH, PHONE_NUMBER, EMAIL, USER_NAME, PASSWORD, USER_TYPE)" +
+              "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
+
+      List<Object> parameters = Arrays.asList(
+              dto.getLastName(),
+              dto.getFirstName(),
+              dto.getGender(),
+              FormatUtils.dateToString(dto.getDateOfBirth(), "yyyyMMdd"),
+              dto.getSsn(),
+              dto.getImagePath(),
+              dto.getPhoneNumber(),
+              dto.getEmail(),
+              dto.getUserName(),
+              dto.getPassword(),
+              dto.getUserType()
+              );
+      return DatabaseUtils.executeUpdateAutoIncrement(sql, parameters);
    }
 
    @Override

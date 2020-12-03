@@ -4,8 +4,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class BillPaymentDTO {
-    Long billPaymentId;
-    Long billId;
+   Long billPaymentId;
+   Long billId;
 
     public BillPaymentDTO (ResultSet resultSet) {
         try {

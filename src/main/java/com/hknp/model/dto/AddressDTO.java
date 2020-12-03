@@ -4,11 +4,11 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class AddressDTO {
-    Long addressId;
-    String street;
-    String communeId;
-    String districtID;
-    String provinceId;
+   Long addressId;
+   String street;
+   String communeId;
+   String districtID;
+   String provinceId;
 
     public AddressDTO(ResultSet resultSet) {
         try {

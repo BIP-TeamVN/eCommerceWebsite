@@ -4,9 +4,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class BrandDTO {
-    Long brandId;
-    String brandName;
-    String brandOrigin;
+   Long brandId;
+   String brandName;
+   String brandOrigin;
 
     public BrandDTO (ResultSet resultSet) {
         try {

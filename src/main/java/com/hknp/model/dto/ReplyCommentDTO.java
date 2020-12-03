@@ -4,12 +4,12 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class ReplyCommentDTO {
-    Long subCommentId;
-    Long rateCommentId;
-    String comment;
-    Integer noOfLike;
-    Integer noOfDislike;
-    Long userId;
+   Long subCommentId;
+   Long rateCommentId;
+   String comment;
+   Integer noOfLike;
+   Integer noOfDislike;
+   Long userId;
 
     public ReplyCommentDTO (ResultSet resultSet) {
         try {

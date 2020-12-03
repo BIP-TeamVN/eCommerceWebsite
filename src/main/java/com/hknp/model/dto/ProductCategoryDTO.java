@@ -4,8 +4,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class ProductCategoryDTO {
-    Long productCategoryId;
-    String productCategoryName;
+   Long productCategoryId;
+   String productCategoryName;
 
     public ProductCategoryDTO (ResultSet resultSet) {
         try {

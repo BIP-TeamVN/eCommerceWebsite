@@ -4,13 +4,13 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class RateCommentDTO {
-    Long rateCommentId;
-    Integer rateStart;
-    String comment;
-    Integer noOfLike;
-    Integer noOfDislike;
-    Long userId;
-    Long productId;
+   Long rateCommentId;
+   Integer rateStart;
+   String comment;
+   Integer noOfLike;
+   Integer noOfDislike;
+   Long userId;
+   Long productId;
 
     public RateCommentDTO (ResultSet resultSet) {
         try {

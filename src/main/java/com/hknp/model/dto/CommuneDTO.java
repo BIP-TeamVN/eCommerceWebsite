@@ -4,10 +4,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class CommuneDTO {
-    String communeId;
-    String communeName;
-    String communeType;
-    String districtId;
+   String communeId;
+   String communeName;
+   String communeType;
+   String districtId;
 
     public CommuneDTO(ResultSet resultSet) {
         try {
