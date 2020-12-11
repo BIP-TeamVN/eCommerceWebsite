@@ -14,18 +14,6 @@ import java.util.Collections;
 import java.util.List;
 
 public class UserDAO implements IDataGet<Long, UserDTO>, IDataUpdateAutoIncrement<Long, UserDTO> {
-   private static UserDAO instance = null;
-
-   private UserDAO() {
-   }
-
-   public static UserDAO getInstance() {
-      if (instance == null) {
-         instance = new UserDAO();
-      }
-      return instance;
-   }
-
    @Override
    public ArrayList<UserDTO> gets() {
       ArrayList<UserDTO> result = new ArrayList<>();
@@ -111,5 +99,17 @@ public class UserDAO implements IDataGet<Long, UserDTO>, IDataUpdateAutoIncremen
       String sql = "DELETE FROM USER WHERE USER_ID = ?";
       List<Object> parameters = Collections.singletonList(id);
       return DatabaseUtils.executeUpdate(sql, parameters);
+   }
+
+   private static UserDAO instance = null;
+
+   private UserDAO() {
+   }
+
+   public static UserDAO getInstance() {
+      if (instance == null) {
+         instance = new UserDAO();
+      }
+      return instance;
    }
 }

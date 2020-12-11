@@ -65,12 +65,14 @@ public class ProvinceDAO implements IDataGet<String, ProvinceDTO>, IDataUpdate<S
 
    @Override
    public int insert(ProvinceDTO dto) {
-      String sql = "INSERT INTO PROVINCE(PROVINCE_ID, PROVINCE_NAME, PROVINCE_TYPE) " +
-              "VALUES (?, ?, ?);";
+      String sql = "INSERT INTO `PROVINCE` (`PROVINCE_ID`, `PROVINCE_NAME`, `PROVINCE_TYPE`) " +
+              "SELECT * FROM (SELECT ?, ?, ?) AS `TEMP` " +
+              "WHERE NOT EXISTS (SELECT `PROVINCE_ID` FROM `PROVINCE` WHERE `PROVINCE_ID` = ?) LIMIT 1;";
       List<Object> parameters = Arrays.asList(
               dto.getProvinceId(),
               dto.getProvinceName(),
-              dto.getProvinceType()
+              dto.getProvinceType(),
+              dto.getProvinceId()
       );
       return DatabaseUtils.executeUpdate(sql, parameters);
    }

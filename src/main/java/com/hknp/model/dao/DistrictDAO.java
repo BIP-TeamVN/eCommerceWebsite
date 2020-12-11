@@ -65,13 +65,15 @@ public class DistrictDAO implements IDataGet<String, DistrictDTO>, IDataUpdate<S
 
    @Override
    public int insert(DistrictDTO dto) {
-      String sql = "INSERT INTO DISTRICT(DISTRICT_ID, DISTRICT_NAME, DISTRICT_TYPE, PROVINCE_ID) " +
-              "VALUES (?, ?, ?, ?);";
+      String sql = "INSERT INTO `DISTRICT` (`DISTRICT_ID`, `DISTRICT_NAME`, `DISTRICT_TYPE`, `PROVINCE_ID`) " +
+              "SELECT * FROM (SELECT ?, ?, ?, ?) AS `TEMP` " +
+              "WHERE NOT EXISTS (SELECT `DISTRICT_ID` FROM `DISTRICT` WHERE `DISTRICT_ID` = ?) LIMIT 1;";
       List<Object> parameters = Arrays.asList(
               dto.getDistrictId(),
               dto.getDistrictName(),
               dto.getDistrictType(),
-              dto.getProvinceId()
+              dto.getProvinceId(),
+              dto.getDistrictId()
       );
       return DatabaseUtils.executeUpdate(sql, parameters);
    }
