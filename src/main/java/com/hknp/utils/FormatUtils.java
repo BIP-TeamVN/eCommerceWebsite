@@ -1,8 +1,8 @@
 package com.hknp.utils;
 
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.text.DateFormat;
 import java.util.Date;
 
 public class FormatUtils {

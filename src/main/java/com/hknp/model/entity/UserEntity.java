@@ -1,45 +1,72 @@
-package com.hknp.model.dto;
+package com.hknp.model.entity;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
-public class UserDTO {
+@Entity
+@Table(name = "USER")
+public class UserEntity implements Serializable {
+   @Id
+   @GeneratedValue(strategy = GenerationType.IDENTITY)
+   @Column(name = "USER_ID", columnDefinition = "")
    Long userId;
+
+   @Column(name = "LAST_NAME", columnDefinition = "NVARCHAR(40) NOT NULL")
    String lastName;
+
+   @Column(name = "FIRST_NAME", columnDefinition = "NVARCHAR(10) NOT NULL")
    String firstName;
+
+   @Column(name = "GENDER", columnDefinition = "NVARCHAR(5) NULL")
    String gender;
+
+   @Column(name = "DATE_OF_BIRTH", columnDefinition = "DATE NULL")
    Date dateOfBirth;
+
+   @Column(name = "SSN", columnDefinition = "VARCHAR(12) NULL")
    String ssn;
+
+   @Column(name = "IMAGE_PATH", columnDefinition = "VARCHAR(100) NULL")
    String imagePath;
+
+   @Column(name = "PHONE_NUMBER", columnDefinition = "VARCHAR(15) NULL")
    String phoneNumber;
+
+   @Column(name = "EMAIL", columnDefinition = "VARCHAR(40) NULL")
    String email;
+
+   @Column(name = "USER_NAME", columnDefinition = "VARCHAR(16) NOT NULL")
    String userName;
+
+   @Column(name = "PASSWORD", columnDefinition = "VARCHAR(32) NOT NULL")
    String password;
+
+   @Column(name = "USER_TYPE", columnDefinition = "VARCHAR(15) DEFAULT 'CUSTOMMER' NOT NULL")
    String userType;
+
+   @Column(name = "STATUS", columnDefinition = "TINYINT(1) DEFAULT '1'")
    Boolean status;
 
-   public UserDTO(ResultSet resultSet) {
-      try {
-         userId = resultSet.getLong("USER_ID");
-         lastName = resultSet.getString("LAST_NAME");
-         firstName = resultSet.getString("FIRST_NAME");
-         gender = resultSet.getString("GENDER");
-         dateOfBirth = resultSet.getDate("DATE_OF_BIRTH");
-         ssn = resultSet.getString("SSN");
-         imagePath = resultSet.getString("IMAGE_PATH");
-         phoneNumber = resultSet.getString("PHONE_NUMBER");
-         email = resultSet.getString("EMAIL");
-         userName = resultSet.getString("USER_NAME");
-         password = resultSet.getString("PASSWORD");
-         userType = resultSet.getString("USER_TYPE");
-         status = resultSet.getBoolean("STATUS");
-      } catch (SQLException exception) {
-         exception.printStackTrace();
-      }
+   public Set<AddressEntity> getAddressSet() {
+      return addressSet;
    }
 
-   public UserDTO(Long userId, String lastName, String firstName, String gender, Date dateOfBirth, String ssn, String imagePath, String phoneNumber, String email, String userName, String password, String userType, Boolean status) {
+   public void setAddressSet(Set<AddressEntity> addressSet) {
+      this.addressSet = addressSet;
+   }
+
+   @ManyToMany(cascade = { CascadeType.ALL })
+   @JoinTable(
+           name = "USER_ADDRESS",
+           joinColumns = { @JoinColumn(name = "USER_ID") },
+           inverseJoinColumns = { @JoinColumn(name = "ADDRESS_ID") }
+   )
+   Set<AddressEntity> addressSet = new HashSet<>();
+
+   public UserEntity(Long userId, String lastName, String firstName, String gender, Date dateOfBirth, String ssn, String imagePath, String phoneNumber, String email, String userName, String password, String userType, Boolean status) {
       this.userId = userId;
       this.lastName = lastName;
       this.firstName = firstName;
@@ -53,6 +80,10 @@ public class UserDTO {
       this.password = password;
       this.userType = userType;
       this.status = status;
+   }
+
+   public UserEntity() {
+
    }
 
    public Long getUserId() {

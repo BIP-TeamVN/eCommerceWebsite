@@ -1,30 +1,34 @@
-package com.hknp.model.dto;
+package com.hknp.model.entity;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import javax.persistence.*;
+import java.io.Serializable;
 
-public class CommuneDTO {
+@Entity
+@Table(name = "COMMUNE")
+public class CommuneEntity implements Serializable {
+   @Id
+   @Column(name = "COMMUNE_ID")
    String communeId;
+   @Column(name = "COMMUNE_NAME")
    String communeName;
+   @Column(name = "COMMUNE_TYPE")
    String communeType;
+   @Column(name = "DISTRICT_ID")
    String districtId;
 
-   public CommuneDTO(ResultSet resultSet) {
-      try {
-         communeId = resultSet.getString("COMMUNE_ID");
-         communeName = resultSet.getString("COMMUNE_NAME");
-         communeType = resultSet.getString("COMMUNE_TYPE");
-         districtId = resultSet.getString("DISTRICT_ID");
-      } catch (SQLException exception) {
-         exception.printStackTrace();
-      }
-   }
+   /*@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+   @JoinColumn(name = "DISTRICT_ID")
+   DistrictEntity district;*/
 
-   public CommuneDTO(String communeId, String communeName, String communeType, String districtId) {
+   public CommuneEntity(String communeId, String communeName, String communeType, String districtId) {
       this.communeId = communeId;
       this.communeName = communeName;
       this.communeType = communeType;
       this.districtId = districtId;
+   }
+
+   public CommuneEntity() {
+
    }
 
    public String getCommuneId() {

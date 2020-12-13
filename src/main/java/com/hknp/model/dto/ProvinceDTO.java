@@ -8,7 +8,7 @@ public class ProvinceDTO {
    String provinceName;
    String provinceType;
 
-   public ProvinceDTO (ResultSet resultSet) {
+   public ProvinceDTO(ResultSet resultSet) {
       try {
          provinceId = resultSet.getString("PROVINCE_ID");
          provinceName = resultSet.getString("PROVINCE_NAME");

@@ -4,8 +4,9 @@ import java.util.ArrayList;
 
 /**
  * Provide method to word with table in database
+ *
  * @param <DtoType> Data type of DTO object
- * @param <IdType> Data type of identity column
+ * @param <IdType>  Data type of identity column
  */
 public interface IDataGet<IdType, DtoType> {
    /**

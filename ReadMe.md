@@ -3,7 +3,8 @@
 <br>
 <br>
 
-## Overview                
+## Overview
+
 - Technical: JSP (Jakarta Server Pages) and Servlet
 - Relational database management system : **MySQL**
 - Design pattern : **Model - View - Controller (MVC)**
@@ -13,6 +14,7 @@
 <br>
 
 ## Project Structure
+
 <pre>
 <b>eCommerceWebsite</b>
 ├── src
@@ -44,7 +46,7 @@
 
 ## Project Team Member
 
-| Name                  | Role		        |
+| Name                  | Role                |
 | ----------------------|-------------------|
 | **Hoang** Ho Huy      | Frontend + Test   |
 | **Khanh** Lam Quoc    | Frontend + Test   |
@@ -55,4 +57,5 @@
 <br>
 
 ## Detail Plan
+
 [File Word](./Plan.docx)
