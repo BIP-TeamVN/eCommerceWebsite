@@ -54,11 +54,11 @@ public class HomeController extends HttpServlet {
       List<ProvinceEntity> listProvince = ProvinceDB.getInstance().gets();
       req.setAttribute("listProvince", listProvince);
 
-      DistrictEntity districtEntity = new DistrictEntity("000", "Test", "D","05");
+      /*DistrictEntity districtEntity = new DistrictEntity("000", "Test", "D","05");
       ProvinceEntity provinceEntity = new ProvinceEntity("05","Test 2","P");
       provinceEntity.setListDistrict(Collections.singletonList(districtEntity));
 
-      boolean test = ProvinceDB.getInstance().insert(provinceEntity);
+      boolean test = ProvinceDB.getInstance().insert(provinceEntity);*/
 
       /*ProvinceDTO dtoP = ProvinceDAO.getInstance().getById("01");
 
@@ -68,22 +68,32 @@ public class HomeController extends HttpServlet {
 
       req.setAttribute("newId", newId);*/
 
-      UserEntity update = new UserEntity(1L, "Khanh","Lam","Nam", FormatUtils.stringToDate("2000-02-09", "yyyy-dd-MM"), "072245030000","","0949494029","quockhanhdev@gmail.com","quockhanh","pass","BOSS",true);
+      /*UserEntity update = new UserEntity(1L, "Khanh","Lam","Nam", FormatUtils.stringToDate("2000-02-09", "yyyy-dd-MM"), "072245030000","","0949494029","quockhanhdev@gmail.com","quockhanh","pass","BOSS",true);
       Set<AddressEntity> adds = new HashSet<>();
       adds.add(AddressDB.getInstance().getById(1L));
       adds.add(AddressDB.getInstance().getById(2L));
       adds.add(AddressDB.getInstance().getById(3L));
-      update.setAddressSet(adds);
+      update.setAddressSet(adds);*/
 
-      boolean result = UserDB.getInstance().update(update);
-
-      UserEntity addU = new UserEntity(null, "Khanh","Lam","Nam", FormatUtils.stringToDate("2000-02-09", "yyyy-dd-MM"), "072245030000","","0949494029","quockhanhdev@gmail.com","quockhanh","pass","BOSS",true);
+      /*UserEntity addU = new UserEntity(null, "Khanh","Lam","Nam", FormatUtils.stringToDate("2000-02-09", "yyyy-dd-MM"), "072245030000","","0949494029","quockhanhdev@gmail.com","quockhanh","pass","BOSS",true);
       adds = new HashSet<>();
       adds.add(AddressDB.getInstance().getById(8L));
       adds.add(AddressDB.getInstance().getById(9L));
-      //addU.setAddressSet(adds);
+      //addU.setAddressSet(adds);*/
 
-      Long newId = UserDB.getInstance().insert(addU);
+      //Long newId = UserDB.getInstance().insert(addU);
+
+      /*ArrayList<UserEntity> userEntityNam = UserDB.getInstance().gets();
+      UserEntity update1 = UserDB.getInstance().getById(1L);
+      update1.setLastName("Trần Quốc");
+      update1.setFirstName("Nam1");
+      boolean result = UserDB.getInstance().update(update1);
+      userEntityNam = UserDB.getInstance().gets();*/
+
+      ArrayList<UserEntity> userEntityNam = UserDB.getInstance().gets();
+      boolean result = UserDB.getInstance().delete(1L);
+      userEntityNam = UserDB.getInstance().gets();
+
 
       RequestDispatcher reqDispatcher = req.getRequestDispatcher("/view/admin/home.jsp");
       reqDispatcher.forward(req, resp);

@@ -12,6 +12,7 @@
    <c:forEach items="${listProvince}" var="province">
       <option value="${province.getProvinceId()}">${province.getProvinceName()}</option>
    </c:forEach>
+
 </select>
 
 <p>New id ${newId}</p>
