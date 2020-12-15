@@ -77,25 +77,7 @@ public class UserDB implements IRetrieveEntity<UserEntity, Long>, IModifySingleE
 
    @Override
    public boolean update(UserEntity entity) {
-      EntityManager entityMgr = EntityUtils.getEntityManager();
-      EntityTransaction entityTrans = null;
-
-      try {
-         entityTrans = entityMgr.getTransaction();
-         entityTrans.begin();
-
-         entityMgr.merge(entity);
-
-         entityTrans.commit();
-      } catch (Exception e) {
-         if (entityTrans != null) {
-            entityTrans.rollback();
-         }
-         e.printStackTrace();
-         entityMgr.close();
-         return false;
-      }
-      return true;
+      return EntityUtils.merge(entity);
    }
 
    @Override

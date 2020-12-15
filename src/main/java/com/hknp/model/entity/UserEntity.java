@@ -14,6 +14,9 @@ public class UserEntity implements Serializable {
    @Column(name = "USER_ID", columnDefinition = "")
    Long userId;
 
+   @OneToMany(fetch = FetchType.LAZY, mappedBy = "USER")
+   private Set<UserAddressEntity> userAddressEntities;
+
    @Column(name = "LAST_NAME", columnDefinition = "NVARCHAR(40) NOT NULL")
    String lastName;
 
@@ -50,21 +53,6 @@ public class UserEntity implements Serializable {
    @Column(name = "STATUS", columnDefinition = "TINYINT(1) DEFAULT '1'")
    Boolean status;
 
-   public Set<AddressEntity> getAddressSet() {
-      return addressSet;
-   }
-
-   public void setAddressSet(Set<AddressEntity> addressSet) {
-      this.addressSet = addressSet;
-   }
-
-   @ManyToMany(cascade = { CascadeType.ALL })
-   @JoinTable(
-           name = "USER_ADDRESS",
-           joinColumns = { @JoinColumn(name = "USER_ID") },
-           inverseJoinColumns = { @JoinColumn(name = "ADDRESS_ID") }
-   )
-   Set<AddressEntity> addressSet = new HashSet<>();
 
    public UserEntity(Long userId, String lastName, String firstName, String gender, Date dateOfBirth, String ssn, String imagePath, String phoneNumber, String email, String userName, String password, String userType, Boolean status) {
       this.userId = userId;
@@ -188,5 +176,13 @@ public class UserEntity implements Serializable {
 
    public void setStatus(Boolean status) {
       this.status = status;
+   }
+
+   public Set<UserAddressEntity> getUserAddressEntities() {
+      return userAddressEntities;
+   }
+
+   public void setUserAddressEntities(Set<UserAddressEntity> userAddressEntities) {
+      this.userAddressEntities = userAddressEntities;
    }
 }
