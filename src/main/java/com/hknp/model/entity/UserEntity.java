@@ -4,6 +4,7 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -49,7 +50,7 @@ public class UserEntity implements Serializable {
 
    @Column(name = "STATUS", columnDefinition = "TINYINT(1) DEFAULT '1'")
    Boolean status;
-
+/*
    public Set<AddressEntity> getAddressSet() {
       return addressSet;
    }
@@ -65,6 +66,18 @@ public class UserEntity implements Serializable {
            inverseJoinColumns = { @JoinColumn(name = "ADDRESS_ID") }
    )
    Set<AddressEntity> addressSet = new HashSet<>();
+*/
+   @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+   @JoinColumn(name = "USER_ID")
+   List<AddressEntity> addressEntities;
+
+   public List<AddressEntity> getAddressEntities() {
+      return addressEntities;
+   }
+
+   public void setAddressEntities(List<AddressEntity> addressEntities) {
+      this.addressEntities = addressEntities;
+   }
 
    public UserEntity(Long userId, String lastName, String firstName, String gender, Date dateOfBirth, String ssn, String imagePath, String phoneNumber, String email, String userName, String password, String userType, Boolean status) {
       this.userId = userId;

@@ -93,7 +93,7 @@ public class HomeController extends HttpServlet {
       ArrayList<UserEntity> userEntityNam = UserDB.getInstance().gets();
       boolean result = UserDB.getInstance().delete(1L);
       userEntityNam = UserDB.getInstance().gets();
-
+      ArrayList<ProvinceEntity> provinceEntities = ProvinceDB.getInstance().gets();
 
       RequestDispatcher reqDispatcher = req.getRequestDispatcher("/view/admin/home.jsp");
       reqDispatcher.forward(req, resp);
