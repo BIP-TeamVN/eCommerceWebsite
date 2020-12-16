@@ -84,15 +84,15 @@ public class HomeController extends HttpServlet {
       //Long newId = UserDB.getInstance().insert(addU);
 
       /*ArrayList<UserEntity> userEntityNam = UserDB.getInstance().gets();
-      UserEntity update1 = UserDB.getInstance().getById(2L);
+      UserEntity update1 = UserDB.getInstance().getById(1L);
       update1.setLastName("Trần Quốc");
       update1.setFirstName("Nam1");
       boolean result = UserDB.getInstance().update(update1);
       userEntityNam = UserDB.getInstance().gets();*/
 
-      /*ArrayList<UserEntity> userEntityNam = UserDB.getInstance().gets();
+      ArrayList<UserEntity> userEntityNam = UserDB.getInstance().gets();
       boolean result = UserDB.getInstance().delete(1L);
-      userEntityNam = UserDB.getInstance().gets();*/
+      userEntityNam = UserDB.getInstance().gets();
 
 
       RequestDispatcher reqDispatcher = req.getRequestDispatcher("/view/admin/home.jsp");
