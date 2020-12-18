@@ -1,18 +1,16 @@
 package com.hknp.model.dao;
 
-import com.hknp.interfaces.IDataGet;
-import com.hknp.interfaces.IDataUpdateAutoIncrement;
-import com.hknp.model.dto.ProductSubCategoryDTO;
-import com.hknp.utils.DatabaseUtils;
+import com.hknp.interfaces.IModifySingleEntityAutoIncrement;
+import com.hknp.interfaces.IRetrieveEntity;
+import com.hknp.model.entity.ProductSubCategoryEntity;
+import com.hknp.utils.EntityUtils;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityTransaction;
+import javax.persistence.TypedQuery;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
-public class ProductSubCategoryDAO implements IDataGet<Long, ProductSubCategoryDTO>, IDataUpdateAutoIncrement<Long, ProductSubCategoryDTO> {
-
+public class ProductSubCategoryDAO implements IRetrieveEntity<ProductSubCategoryEntity, Long>, IModifySingleEntityAutoIncrement<ProductSubCategoryEntity, Long> {
    private static ProductSubCategoryDAO instance = null;
 
    private ProductSubCategoryDAO() {
@@ -26,67 +24,82 @@ public class ProductSubCategoryDAO implements IDataGet<Long, ProductSubCategoryD
    }
 
    @Override
-   public ArrayList<ProductSubCategoryDTO> gets() {
-      ArrayList<ProductSubCategoryDTO> result = new ArrayList<>();
-
-      String query = "SELECT * FROM PRODUCT_SUB_CATEGORY;";
-      ResultSet resultSet = DatabaseUtils.executeQuery(query, null);
-
-      if (resultSet == null) {
-         return result;
-      }
+   public Long insert(ProductSubCategoryEntity entity) {
+      Long newId = 0L;
+      EntityManager entityMgr = EntityUtils.getEntityManager();
+      EntityTransaction entityTrans = null;
 
       try {
-         while (resultSet.next()) {
-            ProductSubCategoryDTO productSubCategoryDTO = new ProductSubCategoryDTO(resultSet);
-            result.add(productSubCategoryDTO);
+         entityTrans = entityMgr.getTransaction();
+         entityTrans.begin();
+
+         entityMgr.persist(entity);
+         newId = entity.getProductSubCategoryId();
+
+         entityTrans.commit();
+      } catch (Exception e) {
+         if (entityTrans != null) {
+            entityTrans.rollback();
          }
-      } catch (SQLException exception) {
-         exception.printStackTrace();
+         e.printStackTrace();
+      } finally {
+         entityMgr.close();
       }
 
+      return newId;
+   }
+
+   @Override
+   public boolean update(ProductSubCategoryEntity entity) {
+      return EntityUtils.merge(entity);
+   }
+
+   @Override
+   public boolean delete(Long id) {
+      EntityManager entityMgr = EntityUtils.getEntityManager();
+      EntityTransaction entityTrans = null;
+
+      try {
+         entityTrans = entityMgr.getTransaction();
+         entityTrans.begin();
+
+         ProductSubCategoryEntity productSubCategoryEntity = entityMgr.find(ProductSubCategoryEntity.class, id);
+         entityMgr.remove(productSubCategoryEntity);
+
+         entityTrans.commit();
+      } catch (Exception e) {
+         if (entityTrans != null) {
+            entityTrans.rollback();
+         }
+         e.printStackTrace();
+         entityMgr.close();
+         return false;
+      }
+      return true;
+   }
+
+   @Override
+   public ArrayList<ProductSubCategoryEntity> gets() {
+      EntityManager entityMgr = EntityUtils.getEntityManager();
+
+      String query = "SELECT u FROM ProductSubCategoryEntity u";
+      TypedQuery<ProductSubCategoryEntity> typedQuery = entityMgr.createQuery(query, ProductSubCategoryEntity.class);
+
+      ArrayList<ProductSubCategoryEntity> result = null;
+      try {
+         result = new ArrayList<>(typedQuery.getResultList());
+      } catch (Exception exception) {
+         exception.printStackTrace();
+      } finally {
+         entityMgr.close();
+      }
       return result;
    }
 
    @Override
-   public ProductSubCategoryDTO getById(Long id) {
-      String query = "SELECT * FROM PRODUCT_SUB_CATEGORY WHERE PRODUCT_SUB_CATEGORY_ID = " + id + ";";
-      ResultSet resultSet = DatabaseUtils.executeQuery(query, null);
-
-      try {
-         if (resultSet != null && resultSet.next()) {
-            return new ProductSubCategoryDTO(resultSet);
-         }
-      } catch (SQLException exception) {
-         exception.printStackTrace();
-      }
-      return null;
-   }
-
-   @Override
-   public Long insert(ProductSubCategoryDTO dto) {
-      String sql = "INSERT INTO PRODUCT_SUB_CATEGORY(PRODUCT_CATEGORY_ID, PRODUCT_SUB_CATEGORY_NAME) VALUES (?, ?);";
-      List<Object> parameters = Arrays.asList(
-              dto.getProductCategoryId(),
-              dto.getProductSubCategoryName()
-      );
-      return (Long) DatabaseUtils.executeUpdateAutoIncrement(sql, parameters);
-   }
-
-   @Override
-   public int update(ProductSubCategoryDTO dto) {
-      String sql = "UPDATE PRODUCT_SUB_CATEGORY SET PRODUCT_CATEGORY_ID = ?, PRODUCT_SUB_CATEGORY_NAME = ? WHERE PRODUCT_SUB_CATEGORY_ID = ?";
-      List<Object> parameters = Arrays.asList(
-              dto.getProductCategoryId(),
-              dto.getProductSubCategoryName(),
-              dto.getProductSubCategoryId()
-      );
-      return DatabaseUtils.executeUpdate(sql, parameters);
-   }
-
-   @Override
-   public int delete(Long id) {
-      String sql = "DELETE FROM PRODUCT_SUB_CATEGORY WHERE PRODUCT_SUB_CATEGORY_ID = " + id + ";";
-      return DatabaseUtils.executeUpdate(sql, null);
+   public ProductSubCategoryEntity getById(Long id) {
+      EntityManager entityMgr = EntityUtils.getEntityManager();
+      ProductSubCategoryEntity productSubCategoryEntity  = entityMgr.find(ProductSubCategoryEntity.class, id);
+      return productSubCategoryEntity;
    }
 }

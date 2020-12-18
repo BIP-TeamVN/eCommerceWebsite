@@ -1,18 +1,16 @@
 package com.hknp.model.dao;
 
-import com.hknp.interfaces.IDataGet;
-import com.hknp.interfaces.IDataUpdateAutoIncrement;
-import com.hknp.model.dto.SellerCategoryDTO;
-import com.hknp.utils.DatabaseUtils;
+import com.hknp.interfaces.IModifySingleEntityAutoIncrement;
+import com.hknp.interfaces.IRetrieveEntity;
+import com.hknp.model.entity.SellerCategoryEntity;
+import com.hknp.utils.EntityUtils;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityTransaction;
+import javax.persistence.TypedQuery;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
 
-public class SellerCategoryDAO implements IDataGet<Long, SellerCategoryDTO>, IDataUpdateAutoIncrement<Long, SellerCategoryDTO> {
+public class SellerCategoryDAO implements IRetrieveEntity<SellerCategoryEntity, Long>, IModifySingleEntityAutoIncrement<SellerCategoryEntity, Long> {
    private static SellerCategoryDAO instance = null;
 
    private SellerCategoryDAO() {
@@ -26,66 +24,82 @@ public class SellerCategoryDAO implements IDataGet<Long, SellerCategoryDTO>, IDa
    }
 
    @Override
-   public ArrayList<SellerCategoryDTO> gets() {
-      ArrayList<SellerCategoryDTO> result = new ArrayList<>();
-
-      String query = "SELECT * FROM SELLER_CATEGORY;";
-      ResultSet resultSet = DatabaseUtils.executeQuery(query, null);
-
-      if (resultSet == null) {
-         return result;
-      }
+   public Long insert(SellerCategoryEntity entity) {
+      Long newSellerCategoryId = 0L;
+      EntityManager entityMgr = EntityUtils.getEntityManager();
+      EntityTransaction entityTrans = null;
 
       try {
-         while (resultSet.next()) {
-            SellerCategoryDTO sellerCategoryModel = new SellerCategoryDTO(resultSet);
-            result.add(sellerCategoryModel);
+         entityTrans = entityMgr.getTransaction();
+         entityTrans.begin();
+
+         entityMgr.persist(entity);
+         newSellerCategoryId = entity.getSellerCategoryId();
+
+         entityTrans.commit();
+      } catch (Exception e) {
+         if (entityTrans != null) {
+            entityTrans.rollback();
          }
-      } catch (SQLException exception) {
-         exception.printStackTrace();
+         e.printStackTrace();
+      } finally {
+         entityMgr.close();
       }
 
+      return newSellerCategoryId;
+   }
+
+   @Override
+   public boolean update(SellerCategoryEntity entity) {
+      return EntityUtils.merge(entity);
+   }
+
+   @Override
+   public boolean delete(Long id) {
+      EntityManager entityMgr = EntityUtils.getEntityManager();
+      EntityTransaction entityTrans = null;
+
+      try {
+         entityTrans = entityMgr.getTransaction();
+         entityTrans.begin();
+
+         SellerCategoryEntity sellerCategoryEntity = entityMgr.find(SellerCategoryEntity.class, id);
+         entityMgr.remove(sellerCategoryEntity);
+
+         entityTrans.commit();
+      } catch (Exception e) {
+         if (entityTrans != null) {
+            entityTrans.rollback();
+         }
+         e.printStackTrace();
+         entityMgr.close();
+         return false;
+      }
+      return true;
+   }
+
+   @Override
+   public ArrayList<SellerCategoryEntity> gets() {
+      EntityManager entityMgr = EntityUtils.getEntityManager();
+
+      String query = "SELECT u FROM SellerCategoryEntity u";
+      TypedQuery<SellerCategoryEntity> typedQuery = entityMgr.createQuery(query, SellerCategoryEntity.class);
+
+      ArrayList<SellerCategoryEntity> result = null;
+      try {
+         result = new ArrayList<>(typedQuery.getResultList());
+      } catch (Exception exception) {
+         exception.printStackTrace();
+      } finally {
+         entityMgr.close();
+      }
       return result;
    }
 
    @Override
-   public SellerCategoryDTO getById(Long id) {
-      String query = "SELECT * FROM SELLER_CATEGORY WHERE SELLER_CATEGORY_ID = " + id + ";";
-      ResultSet resultSet = DatabaseUtils.executeQuery(query, null);
-
-      try {
-         if (resultSet != null && resultSet.next()) {
-            return new SellerCategoryDTO(resultSet);
-         }
-      } catch (SQLException exception) {
-         exception.printStackTrace();
-      }
-      return null;
-   }
-
-   @Override
-   public Long insert(SellerCategoryDTO dto) {
-      String sql = "INSERT INTO SELLER_CATEGORY(CATEGORY_NAME) VALUES (?);";
-      List<Object> parameters = Arrays.asList(
-              dto.getCategoryName()
-      );
-      return (Long) DatabaseUtils.executeUpdateAutoIncrement(sql, parameters);
-   }
-
-   @Override
-   public int update(SellerCategoryDTO dto) {
-      String sql = "UPDATE SELLER_CATEGORY SET CATEGORY_NAME = ? WHERE SELLER_CATEGORY_ID = ?";
-      List<Object> parameters = Arrays.asList(
-              dto.getCategoryName(),
-              dto.getSellerCategoryId()
-      );
-      return DatabaseUtils.executeUpdate(sql, parameters);
-   }
-
-   @Override
-   public int delete(Long id) {
-      String sql = "DELETE FROM SELLER_CATEGORY WHERE SELLER_CATEGORY_ID = ?";
-      List<Object> parameters = Collections.singletonList(id);
-      return DatabaseUtils.executeUpdate(sql, parameters);
+   public SellerCategoryEntity getById(Long id) {
+      EntityManager entityMgr = EntityUtils.getEntityManager();
+      SellerCategoryEntity user = entityMgr.find(SellerCategoryEntity.class, id);
+      return user;
    }
 }

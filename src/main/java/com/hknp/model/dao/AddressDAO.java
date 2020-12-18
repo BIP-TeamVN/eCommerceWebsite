@@ -1,18 +1,16 @@
 package com.hknp.model.dao;
 
-import com.hknp.interfaces.IDataGet;
-import com.hknp.interfaces.IDataUpdateAutoIncrement;
-import com.hknp.model.dto.AddressDTO;
-import com.hknp.utils.DatabaseUtils;
+import com.hknp.interfaces.IModifySingleEntityAutoIncrement;
+import com.hknp.interfaces.IRetrieveEntity;
+import com.hknp.model.entity.AddressEntity;
+import com.hknp.utils.EntityUtils;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityTransaction;
+import javax.persistence.TypedQuery;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
 
-public class AddressDAO implements IDataGet<Long, AddressDTO>, IDataUpdateAutoIncrement<Long, AddressDTO> {
+public class AddressDAO implements IRetrieveEntity<AddressEntity, Long>, IModifySingleEntityAutoIncrement<AddressEntity, Long> {
    private static AddressDAO instance = null;
 
    private AddressDAO() {
@@ -26,67 +24,82 @@ public class AddressDAO implements IDataGet<Long, AddressDTO>, IDataUpdateAutoIn
    }
 
    @Override
-   public ArrayList<AddressDTO> gets() {
-      ArrayList<AddressDTO> result = new ArrayList<>();
+   public Long insert(AddressEntity entity) {
+      Long newAddressId = 0L;
+      EntityManager entityMgr = EntityUtils.getEntityManager();
+      EntityTransaction entityTrans = null;
 
-      String query = "SELECT * FROM ADDRESS;";
-      ResultSet resultSet = DatabaseUtils.executeQuery(query, null);
-
-      if (resultSet == null) {
-         return result;
-      }
       try {
-         while (resultSet.next()) {
-            AddressDTO addressModel = new AddressDTO(resultSet);
-            result.add(addressModel);
+         entityTrans = entityMgr.getTransaction();
+         entityTrans.begin();
+
+         entityMgr.persist(entity);
+         newAddressId = entity.getAddressId();
+
+         entityTrans.commit();
+      } catch (Exception e) {
+         if (entityTrans != null) {
+            entityTrans.rollback();
          }
-      } catch (SQLException exception) {
-         exception.printStackTrace();
+         e.printStackTrace();
+      } finally {
+         entityMgr.close();
       }
 
+      return newAddressId;
+   }
+
+   @Override
+   public boolean update(AddressEntity entity) {
+      return EntityUtils.merge(entity);
+   }
+
+   @Override
+   public boolean delete(Long id) {
+      EntityManager entityMgr = EntityUtils.getEntityManager();
+      EntityTransaction entityTrans = null;
+
+      try {
+         entityTrans = entityMgr.getTransaction();
+         entityTrans.begin();
+
+         AddressEntity addressEntity = entityMgr.find(AddressEntity.class, id);
+         entityMgr.remove(addressEntity);
+
+         entityTrans.commit();
+      } catch (Exception e) {
+         if (entityTrans != null) {
+            entityTrans.rollback();
+         }
+         e.printStackTrace();
+         entityMgr.close();
+         return false;
+      }
+      return true;
+   }
+
+   @Override
+   public ArrayList<AddressEntity> gets() {
+      EntityManager entityMgr = EntityUtils.getEntityManager();
+
+      String query = "SELECT u FROM AddressEntity u";
+      TypedQuery<AddressEntity> typedQuery = entityMgr.createQuery(query, AddressEntity.class);
+
+      ArrayList<AddressEntity> result = null;
+      try {
+         result = new ArrayList<>(typedQuery.getResultList());
+      } catch (Exception exception) {
+         exception.printStackTrace();
+      } finally {
+         entityMgr.close();
+      }
       return result;
    }
 
    @Override
-   public AddressDTO getById(Long id) {
-      String query = "SELECT * FROM ADDRESS WHERE ADDRESS_ID = " + id + ";";
-      ResultSet resultSet = DatabaseUtils.executeQuery(query, null);
-
-      try {
-         if (resultSet != null && resultSet.next()) {
-            return new AddressDTO(resultSet);
-         }
-      } catch (SQLException exception) {
-         exception.printStackTrace();
-      }
-      return null;
-   }
-
-   @Override
-   public Long insert(AddressDTO dto) {
-      String sql = "INSERT INTO ADDRESS(ADDRESS_ID, STREET, COMMUNE_ID, DISTRICT_ID, PROVINCE_ID) " +
-              "VALUES (?, ?, ?, ?, ?);";
-      List<Object> parameters = Arrays.asList(
-              dto.getAddressId(),
-              dto.getStreet(),
-              dto.getCommuneId(),
-              dto.getDistrictID(),
-              dto.getProvinceId()
-      );
-      return (Long) DatabaseUtils.executeUpdateAutoIncrement(sql, parameters);
-   }
-
-   @Override
-   public int update(AddressDTO dto) {
-      String sql = "UPDATE ADDRESS SET STREET = ?, COMMUNE_ID = ?, DISTRICT_ID = ?, PROVINCE_ID = ? WHERE ADDRESS_ID = ?";
-      List<Object> parameters = Arrays.asList(dto.getStreet(), dto.getCommuneId(), dto.getDistrictID(), dto.getProvinceId(), dto.getAddressId());
-      return DatabaseUtils.executeUpdate(sql, parameters);
-   }
-
-   @Override
-   public int delete(Long id) {
-      String sql = "DELETE FROM ADDRESS WHERE ADDRESS_ID = ?";
-      List<Object> parameters = Collections.singletonList(id);
-      return DatabaseUtils.executeUpdate(sql, parameters);
+   public AddressEntity getById(Long id) {
+      EntityManager entityMgr = EntityUtils.getEntityManager();
+      AddressEntity result = entityMgr.find(AddressEntity.class, id);
+      return result;
    }
 }

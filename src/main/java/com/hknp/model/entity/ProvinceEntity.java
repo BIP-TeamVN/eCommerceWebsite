@@ -1,12 +1,13 @@
 package com.hknp.model.entity;
 
-import javax.persistence.*;
-import java.io.Serializable;
-import java.util.List;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Entity
 @Table(name = "PROVINCE")
-public class ProvinceEntity implements Serializable {
+public class ProvinceEntity {
    @Id
    @Column(name = "PROVINCE_ID", columnDefinition = "VARCHAR(2) NOT NULL")
    String provinceId;
@@ -17,26 +18,14 @@ public class ProvinceEntity implements Serializable {
    @Column(name = "PROVINCE_TYPE", columnDefinition = "VARCHAR(1) NOT NULL")
    String provinceType;
 
-   @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-   @JoinColumn(name = "PROVINCE_ID")
-   List<DistrictEntity> listDistrict;
-
-   public ProvinceEntity() {
-
-   }
-
-   public List<DistrictEntity> getListDistrict() {
-      return listDistrict;
-   }
-
-   public void setListDistrict(List<DistrictEntity> listDistrict) {
-      this.listDistrict = listDistrict;
-   }
-
    public ProvinceEntity(String provinceId, String provinceName, String provinceType) {
       this.provinceId = provinceId;
       this.provinceName = provinceName;
       this.provinceType = provinceType;
+   }
+
+   public ProvinceEntity() {
+
    }
 
    public String getProvinceId() {

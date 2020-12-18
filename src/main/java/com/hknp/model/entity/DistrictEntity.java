@@ -1,32 +1,25 @@
 package com.hknp.model.entity;
 
-import javax.persistence.*;
-import java.io.Serializable;
-import java.util.Collection;
-import java.util.List;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Entity
 @Table(name = "DISTRICT")
-public class DistrictEntity implements Serializable {
+public class DistrictEntity {
    @Id
    @Column(name = "DISTRICT_ID")
    String districtId;
+
    @Column(name = "DISTRICT_NAME")
    String districtName;
+
    @Column(name = "DISTRICT_TYPE")
    String districtType;
+
    @Column(name = "PROVINCE_ID")
    String provinceId;
-
-/*
-   @ManyToOne(targetEntity = ProvinceEntity.class)
-   @JoinColumn(name = "PROVINCE_ID", referencedColumnName = "PROVINCE_ID")
-   ProvinceEntity province;
-*/
-
-   @OneToMany(cascade = CascadeType.ALL, mappedBy = "districtEntity")
-   @JoinColumn(name = "DISTRICT_ID")
-   List<CommuneEntity> listCommune;
 
    public DistrictEntity(String districtId, String districtName, String districtType, String provinceId) {
       this.districtId = districtId;
@@ -35,24 +28,8 @@ public class DistrictEntity implements Serializable {
       this.provinceId = provinceId;
    }
 
-   public DistrictEntity() {
+   public DistrictEntity () {
 
-   }
-
-   /*public ProvinceEntity getProvince() {
-      return province;
-   }
-
-   public void setProvince(ProvinceEntity province) {
-      this.province = province;
-   }*/
-
-   public List<CommuneEntity> getListCommune() {
-      return listCommune;
-   }
-
-   public void setListCommune(List<CommuneEntity> listCommune) {
-      this.listCommune = listCommune;
    }
 
    public String getDistrictId() {

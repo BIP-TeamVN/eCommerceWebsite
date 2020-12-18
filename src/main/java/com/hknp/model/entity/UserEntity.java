@@ -3,9 +3,7 @@ package com.hknp.model.entity;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 @Entity
 @Table(name = "USER")
@@ -50,50 +48,10 @@ public class UserEntity implements Serializable {
 
    @Column(name = "STATUS", columnDefinition = "TINYINT(1) DEFAULT '1'")
    Boolean status;
-/*
-   public Set<AddressEntity> getAddressSet() {
-      return addressSet;
-   }
 
-   public void setAddressSet(Set<AddressEntity> addressSet) {
-      this.addressSet = addressSet;
-   }
-
-   @ManyToMany(cascade = { CascadeType.ALL })
-   @JoinTable(
-           name = "USER_ADDRESS",
-           joinColumns = { @JoinColumn(name = "USER_ID") },
-           inverseJoinColumns = { @JoinColumn(name = "ADDRESS_ID") }
-   )
-   Set<AddressEntity> addressSet = new HashSet<>();
-*/
    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
    @JoinColumn(name = "USER_ID")
    List<AddressEntity> addressEntities;
-
-   public List<AddressEntity> getAddressEntities() {
-      return addressEntities;
-   }
-
-   public void setAddressEntities(List<AddressEntity> addressEntities) {
-      this.addressEntities = addressEntities;
-   }
-
-   public UserEntity(Long userId, String lastName, String firstName, String gender, Date dateOfBirth, String ssn, String imagePath, String phoneNumber, String email, String userName, String password, String userType, Boolean status) {
-      this.userId = userId;
-      this.lastName = lastName;
-      this.firstName = firstName;
-      this.gender = gender;
-      this.dateOfBirth = dateOfBirth;
-      this.ssn = ssn;
-      this.imagePath = imagePath;
-      this.phoneNumber = phoneNumber;
-      this.email = email;
-      this.userName = userName;
-      this.password = password;
-      this.userType = userType;
-      this.status = status;
-   }
 
    public UserEntity() {
 
@@ -201,5 +159,13 @@ public class UserEntity implements Serializable {
 
    public void setStatus(Boolean status) {
       this.status = status;
+   }
+
+   public List<AddressEntity> getAddressEntities() {
+      return addressEntities;
+   }
+
+   public void setAddressEntities(List<AddressEntity> addressEntities) {
+      this.addressEntities = addressEntities;
    }
 }

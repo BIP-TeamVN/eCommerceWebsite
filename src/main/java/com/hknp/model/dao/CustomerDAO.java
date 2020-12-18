@@ -1,18 +1,17 @@
 package com.hknp.model.dao;
 
-import com.hknp.interfaces.IDataGet;
-import com.hknp.interfaces.IDataUpdateAutoIncrement;
-import com.hknp.model.dto.CustomerDTO;
-import com.hknp.utils.DatabaseUtils;
+import com.hknp.interfaces.IModifySingleEntityAutoIncrement;
+import com.hknp.interfaces.IRetrieveEntity;
+import com.hknp.model.entity.CustomerEntity;
+import com.hknp.model.entity.UserEntity;
+import com.hknp.utils.EntityUtils;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityTransaction;
+import javax.persistence.TypedQuery;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
 
-public class CustomerDAO implements IDataGet<Long, CustomerDTO>, IDataUpdateAutoIncrement<Long, CustomerDTO> {
+public class CustomerDAO implements IRetrieveEntity<CustomerEntity, Long>, IModifySingleEntityAutoIncrement<CustomerEntity, Long> {
    private static CustomerDAO instance = null;
 
    private CustomerDAO() {
@@ -26,76 +25,87 @@ public class CustomerDAO implements IDataGet<Long, CustomerDTO>, IDataUpdateAuto
    }
 
    @Override
-   public ArrayList<CustomerDTO> gets() {
-      ArrayList<CustomerDTO> result = new ArrayList<>();
-
-      String query = "SELECT * FROM CUSTOMER;";
-      ResultSet resultSet = DatabaseUtils.executeQuery(query, null);
-
-      if (resultSet == null) {
-         return result;
-      }
+   public Long insert(CustomerEntity entity) {
+      Long newUserId = 0L;
+      EntityManager entityMgr = EntityUtils.getEntityManager();
+      EntityTransaction entityTrans = null;
 
       try {
-         while (resultSet.next()) {
-            CustomerDTO customerModel = new CustomerDTO(resultSet);
-            result.add(customerModel);
+         entityTrans = entityMgr.getTransaction();
+         entityTrans.begin();
+
+         newUserId = UserDAO.getInstance().insert(entity.getUserEntity());
+         entityMgr.persist(entity);
+
+         entityTrans.commit();
+      } catch (Exception e) {
+         if (entityTrans != null) {
+            entityTrans.rollback();
          }
-      } catch (SQLException exception) {
-         exception.printStackTrace();
+         e.printStackTrace();
+      } finally {
+         entityMgr.close();
       }
 
+      return newUserId;
+   }
+
+   @Override
+   public boolean update(CustomerEntity entity) {
+      if (UserDAO.getInstance().update(entity.getUserEntity()))
+         return EntityUtils.merge(entity);
+      return false;
+   }
+
+   @Override
+   public boolean delete(Long id) {
+      EntityManager entityMgr = EntityUtils.getEntityManager();
+      EntityTransaction entityTrans = null;
+
+      try {
+         entityTrans = entityMgr.getTransaction();
+         entityTrans.begin();
+
+         CustomerEntity customerEntity = entityMgr.find(CustomerEntity.class, id);
+         entityMgr.remove(customerEntity);
+
+         UserEntity userEntity = entityMgr.find(UserEntity.class, id);
+         entityMgr.remove(userEntity);
+
+         entityTrans.commit();
+      } catch (Exception e) {
+         if (entityTrans != null) {
+            entityTrans.rollback();
+         }
+         e.printStackTrace();
+         entityMgr.close();
+         return false;
+      }
+      return true;
+   }
+
+   @Override
+   public ArrayList<CustomerEntity> gets() {
+      EntityManager entityMgr = EntityUtils.getEntityManager();
+
+      String query = "SELECT u FROM CustomerEntity u";
+      TypedQuery<CustomerEntity> typedQuery = entityMgr.createQuery(query, CustomerEntity.class);
+
+      ArrayList<CustomerEntity> result = null;
+      try {
+         result = new ArrayList<>(typedQuery.getResultList());
+      } catch (Exception exception) {
+         exception.printStackTrace();
+      } finally {
+         entityMgr.close();
+      }
       return result;
    }
 
    @Override
-   public CustomerDTO getById(Long id) {
-      String query = "SELECT * FROM CUSTOMER WHERE USER_ID = " + id + ";";
-      ResultSet resultSet = DatabaseUtils.executeQuery(query, null);
-
-      try {
-         if (resultSet != null && resultSet.next()) {
-            return new CustomerDTO(resultSet);
-         }
-      } catch (SQLException exception) {
-         exception.printStackTrace();
-      }
-      return null;
-   }
-
-   @Override
-   public Long insert(CustomerDTO dto) {
-      Long newInsertUserId = UserDAO.getInstance().insert(dto.getUser());
-      if (newInsertUserId > 0) {
-         String sql = "INSERT INTO CUSTOMER(USER_ID, REGISTER_DATE) VALUES (?, ?);";
-         List<Object> parameters = Arrays.asList(
-                 newInsertUserId,
-                 dto.getRegisterDate()
-         );
-         if (DatabaseUtils.executeUpdate(sql, parameters) > 0) {
-            return newInsertUserId;
-         }
-      }
-      return 0l;
-   }
-
-   @Override
-   public int update(CustomerDTO dto) {
-      String sql = "UPDATE CUSTOMER SET REGISTER_DATE = ? WHERE USER_ID = ?";
-      List<Object> parameters = Arrays.asList(dto.getRegisterDate(), dto.getUserId());
-      if (DatabaseUtils.executeUpdate(sql, parameters) > 0) {
-         return UserDAO.getInstance().update(dto.getUser());
-      }
-      return 0;
-   }
-
-   @Override
-   public int delete(Long id) {
-      String sql = "DELETE FROM CUSTOMER WHERE USER_ID = ?";
-      List<Object> parameters = Collections.singletonList(id);
-      if (DatabaseUtils.executeUpdate(sql, parameters) > 0) {
-         return UserDAO.getInstance().delete(id);
-      }
-      return 0;
+   public CustomerEntity getById(Long id) {
+      EntityManager entityMgr = EntityUtils.getEntityManager();
+      CustomerEntity customerEntity = entityMgr.find(CustomerEntity.class, id);
+      return customerEntity;
    }
 }

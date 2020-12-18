@@ -1,97 +1,64 @@
 package com.hknp.model.dao;
 
-import com.hknp.interfaces.IDataGet;
-import com.hknp.interfaces.IDataUpdate;
-import com.hknp.model.dto.DistrictDTO;
-import com.hknp.utils.DatabaseUtils;
+import com.hknp.interfaces.IModifySingleEntity;
+import com.hknp.interfaces.IRetrieveEntity;
+import com.hknp.model.entity.DistrictEntity;
+import com.hknp.utils.EntityUtils;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import javax.persistence.EntityManager;
+import javax.persistence.TypedQuery;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
 
-public class DistrictDAO implements IDataGet<String, DistrictDTO>, IDataUpdate<String, DistrictDTO> {
-
-   private static DistrictDAO instance = null;
-
-   private DistrictDAO() {
-   }
-
-   public static DistrictDAO getInstance() {
-      if (instance == null) {
-         instance = new DistrictDAO();
-      }
-      return instance;
+public class DistrictDAO implements IRetrieveEntity<DistrictEntity, String>, IModifySingleEntity<DistrictEntity, String> {
+   @Override
+   public boolean insert(DistrictEntity entity) {
+      return false;
    }
 
    @Override
-   public ArrayList<DistrictDTO> gets() {
-      ArrayList<DistrictDTO> result = new ArrayList<>();
+   public boolean update(DistrictEntity entity) {
+      return false;
+   }
 
-      String query = "SELECT * FROM DISTRICT;";
-      ResultSet resultSet = DatabaseUtils.executeQuery(query, null);
+   @Override
+   public boolean delete(String id) {
+      return false;
+   }
 
-      if (resultSet == null) {
-         return result;
-      }
+   @Override
+   public ArrayList<DistrictEntity> gets() {
+      EntityManager entityMgr = EntityUtils.getEntityManager();
 
+      String query = "SELECT p FROM DistrictEntity p";
+      TypedQuery<DistrictEntity> typedQuery = entityMgr.createQuery(query, DistrictEntity.class);
+
+      ArrayList<DistrictEntity> result = null;
       try {
-         while (resultSet.next()) {
-            DistrictDTO districtModel = new DistrictDTO(resultSet);
-            result.add(districtModel);
-         }
-      } catch (SQLException exception) {
+         result = new ArrayList<>(typedQuery.getResultList());
+      } catch (Exception exception) {
          exception.printStackTrace();
+      } finally {
+         entityMgr.close();
       }
       return result;
    }
 
    @Override
-   public DistrictDTO getById(String id) {
-      String query = "SELECT * FROM DISTRICT WHERE DISTRICT_ID = '" + id + "';";
-      ResultSet resultSet = DatabaseUtils.executeQuery(query, null);
+   public DistrictEntity getById(String id) {
+      EntityManager entityMgr = EntityUtils.getEntityManager();
 
+      String hql = "SELECT p FROM DistrictEntity p WHERE p.provinceId = :id";
+      TypedQuery<DistrictEntity> typedQuery = entityMgr.createQuery(hql, DistrictEntity.class);
+      typedQuery.setParameter("id", id);
+
+      DistrictEntity districtEntity = null;
       try {
-         if (resultSet != null && resultSet.next()) {
-            return new DistrictDTO(resultSet);
-         }
-      } catch (SQLException exception) {
+         districtEntity = typedQuery.getSingleResult();
+      } catch (Exception exception) {
          exception.printStackTrace();
+      } finally {
+         entityMgr.close();
       }
-      return null;
-   }
-
-   @Override
-   public int insert(DistrictDTO dto) {
-      String sql = "INSERT INTO DISTRICT(DISTRICT_ID, DISTRICT_NAME, DISTRICT_TYPE, PROVINCE_ID) " +
-              "VALUES (?, ?, ?, ?);";
-      List<Object> parameters = Arrays.asList(
-              dto.getDistrictId(),
-              dto.getDistrictName(),
-              dto.getDistrictType(),
-              dto.getProvinceId()
-      );
-      return DatabaseUtils.executeUpdate(sql, parameters);
-   }
-
-   @Override
-   public int update(DistrictDTO dto) {
-      String sql = "UPDATE DISTRICT SET DISTRICT_NAME = ?, DISTRICT_TYPE = ?, PROVINCE_ID = ? WHERE DISTRICT_ID = ?";
-      List<Object> parameters = Arrays.asList(
-              dto.getDistrictName(),
-              dto.getDistrictType(),
-              dto.getProvinceId(),
-              dto.getDistrictId()
-      );
-      return DatabaseUtils.executeUpdate(sql, parameters);
-   }
-
-   @Override
-   public int delete(String id) {
-      String sql = "DELETE FROM DISTRICT WHERE DISTRICT_ID = ?";
-      List<Object> parameters = Collections.singletonList(id);
-      return DatabaseUtils.executeUpdate(sql, parameters);
+      return districtEntity;
    }
 }

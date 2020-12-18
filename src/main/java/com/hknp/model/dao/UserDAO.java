@@ -1,19 +1,16 @@
 package com.hknp.model.dao;
 
-import com.hknp.interfaces.IDataGet;
-import com.hknp.interfaces.IDataUpdateAutoIncrement;
-import com.hknp.model.dto.UserDTO;
-import com.hknp.utils.DatabaseUtils;
-import com.hknp.utils.FormatUtils;
+import com.hknp.interfaces.IModifySingleEntityAutoIncrement;
+import com.hknp.interfaces.IRetrieveEntity;
+import com.hknp.model.entity.UserEntity;
+import com.hknp.utils.EntityUtils;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityTransaction;
+import javax.persistence.TypedQuery;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
 
-public class UserDAO implements IDataGet<Long, UserDTO>, IDataUpdateAutoIncrement<Long, UserDTO> {
+public class UserDAO implements IRetrieveEntity<UserEntity, Long>, IModifySingleEntityAutoIncrement<UserEntity, Long> {
    private static UserDAO instance = null;
 
    private UserDAO() {
@@ -27,89 +24,84 @@ public class UserDAO implements IDataGet<Long, UserDTO>, IDataUpdateAutoIncremen
    }
 
    @Override
-   public ArrayList<UserDTO> gets() {
-      ArrayList<UserDTO> result = new ArrayList<>();
+   public ArrayList<UserEntity> gets() {
+      EntityManager entityMgr = EntityUtils.getEntityManager();
 
-      String query = "SELECT * FROM USER;";
-      ResultSet resultSet = DatabaseUtils.executeQuery(query, null);
+      String query = "SELECT u FROM UserEntity u";
+      TypedQuery<UserEntity> typedQuery = entityMgr.createQuery(query, UserEntity.class);
 
-      if (resultSet == null) {
-         return result;
-      }
-
+      ArrayList<UserEntity> result = null;
       try {
-         while (resultSet.next()) {
-            UserDTO userModel = new UserDTO(resultSet);
-            result.add(userModel);
-         }
-      } catch (SQLException exception) {
+         result = new ArrayList<>(typedQuery.getResultList());
+      } catch (Exception exception) {
          exception.printStackTrace();
+      } finally {
+         entityMgr.close();
       }
-
       return result;
    }
 
    @Override
-   public UserDTO getById(Long id) {
-      String query = "SELECT * FROM USER WHERE USER_ID = " + id + ";";
-      ResultSet resultSet = DatabaseUtils.executeQuery(query, null);
+   public UserEntity getById(Long id) {
+      EntityManager entityMgr = EntityUtils.getEntityManager();
+      UserEntity user = entityMgr.find(UserEntity.class, id);
+      return user;
+   }
+
+   @Override
+   public Long insert(UserEntity entity) {
+      Long newUserId = 0L;
+      EntityManager entityMgr = EntityUtils.getEntityManager();
+      EntityTransaction entityTrans = null;
 
       try {
-         if (resultSet != null && resultSet.next()) {
-            return new UserDTO(resultSet);
+         entityTrans = entityMgr.getTransaction();
+         entityTrans.begin();
+
+         //entityMgr.detach(entity);
+         entityMgr.persist(entity);
+         newUserId = entity.getUserId();
+
+         entityTrans.commit();
+      } catch (Exception e) {
+         if (entityTrans != null) {
+            entityTrans.rollback();
          }
-      } catch (SQLException exception) {
-         exception.printStackTrace();
+         e.printStackTrace();
+      } finally {
+         entityMgr.close();
       }
-      return null;
+
+      return newUserId;
    }
 
    @Override
-   public Long insert(UserDTO dto) {
-      String sql = "INSERT INTO USER(LAST_NAME, FIRST_NAME, GENDER, DATE_OF_BIRTH, SSN, IMAGE_PATH, PHONE_NUMBER, EMAIL, USER_NAME, PASSWORD, USER_TYPE)" +
-              "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
-
-      List<Object> parameters = Arrays.asList(
-              dto.getLastName(),
-              dto.getFirstName(),
-              dto.getGender(),
-              FormatUtils.dateToString(dto.getDateOfBirth(), "yyyyMMdd"),
-              dto.getSsn(),
-              dto.getImagePath(),
-              dto.getPhoneNumber(),
-              dto.getEmail(),
-              dto.getUserName(),
-              dto.getPassword(),
-              dto.getUserType()
-      );
-      return (Long) DatabaseUtils.executeUpdateAutoIncrement(sql, parameters);
+   public boolean update(UserEntity entity) {
+      return EntityUtils.merge(entity);
    }
 
    @Override
-   public int update(UserDTO dto) {
-      String sql = "UPDATE USER SET LAST_NAME = ?, FIRST_NAME = ?, GENDER = ?, DATE_OF_BIRTH = ?, SSN = ?, IMAGE_PATH = ?, PHONE_NUMBER = ?, EMAIL = ?, USER_NAME = ?, PASSWORD = ?, USER_TYPE = ?, STATUS = ? WHERE USER_ID = ?";
-      List<Object> parameters = Arrays.asList(
-              dto.getLastName(),
-              dto.getFirstName(),
-              dto.getGender(),
-              FormatUtils.dateToString(dto.getDateOfBirth(), "yyyyMMdd"),
-              dto.getSsn(),
-              dto.getImagePath(),
-              dto.getPhoneNumber(),
-              dto.getEmail(),
-              dto.getUserName(),
-              dto.getPassword(),
-              dto.getUserType(),
-              dto.getStatus(),
-              dto.getUserId()
-      );
-      return DatabaseUtils.executeUpdate(sql, parameters);
-   }
+   public boolean delete(Long id) {
+      EntityManager entityMgr = EntityUtils.getEntityManager();
+      EntityTransaction entityTrans = null;
 
-   @Override
-   public int delete(Long id) {
-      String sql = "DELETE FROM USER WHERE USER_ID = ?";
-      List<Object> parameters = Collections.singletonList(id);
-      return DatabaseUtils.executeUpdate(sql, parameters);
+      try {
+         entityTrans = entityMgr.getTransaction();
+         entityTrans.begin();
+
+         UserEntity userEntity = entityMgr.find(UserEntity.class, id);
+         entityMgr.remove(userEntity);
+
+         entityTrans.commit();
+      } catch (Exception e) {
+         if (entityTrans != null) {
+            entityTrans.rollback();
+         }
+         e.printStackTrace();
+         entityMgr.close();
+         return false;
+      }
+      return true;
    }
 }
+

@@ -1,18 +1,17 @@
 package com.hknp.model.dao;
 
-import com.hknp.interfaces.IDataGet;
-import com.hknp.interfaces.IDataUpdate;
-import com.hknp.model.dto.ProvinceDTO;
-import com.hknp.utils.DatabaseUtils;
+import com.hknp.interfaces.IModifySingleEntity;
+import com.hknp.interfaces.IRetrieveEntity;
+import com.hknp.model.entity.ProvinceEntity;
+import com.hknp.utils.EntityUtils;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityTransaction;
+import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
 
-public class ProvinceDAO implements IDataGet<String, ProvinceDTO>, IDataUpdate<String, ProvinceDTO> {
+public class ProvinceDAO implements IRetrieveEntity<ProvinceEntity, String>, IModifySingleEntity<ProvinceEntity, String> {
    private static ProvinceDAO instance = null;
 
    private ProvinceDAO() {
@@ -26,70 +25,161 @@ public class ProvinceDAO implements IDataGet<String, ProvinceDTO>, IDataUpdate<S
    }
 
    @Override
-   public ArrayList<ProvinceDTO> gets() {
-      ArrayList<ProvinceDTO> result = new ArrayList<>();
+   public ArrayList<ProvinceEntity> gets() {
+      EntityManager entityMgr = EntityUtils.getEntityManager();
 
-      String query = "SELECT * FROM PROVINCE;";
-      ResultSet resultSet = DatabaseUtils.executeQuery(query, null);
+      String query = "SELECT p FROM ProvinceEntity p";
+      TypedQuery<ProvinceEntity> typedQuery = entityMgr.createQuery(query, ProvinceEntity.class);
 
-      if (resultSet == null) {
-         return result;
-      }
-
+      ArrayList<ProvinceEntity> result = null;
       try {
-         while (resultSet.next()) {
-            ProvinceDTO provinceModel = new ProvinceDTO(resultSet);
-            result.add(provinceModel);
-         }
-      } catch (SQLException exception) {
+         result = new ArrayList<>(typedQuery.getResultList());
+      } catch (Exception exception) {
          exception.printStackTrace();
+      } finally {
+         entityMgr.close();
       }
-
       return result;
    }
 
    @Override
-   public ProvinceDTO getById(String id) {
-      String query = "SELECT * FROM PROVINCE WHERE PROVINCE_ID = '" + id + "';";
-      ResultSet resultSet = DatabaseUtils.executeQuery(query, null);
+   public ProvinceEntity getById(String id) {
+      EntityManager entityMgr = EntityUtils.getEntityManager();
+
+      String hql = "SELECT p FROM ProvinceEntity p WHERE p.provinceId = :id";
+      TypedQuery<ProvinceEntity> typedQuery = entityMgr.createQuery(hql, ProvinceEntity.class);
+      typedQuery.setParameter("id", id);
+
+      ProvinceEntity province = null;
+      try {
+         province = typedQuery.getSingleResult();
+      } catch (Exception exception) {
+         exception.printStackTrace();
+      } finally {
+         entityMgr.close();
+      }
+      return province;
+   }
+
+   @Override
+   public boolean insert(ProvinceEntity entity) {
+      boolean isSucceed = true;
+      EntityManager entityMgr = EntityUtils.getEntityManager();
+      EntityTransaction entityTrans = null;
 
       try {
-         if (resultSet != null && resultSet.next()) {
-            return new ProvinceDTO(resultSet);
+         entityTrans = entityMgr.getTransaction();
+         entityTrans.begin();
+
+         entityMgr.persist(entity);
+
+         entityTrans.commit();
+      } catch (Exception e) {
+         if (entityTrans != null) {
+            entityTrans.rollback();
          }
-      } catch (SQLException exception) {
-         exception.printStackTrace();
+         e.printStackTrace();
+         isSucceed = false;
+      } finally {
+         entityMgr.close();
       }
-      return null;
+
+      return isSucceed;
    }
 
    @Override
-   public int insert(ProvinceDTO dto) {
-      String sql = "INSERT INTO PROVINCE(PROVINCE_ID, PROVINCE_NAME, PROVINCE_TYPE) " +
-              "VALUES (?, ?, ?);";
-      List<Object> parameters = Arrays.asList(
-              dto.getProvinceId(),
-              dto.getProvinceName(),
-              dto.getProvinceType()
-      );
-      return DatabaseUtils.executeUpdate(sql, parameters);
+   public boolean update(ProvinceEntity entity) {
+      return EntityUtils.merge(entity);
+      /*boolean isSucceed = true;
+      EntityManager entityMgr = EntityUtils.getEntityManager();
+      EntityTransaction entityTrans = null;
+
+      try {
+         entityTrans = entityMgr.getTransaction();
+         entityTrans.begin();
+
+         entityMgr.merge(entity);
+
+         entityTrans.commit();
+      } catch (Exception e) {
+         if (entityTrans != null) {
+            entityTrans.rollback();
+         }
+         e.printStackTrace();
+         isSucceed = false;
+      } finally {
+         entityMgr.close();
+      }
+
+      return isSucceed;*/
    }
 
    @Override
-   public int update(ProvinceDTO dto) {
-      String sql = "UPDATE PROVINCE SET PROVINCE_NAME = ?, PROVINCE_TYPE = ? WHERE PROVINCE_ID = ?";
-      List<Object> parameters = Arrays.asList(
-              dto.getProvinceName(),
-              dto.getProvinceType(),
-              dto.getProvinceId()
-      );
-      return DatabaseUtils.executeUpdate(sql, parameters);
-   }
+   public boolean delete(String id) {
+      boolean isSucceed = true;
+      EntityManager entityMgr = EntityUtils.getEntityManager();
+      EntityTransaction entityTrans = entityMgr.getTransaction();;
 
-   @Override
-   public int delete(String id) {
-      String sql = "DELETE FROM PROVINCE WHERE PROVINCE_ID = ?";
-      List<Object> parameters = Collections.singletonList(id);
-      return DatabaseUtils.executeUpdate(sql, parameters);
+      String hql = "DELETE FROM ProvinceEntity p WHERE p.provinceId = :id";
+      Query query = entityMgr.createQuery(hql).setParameter("id", id);
+
+      try {
+         entityTrans.begin();
+
+         isSucceed = query.executeUpdate() > 0;
+
+         entityTrans.commit();
+      } catch (Exception e) {
+         if (entityTrans != null) {
+            entityTrans.rollback();
+         }
+         e.printStackTrace();
+         isSucceed = false;
+      } finally {
+         entityMgr.close();
+      }
+
+      return isSucceed;
+
+      /*boolean isSucceed = true;
+      EntityManager entityMgr = EntityUtils.getEntityManager();
+      EntityTransaction entityTrans = null;
+
+      try {
+         entityTrans = entityMgr.getTransaction();
+         entityTrans.begin();
+
+         ProvinceEntity entity = entityMgr.find(ProvinceEntity.class, id);
+         entityMgr.remove(entity);
+
+         entityTrans.commit();
+      } catch (Exception e) {
+         if (entityTrans != null) {
+            entityTrans.rollback();
+         }
+         e.printStackTrace();
+         isSucceed = false;
+      } finally {
+         entityMgr.close();
+      }
+
+      return isSucceed;*/
+
+
+/*
+      boolean isSucceed = false;
+      EntityManager entityMgr = EntityUtils.getEntityManager();
+
+      try {
+         isSucceed = entityMgr.createQuery("DELETE FROM ProvinceEntity p WHERE p.provinceId = :id")
+                 .setParameter("id", id)
+                 .executeUpdate() > 0;
+      } catch (Exception exception) {
+         exception.printStackTrace();
+      } finally {
+         entityMgr.close();
+      }
+
+      return isSucceed;*/
    }
 }

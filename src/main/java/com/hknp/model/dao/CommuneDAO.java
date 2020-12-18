@@ -1,18 +1,16 @@
 package com.hknp.model.dao;
 
-import com.hknp.interfaces.IDataGet;
-import com.hknp.interfaces.IDataUpdate;
-import com.hknp.model.dto.CommuneDTO;
-import com.hknp.utils.DatabaseUtils;
+import com.hknp.interfaces.IModifySingleEntity;
+import com.hknp.interfaces.IRetrieveEntity;
+import com.hknp.model.entity.CommuneEntity;
+import com.hknp.utils.EntityUtils;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import javax.persistence.EntityManager;
+import javax.persistence.TypedQuery;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
 
-public class CommuneDAO implements IDataGet<String, CommuneDTO>, IDataUpdate<String, CommuneDTO> {
+public class CommuneDAO implements IRetrieveEntity<CommuneEntity, String>, IModifySingleEntity<CommuneEntity, String> {
+
    private static CommuneDAO instance = null;
 
    private CommuneDAO() {
@@ -24,74 +22,55 @@ public class CommuneDAO implements IDataGet<String, CommuneDTO>, IDataUpdate<Str
       }
       return instance;
    }
+   @Override
+   public boolean insert(CommuneEntity entity) {
+      return false;
+   }
 
    @Override
-   public ArrayList<CommuneDTO> gets() {
-      ArrayList<CommuneDTO> result = new ArrayList<>();
+   public boolean update(CommuneEntity entity) {
+      return false;
+   }
 
-      String query = "SELECT * FROM COMMUNE;";
-      ResultSet resultSet = DatabaseUtils.executeQuery(query, null);
+   @Override
+   public boolean delete(String id) {
+      return false;
+   }
 
-      if (resultSet == null) {
-         return result;
-      }
+   @Override
+   public ArrayList<CommuneEntity> gets() {
+      EntityManager entityMgr = EntityUtils.getEntityManager();
 
+      String query = "SELECT p FROM CommuneEntity p";
+      TypedQuery<CommuneEntity> typedQuery = entityMgr.createQuery(query, CommuneEntity.class);
+
+      ArrayList<CommuneEntity> result = null;
       try {
-         while (resultSet.next()) {
-            CommuneDTO communeModel = new CommuneDTO(resultSet);
-            result.add(communeModel);
-         }
-      } catch (SQLException exception) {
+         result = new ArrayList<>(typedQuery.getResultList());
+      } catch (Exception exception) {
          exception.printStackTrace();
+      } finally {
+         entityMgr.close();
       }
-
       return result;
    }
 
    @Override
-   public CommuneDTO getById(String id) {
-      String query = "SELECT * FROM COMMUNE WHERE COMMUNE_ID = '" + id + "';";
-      ResultSet resultSet = DatabaseUtils.executeQuery(query, null);
+   public CommuneEntity getById(String id) {
+      EntityManager entityMgr = EntityUtils.getEntityManager();
 
+      String hql = "SELECT p FROM CommuneEntity p WHERE p.communeId = :id";
+      TypedQuery<CommuneEntity> typedQuery = entityMgr.createQuery(hql, CommuneEntity.class);
+      typedQuery.setParameter("id", id);
+
+      CommuneEntity communeEntity = null;
       try {
-         if (resultSet != null && resultSet.next()) {
-            return new CommuneDTO(resultSet);
-         }
-      } catch (SQLException exception) {
+         communeEntity = typedQuery.getSingleResult();
+      } catch (Exception exception) {
          exception.printStackTrace();
+      } finally {
+         entityMgr.close();
       }
-      return null;
-   }
-
-   @Override
-   public int insert(CommuneDTO dto) {
-      String sql = "INSERT INTO COMMUNE(COMMUNE_ID, COMMUNE_NAME, COMMUNE_TYPE, DISTRICT_ID) " +
-              "VALUES (?, ?, ?, ?);";
-      List<Object> parameters = Arrays.asList(
-              dto.getCommuneId(),
-              dto.getCommuneName(),
-              dto.getCommuneType(),
-              dto.getDistrictId()
-      );
-      return DatabaseUtils.executeUpdate(sql, parameters);
-   }
-
-   @Override
-   public int update(CommuneDTO dto) {
-      String sql = "UPDATE COMMUNE SET COMMUNE_NAME = ?, COMMUNE_TYPE = ?, DISTRICT_ID = ? WHERE COMMUNE_ID = ?";
-      List<Object> parameters = Arrays.asList(
-              dto.getCommuneName(),
-              dto.getCommuneType(),
-              dto.getDistrictId(),
-              dto.getCommuneId()
-      );
-      return DatabaseUtils.executeUpdate(sql, parameters);
-   }
-
-   @Override
-   public int delete(String id) {
-      String sql = "DELETE FROM COMMUNE WHERE COMMUNE_ID = ?";
-      List<Object> parameters = Collections.singletonList(id);
-      return DatabaseUtils.executeUpdate(sql, parameters);
+      return communeEntity;
    }
 }

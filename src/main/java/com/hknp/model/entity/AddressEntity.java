@@ -14,14 +14,17 @@ public class AddressEntity implements Serializable {
    @Column(name = "STREET")
    String street;
 
-   @Column(name = "COMMUNE_ID")
-   String communeId;
+   @ManyToOne(fetch = FetchType.EAGER)
+   @JoinColumn(name = "COMMUNE_ID")
+   CommuneEntity communeEntity;
 
-   @Column(name = "DISTRICT_ID")
-   String districtId;
+   @ManyToOne(fetch = FetchType.EAGER)
+   @JoinColumn(name = "DISTRICT_ID")
+   DistrictEntity districtEntity;
 
-   @Column(name = "PROVINCE_ID")
-   String provinceId;
+   @ManyToOne(fetch = FetchType.EAGER)
+   @JoinColumn(name = "PROVINCE_ID")
+   ProvinceEntity provinceEntity;
 
    @Column(name = "USER_ID")
    Long userId;
@@ -35,19 +38,33 @@ public class AddressEntity implements Serializable {
    @Column(name = "PHONE_NUMBER")
    String phoneNumber;
 
-   public AddressEntity(Long addressId, String street, String communeId, String districtId, String provinceId, Long userId, String fullName, String addressName, String phoneNumber) {
-      this.addressId = addressId;
-      this.street = street;
-      this.communeId = communeId;
-      this.districtId = districtId;
-      this.provinceId = provinceId;
-      this.userId = userId;
-      this.fullName = fullName;
-      this.addressName = addressName;
-      this.phoneNumber = phoneNumber;
-   }
-   public AddressEntity() {
 
+   public AddressEntity () {
+
+   }
+
+   public DistrictEntity getDistrictEntity() {
+      return districtEntity;
+   }
+
+   public void setDistrictEntity(DistrictEntity districtEntity) {
+      this.districtEntity = districtEntity;
+   }
+
+   public CommuneEntity getCommuneEntity() {
+      return communeEntity;
+   }
+
+   public void setCommuneEntity(CommuneEntity communeEntity) {
+      this.communeEntity = communeEntity;
+   }
+
+   public ProvinceEntity getProvinceEntity() {
+      return provinceEntity;
+   }
+
+   public void setProvinceEntity(ProvinceEntity provinceEntity) {
+      this.provinceEntity = provinceEntity;
    }
 
    public Long getAddressId() {
@@ -64,30 +81,6 @@ public class AddressEntity implements Serializable {
 
    public void setStreet(String street) {
       this.street = street;
-   }
-
-   public String getCommuneId() {
-      return communeId;
-   }
-
-   public void setCommuneId(String communeId) {
-      this.communeId = communeId;
-   }
-
-   public String getDistrictId() {
-      return districtId;
-   }
-
-   public void setDistrictId(String districtId) {
-      this.districtId = districtId;
-   }
-
-   public String getProvinceId() {
-      return provinceId;
-   }
-
-   public void setProvinceId(String provinceId) {
-      this.provinceId = provinceId;
    }
 
    public Long getUserId() {
@@ -120,18 +113,5 @@ public class AddressEntity implements Serializable {
 
    public void setPhoneNumber(String phoneNumber) {
       this.phoneNumber = phoneNumber;
-   }
-   /* @ManyToOne
-   @JoinColumn(name = "PROVINCE_ID")
-   ProvinceEntity province;*/
-   @ManyToOne(fetch = FetchType.LAZY, optional = false)
-   private CommuneEntity addressEntity;
-
-   public CommuneEntity getAddressEntity() {
-      return addressEntity;
-   }
-
-   public void setAddressEntity(CommuneEntity addressEntity) {
-      this.addressEntity = addressEntity;
    }
 }
