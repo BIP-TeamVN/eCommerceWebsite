@@ -28,8 +28,8 @@ public class UserEntity implements Serializable {
    @Column(name = "SSN", columnDefinition = "VARCHAR(12) NULL")
    String ssn;
 
-   @Column(name = "IMAGE_PATH", columnDefinition = "VARCHAR(100) NULL")
-   String imagePath;
+   @Column(name = "IMAGE", columnDefinition = "VARCHAR(100) NULL")
+   String image;
 
    @Column(name = "PHONE_NUMBER", columnDefinition = "VARCHAR(15) NULL")
    String phoneNumber;
@@ -105,12 +105,12 @@ public class UserEntity implements Serializable {
       this.ssn = ssn;
    }
 
-   public String getImagePath() {
-      return imagePath;
+   public String getImage() {
+      return image;
    }
 
-   public void setImagePath(String imagePath) {
-      this.imagePath = imagePath;
+   public void setImage(String image) {
+      this.image = image;
    }
 
    public String getPhoneNumber() {
