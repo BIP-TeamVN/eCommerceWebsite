@@ -1,12 +1,10 @@
 package com.hknp.controller.admin;
 
 import com.hknp.model.db.AddressDB;
+import com.hknp.model.db.CommuneDb;
 import com.hknp.model.db.ProvinceDB;
 import com.hknp.model.db.UserDB;
-import com.hknp.model.entity.AddressEntity;
-import com.hknp.model.entity.DistrictEntity;
-import com.hknp.model.entity.ProvinceEntity;
-import com.hknp.model.entity.UserEntity;
+import com.hknp.model.entity.*;
 import com.hknp.utils.FormatUtils;
 
 import javax.servlet.RequestDispatcher;
@@ -90,10 +88,13 @@ public class HomeController extends HttpServlet {
       boolean result = UserDB.getInstance().update(update1);
       userEntityNam = UserDB.getInstance().gets();*/
 
-      ArrayList<UserEntity> userEntityNam = UserDB.getInstance().gets();
+      /*ArrayList<UserEntity> userEntityNam = UserDB.getInstance().gets();
       boolean result = UserDB.getInstance().delete(1L);
       userEntityNam = UserDB.getInstance().gets();
       ArrayList<ProvinceEntity> provinceEntities = ProvinceDB.getInstance().gets();
+       */
+      ArrayList<ProvinceEntity> provinceEntities = ProvinceDB.getInstance().gets();
+      ArrayList<CommuneEntity> communeEntities = CommuneDb.getInstance().gets();
 
       RequestDispatcher reqDispatcher = req.getRequestDispatcher("/view/admin/home.jsp");
       reqDispatcher.forward(req, resp);

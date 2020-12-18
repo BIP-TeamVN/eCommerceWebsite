@@ -2,6 +2,7 @@ package com.hknp.model.entity;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Collection;
 import java.util.List;
 
 @Entity
@@ -23,7 +24,7 @@ public class DistrictEntity implements Serializable {
    ProvinceEntity province;
 */
 
-   @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+   @OneToMany(cascade = CascadeType.ALL, mappedBy = "districtEntity")
    @JoinColumn(name = "DISTRICT_ID")
    List<CommuneEntity> listCommune;
 

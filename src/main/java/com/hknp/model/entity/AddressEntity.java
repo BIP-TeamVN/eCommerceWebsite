@@ -124,4 +124,14 @@ public class AddressEntity implements Serializable {
    /* @ManyToOne
    @JoinColumn(name = "PROVINCE_ID")
    ProvinceEntity province;*/
+   @ManyToOne(fetch = FetchType.LAZY, optional = false)
+   private CommuneEntity addressEntity;
+
+   public CommuneEntity getAddressEntity() {
+      return addressEntity;
+   }
+
+   public void setAddressEntity(CommuneEntity addressEntity) {
+      this.addressEntity = addressEntity;
+   }
 }
