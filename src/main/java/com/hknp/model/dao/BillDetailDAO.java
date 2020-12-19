@@ -2,9 +2,8 @@ package com.hknp.model.dao;
 
 import com.hknp.interfaces.IModifySingleEntityAutoIncrement;
 import com.hknp.interfaces.IRetrieveEntity;
+import com.hknp.model.entity.BillDetailEntity;
 import com.hknp.model.entity.BillEntity;
-import com.hknp.model.entity.ReplyCommentEntity;
-import com.hknp.model.entity.SellerEntity;
 import com.hknp.utils.EntityUtils;
 
 import javax.persistence.EntityManager;
@@ -12,21 +11,21 @@ import javax.persistence.EntityTransaction;
 import javax.persistence.TypedQuery;
 import java.util.ArrayList;
 
-public class BillDAO implements IRetrieveEntity<BillEntity, Long>, IModifySingleEntityAutoIncrement<BillEntity, Long> {
-   private static BillDAO instance = null;
+public class BillDetailDAO implements IRetrieveEntity<BillDetailEntity, Long>, IModifySingleEntityAutoIncrement<BillDetailEntity, Long> {
+   private static BillDetailDAO instance = null;
 
-   private BillDAO() {
+   private BillDetailDAO() {
    }
 
-   public static BillDAO getInstance() {
+   public static BillDetailDAO getInstance() {
       if (instance == null) {
-         instance = new BillDAO();
+         instance = new BillDetailDAO();
       }
       return instance;
    }
 
    @Override
-   public Long insert(BillEntity entity) {
+   public Long insert(BillDetailEntity entity) {
       Long newId = 0L;
       EntityManager entityMgr = EntityUtils.getEntityManager();
       EntityTransaction entityTrans = null;
@@ -36,7 +35,7 @@ public class BillDAO implements IRetrieveEntity<BillEntity, Long>, IModifySingle
          entityTrans.begin();
 
          entityMgr.persist(entity);
-         newId = entity.getBillId();
+         newId = entity.getBillDetailId();
 
          entityTrans.commit();
       } catch (Exception e) {
@@ -52,7 +51,7 @@ public class BillDAO implements IRetrieveEntity<BillEntity, Long>, IModifySingle
    }
 
    @Override
-   public boolean update(BillEntity entity) {
+   public boolean update(BillDetailEntity entity) {
       return EntityUtils.merge(entity);
    }
 
@@ -65,8 +64,8 @@ public class BillDAO implements IRetrieveEntity<BillEntity, Long>, IModifySingle
          entityTrans = entityMgr.getTransaction();
          entityTrans.begin();
 
-         BillEntity billEntity = entityMgr.find(BillEntity.class, id);
-         entityMgr.remove(billEntity);
+         BillDetailEntity billDetailEntity = entityMgr.find(BillDetailEntity.class, id);
+         entityMgr.remove(billDetailEntity);
 
          entityTrans.commit();
       } catch (Exception e) {
@@ -81,13 +80,13 @@ public class BillDAO implements IRetrieveEntity<BillEntity, Long>, IModifySingle
    }
 
    @Override
-   public ArrayList<BillEntity> gets() {
+   public ArrayList<BillDetailEntity> gets() {
       EntityManager entityMgr = EntityUtils.getEntityManager();
 
-      String query = "SELECT u FROM BillEntity u";
-      TypedQuery<BillEntity> typedQuery = entityMgr.createQuery(query, BillEntity.class);
+      String query = "SELECT u FROM BillDetailEntity u";
+      TypedQuery<BillDetailEntity> typedQuery = entityMgr.createQuery(query, BillDetailEntity.class);
 
-      ArrayList<BillEntity> result = null;
+      ArrayList<BillDetailEntity> result = null;
       try {
          result = new ArrayList<>(typedQuery.getResultList());
       } catch (Exception exception) {
@@ -99,9 +98,9 @@ public class BillDAO implements IRetrieveEntity<BillEntity, Long>, IModifySingle
    }
 
    @Override
-   public BillEntity getById(Long id) {
+   public BillDetailEntity getById(Long id) {
       EntityManager entityMgr = EntityUtils.getEntityManager();
-      BillEntity billEntity = entityMgr.find(BillEntity.class, id);
-      return billEntity;
+      BillDetailEntity billDetailEntity = entityMgr.find(BillDetailEntity.class, id);
+      return billDetailEntity;
    }
 }

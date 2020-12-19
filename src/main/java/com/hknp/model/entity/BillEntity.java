@@ -4,6 +4,8 @@ import com.hknp.model.dao.BillDAO;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "BILL")
@@ -24,6 +26,18 @@ public class BillEntity implements Serializable {
    @ManyToOne(fetch = FetchType.EAGER)
    @JoinColumn(name = "DISCOUNT_ID")
    DiscountEntity discountEntity;
+
+   @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+   @JoinColumn(name = "BILL_ID")
+   List<BillDetailEntity> billDetailEntities;
+
+   public List<BillDetailEntity> getBillDetailEntities() {
+      return billDetailEntities;
+   }
+
+   public void setBillDetailEntities(List<BillDetailEntity> billDetailEntities) {
+      this.billDetailEntities = billDetailEntities;
+   }
 
    public BillEntity () {}
 

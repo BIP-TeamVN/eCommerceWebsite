@@ -18,8 +18,6 @@ public class HomeController extends HttpServlet {
    @Override
    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-      ArrayList<ProductEntity> productEntities = ProductDAO.getInstance().gets();
-
       RequestDispatcher reqDispatcher = req.getRequestDispatcher("/view/admin/ad-dashboard.jsp");
       reqDispatcher.forward(req, resp);
    }

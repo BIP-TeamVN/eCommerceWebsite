@@ -46,7 +46,19 @@ public class ProductEntity implements Serializable {
    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
    @JoinColumn(name = "PRODUCT_ID")
    List<RateCommentEntity> rateCommentEntities;
+/*
+   @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+   @JoinColumn(name = "PRODUCT_ID")
+   List<ProductTypeEntity> productTypeEntities;
 
+   public List<ProductTypeEntity> getProductTypeEntities() {
+      return productTypeEntities;
+   }
+
+   public void setProductTypeEntities(List<ProductTypeEntity> productTypeEntities) {
+      this.productTypeEntities = productTypeEntities;
+   }
+*/
    public List<RateCommentEntity> getRateCommentEntities() {
       return rateCommentEntities;
    }
