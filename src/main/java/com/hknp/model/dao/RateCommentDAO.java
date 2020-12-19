@@ -1,10 +1,9 @@
-package com.hknp.model.dto;
+package com.hknp.model.dao;
 
 import com.hknp.interfaces.IModifySingleEntityAutoIncrement;
 import com.hknp.interfaces.IRetrieveEntity;
-import com.hknp.model.dao.UserDAO;
-import com.hknp.model.entity.BrandEntity;
-import com.hknp.model.entity.UserEntity;
+import com.hknp.model.entity.ProductEntity;
+import com.hknp.model.entity.RateCommentEntity;
 import com.hknp.utils.EntityUtils;
 
 import javax.persistence.EntityManager;
@@ -12,21 +11,21 @@ import javax.persistence.EntityTransaction;
 import javax.persistence.TypedQuery;
 import java.util.ArrayList;
 
-public class BrandDAO implements IRetrieveEntity<BrandEntity, Long>, IModifySingleEntityAutoIncrement<BrandEntity, Long> {
-   private static BrandDAO instance = null;
+public class RateCommentDAO implements IRetrieveEntity<RateCommentEntity, Long>, IModifySingleEntityAutoIncrement<RateCommentEntity, Long> {
+   private static RateCommentDAO instance = null;
 
-   private BrandDAO() {
+   private RateCommentDAO() {
    }
 
-   public static BrandDAO getInstance() {
+   public static RateCommentDAO getInstance() {
       if (instance == null) {
-         instance = new BrandDAO();
+         instance = new RateCommentDAO();
       }
       return instance;
    }
 
    @Override
-   public Long insert(BrandEntity entity) {
+   public Long insert(RateCommentEntity entity) {
       Long newId = 0L;
       EntityManager entityMgr = EntityUtils.getEntityManager();
       EntityTransaction entityTrans = null;
@@ -36,7 +35,7 @@ public class BrandDAO implements IRetrieveEntity<BrandEntity, Long>, IModifySing
          entityTrans.begin();
 
          entityMgr.persist(entity);
-         newId = entity.getBrandId();
+         newId = entity.getRateCommentId();
 
          entityTrans.commit();
       } catch (Exception e) {
@@ -52,7 +51,7 @@ public class BrandDAO implements IRetrieveEntity<BrandEntity, Long>, IModifySing
    }
 
    @Override
-   public boolean update(BrandEntity entity) {
+   public boolean update(RateCommentEntity entity) {
       return EntityUtils.merge(entity);
    }
 
@@ -65,8 +64,8 @@ public class BrandDAO implements IRetrieveEntity<BrandEntity, Long>, IModifySing
          entityTrans = entityMgr.getTransaction();
          entityTrans.begin();
 
-         BrandEntity brandEntity = entityMgr.find(BrandEntity.class, id);
-         entityMgr.remove(brandEntity);
+         RateCommentEntity rateCommentEntity = entityMgr.find(RateCommentEntity.class, id);
+         entityMgr.remove(rateCommentEntity);
 
          entityTrans.commit();
       } catch (Exception e) {
@@ -81,13 +80,13 @@ public class BrandDAO implements IRetrieveEntity<BrandEntity, Long>, IModifySing
    }
 
    @Override
-   public ArrayList<BrandEntity> gets() {
+   public ArrayList<RateCommentEntity> gets() {
       EntityManager entityMgr = EntityUtils.getEntityManager();
 
-      String query = "SELECT u FROM BrandEntity u";
-      TypedQuery<BrandEntity> typedQuery = entityMgr.createQuery(query, BrandEntity.class);
+      String query = "SELECT u FROM RateCommentEntity u";
+      TypedQuery<RateCommentEntity> typedQuery = entityMgr.createQuery(query, RateCommentEntity.class);
 
-      ArrayList<BrandEntity> result = null;
+      ArrayList<RateCommentEntity> result = null;
       try {
          result = new ArrayList<>(typedQuery.getResultList());
       } catch (Exception exception) {
@@ -99,9 +98,9 @@ public class BrandDAO implements IRetrieveEntity<BrandEntity, Long>, IModifySing
    }
 
    @Override
-   public BrandEntity getById(Long id) {
+   public RateCommentEntity getById(Long id) {
       EntityManager entityMgr = EntityUtils.getEntityManager();
-      BrandEntity brandEntity = entityMgr.find(BrandEntity.class, id);
-      return brandEntity;
+      RateCommentEntity rateCommentEntity = entityMgr.find(RateCommentEntity.class, id);
+      return rateCommentEntity;
    }
 }
