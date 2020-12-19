@@ -18,11 +18,8 @@
    <!--Top navigation-->
    <%@include file="../../common/ad-top-nav.jsp" %>
 
-   <!--Header-->
-   <%@include file="../../common/ad-header.jsp" %>
-
    <!-- Page content -->
-   <div class="container-fluid mt--6">
+   <div class="container-fluid mt--6 my-page-content">
       <div class="row">
       </div>
       <!-- Footer -->

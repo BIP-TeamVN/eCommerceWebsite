@@ -1,0 +1,11 @@
+.my-page-content {
+    margin-top: 4.5rem !important;
+}
+
+.footer {
+    margin: 4.5rem 1rem !important;
+}
+
+.custom-file-img-label::after {
+    content: 'Chọn hình ảnh' !important;
+}
