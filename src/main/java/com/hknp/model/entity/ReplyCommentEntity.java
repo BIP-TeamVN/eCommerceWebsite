@@ -2,18 +2,18 @@ package com.hknp.model.entity;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.List;
 
 @Entity
-@Table(name = "RATE_COMMENT")
-public class RateCommentEntity implements Serializable {
+@Table(name = "REPLY_COMMENT")
+public class ReplyCommentEntity implements Serializable {
    @Id
    @GeneratedValue(strategy = GenerationType.IDENTITY)
-   @Column(name = "RATE_COMMENT_ID")
-   Long rateCommentId;
+   @Column(name = "SUB_COMMENT_ID")
+   Long subCommentId;
 
-   @Column(name = "RATE_START")
-   Integer rateStart;
+   @ManyToOne(fetch = FetchType.EAGER)
+   @JoinColumn(name = "RATE_COMMENT_ID")
+   RateCommentEntity rateCommentEntity;
 
    @Column(name = "COMMENT")
    String comment;
@@ -28,30 +28,22 @@ public class RateCommentEntity implements Serializable {
    @PrimaryKeyJoinColumn(name = "USER_ID")
    UserEntity userEntity;
 
-   @ManyToOne(fetch = FetchType.EAGER)
-   @JoinColumn(name = "PRODUCT_ID")
-   ProductEntity productEntity;
+   public ReplyCommentEntity () {}
 
-   @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-   @JoinColumn(name = "RATE_COMMENT_ID")
-   List<ReplyCommentEntity> replyCommentEntities;
-
-   public RateCommentEntity () {}
-
-   public Long getRateCommentId() {
-      return rateCommentId;
+   public Long getSubCommentId() {
+      return subCommentId;
    }
 
-   public void setRateCommentId(Long rateCommentId) {
-      this.rateCommentId = rateCommentId;
+   public void setSubCommentId(Long subCommentId) {
+      this.subCommentId = subCommentId;
    }
 
-   public Integer getRateStart() {
-      return rateStart;
+   public RateCommentEntity getRateCommentEntity() {
+      return rateCommentEntity;
    }
 
-   public void setRateStart(Integer rateStart) {
-      this.rateStart = rateStart;
+   public void setRateCommentEntity(RateCommentEntity rateCommentEntity) {
+      this.rateCommentEntity = rateCommentEntity;
    }
 
    public String getComment() {
@@ -84,13 +76,5 @@ public class RateCommentEntity implements Serializable {
 
    public void setUserEntity(UserEntity userEntity) {
       this.userEntity = userEntity;
-   }
-
-   public ProductEntity getProductEntity() {
-      return productEntity;
-   }
-
-   public void setProductEntity(ProductEntity productEntity) {
-      this.productEntity = productEntity;
    }
 }
