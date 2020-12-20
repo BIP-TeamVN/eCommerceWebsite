@@ -10,7 +10,7 @@ import java.util.List;
 public class UserEntity implements Serializable {
    @Id
    @GeneratedValue(strategy = GenerationType.IDENTITY)
-   @Column(name = "USER_ID", columnDefinition = "")
+   @Column(name = "USER_ID")
    Long userId;
 
    @Column(name = "LAST_NAME", columnDefinition = "NVARCHAR(40) NOT NULL")

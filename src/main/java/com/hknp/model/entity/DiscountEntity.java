@@ -1,32 +1,27 @@
-package com.hknp.model.dto;
+package com.hknp.model.entity;
 
+import javax.persistence.*;
+import java.io.Serializable;
 import java.math.BigDecimal;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 
-public class DiscountDTO {
+@Entity
+@Table(name = "DISCOUNT")
+public class DiscountEntity implements Serializable {
+   @Id
+   @GeneratedValue(strategy = GenerationType.IDENTITY)
+   @Column(name = "DISCOUNT_ID")
    Long discountId;
+
+   @Column(name = "DISCOUNT_CODE")
    String discountCode;
+
+   @Column(name = "DISCOUNT_VALUE")
    BigDecimal discountValue;
+
+   @Column(name = "DISCOUNT_MAX_VALUE")
    BigDecimal discountMaxValue;
 
-   public DiscountDTO(ResultSet resultSet) {
-      try {
-         discountId = resultSet.getLong("DISCOUNT_ID");
-         discountCode = resultSet.getString("DISCOUNT_CODE");
-         discountValue = resultSet.getBigDecimal("DISCOUNT_VALUE");
-         discountMaxValue = resultSet.getBigDecimal("DISCOUNT_MAX_VALUE");
-      } catch (SQLException exception) {
-         exception.printStackTrace();
-      }
-   }
-
-   public DiscountDTO(Long discountId, String discountCode, BigDecimal discountValue, BigDecimal discountMaxValue) {
-      this.discountId = discountId;
-      this.discountCode = discountCode;
-      this.discountValue = discountValue;
-      this.discountMaxValue = discountMaxValue;
-   }
+   public DiscountEntity () {}
 
    public Long getDiscountId() {
       return discountId;

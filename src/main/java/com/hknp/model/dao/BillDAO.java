@@ -2,7 +2,9 @@ package com.hknp.model.dao;
 
 import com.hknp.interfaces.IModifySingleEntityAutoIncrement;
 import com.hknp.interfaces.IRetrieveEntity;
-import com.hknp.model.entity.UserEntity;
+import com.hknp.model.entity.BillEntity;
+import com.hknp.model.entity.ReplyCommentEntity;
+import com.hknp.model.entity.SellerEntity;
 import com.hknp.utils.EntityUtils;
 
 import javax.persistence.EntityManager;
@@ -10,47 +12,22 @@ import javax.persistence.EntityTransaction;
 import javax.persistence.TypedQuery;
 import java.util.ArrayList;
 
-public class UserDAO implements IRetrieveEntity<UserEntity, Long>, IModifySingleEntityAutoIncrement<UserEntity, Long> {
-   private static UserDAO instance = null;
+public class BillDAO implements IRetrieveEntity<BillEntity, Long>, IModifySingleEntityAutoIncrement<BillEntity, Long> {
+   private static BillDAO instance = null;
 
-   private UserDAO() {
+   private BillDAO() {
    }
 
-   public static UserDAO getInstance() {
+   public static BillDAO getInstance() {
       if (instance == null) {
-         instance = new UserDAO();
+         instance = new BillDAO();
       }
       return instance;
    }
 
    @Override
-   public ArrayList<UserEntity> gets() {
-      EntityManager entityMgr = EntityUtils.getEntityManager();
-
-      String query = "SELECT u FROM UserEntity u";
-      TypedQuery<UserEntity> typedQuery = entityMgr.createQuery(query, UserEntity.class);
-
-      ArrayList<UserEntity> result = null;
-      try {
-         result = new ArrayList<>(typedQuery.getResultList());
-      } catch (Exception exception) {
-         exception.printStackTrace();
-      } finally {
-         entityMgr.close();
-      }
-      return result;
-   }
-
-   @Override
-   public UserEntity getById(Long id) {
-      EntityManager entityMgr = EntityUtils.getEntityManager();
-      UserEntity user = entityMgr.find(UserEntity.class, id);
-      return user;
-   }
-
-   @Override
-   public Long insert(UserEntity entity) {
-      Long newUserId = 0L;
+   public Long insert(BillEntity entity) {
+      Long newId = 0L;
       EntityManager entityMgr = EntityUtils.getEntityManager();
       EntityTransaction entityTrans = null;
 
@@ -59,7 +36,7 @@ public class UserDAO implements IRetrieveEntity<UserEntity, Long>, IModifySingle
          entityTrans.begin();
 
          entityMgr.persist(entity);
-         newUserId = entity.getUserId();
+         newId = entity.getBillId();
 
          entityTrans.commit();
       } catch (Exception e) {
@@ -71,11 +48,11 @@ public class UserDAO implements IRetrieveEntity<UserEntity, Long>, IModifySingle
          entityMgr.close();
       }
 
-      return newUserId;
+      return newId;
    }
 
    @Override
-   public boolean update(UserEntity entity) {
+   public boolean update(BillEntity entity) {
       return EntityUtils.merge(entity);
    }
 
@@ -88,8 +65,8 @@ public class UserDAO implements IRetrieveEntity<UserEntity, Long>, IModifySingle
          entityTrans = entityMgr.getTransaction();
          entityTrans.begin();
 
-         UserEntity userEntity = entityMgr.find(UserEntity.class, id);
-         entityMgr.remove(userEntity);
+         BillEntity billEntity = entityMgr.find(BillEntity.class, id);
+         entityMgr.remove(billEntity);
 
          entityTrans.commit();
       } catch (Exception e) {
@@ -102,5 +79,29 @@ public class UserDAO implements IRetrieveEntity<UserEntity, Long>, IModifySingle
       }
       return true;
    }
-}
 
+   @Override
+   public ArrayList<BillEntity> gets() {
+      EntityManager entityMgr = EntityUtils.getEntityManager();
+
+      String query = "SELECT u FROM BillEntity u";
+      TypedQuery<BillEntity> typedQuery = entityMgr.createQuery(query, BillEntity.class);
+
+      ArrayList<BillEntity> result = null;
+      try {
+         result = new ArrayList<>(typedQuery.getResultList());
+      } catch (Exception exception) {
+         exception.printStackTrace();
+      } finally {
+         entityMgr.close();
+      }
+      return result;
+   }
+
+   @Override
+   public BillEntity getById(Long id) {
+      EntityManager entityMgr = EntityUtils.getEntityManager();
+      BillEntity billEntity = entityMgr.find(BillEntity.class, id);
+      return billEntity;
+   }
+}

@@ -3,6 +3,7 @@ package com.hknp.model.entity;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "PRODUCT_CATEGORY")
@@ -15,19 +16,7 @@ public class ProductCategoryEntity implements Serializable {
    @Column(name = "PRODUCT_CATEGORY_NAME")
    String productCategoryName;
 
-   @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-   @JoinColumn(name = "PRODUCT_CATEGORY_ID")
-   List<ProductSubCategoryEntity> productSubCategoryEntities;
-
    public ProductCategoryEntity () {}
-
-   public List<ProductSubCategoryEntity> getProductSubCategoryEntities() {
-      return productSubCategoryEntities;
-   }
-
-   public void setProductSubCategoryEntities(List<ProductSubCategoryEntity> productSubCategoryEntities) {
-      this.productSubCategoryEntities = productSubCategoryEntities;
-   }
 
    public Long getProductCategoryId() {
       return productCategoryId;
@@ -43,5 +32,16 @@ public class ProductCategoryEntity implements Serializable {
 
    public void setProductCategoryName(String productCategoryName) {
       this.productCategoryName = productCategoryName;
+   }
+
+   @ManyToMany(fetch = FetchType.EAGER, mappedBy = "productCategoryEntities")
+   Set<ProductEntity> productEntities;
+
+   public Set<ProductEntity> getProductEntities() {
+      return productEntities;
+   }
+
+   public void setProductEntities(Set<ProductEntity> productEntities) {
+      this.productEntities = productEntities;
    }
 }

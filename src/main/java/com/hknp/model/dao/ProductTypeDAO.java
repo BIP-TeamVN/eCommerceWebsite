@@ -2,7 +2,8 @@ package com.hknp.model.dao;
 
 import com.hknp.interfaces.IModifySingleEntityAutoIncrement;
 import com.hknp.interfaces.IRetrieveEntity;
-import com.hknp.model.entity.ProductSubCategoryEntity;
+import com.hknp.model.entity.ProductEntity;
+import com.hknp.model.entity.ProductTypeEntity;
 import com.hknp.utils.EntityUtils;
 
 import javax.persistence.EntityManager;
@@ -10,21 +11,20 @@ import javax.persistence.EntityTransaction;
 import javax.persistence.TypedQuery;
 import java.util.ArrayList;
 
-public class ProductSubCategoryDAO implements IRetrieveEntity<ProductSubCategoryEntity, Long>, IModifySingleEntityAutoIncrement<ProductSubCategoryEntity, Long> {
-   private static ProductSubCategoryDAO instance = null;
+public class ProductTypeDAO implements IRetrieveEntity<ProductTypeEntity, Long>, IModifySingleEntityAutoIncrement<ProductTypeEntity, Long> {
+   private static ProductTypeDAO instance = null;
 
-   private ProductSubCategoryDAO() {
+   private ProductTypeDAO() {
    }
 
-   public static ProductSubCategoryDAO getInstance() {
+   public static ProductTypeDAO getInstance() {
       if (instance == null) {
-         instance = new ProductSubCategoryDAO();
+         instance = new ProductTypeDAO();
       }
       return instance;
    }
-
    @Override
-   public Long insert(ProductSubCategoryEntity entity) {
+   public Long insert(ProductTypeEntity entity) {
       Long newId = 0L;
       EntityManager entityMgr = EntityUtils.getEntityManager();
       EntityTransaction entityTrans = null;
@@ -34,7 +34,7 @@ public class ProductSubCategoryDAO implements IRetrieveEntity<ProductSubCategory
          entityTrans.begin();
 
          entityMgr.persist(entity);
-         newId = entity.getProductSubCategoryId();
+         newId = entity.getProductTypeId();
 
          entityTrans.commit();
       } catch (Exception e) {
@@ -50,7 +50,7 @@ public class ProductSubCategoryDAO implements IRetrieveEntity<ProductSubCategory
    }
 
    @Override
-   public boolean update(ProductSubCategoryEntity entity) {
+   public boolean update(ProductTypeEntity entity) {
       return EntityUtils.merge(entity);
    }
 
@@ -63,8 +63,8 @@ public class ProductSubCategoryDAO implements IRetrieveEntity<ProductSubCategory
          entityTrans = entityMgr.getTransaction();
          entityTrans.begin();
 
-         ProductSubCategoryEntity productSubCategoryEntity = entityMgr.find(ProductSubCategoryEntity.class, id);
-         entityMgr.remove(productSubCategoryEntity);
+         ProductTypeEntity productTypeEntity = entityMgr.find(ProductTypeEntity.class, id);
+         entityMgr.remove(productTypeEntity);
 
          entityTrans.commit();
       } catch (Exception e) {
@@ -79,13 +79,13 @@ public class ProductSubCategoryDAO implements IRetrieveEntity<ProductSubCategory
    }
 
    @Override
-   public ArrayList<ProductSubCategoryEntity> gets() {
+   public ArrayList<ProductTypeEntity> gets() {
       EntityManager entityMgr = EntityUtils.getEntityManager();
 
-      String query = "SELECT u FROM ProductSubCategoryEntity u";
-      TypedQuery<ProductSubCategoryEntity> typedQuery = entityMgr.createQuery(query, ProductSubCategoryEntity.class);
+      String query = "SELECT u FROM ProductTypeEntity u";
+      TypedQuery<ProductTypeEntity> typedQuery = entityMgr.createQuery(query, ProductTypeEntity.class);
 
-      ArrayList<ProductSubCategoryEntity> result = null;
+      ArrayList<ProductTypeEntity> result = null;
       try {
          result = new ArrayList<>(typedQuery.getResultList());
       } catch (Exception exception) {
@@ -97,9 +97,9 @@ public class ProductSubCategoryDAO implements IRetrieveEntity<ProductSubCategory
    }
 
    @Override
-   public ProductSubCategoryEntity getById(Long id) {
+   public ProductTypeEntity getById(Long id) {
       EntityManager entityMgr = EntityUtils.getEntityManager();
-      ProductSubCategoryEntity productSubCategoryEntity  = entityMgr.find(ProductSubCategoryEntity.class, id);
-      return productSubCategoryEntity;
+      ProductTypeEntity productTypeEntity = entityMgr.find(ProductTypeEntity.class, id);
+      return productTypeEntity;
    }
 }

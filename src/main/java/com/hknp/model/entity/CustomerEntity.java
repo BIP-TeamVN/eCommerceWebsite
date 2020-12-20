@@ -3,6 +3,7 @@ package com.hknp.model.entity;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.sql.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "CUSTOMER")
@@ -17,6 +18,18 @@ public class CustomerEntity implements Serializable {
    @OneToOne(fetch = FetchType.EAGER)
    @PrimaryKeyJoinColumn(name = "USER_ID")
    UserEntity userEntity;
+
+   @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+   @JoinColumn(name = "CUSTOMER_ID")
+   List<BillEntity> billEntities;
+
+   public List<BillEntity> getBillEntities() {
+      return billEntities;
+   }
+
+   public void setBillEntities(List<BillEntity> billEntities) {
+      this.billEntities = billEntities;
+   }
 
    public CustomerEntity () {}
 

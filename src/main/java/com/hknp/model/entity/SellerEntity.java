@@ -2,6 +2,7 @@ package com.hknp.model.entity;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.List;
 
 @Entity
 @Table(name = "SELLER")
@@ -30,7 +31,19 @@ public class SellerEntity implements Serializable {
    @PrimaryKeyJoinColumn(name = "USER_ID")
    UserEntity userEntity;
 
+   @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+   @JoinColumn(name = "SELLER_ID")
+   List<ProductEntity> productEntities;
+
    public SellerEntity () {}
+
+   public List<ProductEntity> getProductEntities() {
+      return productEntities;
+   }
+
+   public void setProductEntities(List<ProductEntity> productEntities) {
+      this.productEntities = productEntities;
+   }
 
    public Long getUserId() {
       return userId;
