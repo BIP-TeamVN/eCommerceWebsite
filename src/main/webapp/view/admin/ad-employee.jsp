@@ -42,7 +42,7 @@
       <!--Button thêm-->
       <div class="row">
          <div class="col-md-10 ml-auto mr-auto text-right">
-            <a href="#" class="text-uppercase btn btn-primary pl-4 pr-4 mb-4">Thêm nhân viên</a>
+            <a href="/admin/employee/add" class="text-uppercase btn btn-primary pl-4 pr-4 mb-4">Thêm nhân viên</a>
          </div>
       </div>
 

@@ -43,7 +43,7 @@
       <!-- Form -->
       <div class="row">
          <div class="col-md-10 ml-auto mr-auto">
-            <form id="add-form">
+            <form id="add-employee-form" action="/admin/employee/add" method="get">
                <!--Họ và tên-->
                <div class="row">
                   <div class="col-md-6">
@@ -180,5 +180,7 @@
 
 <!--Javascript-->
 <%@ include file="../../common/import-js.jsp" %>
+<script src="../../assets/js/dynamic-admin-unit-drop-down.js"></script>
+<script src="../../assets/js/validate/add-employee-form.js"></script>
 </body>
 </html>

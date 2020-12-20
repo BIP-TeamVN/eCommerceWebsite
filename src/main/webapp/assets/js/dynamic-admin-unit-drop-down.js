@@ -49,8 +49,11 @@ function initCommuneOption(communeObj) {
 }
 
 $(document).ready(function () {
+    var adUnitServletUrl = "/GetAdminUnitServlet";
+    console.log(adUnitServletUrl);
+
     $.ajax({
-        url: "./GetAdminUnitServlet",
+        url: adUnitServletUrl,
         method: "GET",
         data: {
             operation: 'get-province'
@@ -72,7 +75,7 @@ $(document).ready(function () {
         $('#commune').append('<option value="00000">Chọn xã/ phường</option>');
 
         $.ajax({
-            url: "./GetAdminUnitServlet",
+            url: adUnitServletUrl,
             method: "GET",
             data: {
                 operation: "get-district",
@@ -94,7 +97,7 @@ $(document).ready(function () {
         $('#commune').append('<option value="00000">Chọn xã/ phường</option>');
 
         $.ajax({
-            url: "./GetAdminUnitServlet",
+            url: adUnitServletUrl,
             method: "GET",
             data: data = {
                 operation: "get-commune",
