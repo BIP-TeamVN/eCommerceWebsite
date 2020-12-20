@@ -19,7 +19,7 @@ public class BrandEntity implements Serializable {
    String brandOrigin;
 
    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-   @JoinColumn(name = "PRODUCT_ID")
+   @JoinColumn(name = "BRAND_ID")
    List<ProductEntity> productEntities;
 
    public BrandEntity () {}

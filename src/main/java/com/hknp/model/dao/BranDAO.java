@@ -1,10 +1,9 @@
-package com.hknp.model.dto;
+package com.hknp.model.dao;
 
 import com.hknp.interfaces.IModifySingleEntityAutoIncrement;
 import com.hknp.interfaces.IRetrieveEntity;
-import com.hknp.model.dao.UserDAO;
+import com.hknp.model.entity.BillEntity;
 import com.hknp.model.entity.BrandEntity;
-import com.hknp.model.entity.UserEntity;
 import com.hknp.utils.EntityUtils;
 
 import javax.persistence.EntityManager;
@@ -12,15 +11,15 @@ import javax.persistence.EntityTransaction;
 import javax.persistence.TypedQuery;
 import java.util.ArrayList;
 
-public class BrandDAO implements IRetrieveEntity<BrandEntity, Long>, IModifySingleEntityAutoIncrement<BrandEntity, Long> {
-   private static BrandDAO instance = null;
+public class BranDAO implements IRetrieveEntity<BrandEntity, Long>, IModifySingleEntityAutoIncrement<BrandEntity, Long> {
+   private static BranDAO instance = null;
 
-   private BrandDAO() {
+   private BranDAO() {
    }
 
-   public static BrandDAO getInstance() {
+   public static BranDAO getInstance() {
       if (instance == null) {
-         instance = new BrandDAO();
+         instance = new BranDAO();
       }
       return instance;
    }
@@ -79,7 +78,6 @@ public class BrandDAO implements IRetrieveEntity<BrandEntity, Long>, IModifySing
       }
       return true;
    }
-
    @Override
    public ArrayList<BrandEntity> gets() {
       EntityManager entityMgr = EntityUtils.getEntityManager();

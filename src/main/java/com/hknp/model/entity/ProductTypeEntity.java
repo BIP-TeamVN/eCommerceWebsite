@@ -11,7 +11,7 @@ public class ProductTypeEntity implements Serializable {
    @Column(name = "PRODUCT_TYPE_ID")
    Long productTypeId;
 
-   @ManyToOne(fetch = FetchType.EAGER)
+   @ManyToOne
    @JoinColumn(name = "PRODUCT_ID")
    ProductEntity productEntity;
 

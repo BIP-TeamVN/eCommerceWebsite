@@ -4,7 +4,9 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "PRODUCT")
@@ -46,19 +48,19 @@ public class ProductEntity implements Serializable {
    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
    @JoinColumn(name = "PRODUCT_ID")
    List<RateCommentEntity> rateCommentEntities;
-/*
+
    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
    @JoinColumn(name = "PRODUCT_ID")
-   List<ProductTypeEntity> productTypeEntities;
+   Set<ProductTypeEntity> productTypeEntities;
 
-   public List<ProductTypeEntity> getProductTypeEntities() {
+   public Set<ProductTypeEntity> getProductTypeEntities() {
       return productTypeEntities;
    }
 
-   public void setProductTypeEntities(List<ProductTypeEntity> productTypeEntities) {
+   public void setProductTypeEntities(Set<ProductTypeEntity> productTypeEntities) {
       this.productTypeEntities = productTypeEntities;
    }
-*/
+
    public List<RateCommentEntity> getRateCommentEntities() {
       return rateCommentEntities;
    }
@@ -67,7 +69,8 @@ public class ProductEntity implements Serializable {
       this.rateCommentEntities = rateCommentEntities;
    }
 
-   public ProductEntity () {}
+   public ProductEntity() {
+   }
 
    public Long getProductId() {
       return productId;
@@ -147,5 +150,18 @@ public class ProductEntity implements Serializable {
 
    public void setPriceOrder(BigDecimal priceOrder) {
       this.priceOrder = priceOrder;
+   }
+   @ManyToMany(fetch = FetchType.EAGER)
+   @JoinTable(name = "categories_products",
+           joinColumns = { @JoinColumn(name = "PRODUCT_ID", nullable = false, updatable = false) },
+           inverseJoinColumns = { @JoinColumn(name = "PRODUCT_CATEGORY_ID", nullable = false, updatable = false) })
+   private Set<ProductCategoryEntity> productCategoryEntities;
+
+   public Set<ProductCategoryEntity> getProductCategoryEntities() {
+      return productCategoryEntities;
+   }
+
+   public void setProductCategoryEntities(Set<ProductCategoryEntity> productCategoryEntities) {
+      this.productCategoryEntities = productCategoryEntities;
    }
 }
