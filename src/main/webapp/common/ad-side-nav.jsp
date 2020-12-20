@@ -70,7 +70,7 @@
                </li>
                <li class="nav-item">
                   <a class="nav-link <%=isActive[6] ? "active" : ""%>" href="<%=isActive[6] ? "#" : "/admin/product"%>">
-                     <i class="fa fa-copyright text-default"></i>
+                     <i class="fa fa-box text-default"></i>
                      <span class="nav-link-text">Sản phẩm</span>
                   </a>
                </li>
