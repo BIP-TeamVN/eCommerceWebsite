@@ -118,7 +118,7 @@ public class ProvinceDAO implements IRetrieveEntity<ProvinceEntity, String>, IMo
    public boolean delete(String id) {
       boolean isSucceed = true;
       EntityManager entityMgr = EntityUtils.getEntityManager();
-      EntityTransaction entityTrans = entityMgr.getTransaction();;
+      EntityTransaction entityTrans = entityMgr.getTransaction();
 
       String hql = "DELETE FROM ProvinceEntity p WHERE p.provinceId = :id";
       Query query = entityMgr.createQuery(hql).setParameter("id", id);

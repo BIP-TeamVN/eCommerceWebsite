@@ -28,8 +28,18 @@ public class CommuneEntity {
       this.districtId = districtId;
    }
 
-   public CommuneEntity () {
+   public CommuneEntity() {
+   }
 
+   public String getCommuneFullName() {
+      switch (communeType) {
+         case "W":
+            return "Phường " + communeName;
+         case "T":
+            return "Thị trấn " + communeName;
+         default:
+            return "Xã " + communeName;
+      }
    }
 
    public String getCommuneId() {

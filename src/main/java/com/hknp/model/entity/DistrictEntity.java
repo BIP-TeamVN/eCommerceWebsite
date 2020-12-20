@@ -28,8 +28,21 @@ public class DistrictEntity {
       this.provinceId = provinceId;
    }
 
-   public DistrictEntity () {
+   public DistrictEntity() {
 
+   }
+
+   public String getDistrictFullName() {
+      switch (districtType) {
+         case "C":
+            return "Thành phố " + districtName;
+         case "D":
+            return "Quận " + districtName;
+         case "T":
+            return "Thị xã " + districtName;
+         default:
+            return "Huyện " + districtName;
+      }
    }
 
    public String getDistrictId() {

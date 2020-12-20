@@ -28,6 +28,10 @@ public class ProvinceEntity {
 
    }
 
+   public String getProvinceFullName() {
+      return provinceType.equals("C") ? "Thành phố " : "Tỉnh " + provinceName;
+   }
+
    public String getProvinceId() {
       return provinceId;
    }

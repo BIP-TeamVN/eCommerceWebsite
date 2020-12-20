@@ -1,6 +1,5 @@
 package com.hknp.model.dao;
 
-import com.hknp.interfaces.IModifySingleEntity;
 import com.hknp.interfaces.IRetrieveEntity;
 import com.hknp.model.entity.DistrictEntity;
 import com.hknp.utils.EntityUtils;
@@ -9,27 +8,42 @@ import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 import java.util.ArrayList;
 
-public class DistrictDAO implements IRetrieveEntity<DistrictEntity, String>, IModifySingleEntity<DistrictEntity, String> {
-   @Override
-   public boolean insert(DistrictEntity entity) {
-      return false;
+public class DistrictDAO implements IRetrieveEntity<DistrictEntity, String> {
+   private static DistrictDAO instance = null;
+
+   private DistrictDAO() {
    }
 
-   @Override
-   public boolean update(DistrictEntity entity) {
-      return false;
+   public static DistrictDAO getInstance() {
+      if (instance == null) {
+         instance = new DistrictDAO();
+      }
+      return instance;
    }
 
-   @Override
-   public boolean delete(String id) {
-      return false;
+   public ArrayList<DistrictEntity> getByProvinceId(String provinceId) {
+      EntityManager entityMgr = EntityUtils.getEntityManager();
+
+      String query = "SELECT d FROM DistrictEntity d where d.provinceId =:id";
+      TypedQuery<DistrictEntity> typedQuery = entityMgr.createQuery(query, DistrictEntity.class)
+              .setParameter("id", provinceId);
+
+      ArrayList<DistrictEntity> result = null;
+      try {
+         result = new ArrayList<>(typedQuery.getResultList());
+      } catch (Exception exception) {
+         exception.printStackTrace();
+      } finally {
+         entityMgr.close();
+      }
+      return result;
    }
 
    @Override
    public ArrayList<DistrictEntity> gets() {
       EntityManager entityMgr = EntityUtils.getEntityManager();
 
-      String query = "SELECT p FROM DistrictEntity p";
+      String query = "SELECT d FROM DistrictEntity d";
       TypedQuery<DistrictEntity> typedQuery = entityMgr.createQuery(query, DistrictEntity.class);
 
       ArrayList<DistrictEntity> result = null;
@@ -46,19 +60,7 @@ public class DistrictDAO implements IRetrieveEntity<DistrictEntity, String>, IMo
    @Override
    public DistrictEntity getById(String id) {
       EntityManager entityMgr = EntityUtils.getEntityManager();
-
-      String hql = "SELECT p FROM DistrictEntity p WHERE p.provinceId = :id";
-      TypedQuery<DistrictEntity> typedQuery = entityMgr.createQuery(hql, DistrictEntity.class);
-      typedQuery.setParameter("id", id);
-
-      DistrictEntity districtEntity = null;
-      try {
-         districtEntity = typedQuery.getSingleResult();
-      } catch (Exception exception) {
-         exception.printStackTrace();
-      } finally {
-         entityMgr.close();
-      }
-      return districtEntity;
+      DistrictEntity result = entityMgr.find(DistrictEntity.class, id);
+      return result;
    }
 }
