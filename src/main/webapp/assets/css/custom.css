@@ -1,11 +1,48 @@
-.my-page-content {
-    margin-top: 4.5rem !important;
+.page-title {
+    text-align: center !important;
+    text-transform: uppercase !important;
+    margin: 2.5rem 0 !important;
 }
 
-.footer {
-    margin: 4.5rem 1rem !important;
+.error-input {
+    margin-left: 0.2rem;
+    margin-top: 0.5rem;
+    font-size: 0.75rem;
+    font-weight: 400;
+}
+
+.form-group > a.badge {
+    margin-left: 0.5rem !important;
+    padding-left: 0.5rem !important;
+    padding-right: 0.5rem !important;
+}
+
+.form-group > small {
+    display: none;
+}
+
+.form-group.error > small {
+    display: inline;
+}
+
+.form-group.error > .form-control {
+    border-color: var(--danger);
+}
+
+.form-group.success > .form-control {
+    border-color: var(--success);
 }
 
 .custom-file-img-label::after {
-    content: 'Chọn hình ảnh' !important;
+    content: "Chọn hình ảnh";
+}
+
+.list > tr > td {
+    text-align: center;
+    padding: 0.5rem;
+}
+
+.avatar {
+    width: 56px;
+    height: 56px;
 }

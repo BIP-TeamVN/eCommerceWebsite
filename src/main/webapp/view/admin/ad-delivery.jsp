@@ -19,7 +19,20 @@
    <%@include file="../../common/ad-top-nav.jsp" %>
 
    <!-- Page content -->
-   <div class="container-fluid mt--6 my-page-content">
+   <div class="container-fluid">
+      <!-- Breadcrumb -->
+      <div class="row mt-4">
+         <div class="col-md-10 ml-auto mr-auto">
+            <nav aria-label="breadcrumb" role="navigation">
+               <ol class="breadcrumb">
+                  <li class="breadcrumb-item"><a href="/admin"><i class="fa fa-home mr-2"></i>Trang chủ</a></li>
+                  <li class="breadcrumb-item active" aria-current="page">Giao hàng</li>
+               </ol>
+            </nav>
+         </div>
+      </div>
+
+      <!-- Main Page content -->
       <div class="row">
       </div>
       <!-- Footer -->
