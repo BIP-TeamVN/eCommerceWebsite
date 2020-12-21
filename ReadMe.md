@@ -1,7 +1,5 @@
 # eCommerce Website
 
-<div style="text-align: center;>
-  
 ![java](https://img.shields.io/badge/java-%23ED8B00.svg?&style=for-the-badge&logo=java&logoColor=white)
 ![html5](https://img.shields.io/badge/html5%20-%23E34F26.svg?&style=for-the-badge&logo=html5&logoColor=white)
 ![css3](https://img.shields.io/badge/css3%20-%231572B6.svg?&style=for-the-badge&logo=css3&logoColor=white)
@@ -11,7 +9,7 @@
 ![apache](https://img.shields.io/badge/apache%20-%23D42029.svg?&style=for-the-badge&logo=apache&logoColor=white)
 ![mysql](https://img.shields.io/badge/mysql-%2300f.svg?&style=for-the-badge&logo=mysql&logoColor=white)
 
-</div>
+<br>
 
 ![GitHub contributors](https://img.shields.io/github/contributors/HKNP-Team/eCommerceWebsite) 
 ![GitHub issues](https://img.shields.io/github/issues/HKNP-Team/eCommerceWebsite?color=red) 
