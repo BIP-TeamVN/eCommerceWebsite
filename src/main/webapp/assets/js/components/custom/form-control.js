@@ -4,26 +4,26 @@
 
 'use strict';
 
-var FormControl = (function() {
+var FormControl = (function () {
 
-	// Variables
+  // Variables
 
-	var $input = $('.form-control');
+  var $input = $('.form-control');
 
 
-	// Methods
+  // Methods
 
-	function init($this) {
-		$this.on('focus blur', function(e) {
-        $(this).parents('.form-group').toggleClass('focused', (e.type === 'focus'));
+  function init($this) {
+    $this.on('focus blur', function (e) {
+      $(this).parents('.form-group').toggleClass('focused', (e.type === 'focus'));
     }).trigger('blur');
-	}
+  }
 
 
-	// Events
+  // Events
 
-	if ($input.length) {
-		init($input);
-	}
+  if ($input.length) {
+    init($input);
+  }
 
 })();

@@ -22,6 +22,7 @@ public class ProductCategoryDAO implements IRetrieveEntity<ProductCategoryEntity
       }
       return instance;
    }
+
    @Override
    public Long insert(ProductCategoryEntity entity) {
       Long newProductCategory = 0L;

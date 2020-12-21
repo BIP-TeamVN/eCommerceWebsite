@@ -3,9 +3,10 @@ package com.hknp.utils;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.Date;
 
-public class FormatUtils {
+public class DateTimeUtils {
    /**
     * Convert Date to String by pattern
     *
@@ -34,5 +35,9 @@ public class FormatUtils {
          e.printStackTrace();
       }
       return new Date();
+   }
+
+   public static java.sql.Date currentDate() {
+      return java.sql.Date.valueOf(LocalDate.now());
    }
 }

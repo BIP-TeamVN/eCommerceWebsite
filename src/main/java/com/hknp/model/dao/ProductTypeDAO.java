@@ -2,7 +2,6 @@ package com.hknp.model.dao;
 
 import com.hknp.interfaces.IModifySingleEntityAutoIncrement;
 import com.hknp.interfaces.IRetrieveEntity;
-import com.hknp.model.entity.ProductEntity;
 import com.hknp.model.entity.ProductTypeEntity;
 import com.hknp.utils.EntityUtils;
 
@@ -23,6 +22,7 @@ public class ProductTypeDAO implements IRetrieveEntity<ProductTypeEntity, Long>,
       }
       return instance;
    }
+
    @Override
    public Long insert(ProductTypeEntity entity) {
       Long newId = 0L;

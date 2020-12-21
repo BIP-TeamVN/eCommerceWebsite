@@ -2,7 +2,6 @@ package com.hknp.model.dao;
 
 import com.hknp.interfaces.IModifySingleEntityAutoIncrement;
 import com.hknp.interfaces.IRetrieveEntity;
-import com.hknp.model.entity.BillEntity;
 import com.hknp.model.entity.BrandEntity;
 import com.hknp.utils.EntityUtils;
 
@@ -78,6 +77,7 @@ public class BranDAO implements IRetrieveEntity<BrandEntity, Long>, IModifySingl
       }
       return true;
    }
+
    @Override
    public ArrayList<BrandEntity> gets() {
       EntityManager entityMgr = EntityUtils.getEntityManager();

@@ -1,10 +1,7 @@
 ---
-layout: news_item
-title: "Jekyll 1.0.1 Released"
+layout: news_item title: "Jekyll 1.0.1 Released"
 date: "2013-05-08 23:46:11 +0200"
-author: parkr
-version: 1.0.1
-categories: [release]
+author: parkr version: 1.0.1 categories: [release]
 ---
 
 Hot on the trails of v1.0, v1.0.1 is out! Here are the highlights:
@@ -19,9 +16,7 @@ Hot on the trails of v1.0, v1.0.1 is out! Here are the highlights:
 
 See the [History][] page for more information on this release.
 
-{% assign issue_numbers = "1037|1040|1048|1053|1045|1041|1032" | split: "|" %}
-{% for issue in issue_numbers %}
-[#{{ issue }}]: {{ site.repository }}/issues/{{ issue }}
-{% endfor %}
+{% assign issue_numbers = "1037|1040|1048|1053|1045|1041|1032" | split: "|" %} {% for issue in issue_numbers %}
+[#{{ issue }}]: {{ site.repository }}/issues/{{ issue }} {% endfor %}
 
 [History]: /docs/history/#v1-0-1

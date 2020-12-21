@@ -3,8 +3,6 @@ package com.hknp.model.entity;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 import java.util.Set;
 
@@ -52,6 +50,14 @@ public class ProductEntity implements Serializable {
    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
    @JoinColumn(name = "PRODUCT_ID")
    Set<ProductTypeEntity> productTypeEntities;
+   @ManyToMany(fetch = FetchType.EAGER)
+   @JoinTable(name = "categories_products",
+           joinColumns = {@JoinColumn(name = "PRODUCT_ID", nullable = false, updatable = false)},
+           inverseJoinColumns = {@JoinColumn(name = "PRODUCT_CATEGORY_ID", nullable = false, updatable = false)})
+   private Set<ProductCategoryEntity> productCategoryEntities;
+
+   public ProductEntity() {
+   }
 
    public Set<ProductTypeEntity> getProductTypeEntities() {
       return productTypeEntities;
@@ -67,9 +73,6 @@ public class ProductEntity implements Serializable {
 
    public void setRateCommentEntities(List<RateCommentEntity> rateCommentEntities) {
       this.rateCommentEntities = rateCommentEntities;
-   }
-
-   public ProductEntity() {
    }
 
    public Long getProductId() {
@@ -151,11 +154,6 @@ public class ProductEntity implements Serializable {
    public void setPriceOrder(BigDecimal priceOrder) {
       this.priceOrder = priceOrder;
    }
-   @ManyToMany(fetch = FetchType.EAGER)
-   @JoinTable(name = "categories_products",
-           joinColumns = { @JoinColumn(name = "PRODUCT_ID", nullable = false, updatable = false) },
-           inverseJoinColumns = { @JoinColumn(name = "PRODUCT_CATEGORY_ID", nullable = false, updatable = false) })
-   private Set<ProductCategoryEntity> productCategoryEntities;
 
    public Set<ProductCategoryEntity> getProductCategoryEntities() {
       return productCategoryEntities;

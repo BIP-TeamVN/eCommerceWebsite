@@ -5,17 +5,21 @@
     <persistence-unit name="eCommerceDb" transaction-type="RESOURCE_LOCAL">
         <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
         <properties>
-            <property name = "hibernate.connection.driver_class" value="com.mysql.jdbc.Driver"/>
-            <property name = "hibernate.connection.url" value="jdbc:mysql://localhost:3306/eCommerceWebsiteDb"/>
+            <!--Local DB-->
+            <property name="hibernate.connection.driver_class" value="com.mysql.jdbc.Driver"/>
+            <property name="hibernate.connection.url" value="jdbc:mysql://localhost:3306/eCommerceWebsiteDb"/>
+            <property name="hibernate.connection.user" value="root"/>
+            <property name="hibernate.connection.password" value="0000"/>
+
+            <!--AWS DB-->
+            <!--<property name = "hibernate.connection.driver_class" value="com.mysql.jdbc.Driver"/>
+            <property name = "hibernate.connection.url" value="jdbc:mysql://hknp-ec.csgwq45rlc1q.us-east-2.rds.amazonaws.com:3306/eCommerceWebsiteDb"/>
             <property name = "hibernate.connection.user" value="root"/>
-            <property name = "hibernate.connection.password" value="0000"/>
+            <property name = "hibernate.connection.password" value="hknp_ecommerce"/>-->
+
+            <!--Set UTF-8-->
             <property name="hibernate.connection.useUnicode" value="true" />
             <property name="hibernate.connection.characterEncoding" value="UTF-8"/>
-
-            <!--<property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/eCommerceWebsiteDb"/>
-            <property name="javax.persistence.jdbc.user" value="root"/>
-            <property name="javax.persistence.jdbc.password" value="0000"/>
-            <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>-->
         </properties>
     </persistence-unit>
 </persistence>

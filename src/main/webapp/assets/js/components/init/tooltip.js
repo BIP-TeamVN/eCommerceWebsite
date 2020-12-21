@@ -4,24 +4,24 @@
 
 'use strict';
 
-var Tooltip = (function() {
+var Tooltip = (function () {
 
-	// Variables
+  // Variables
 
-	var $tooltip = $('[data-toggle="tooltip"]');
-
-
-	// Methods
-
-	function init() {
-		$tooltip.tooltip();
-	}
+  var $tooltip = $('[data-toggle="tooltip"]');
 
 
-	// Events
+  // Methods
 
-	if ($tooltip.length) {
-		init();
-	}
+  function init() {
+    $tooltip.tooltip();
+  }
+
+
+  // Events
+
+  if ($tooltip.length) {
+    init();
+  }
 
 })();

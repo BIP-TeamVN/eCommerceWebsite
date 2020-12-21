@@ -19,7 +19,8 @@ public class SellerCategoryEntity implements Serializable {
    @JoinColumn(name = "SELLER_CATEGORY_ID")
    List<SellerEntity> sellerEntities;
 
-   public SellerCategoryEntity () {}
+   public SellerCategoryEntity() {
+   }
 
    public List<SellerEntity> getSellerEntities() {
       return sellerEntities;

@@ -18,7 +18,8 @@ public class ProductTypeEntity implements Serializable {
    @Column(name = "PRODUCT_TYPE_NAME")
    String productTypeName;
 
-   public ProductTypeEntity () {}
+   public ProductTypeEntity() {
+   }
 
    public Long getProductTypeId() {
       return productTypeId;

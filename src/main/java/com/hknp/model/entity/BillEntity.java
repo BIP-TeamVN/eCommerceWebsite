@@ -1,10 +1,7 @@
 package com.hknp.model.entity;
 
-import com.hknp.model.dao.BillDAO;
-
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -31,6 +28,9 @@ public class BillEntity implements Serializable {
    @JoinColumn(name = "BILL_ID")
    List<BillDetailEntity> billDetailEntities;
 
+   public BillEntity() {
+   }
+
    public List<BillDetailEntity> getBillDetailEntities() {
       return billDetailEntities;
    }
@@ -38,8 +38,6 @@ public class BillEntity implements Serializable {
    public void setBillDetailEntities(List<BillDetailEntity> billDetailEntities) {
       this.billDetailEntities = billDetailEntities;
    }
-
-   public BillEntity () {}
 
    public Long getBillId() {
       return billId;

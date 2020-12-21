@@ -2,7 +2,6 @@ package com.hknp.model.entity;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -15,8 +14,11 @@ public class ProductCategoryEntity implements Serializable {
 
    @Column(name = "PRODUCT_CATEGORY_NAME")
    String productCategoryName;
+   @ManyToMany(fetch = FetchType.EAGER, mappedBy = "productCategoryEntities")
+   Set<ProductEntity> productEntities;
 
-   public ProductCategoryEntity () {}
+   public ProductCategoryEntity() {
+   }
 
    public Long getProductCategoryId() {
       return productCategoryId;
@@ -33,9 +35,6 @@ public class ProductCategoryEntity implements Serializable {
    public void setProductCategoryName(String productCategoryName) {
       this.productCategoryName = productCategoryName;
    }
-
-   @ManyToMany(fetch = FetchType.EAGER, mappedBy = "productCategoryEntities")
-   Set<ProductEntity> productEntities;
 
    public Set<ProductEntity> getProductEntities() {
       return productEntities;

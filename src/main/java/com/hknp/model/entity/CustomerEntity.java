@@ -23,6 +23,9 @@ public class CustomerEntity implements Serializable {
    @JoinColumn(name = "CUSTOMER_ID")
    List<BillEntity> billEntities;
 
+   public CustomerEntity() {
+   }
+
    public List<BillEntity> getBillEntities() {
       return billEntities;
    }
@@ -30,8 +33,6 @@ public class CustomerEntity implements Serializable {
    public void setBillEntities(List<BillEntity> billEntities) {
       this.billEntities = billEntities;
    }
-
-   public CustomerEntity () {}
 
    public Long getUserId() {
       return userId;

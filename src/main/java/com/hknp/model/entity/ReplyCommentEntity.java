@@ -28,7 +28,8 @@ public class ReplyCommentEntity implements Serializable {
    @PrimaryKeyJoinColumn(name = "USER_ID")
    UserEntity userEntity;
 
-   public ReplyCommentEntity () {}
+   public ReplyCommentEntity() {
+   }
 
    public Long getSubCommentId() {
       return subCommentId;

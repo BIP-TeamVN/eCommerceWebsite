@@ -15,8 +15,8 @@ fi
 echo "Some site files have been changed! Proofing..."
 
 command -v htmlproof || {
-    echo "Installing HTML::Proofer!"
-    gem install html-proofer -- --use-system-libraries
+  echo "Installing HTML::Proofer!"
+  gem install html-proofer -- --use-system-libraries
 }
 
 bundle exec jekyll build -s site -d _site --trace

@@ -9,8 +9,8 @@
 <body>
 <%@ include file="../../common/ad-side-nav.jsp" %>
 
-<jsp:include page="../../common/ad-side-nav.jsp" >
-   <jsp:param name="selectedIndex" value="1" />
+<jsp:include page="../../common/ad-side-nav.jsp">
+   <jsp:param name="selectedIndex" value="1"/>
 </jsp:include>
 
 <!-- Main content -->
@@ -78,14 +78,17 @@
                   <td>huynhthithuyvy@gmail.com</td>
                   <td>100000</td>
                   <td class="td-actions text-center">
-                     <a href="#" class="btn btn-success px-2 py-1" data-toggle="tooltip" data-placement="top" title="Chỉnh sửa thông tin">
+                     <a href="#" class="btn btn-success px-2 py-1" data-toggle="tooltip" data-placement="top"
+                        title="Chỉnh sửa thông tin">
                         <i class="fa fa-edit"></i>
                      </a>
-                     <a href="#" class="btn btn-danger px-2 py-1" data-toggle="tooltip" data-placement="top" title="Thôi việc">
+                     <a href="#" class="btn btn-danger px-2 py-1" data-toggle="tooltip" data-placement="top"
+                        title="Thôi việc">
                         <i class="fa fa-user-slash"></i>
                      </a>
                      </a>
-                     <a href="#" class="btn btn-default px-2 py-1" data-toggle="tooltip" data-placement="top" title="Làm việc lại">
+                     <a href="#" class="btn btn-default px-2 py-1" data-toggle="tooltip" data-placement="top"
+                        title="Làm việc lại">
                         <i class="fa fa-user-check"></i>
                      </a>
                   </td>

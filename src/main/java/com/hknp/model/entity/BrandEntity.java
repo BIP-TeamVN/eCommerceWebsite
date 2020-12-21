@@ -22,7 +22,8 @@ public class BrandEntity implements Serializable {
    @JoinColumn(name = "BRAND_ID")
    List<ProductEntity> productEntities;
 
-   public BrandEntity () {}
+   public BrandEntity() {
+   }
 
    public List<ProductEntity> getProductEntities() {
       return productEntities;

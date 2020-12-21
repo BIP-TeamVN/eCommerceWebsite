@@ -17,7 +17,7 @@ Feature: Include tags
       | Dont keep parameters                | 2013-03-21 | html | {% include ignore.html param="test" %}\n{% include header.html %}                                                       |
       | Allow params with spaces and quotes | 2013-04-07 | html | {% include params.html cool="param with spaces" super="\"quoted\"" single='has "quotes"' escaped='\'single\' quotes' %} |
       | Parameter syntax                    | 2013-04-12 | html | {% include params.html param1_or_2="value" %}                                                                           |
-      | Pass a variable                     | 2013-06-22 | html | {% assign var = 'some text' %}{% include params.html local=var title=page.title %}                                    |
+      | Pass a variable                     | 2013-06-22 | html | {% assign var = 'some text' %}{% include params.html local=var title=page.title %}                                      |
     When I run jekyll build
     Then the _site directory should exist
     And I should see "<header>My awesome blog header: myparam</header>" in "_site/2013/03/21/include-files.html"
@@ -39,9 +39,9 @@ Feature: Include tags
     And I have an "_includes/snippet.html" file that contains "a snippet"
     And I have an "_includes/parametrized.html" file that contains "works with {{include.what}}"
     And I have a configuration file with:
-    | key           | value             |
-    | include_file1 | snippet.html      |
-    | include_file2 | parametrized.html |
+      | key           | value             |
+      | include_file1 | snippet.html      |
+      | include_file2 | parametrized.html |
     And I have an "index.html" page that contains "{% include {{site.include_file1}} %} that {% include {{site.include_file2}} what='parameters' %}"
     When I run jekyll build
     Then the _site directory should exist
@@ -60,8 +60,8 @@ Feature: Include tags
     Given I have an _includes directory
     And I have an "_includes/one.html" file that contains "one included"
     And I have a configuration file with:
-    | key          | value |
-    | include_file | one   |
+      | key          | value |
+      | include_file | one   |
     And I have an "index.html" page that contains "{% include {{ site.include_file | append: '.html' }} %}"
     When I run jekyll build
     Then the _site directory should exist
@@ -71,8 +71,8 @@ Feature: Include tags
     Given I have an _includes directory
     And I have an "_includes/one.html" file that contains "one included"
     And I have a configuration file with:
-    | key          | value |
-    | include_file | one   |
+      | key          | value |
+      | include_file | one   |
     And I have an "index.html" page that contains "{% include {{ site.include_file }}.html %}"
     When I run jekyll build
     Then the _site directory should exist

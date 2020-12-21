@@ -1,14 +1,11 @@
 ---
-layout: news_item
-title: "Jekyll 1.0.2 Released"
+layout: news_item title: "Jekyll 1.0.2 Released"
 date: "2013-05-12 14:45:00 +0200"
-author: parkr
-version: 1.0.2
-categories: [release]
+author: parkr version: 1.0.2 categories: [release]
 ---
 
-v1.0.2 has some key bugfixes that optionally restore some behaviour from pre-1.0
-releases, and fix some other annoying bugs:
+v1.0.2 has some key bugfixes that optionally restore some behaviour from pre-1.0 releases, and fix some other annoying
+bugs:
 
 * Backwards-compatibilize relative permalinks ([#1081][])
 * Add `jekyll doctor` command to check site for any known compatibility problems ([#1081][])
@@ -20,9 +17,7 @@ releases, and fix some other annoying bugs:
 
 See the [History][] page for more information on this release.
 
-{% assign issue_numbers = "1059|1061|1066|1067|1078|1081|1084" | split: "|" %}
-{% for issue in issue_numbers %}
-[#{{ issue }}]: {{ site.repository }}/issues/{{ issue }}
-{% endfor %}
+{% assign issue_numbers = "1059|1061|1066|1067|1078|1081|1084" | split: "|" %} {% for issue in issue_numbers %}
+[#{{ issue }}]: {{ site.repository }}/issues/{{ issue }} {% endfor %}
 
 [History]: /docs/history/#v1-0-2

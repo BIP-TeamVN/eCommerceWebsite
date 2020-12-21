@@ -21,7 +21,8 @@ public class DiscountEntity implements Serializable {
    @Column(name = "DISCOUNT_MAX_VALUE")
    BigDecimal discountMaxValue;
 
-   public DiscountEntity () {}
+   public DiscountEntity() {
+   }
 
    public Long getDiscountId() {
       return discountId;

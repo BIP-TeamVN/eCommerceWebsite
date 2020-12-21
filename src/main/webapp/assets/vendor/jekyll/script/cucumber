@@ -1,5 +1,5 @@
 #!/bin/bash
 
 time bundle exec cucumber \
-  -f Features::Support::Overview \
-  "$@"
+-f Features::Support::Overview \
+"$@"

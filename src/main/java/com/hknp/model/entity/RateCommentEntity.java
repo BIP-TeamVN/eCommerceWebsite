@@ -36,7 +36,8 @@ public class RateCommentEntity implements Serializable {
    @JoinColumn(name = "RATE_COMMENT_ID")
    List<ReplyCommentEntity> replyCommentEntities;
 
-   public RateCommentEntity () {}
+   public RateCommentEntity() {
+   }
 
    public Long getRateCommentId() {
       return rateCommentId;

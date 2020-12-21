@@ -9,8 +9,8 @@
 <body>
 <%@ include file="../../common/ad-side-nav.jsp" %>
 
-<jsp:include page="../../common/ad-side-nav.jsp" >
-   <jsp:param name="selectedIndex" value="5" />
+<jsp:include page="../../common/ad-side-nav.jsp">
+   <jsp:param name="selectedIndex" value="5"/>
 </jsp:include>
 
 <!-- Main content -->

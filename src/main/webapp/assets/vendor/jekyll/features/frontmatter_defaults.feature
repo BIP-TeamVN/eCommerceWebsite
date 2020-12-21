@@ -1,12 +1,13 @@
 Feature: frontmatter defaults
+
   Scenario: Use default for frontmatter variables internally
     Given I have a _layouts directory
     And I have a pretty layout that contains "THIS IS THE LAYOUT: {{content}}"
 
     And I have a _posts directory
     And I have the following post:
-      | title             | date       | content          |
-      | default layout    | 2013-09-11 | just some post   |
+      | title          | date       | content        |
+      | default layout | 2013-09-11 | just some post |
     And I have an "index.html" page with title "some title" that contains "just some page"
 
     And I have a configuration file with "defaults" set to "[{scope: {path: ""}, values: {layout: "pretty"}}]"
@@ -35,11 +36,11 @@ Feature: frontmatter defaults
 
     And I have a _posts directory
     And I have the following post:
-      | title | date       | content               |
+      | title | date       | content                      |
       | about | 2013-10-14 | info on {{page.description}} |
     And I have a special/_posts directory
     And I have the following post in "special":
-      | title | date       | path  | content               |
+      | title | date       | path  | content                      |
       | about | 2013-10-14 | local | info on {{page.description}} |
 
     And I have an "index.html" page with title "overview" that contains "Overview for {{page.description}}"
@@ -103,8 +104,8 @@ Feature: frontmatter defaults
   Scenario: Define permalink default for posts
     Given I have a _posts directory
     And I have the following post:
-      | title          | date       | category | content |
-      | testpost       | 2013-10-14 | blog     | blabla  |
+      | title    | date       | category | content |
+      | testpost | 2013-10-14 | blog     | blabla  |
     And I have a configuration file with "defaults" set to "[{scope: {path: "", type: "posts"}, values: {permalink: "/:categories/:title/"}}]"
     When I run jekyll build
     Then I should see "blabla" in "_site/blog/testpost/index.html"

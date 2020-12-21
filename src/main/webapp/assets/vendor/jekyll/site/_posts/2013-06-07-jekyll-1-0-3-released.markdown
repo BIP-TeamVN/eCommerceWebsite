@@ -1,10 +1,7 @@
 ---
-layout: news_item
-title: "Jekyll 1.0.3 Released"
+layout: news_item title: "Jekyll 1.0.3 Released"
 date: "2013-06-07 21:02:13 +0200"
-author: parkr
-version: 1.0.3
-categories: [release]
+author: parkr version: 1.0.3 categories: [release]
 ---
 
 v1.0.3 contains some key enhancements and bug fixes:
@@ -17,9 +14,7 @@ v1.0.3 contains some key enhancements and bug fixes:
 
 See the [History][] page for more information on this release.
 
-{% assign issue_numbers = "1190|1121|1189|1115|1114|1063" | split: "|" %}
-{% for issue in issue_numbers %}
-[#{{ issue }}]: {{ site.repository }}/issues/{{ issue }}
-{% endfor %}
+{% assign issue_numbers = "1190|1121|1189|1115|1114|1063" | split: "|" %} {% for issue in issue_numbers %}
+[#{{ issue }}]: {{ site.repository }}/issues/{{ issue }} {% endfor %}
 
 [History]: /docs/history/#v1-0-3

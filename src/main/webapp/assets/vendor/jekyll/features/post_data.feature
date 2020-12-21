@@ -87,8 +87,8 @@ Feature: Post data
     And I have a movies/_posts directory
     And I have a _layouts directory
     And I have the following post in "movies":
-      | title     | date       | layout | categories        | content                 |
-      | Star Wars | 2009-03-27 | simple | [film, scifi]     | Luke, I am your father. |
+      | title     | date       | layout | categories    | content                 |
+      | Star Wars | 2009-03-27 | simple | [film, scifi] | Luke, I am your father. |
     And I have a simple layout that contains "Post category: {{ page.categories }}"
     When I run jekyll build
     Then the _site directory should exist

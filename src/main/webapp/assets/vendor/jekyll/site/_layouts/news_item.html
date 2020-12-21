@@ -3,25 +3,27 @@ layout: news
 ---
 
 <article>
-  <h2>
-    {{ page.title }}
-    <a href="{{ page.url }}" class="permalink" title="Permalink">∞</a>
-  </h2>
-  <span class="post-category">
+    <h2>
+        {{ page.title }}
+        <a class="permalink" href="{{ page.url }}" title="Permalink">∞</a>
+    </h2>
+    <span class="post-category">
     <span class="label">
       {{ page.categories | array_to_sentence_string }}
     </span>
   </span>
-  <div class="post-meta">
+    <div class="post-meta">
     <span class="post-date">
       {{ page.date | date_to_string }}
     </span>
-    <a href="https://github.com/{{ page.author }}" class="post-author">
-      <img src="https://github.com/{{ page.author }}.png" class="avatar" alt="{{ page.author }} avatar" width="24" height="24">
-      {{ page.author }}
-    </a>
-  </div>
-  <div class="post-content">
-    {{ content }}
-  </div>
+        <a class="post-author" href="https://github.com/{{ page.author }}">
+            <img alt="{{ page.author }} avatar" class="avatar" height="24"
+                 src="https://github.com/{{ page.author }}.png"
+                 width="24">
+            {{ page.author }}
+        </a>
+    </div>
+    <div class="post-content">
+        {{ content }}
+    </div>
 </article>

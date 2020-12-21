@@ -1,6 +1,7 @@
 package com.hknp.controller.admin;
 
-import javax.servlet.RequestDispatcher;
+import com.hknp.utils.ServletUtils;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -12,8 +13,7 @@ import java.io.IOException;
 public class AdDeliveryController extends HttpServlet {
    @Override
    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-      RequestDispatcher reqDispatcher = req.getRequestDispatcher("/view/admin/ad-delivery.jsp");
-      reqDispatcher.forward(req, resp);
+      ServletUtils.forward(req, resp, "/view/admin/ad-delivery.jsp");
    }
 
    @Override

@@ -1,9 +1,5 @@
 ---
-layout: news_item
-title: 'Jekyll 1.5.1 Released'
-date: 2014-03-27 22:43:48 -0400
-author: parkr
-version: 1.5.1
+layout: news_item title: 'Jekyll 1.5.1 Released' date: 2014-03-27 22:43:48 -0400 author: parkr version: 1.5.1
 categories: [release]
 ---
 
@@ -22,5 +18,4 @@ Well, we can't have that! In 1.5.1, you'll instead see:
 => "/tmp/foobar/jail/..c:/..c:/..c:/etc/passwd"
 {% endhighlight %}
 
-Luckily not affecting 1.4.x, this fix will make 1.5.0 that much safer for
-the masses. Thanks, Greg!
+Luckily not affecting 1.4.x, this fix will make 1.5.0 that much safer for the masses. Thanks, Greg!

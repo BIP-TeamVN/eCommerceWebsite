@@ -9,8 +9,8 @@
 <body>
 <%@ include file="../../common/ad-side-nav.jsp" %>
 
-<jsp:include page="../../common/ad-side-nav.jsp" >
-   <jsp:param name="selectedIndex" value="0" />
+<jsp:include page="../../common/ad-side-nav.jsp">
+   <jsp:param name="selectedIndex" value="0"/>
 </jsp:include>
 
 <!-- Main content -->
@@ -145,13 +145,17 @@
                      </div>
                      <div class="col">
                         <ul class="nav nav-pills justify-content-end">
-                           <li class="nav-item mr-2 mr-md-0" data-toggle="chart" data-target="#chart-sales-dark" data-update='{"data":{"datasets":[{"data":[0, 20, 10, 30, 15, 40, 20, 60, 60]}]}}' data-prefix="$" data-suffix="k">
+                           <li class="nav-item mr-2 mr-md-0" data-toggle="chart" data-target="#chart-sales-dark"
+                               data-update='{"data":{"datasets":[{"data":[0, 20, 10, 30, 15, 40, 20, 60, 60]}]}}'
+                               data-prefix="$" data-suffix="k">
                               <a href="#" class="nav-link py-2 px-3 active" data-toggle="tab">
                                  <span class="d-none d-md-block">Month</span>
                                  <span class="d-md-none">M</span>
                               </a>
                            </li>
-                           <li class="nav-item" data-toggle="chart" data-target="#chart-sales-dark" data-update='{"data":{"datasets":[{"data":[0, 20, 5, 25, 10, 30, 15, 40, 40]}]}}' data-prefix="$" data-suffix="k">
+                           <li class="nav-item" data-toggle="chart" data-target="#chart-sales-dark"
+                               data-update='{"data":{"datasets":[{"data":[0, 20, 5, 25, 10, 30, 15, 40, 40]}]}}'
+                               data-prefix="$" data-suffix="k">
                               <a href="#" class="nav-link py-2 px-3" data-toggle="tab">
                                  <span class="d-none d-md-block">Week</span>
                                  <span class="d-md-none">W</span>
@@ -324,7 +328,8 @@
                               <span class="mr-2">60%</span>
                               <div>
                                  <div class="progress">
-                                    <div class="progress-bar bg-gradient-danger" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;"></div>
+                                    <div class="progress-bar bg-gradient-danger" role="progressbar" aria-valuenow="60"
+                                         aria-valuemin="0" aria-valuemax="100" style="width: 60%;"></div>
                                  </div>
                               </div>
                            </div>
@@ -342,7 +347,8 @@
                               <span class="mr-2">70%</span>
                               <div>
                                  <div class="progress">
-                                    <div class="progress-bar bg-gradient-success" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style="width: 70%;"></div>
+                                    <div class="progress-bar bg-gradient-success" role="progressbar" aria-valuenow="70"
+                                         aria-valuemin="0" aria-valuemax="100" style="width: 70%;"></div>
                                  </div>
                               </div>
                            </div>
@@ -360,7 +366,8 @@
                               <span class="mr-2">80%</span>
                               <div>
                                  <div class="progress">
-                                    <div class="progress-bar bg-gradient-primary" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" style="width: 80%;"></div>
+                                    <div class="progress-bar bg-gradient-primary" role="progressbar" aria-valuenow="80"
+                                         aria-valuemin="0" aria-valuemax="100" style="width: 80%;"></div>
                                  </div>
                               </div>
                            </div>
@@ -378,7 +385,8 @@
                               <span class="mr-2">75%</span>
                               <div>
                                  <div class="progress">
-                                    <div class="progress-bar bg-gradient-info" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 75%;"></div>
+                                    <div class="progress-bar bg-gradient-info" role="progressbar" aria-valuenow="75"
+                                         aria-valuemin="0" aria-valuemax="100" style="width: 75%;"></div>
                                  </div>
                               </div>
                            </div>
@@ -396,7 +404,8 @@
                               <span class="mr-2">30%</span>
                               <div>
                                  <div class="progress">
-                                    <div class="progress-bar bg-gradient-warning" role="progressbar" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100" style="width: 30%;"></div>
+                                    <div class="progress-bar bg-gradient-warning" role="progressbar" aria-valuenow="30"
+                                         aria-valuemin="0" aria-valuemax="100" style="width: 30%;"></div>
                                  </div>
                               </div>
                            </div>

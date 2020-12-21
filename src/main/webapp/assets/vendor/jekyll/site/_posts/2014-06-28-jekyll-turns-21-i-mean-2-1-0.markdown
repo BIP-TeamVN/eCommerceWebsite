@@ -1,15 +1,10 @@
 ---
-layout: news_item
-title: 'Jekyll Turns 21! Err... I mean 2.1.0.'
-date: 2014-06-28 17:26:59 -0400
-author: parkr
-version: 2.1.0
-categories: [release]
+layout: news_item title: 'Jekyll Turns 21! Err... I mean 2.1.0.' date: 2014-06-28 17:26:59 -0400 author: parkr version:
+2.1.0 categories: [release]
 ---
 
-Jekyll's finally [legal to drink in the States](http://en.wikipedia.org/wiki/Legal_drinking_age).
-And he's done a lot of learning in the process! Here are some of the new
-things to look forward to:
+Jekyll's finally [legal to drink in the States](http://en.wikipedia.org/wiki/Legal_drinking_age). And he's done a lot of
+learning in the process! Here are some of the new things to look forward to:
 
 - Uses the latest Liquid version (2.6.1) (#2495)
 - Set front matter defaults for collections (#2419)
@@ -28,4 +23,8 @@ Let's go party!
 
 Many thanks to these 37 contributors for the 2.1.0 release:
 
-Alberto Grespan, Alessandro Lorenzi, Alex Medearis, Alfred Xing, Anatol Broder, Ben, Ben Balter, Bud Parr, Chezou, Denilson Figueiredo de Sá, Denilson Sá, Ivan Tse, Jens Nazarenus, Jesse Shawl, Jordon Bedwell, Josh Davis, János Rusiczki, Marc Ransome, Mathieu Bruyen, Matt Rogers, Parker Moore, Pat Hawks, Paul Henry, Peter Rhoades, Philipp Rudloff, Quinn Shanahan, Renaud Martinet, Rob Murray, Rodrigo Dumont, Simon Sarris, Terry, Terry Schmidt, Tomer Cohen, XhmikosR, Yihang Ho, jaybe@jekyll, and mikecole.
+Alberto Grespan, Alessandro Lorenzi, Alex Medearis, Alfred Xing, Anatol Broder, Ben, Ben Balter, Bud Parr, Chezou,
+Denilson Figueiredo de Sá, Denilson Sá, Ivan Tse, Jens Nazarenus, Jesse Shawl, Jordon Bedwell, Josh Davis, János
+Rusiczki, Marc Ransome, Mathieu Bruyen, Matt Rogers, Parker Moore, Pat Hawks, Paul Henry, Peter Rhoades, Philipp
+Rudloff, Quinn Shanahan, Renaud Martinet, Rob Murray, Rodrigo Dumont, Simon Sarris, Terry, Terry Schmidt, Tomer Cohen,
+XhmikosR, Yihang Ho, jaybe@jekyll, and mikecole.

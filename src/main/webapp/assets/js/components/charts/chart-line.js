@@ -4,7 +4,7 @@
 // Sales chart
 //
 
-var SalesChart = (function() {
+var SalesChart = (function () {
 
   // Variables
 
@@ -26,7 +26,7 @@ var SalesChart = (function() {
               zeroLineColor: Charts.colors.gray[900]
             },
             ticks: {
-              callback: function(value) {
+              callback: function (value) {
                 if (!(value % 10)) {
                   return '$' + value + 'k';
                 }
@@ -36,7 +36,7 @@ var SalesChart = (function() {
         },
         tooltips: {
           callbacks: {
-            label: function(item, data) {
+            label: function (item, data) {
               var label = data.datasets[item.datasetIndex].label || '';
               var yLabel = item.yLabel;
               var content = '';
@@ -64,7 +64,7 @@ var SalesChart = (function() {
 
     $chart.data('chart', salesChart);
 
-  };
+  }
 
 
   // Events
