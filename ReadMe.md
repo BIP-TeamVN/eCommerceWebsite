@@ -1,5 +1,15 @@
 # eCommerce Website
 
+![GitHub contributors](https://img.shields.io/github/contributors/HKNP-Team/eCommerceWebsite) 
+![GitHub issues](https://img.shields.io/github/issues/HKNP-Team/eCommerceWebsite?color=red) 
+![GitHub top language](https://img.shields.io/github/languages/top/HKNP-Team/eCommerceWebsite?color=cyan) 
+![GitHub repo size](https://img.shields.io/github/repo-size/HKNP-Team/eCommerceWebsite) 
+![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/HKNP-Team/eCommerceWebsite) 
+![Github total lines](https://sloc.xyz/github/HKNP-Team/eCommerceWebsite)
+![GitHub commit activity](https://img.shields.io/github/commit-activity/m/HKNP-Team/eCommerceWebsite?color=g) 
+![GitHub last commit](https://img.shields.io/github/last-commit/HKNP-Team/eCommerceWebsite?color=yellow) 
+![GitHub release (latest by date)](https://img.shields.io/github/v/release/HKNP-Team/eCommerceWebsite)
+
 <br>
 <br>
 
