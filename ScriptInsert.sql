@@ -8,14 +8,14 @@ VALUES (1, 'Vy', 'Huỳnh', 'Nữ', '20000520', '072355650000', '0936659599', 'v
 
 INSERT INTO `USER`(`FIRST_NAME`, `LAST_NAME`, `GENDER`, `DATE_OF_BIRTH`, `SSN`, `PHONE_NUMBER`, `EMAIL`, `USER_NAME`, `PASSWORD`, `USER_TYPE`, `STATUS`)
 VALUES
-    ('Lý', 'Nguyễn Ngọc Thiên', 'Nữ', '20000331', '072356850000', '0965639521', NULL, 'empl', '7e7175c2e20d590551e9fb500bc38c8c', 'EMPLOYEE', 1),							-- UID = 2
-	('Giang',  'Lê Trường', 'Nam', '19951203', '596522653964', '0965632521', 'giangle1995@gmail.com', '0965632521', 'e73adf9842e38aab89b6a8b9c8824051', 'EMPLOYEE', 0),		-- UID = 3
-	('Minh',  'Mai Sỹ', 'Khác', '19940228', '496229526', '0339566263', 'msm1994@yahoo.com', '0339566263', 'e73adf9842e38aab89b6a8b9c8824051', 'EMPLOYEE', 1),				-- UID = 4
-	('Thu',  'Lê Thị', 'Khác', '19980214', '261626546455', '0368465655', 'thult@gmail.com', '0368465655', 'e73adf9842e38aab89b6a8b9c8824051', 'EMPLOYEE', 1),				-- UID = 5
-	('Toàn',  'Cao Văn', 'Nam', '19950831', '344643356', '0945641535', 'toancv@outlook.com', '0945641535', 'e73adf9842e38aab89b6a8b9c8824051', 'EMPLOYEE', 0),				-- UID = 6
-	('Cúc',  'Nguyễn Thị Thu', 'Nữ', '19941002', '463786434', '0914846315', 'cuntt@hotmail.com', '0914846315', 'e73adf9842e38aab89b6a8b9c8824051', 'EMPLOYEE', 0),			-- UID = 7
-	('Việt',  'Trần Quốc', 'Nam', '19970209', '243624766483', '0901316265', 'viettqq@yahoo.com', '0901316265', 'e73adf9842e38aab89b6a8b9c8824051', 'EMPLOYEE', 1),			-- UID = 8
-	('Sơn',  'Huỳnh Văn', 'Nam', '19930402', '796289529', '0943325968', 'sonhv@gmail.com', '0943325968', 'e73adf9842e38aab89b6a8b9c8824051', 'EMPLOYEE', 1);				-- UID = 9
+    ('Lý', 'Nguyễn Ngọc Thiên', 'Nữ', '20000331', '072356850000', '0965639521', NULL, 'empl', '7e7175c2e20d590551e9fb500bc38c8c', 'EMPLOYEE', 1),							-- UID = 1000
+	('Giang',  'Lê Trường', 'Nam', '19951203', '596522653964', '0965632521', 'giangle1995@gmail.com', '0965632521', 'e73adf9842e38aab89b6a8b9c8824051', 'EMPLOYEE', 0),		-- UID = 1001
+	('Minh',  'Mai Sỹ', 'Khác', '19940228', '496229526', '0339566263', 'msm1994@yahoo.com', '0339566263', 'e73adf9842e38aab89b6a8b9c8824051', 'EMPLOYEE', 1),				-- UID = 1002
+	('Thu',  'Lê Thị', 'Khác', '19980214', '261626546455', '0368465655', 'thult@gmail.com', '0368465655', 'e73adf9842e38aab89b6a8b9c8824051', 'EMPLOYEE', 1),				-- UID = 1003
+	('Toàn',  'Cao Văn', 'Nam', '19950831', '344643356', '0945641535', 'toancv@outlook.com', '0945641535', 'e73adf9842e38aab89b6a8b9c8824051', 'EMPLOYEE', 0),				-- UID = 1004
+	('Cúc',  'Nguyễn Thị Thu', 'Nữ', '19941002', '463786434', '0914846315', 'cuntt@hotmail.com', '0914846315', 'e73adf9842e38aab89b6a8b9c8824051', 'EMPLOYEE', 0),			-- UID = 1005
+	('Việt',  'Trần Quốc', 'Nam', '19970209', '243624766483', '0901316265', 'viettqq@yahoo.com', '0901316265', 'e73adf9842e38aab89b6a8b9c8824051', 'EMPLOYEE', 1),			-- UID = 1006
+	('Sơn',  'Huỳnh Văn', 'Nam', '19930402', '796289529', '0943325968', 'sonhv@gmail.com', '0943325968', 'e73adf9842e38aab89b6a8b9c8824051', 'EMPLOYEE', 1);				-- UID = 1007
     
 INSERT INTO `ADDRESS`(`USER_ID`, `STREET`, `COMMUNE_ID`, `DISTRICT_ID`, `PROVINCE_ID`, `FULL_NAME`, `PHONE_NUMBER`, `ADDRESS_NAME`)
 VALUES 
@@ -38,14 +38,14 @@ VALUES
 
 INSERT INTO `EMPLOYEE` (`USER_ID`, `START_DATE`, `SALARY`)
 VALUES
-	(2, '20181025', 8000000),
-	(3, '20181102', 6500000),
-	(4, '20190103', 5500000),
-	(5, '20190605', 3500000),
-	(6, '20190924', 4500000),
-	(7, '20191031', 7500000),
-	(8, '20191104', 8500000),
-	(9, '20200301', 6800000);
+	(1000, '20181025', 8000000),
+	(1001, '20181102', 6500000),
+	(1002, '20190103', 5500000),
+	(1003, '20190605', 3500000),
+	(1004, '20190924', 4500000),
+	(1005, '20191031', 7500000),
+	(1006, '20191104', 8500000),
+	(1007, '20200301', 6800000);
 
 
 INSERT INTO `USER`(`FIRST_NAME`, `LAST_NAME`, `GENDER`, `DATE_OF_BIRTH`, `SSN`, `PHONE_NUMBER`, `EMAIL`, `USER_NAME`, `PASSWORD`, `USER_TYPE`, `STATUS`)

@@ -125,10 +125,10 @@ $(document).ready(function () {
 
     // check phone number exits
     $.ajax({
-      url: "/CheckExitsServlet",
+      url: "/api/users/check-info",
       method: "GET",
       data: {
-        operation: "phone-number",
+        type: "phone-number",
         chkValue: $('#phone-number').val()
       },
       async: false,   // wait until done this scope
@@ -143,10 +143,10 @@ $(document).ready(function () {
 
     // check email exist
     $.ajax({
-      url: "/CheckExitsServlet",
+      url: "/api/users/check-info",
       method: "GET",
       data: {
-        operation: "email",
+        type: "email",
         chkValue: $('#email').val()
       },
       async: false,   // wait until done this scope

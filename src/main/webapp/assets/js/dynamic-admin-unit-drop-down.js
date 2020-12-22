@@ -3,66 +3,20 @@
  * Cách dùng: trên trang jsp (html), tạo 3 thẻ select có id là `province`, `district`, 'commune' và add script này vào
  */
 
-function initProvinceOption(provinceObj) {
-  let provinceFullName = provinceObj.provinceName;
-  switch (provinceObj.provinceType) {
-    case 'C':
-      provinceFullName = 'Thành phố ' + provinceFullName;
-      break;
-    default:
-      provinceFullName = 'Tỉnh ' + provinceFullName;
-  }
-  return '<option value="' + provinceObj.provinceId + '">' + provinceFullName + '</option>';
-}
-
-function initDistrictOption(districtObj) {
-  let districtFullName = districtObj.districtName;
-  switch (districtObj.districtType) {
-    case 'C':
-      districtFullName = 'Thành phố ' + districtFullName;
-      break;
-    case 'D':
-      districtFullName = 'Quận ' + districtFullName;
-      break;
-    case 'T':
-      districtFullName = 'Thị xã ' + districtFullName;
-      break;
-    default:
-      districtFullName = 'Huyện ' + districtFullName;
-  }
-  return '<option value="' + districtObj.districtId + '">' + districtFullName + '</option>';
-}
-
-function initCommuneOption(communeObj) {
-  let communeFullName = communeObj.communeName;
-  switch (communeObj.communeType) {
-    case 'W':
-      communeFullName = 'Phường ' + communeFullName;
-      break;
-    case 'T':
-      communeFullName = 'Thị trấn ' + communeFullName;
-      break;
-    default:
-      communeFullName = 'Xã ' + communeFullName;
-  }
-  return '<option value="' + communeObj.communeId + '">' + communeFullName + '</option>';
-}
-
 $(document).ready(function () {
-  const adUnitServletUrl = "/GetAdminUnitServlet";
-  console.log(adUnitServletUrl);
+  const apiUrl = "/api/admin-units";
 
   $.ajax({
-    url: adUnitServletUrl,
+    url: apiUrl,
     method: "GET",
     data: {
-      operation: 'get-province'
+      type: 'province'
     },
     success: function (data) {
       let obj = $.parseJSON(data);
       console.log(obj);
       $.each(obj, function (key, value) {
-        $('#province').append(initProvinceOption(value));
+        $('#province').append('<option value="' + value.id + '">' + value.name + '</option>');
       });
     },
     cache: false
@@ -75,17 +29,17 @@ $(document).ready(function () {
     $('#commune').append('<option value="00000">Chọn xã/ phường</option>');
 
     $.ajax({
-      url: adUnitServletUrl,
+      url: apiUrl,
       method: "GET",
       data: {
-        operation: "get-district",
+        type: "district",
         id: $('#province').val()
       },
       success: function (data) {
         let obj = $.parseJSON(data);
         console.log(obj);
         $.each(obj, function (key, value) {
-          $('#district').append(initDistrictOption(value));
+          $('#district').append('<option value="' + value.id + '">' + value.name + '</option>');
         });
       },
       cache: false
@@ -97,17 +51,17 @@ $(document).ready(function () {
     $('#commune').append('<option value="00000">Chọn xã/ phường</option>');
 
     $.ajax({
-      url: adUnitServletUrl,
+      url: apiUrl,
       method: "GET",
-      data: data = {
-        operation: "get-commune",
+      data: {
+        type: "commune",
         id: $('#district').val()
       },
       success: function (data) {
         let obj = $.parseJSON(data);
         console.log(obj);
         $.each(obj, function (key, value) {
-          $('#commune').append(initCommuneOption(value));
+          $('#commune').append('<option value="' + value.id + '">' + value.name + '</option>');
         });
       },
       cache: false

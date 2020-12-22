@@ -1,4 +1,4 @@
-package com.hknp.controller.common;
+package com.hknp.controller.api;
 
 import com.hknp.model.dao.UserDAO;
 import com.hknp.model.entity.UserEntity;
@@ -12,8 +12,8 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 
-@WebServlet(urlPatterns = {"/CheckExitsServlet"})
-public class CheckExitsServlet extends HttpServlet {
+@WebServlet(urlPatterns = {"/api/users/check-info"})
+public class UserCheckInfoServlet extends HttpServlet {
    private ArrayList<UserEntity> listUsers;
 
    @Override
@@ -24,18 +24,18 @@ public class CheckExitsServlet extends HttpServlet {
    @Override
    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
       try (PrintWriter out = response.getWriter()) {
-         String op = request.getParameter("operation");
+         String infoType = request.getParameter("type");
          String checkValue = request.getParameter("chkValue");
          String result = "true";
 
-         if (op.equals("email")) {
+         if (infoType.equals("email")) {
             for (int i = 0; i < listUsers.size(); i++) {
                if (listUsers.get(i).getEmail().equals(checkValue)) {
                   result = "false";
                   break;
                }
             }
-         } else if (op.equals("phone-number")) {
+         } else if (infoType.equals("phone-number")) {
             for (int i = 0; i < listUsers.size(); i++) {
                if (listUsers.get(i).getPhoneNumber().equals(checkValue)) {
                   result = "false";
@@ -45,10 +45,5 @@ public class CheckExitsServlet extends HttpServlet {
          }
          out.write(result);
       }
-   }
-
-   @Override
-   protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-      doGet(req, resp);
    }
 }

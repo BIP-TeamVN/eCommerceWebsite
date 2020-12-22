@@ -32,6 +32,10 @@ public class DistrictEntity {
 
    }
 
+   public String toJson() {
+      return "{\"id\":\"" + districtId + "\",\"name\":\"" + getDistrictFullName() + "\"}";
+   }
+
    public String getDistrictFullName() {
       switch (districtType) {
          case "C":

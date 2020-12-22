@@ -64,7 +64,7 @@ public class AdEmployeeAddController extends HttpServlet {
             newAddress.setDistrictEntity(DistrictDAO.getInstance().getById(districtId));
             newAddress.setCommuneEntity(CommuneDAO.getInstance().getById(communeId));
             newAddress.setFullName(lastName + " " + firstName);
-            newAddress.setAddressName(AddressCons.ADDRESS_NAME_DEFAULT);
+            newAddress.setAddressName(AddressCons.DEFAULT_ADDRESS_NAME);
             newAddress.setUserId(newUserId);
 
             Long newAddressId = AddressDAO.getInstance().insert(newAddress);

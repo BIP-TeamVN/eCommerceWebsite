@@ -71,21 +71,17 @@
 
                <!--Giới tính và ngày sinh-->
                <div class="row">
-                  <div class="col-md-6">
-                     <div class="form-group">
-                        <label for="gender" class="form-control-label">Giới tính</label>
-                        <select class="form-control" id="gender" name="gender" required>
-                           <option value="M">Nam</option>
-                           <option value="F">Nữ</option>
-                           <option value="O" selected>Khác</option>
-                        </select>
-                     </div>
+                  <div class="col-md-6 form-group">
+                     <label for="gender" class="form-control-label">Giới tính</label>
+                     <select class="form-control" id="gender" name="gender" required>
+                        <option value="Nam">Nam</option>
+                        <option value="Nữ">Nữ</option>
+                        <option value="Khác" selected>Khác</option>
+                     </select>
                   </div>
-                  <div class="col-md-6">
-                     <div class="form-group">
-                        <label for="dob" class="form-control-label">Ngày sinh (không bắt buộc)</label>
-                        <input class="form-control" type="date" min="1900-01-01" id="dob" name="dob">
-                     </div>
+                  <div class="col-md-6 form-group">
+                     <label for="dob" class="form-control-label">Ngày sinh (không bắt buộc)</label>
+                     <input class="form-control datepicker" type="date" min="1900-01-01" id="dob" name="dob">
                   </div>
                </div>
 

@@ -31,6 +31,10 @@ public class CommuneEntity {
    public CommuneEntity() {
    }
 
+   public String toJson() {
+      return "{\"id\":\"" + communeId + "\",\"name\":\"" + getCommuneFullName() + "\"}";
+   }
+
    public String getCommuneFullName() {
       switch (communeType) {
          case "W":

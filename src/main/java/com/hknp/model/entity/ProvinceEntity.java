@@ -28,6 +28,10 @@ public class ProvinceEntity {
 
    }
 
+   public String toJson() {
+      return "{\"id\":\"" + provinceId + "\",\"name\":\"" + getProvinceFullName() + "\"}";
+   }
+
    public String getProvinceFullName() {
       return provinceType.equals("C") ? "Thành phố " : "Tỉnh " + provinceName;
    }

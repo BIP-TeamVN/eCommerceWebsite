@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8" %>
 <html>
 <head>
@@ -64,35 +65,37 @@
                </tr>
                </thead>
                <tbody class="list">
-               <tr>
-                  <td>
-                     <a href="#" class="media align-items-center avatar rounded-circle">
-                        <img alt="Image placeholder" src="../../assets/img/theme/bootstrap.jpg">
-                     </a>
-                  </td>
-                  <td>10000</td>
-                  <td>Huỳnh Thị Thúy Vy</td>
-                  <td>Nữ</td>
-                  <td>20/05/2000</td>
-                  <td>000000000000</td>
-                  <td>huynhthithuyvy@gmail.com</td>
-                  <td>100000</td>
-                  <td class="td-actions text-center">
-                     <a href="#" class="btn btn-success px-2 py-1" data-toggle="tooltip" data-placement="top"
-                        title="Chỉnh sửa thông tin">
-                        <i class="fa fa-edit"></i>
-                     </a>
-                     <a href="#" class="btn btn-danger px-2 py-1" data-toggle="tooltip" data-placement="top"
-                        title="Thôi việc">
-                        <i class="fa fa-user-slash"></i>
-                     </a>
-                     </a>
-                     <a href="#" class="btn btn-default px-2 py-1" data-toggle="tooltip" data-placement="top"
-                        title="Làm việc lại">
-                        <i class="fa fa-user-check"></i>
-                     </a>
-                  </td>
-               </tr>
+               <c:forEach items="${listEmployee}" var="employee">
+                  <tr>
+                     <td>
+                        <a href="#" class="media align-items-center">
+                           <img class="avatar rounded-circle" src="${employee.getUserEntity().getImageSrc()}" alt="avatar_image" >
+                        </a>
+                     </td>
+                     <td>${employee.getUserId()}</td>
+                     <td>${employee.getUserEntity().getFullName()}</td>
+                     <td>${employee.getUserEntity().getGender()}</td>
+                     <td>${employee.getUserEntity().getDateOfBirthStr()}</td>
+                     <td>${employee.getUserEntity().getPhoneNumber()}</td>
+                     <td>${employee.getUserEntity().getEmail()}</td>
+                     <td>${employee.getSalary()}</td>
+                     <td class="td-actions text-center">
+                        <a href="#" class="btn btn-success px-2 py-1" data-toggle="tooltip" data-placement="top"
+                           title="Chỉnh sửa thông tin">
+                           <i class="fa fa-edit"></i>
+                        </a>
+                        <a href="#" class="btn btn-danger px-2 py-1" data-toggle="tooltip" data-placement="top"
+                           title="Thôi việc">
+                           <i class="fa fa-user-slash"></i>
+                        </a>
+                        </a>
+                        <a href="#" class="btn btn-default px-2 py-1" data-toggle="tooltip" data-placement="top"
+                           title="Làm việc lại">
+                           <i class="fa fa-user-check"></i>
+                        </a>
+                     </td>
+                  </tr>
+               </c:forEach>
                </tbody>
             </table>
          </div>

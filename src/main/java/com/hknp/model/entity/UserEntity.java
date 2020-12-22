@@ -1,5 +1,8 @@
 package com.hknp.model.entity;
 
+import com.hknp.model.cons.UserCons;
+import com.hknp.utils.DateTimeUtils;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
@@ -55,6 +58,26 @@ public class UserEntity implements Serializable {
 
    public UserEntity() {
 
+   }
+
+   public String getFullName() {
+      return lastName + " " + firstName;
+   }
+
+   public String getDateOfBirthStr() {
+      return DateTimeUtils.dateToString(dateOfBirth, "dd/MM/yyyy");
+   }
+
+   public String getImageSrc() {
+      if (image == null || image.isEmpty()) {
+         if (gender.equals(UserCons.USER_GENDER_FEMALE)) {
+            return UserCons.DEFAULT_USER_IMAGE_FEMALE_SRC;
+         } else {
+            return UserCons.DEFAULT_USER_IMAGE_MALE_SRC;
+         }
+      } else {
+         return UserCons.DEFAULT_USER_IMAGE_SRC_PREFIX + image;
+      }
    }
 
    public Long getUserId() {

@@ -50,3 +50,8 @@
   width: 56px;
   height: 56px;
 }
+
+.pagination > .page-item.active {
+  pointer-events: none;
+  cursor: default;
+}
