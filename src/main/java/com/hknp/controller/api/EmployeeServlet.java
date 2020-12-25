@@ -1,23 +1,18 @@
 package com.hknp.controller.api;
 
-import com.google.gson.Gson;
-import com.hknp.model.dao.CommuneDAO;
-import com.hknp.model.dao.DistrictDAO;
-import com.hknp.model.dao.EmployeeDAO;
-import com.hknp.model.dao.ProvinceDAO;
-import com.hknp.model.entity.CommuneEntity;
-import com.hknp.model.entity.DistrictEntity;
-import com.hknp.model.entity.EmployeeEntity;
-import com.hknp.model.entity.ProvinceEntity;
+import com.hknp.model.cons.*;
+import com.hknp.model.dao.*;
+import com.hknp.model.entity.*;
+import com.hknp.utils.*;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.*;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 @WebServlet(urlPatterns = {"/api/employees"})
@@ -35,6 +30,106 @@ public class EmployeeServlet extends HttpServlet {
 
       try (PrintWriter out = resp.getWriter()) {
          out.write("[" + String.join(", ", listJsonStr) + "]");
+      }
+   }
+
+   @Override
+   protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+      resp.setContentType("text/html; charset=UTF-8");
+
+      try {
+         String lastName = req.getParameter("last-name");
+         String firstName = req.getParameter("first-name");
+
+         String gender = req.getParameter("gender");
+         String dateOfBirth = req.getParameter("dob");
+         String phoneNumber = req.getParameter("phone-number");
+         String ssn = req.getParameter("ssn");
+         String email = req.getParameter("email");
+
+         String provinceId = req.getParameter("province");
+         String districtId = req.getParameter("district");
+         String communeId = req.getParameter("commune");
+         String addressStreet = req.getParameter("address-street");
+
+         UserEntity newUser = new UserEntity();
+         newUser.setFirstName(firstName);
+         newUser.setLastName(firstName);
+         newUser.setGender(gender);
+         newUser.setDateOfBirth(DateTimeUtils.stringToDate(dateOfBirth, "dd/MM/yyyy"));
+         newUser.setPhoneNumber(phoneNumber);
+         newUser.setSsn(ssn);
+         newUser.setEmail(email);
+
+         newUser.setUserType(UserCons.USER_TYPE_EMPLOYEE);
+         newUser.setUserName(phoneNumber);
+         newUser.setPassword(HashUtils.getMd5(Base64Utils.encodeFromString("12")));
+         newUser.setStatus(true);
+
+         Long newUserId = UserDAO.getInstance().insert(newUser);
+
+         if (newUserId != 0) {
+            AddressEntity newAddress = new AddressEntity();
+
+            newAddress.setPhoneNumber(phoneNumber);
+            newAddress.setStreet(addressStreet);
+            newAddress.setProvinceEntity(ProvinceDAO.getInstance().getById(provinceId));
+            newAddress.setDistrictEntity(DistrictDAO.getInstance().getById(districtId));
+            newAddress.setCommuneEntity(CommuneDAO.getInstance().getById(communeId));
+            newAddress.setFullName(lastName + " " + firstName);
+            newAddress.setAddressName(AddressCons.DEFAULT_ADDRESS_NAME);
+            newAddress.setUserId(newUserId);
+
+            UserEntity user = UserDAO.getInstance().getById(newUserId);
+            user.setAddressEntities(Collections.singletonList(newAddress));
+
+            UserDAO.getInstance().update(user);
+
+            Long newAddressId = AddressDAO.getInstance().insert(newAddress);
+
+            if (newAddressId != 0) {
+               /*UserEntity user = UserDAO.getInstance().getById(newUserId);
+               user.setAddressEntities(Collections.singletonList(AddressDAO.getInstance().getById(newAddressId)));
+
+               UserDAO.getInstance().update(user);
+*/
+               EmployeeEntity newEmployee = new EmployeeEntity();
+               newEmployee.setUserId(newUserId);
+               newEmployee.setUserEntity(user);
+               newEmployee.setSalary(BigDecimal.valueOf(0));
+               newEmployee.setStartDate(DateTimeUtils.currentDate());
+
+               EmployeeDAO.getInstance().insert((newEmployee));
+            }
+         }
+
+      }
+      catch (Exception e) {
+
+      }
+      req.getParameter("");
+
+
+      try (PrintWriter out = resp.getWriter()) {
+         out.write("id");
+      }
+   }
+
+   @Override
+   protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+      resp.setContentType("text/html; charset=UTF-8");
+
+      try (PrintWriter out = resp.getWriter()) {
+         out.write("true");
+      }
+   }
+
+   @Override
+   protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+      resp.setContentType("text/html; charset=UTF-8");
+
+      try (PrintWriter out = resp.getWriter()) {
+         out.write("false");
       }
    }
 }
