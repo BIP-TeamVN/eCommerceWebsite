@@ -64,8 +64,8 @@
                   <th scope="col" class="sort text-center">Tùy chọn</th>
                </tr>
                </thead>
-               <tbody class="list">
-               <c:forEach items="${listEmployee}" var="employee">
+               <tbody class="list" id="tb-list">
+               <%--<c:forEach items="${listEmployee}" var="employee">
                   <tr>
                      <td>
                         <a href="#" class="media align-items-center">
@@ -95,7 +95,7 @@
                         </a>
                      </td>
                   </tr>
-               </c:forEach>
+               </c:forEach>--%>
                </tbody>
             </table>
          </div>
@@ -131,5 +131,52 @@
 
 <!--Javascript-->
 <%@ include file="../../common/import-js.jsp" %>
+<script>
+  $(document).ready(function () {
+    const apiUrl = "/api/employees";
+
+    $.ajax({
+      url: apiUrl,
+      method: "GET",
+      data: {},
+      success: function (data) {
+        let obj = $.parseJSON(data);
+        console.log(obj);
+        $('#tb-list').find('tr').remove();
+        $.each(obj, function (key, value) {
+          let html =
+            '<tr>' +
+            '<td>' +
+            '<a href="#" class="media align-items-center">' +
+            '<img class="avatar rounded-circle" src="' + value.imgSrc + '" alt="avatar_image" >' +
+            '</a>' +
+            '</td>' +
+            '<td>' + value.id + '</td>' +
+            '<td>' + value.fullName + '</td>' +
+            '<td>' + value.gender + '</td>' +
+            '<td>' + value.dob + '</td>' +
+            '<td>' + value.phone + '</td>' +
+            '<td>' + value.email + '</td>' +
+            '<td>' + value.salary + '</td>' +
+            '<td class="td-actions text-center">' +
+            '<a href="#" class="btn btn-success px-2 py-1" data-toggle="tooltip" data-placement="top" title="Chỉnh sửa thông tin">' +
+            '<i class="fa fa-edit"></i>' +
+            '</a>' +
+            '<a href="#" class="btn btn-danger px-2 py-1" data-toggle="tooltip" data-placement="top" title="Thôi việc">' +
+            '<i class="fa fa-user-slash"></i>' +
+            '</a>' +
+            '</a>' +
+            '<a href="#" class="btn btn-default px-2 py-1" data-toggle="tooltip" data-placement="top" title="Làm việc lại">' +
+            '<i class="fa fa-user-check"></i>' +
+            '</a>' +
+            '</td>' +
+            '</tr>';
+          $('#tb-list').append(html);
+        });
+      },
+      cache: false
+    });
+  });
+</script>
 </body>
 </html>

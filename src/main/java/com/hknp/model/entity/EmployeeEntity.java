@@ -26,6 +26,20 @@ public class EmployeeEntity implements Serializable {
 
    }
 
+   public String toJson() {
+      return "{" +
+              "\"id\":\"" + userId + "\"," +
+              "\"fullName\":\"" + userEntity.getFullName() + "\"," +
+              "\"gender\":\"" + userEntity.getGender() + "\"," +
+              "\"dob\":\"" + userEntity.getDateOfBirthStr() + "\"," +
+              "\"phone\":\"" + userEntity.getPhoneNumber() +"\"," +
+              "\"email\":\"" + userEntity.getEmail() +"\"," +
+              "\"salary\":\"" + salary +"\"," +
+              "\"imgSrc\":\"" + userEntity.getImageSrc() +"\"," +
+              "\"status\":\"" + userEntity.getStatus() +"\"" +
+              "}";
+   }
+
    public Long getUserId() {
       return userId;
    }

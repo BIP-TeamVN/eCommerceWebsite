@@ -16,9 +16,8 @@ import java.util.ArrayList;
 public class AdEmployeeController extends HttpServlet {
    @Override
    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-      ArrayList<EmployeeEntity> listEmployee = EmployeeDAO.getInstance().gets();
-      req.setAttribute("listEmployee", listEmployee);
-
+      /*ArrayList<EmployeeEntity> listEmployee = EmployeeDAO.getInstance().gets();
+      req.setAttribute("listEmployee", listEmployee);*/
       ServletUtils.forward(req, resp, "/view/admin/ad-employee.jsp");
    }
 
