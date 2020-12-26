@@ -121,8 +121,8 @@ VALUES
     
 INSERT INTO `ADDRESS`(`USER_ID`, `STREET`, `COMMUNE_ID`, `DISTRICT_ID`, `PROVINCE_ID`, `FULL_NAME`, `PHONE_NUMBER`, `ADDRESS_NAME`)
 VALUES 
-	(12, '1 Võ Văn Ngân', '00001', '001', '79', 'Trần Quốc 1', '1111111111', 'Nhà'),
-    (12, '34 Đường ABC', '26764', '761', '79', 'Trần Quốc 2', '2222222222', 'Khách Sạn'),
+	(10001, '1 Võ Văn Ngân', '00001', '001', '79', 'Trần Quốc 1', '1111111111', 'Nhà'),
+    (10000, '34 Đường ABC', '26764', '761', '79', 'Trần Quốc 2', '2222222222', 'Khách Sạn'),
     (12, '54 Đường ABC', '26803', '762', '79', 'Trần Quốc 3', '3333333333', 'Trường'),
     (13, '12/23 Đường ABC', '26833', '763', '79', 'Trần Quốc 4', '444444444', 'Trọ'),
     (13, '12/3 Đường ABC', '26767', '761', '79', 'Trần Quốc 1', '1111111111', 'nhà');

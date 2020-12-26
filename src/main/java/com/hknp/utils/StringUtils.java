@@ -34,4 +34,23 @@ public class StringUtils {
 
       return result;
    }
+
+   /**
+    * Convert String to Long
+    *
+    * @param str string to remove non-digit character
+    * @return 0 or Long value
+    */
+   public static Long toLong(String str) {
+      Long result;
+      str = removeNonDigit(str);
+
+      try {
+         result = Long.parseLong(str);
+      } catch (NumberFormatException e) {
+         result = 0L;
+      }
+
+      return result;
+   }
 }
