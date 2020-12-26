@@ -20,21 +20,24 @@ public class DateTimeUtils {
    }
 
    /**
-    * Convert String to Date
+    * Convert String to java.util.Date
     *
     * @param str           String to convert
     * @param formatPattern the pattern describing the date and time format, ex "yyyy-MM-dd HH:mm:ss"
-    * @return Date
+    * @return java.util.Date
     */
    public static Date stringToDate(String str, String formatPattern) {
       SimpleDateFormat format = new SimpleDateFormat(formatPattern);
-      String dateString = format.format(new Date());
+      Date result = null;
+
       try {
-         return format.parse(str);
+         result = format.parse(str);
       } catch (ParseException e) {
          e.printStackTrace();
+         result = new Date();
       }
-      return new Date();
+
+      return result;
    }
 
    public static java.sql.Date currentDate() {

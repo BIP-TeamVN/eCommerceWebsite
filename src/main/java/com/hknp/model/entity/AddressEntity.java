@@ -11,7 +11,7 @@ import java.io.Serializable;
 @Table(name = "ADDRESS")
 public class AddressEntity implements Serializable {
    @Id
-   @GeneratedValue(strategy = GenerationType.AUTO)
+   @GeneratedValue(strategy = GenerationType.IDENTITY)
    @Column(name = "ADDRESS_ID")
    Long addressId;
 

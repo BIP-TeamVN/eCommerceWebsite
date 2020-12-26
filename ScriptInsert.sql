@@ -48,16 +48,105 @@ VALUES
 	(10007, '20200301', 6800000);
 
 
-INSERT INTO `USER`(`FIRST_NAME`, `LAST_NAME`, `GENDER`, `DATE_OF_BIRTH`, `SSN`, `PHONE_NUMBER`, `EMAIL`, `USER_NAME`, `PASSWORD`, `USER_TYPE`, `STATUS`)
-VALUES ('Vy', 'Khánh', 'Nữ', '20000520', '124312341324', '0936659599', 'vyhuynh@gmail.com', 'seller1', '7e7175c2e20d590551e9fb500bc38c8c', 'SELLER', 1);	
+INSERT INTO `PRODUCT_CATEGORY` (`PRODUCT_CATEGORY_NAME`) 
+VALUES 
+	('Đồ điện tử'),
+    ('Đồ gia dụng'),
+    ('Quần áo');
+
+    
+INSERT INTO `BRAND` (`BRAND_NAME`, `BRAND_ORIGIN`)
+VALUES 
+	('MSI', 'Trung Quốc'),
+    ('Apple', 'Mỹ'),
+    ('Kim biên', 'Việt Nam'),
+    ('No brand', 'no origin');
+
+INSERT INTO `SELLER_CATEGORY` (`CATEGORY_NAME`)
+VALUES 
+	('Điện tử'),
+    ('Gia dụng'),
+    ('Quần áo'),
+    ('No');
+
+INSERT INTO `SELLER` (`USER_ID`,`STORE_NAME`,`STORE_LINK`,`BUSINESS_LICENSE_ID`,`SELLER_CATEGORY_ID`,`BANK_ACCOUNT_ID`)
+VALUES 
+	(10, 'Store Nam', '/namshop', '456456456456', 1, 123123123),
+    (11, 'Store Nữ', '/nushop', '52345345234243', 1, 3455321231);
+
+INSERT INTO `PRODUCT` (`BRAND_ID`,`SELLER_ID`,`PRODUCT_NAME`,`PRODUCT_RATE`,`PRODUCT_ORIGIN`,`PRODUCT_DESC`,`QUANTITY`,`PRICE_ORIGIN`,`PRICE_ORDER`)
+VALUES
+	(1, 11, 'Nokia 1080', 4.5, 'Việt Nam', 'Nghe, Gọi, Chọi', 20, 500000, 499999),
+    (1, 11, 'Ốp lưng A5', 4.7, 'Việt Nam', 'Bảo vệ điện thoại', 20, 40000, 39999),
+    (2, 11, 'Airpro', 1.1, 'Việt Nam', 'Nghe', 10, 500000, 3999);
+
+INSERT INTO `PRODUCT_TYPE` (`PRODUCT_TYPE_NAME`, `PRODUCT_ID`)
+VALUES 
+	('Xanh', 1),
+    ('Đỏ', 1),
+    ('Tim', 1);
+
+INSERT INTO `RATE_COMMENT` (`RATE_START`, `COMMENT`, `NO_OF_LIKE`, `NO_OF_DISLIKE`, `USER_ID`, `PRODUCT_ID`)
+VALUES 
+	(4, 'Tạm được', 4, 1, 1, 1),
+    (5, 'Cũng được', 2, 7, 2, 1),
+    (4, 'Cố nhìn thì cũng được', 3, 6, 1, 3);
+    
+    
+INSERT INTO `REPLY_COMMENT` (`RATE_COMMENT_ID`, `COMMENT`, `NO_OF_LIKE`, `NO_OF_DISLIKE`, `USER_ID`)
+VALUES 
+	(1, 'thiệt không bạn', 1, 2, 3),
+    (1, 'Vậy hả', 1, 2, 4),
+    (2, 'Haha', 2, 4, 5);
+    
+INSERT INTO `DISCOUNT` (`DISCOUNT_CODE`, `DISCOUNT_VALUE`, `DISCOUNT_MAX_VALUE`)
+VALUES 
+	('VANCHUYEN', 0, 15000),
+    ('HOANTIEN', 10000, 20000);
+
+INSERT INTO `DISCOUNT` (`DISCOUNT_CODE`, `DISCOUNT_VALUE`, `DISCOUNT_MAX_VALUE`)
+VALUES 
+	('VANCHUYEN', 0, 15000),
+    ('HOANTIEN', 10000, 20000);
 
 INSERT INTO `USER`(`FIRST_NAME`, `LAST_NAME`, `GENDER`, `DATE_OF_BIRTH`, `SSN`, `PHONE_NUMBER`, `EMAIL`, `USER_NAME`, `PASSWORD`, `USER_TYPE`, `STATUS`)
-VALUES ('Vy', 'Hoàng', 'Nữ', '20000520', '124312341324', '0936659599', 'vyhuynh@gmail.com', 'seller2', '7e7175c2e20d590551e9fb500bc38c8c', 'SELLER', 1);	
-
+VALUES
+    ('Lý', 'Nguyễn Khách', 'Nữ', '20000331', '072356850000', '0965639521', NULL, 'empl', '7e7175c2e20d590551e9fb500bc38c8c', 'CUSTOMER', 1),		-- 12					
+	('Giang',  'Lê Hàng', 'Nam', '19951203', '596522653964', '0965632521', 'giangle1995@gmail.com', '0965632521', 'e73adf9842e38aab89b6a8b9c8824051', 'CUSTOMER', 1);-- 13
+    
+INSERT INTO `CUSTOMER`(`USER_ID`, `REGISTER_DATE`)
+VALUES
+    (12, '20201023'),							
+	(13, '20191214');
+    
 INSERT INTO `ADDRESS`(`USER_ID`, `STREET`, `COMMUNE_ID`, `DISTRICT_ID`, `PROVINCE_ID`, `FULL_NAME`, `PHONE_NUMBER`, `ADDRESS_NAME`)
-VALUE (1, '1000 Võ Văn Ngân', '00001', '001', '79', 'Trần Quốc 1', '324234234', 'Khách sạn')
+VALUES 
+	(12, '1 Võ Văn Ngân', '00001', '001', '79', 'Trần Quốc 1', '1111111111', 'Nhà'),
+    (12, '34 Đường ABC', '26764', '761', '79', 'Trần Quốc 2', '2222222222', 'Khách Sạn'),
+    (12, '54 Đường ABC', '26803', '762', '79', 'Trần Quốc 3', '3333333333', 'Trường'),
+    (13, '12/23 Đường ABC', '26833', '763', '79', 'Trần Quốc 4', '444444444', 'Trọ'),
+    (13, '12/3 Đường ABC', '26767', '761', '79', 'Trần Quốc 1', '1111111111', 'nhà');
+    
+INSERT INTO `BILL`(`CUSTOMER_ID`, `ADDRESS_ID`, `DISCOUNT_ID`)
+VALUES
+    (12, 18, 1),							
+	(12, 17, 2),
+    (13, 20, 1);
+    
+INSERT INTO `BILL_DETAIL` (`BILL_ID`, `PRODUCT_ID`, `QUANTITY`)
+VALUES
+    (1, 1, 2),							
+	(2, 2, 3),
+    (2, 1, 4);
+    
 
-
-
+INSERT INTO `CATEGORIES_PRODUCTS` (`PRODUCT_ID`, `PRODUCT_CATEGORY_ID`)
+VALUES
+    (1, 1),							
+	(1, 2),
+    (1, 3),
+    (2, 1),							
+	(3, 2),
+    (3, 1);
 
 

@@ -52,7 +52,11 @@ public class EmployeeServlet extends HttpServlet {
          String communeId = req.getParameter("commune");
          String addressStreet = req.getParameter("address-street");
 
+         String startDate = req.getParameter("start-date");
+         String salary = req.getParameter("salary");
+
          UserEntity newUser = new UserEntity();
+
          newUser.setFirstName(firstName);
          newUser.setLastName(firstName);
          newUser.setGender(gender);
@@ -63,7 +67,7 @@ public class EmployeeServlet extends HttpServlet {
 
          newUser.setUserType(UserCons.USER_TYPE_EMPLOYEE);
          newUser.setUserName(phoneNumber);
-         newUser.setPassword(HashUtils.getMd5(Base64Utils.encodeFromString("12")));
+         newUser.setPassword(HashUtils.getMd5(Base64Utils.encodeFromString(phoneNumber)));
          newUser.setStatus(true);
 
          Long newUserId = UserDAO.getInstance().insert(newUser);
@@ -80,35 +84,27 @@ public class EmployeeServlet extends HttpServlet {
             newAddress.setAddressName(AddressCons.DEFAULT_ADDRESS_NAME);
             newAddress.setUserId(newUserId);
 
-            UserEntity user = UserDAO.getInstance().getById(newUserId);
-            user.setAddressEntities(Collections.singletonList(newAddress));
-
-            UserDAO.getInstance().update(user);
-
             Long newAddressId = AddressDAO.getInstance().insert(newAddress);
 
             if (newAddressId != 0) {
-               /*UserEntity user = UserDAO.getInstance().getById(newUserId);
+               UserEntity user = UserDAO.getInstance().getById(newUserId);
                user.setAddressEntities(Collections.singletonList(AddressDAO.getInstance().getById(newAddressId)));
 
                UserDAO.getInstance().update(user);
-*/
+
                EmployeeEntity newEmployee = new EmployeeEntity();
                newEmployee.setUserId(newUserId);
                newEmployee.setUserEntity(user);
-               newEmployee.setSalary(BigDecimal.valueOf(0));
+               newEmployee.setSalary(StringUtils.toBigDecimal(salary));
                newEmployee.setStartDate(DateTimeUtils.currentDate());
 
                EmployeeDAO.getInstance().insert((newEmployee));
             }
          }
-
       }
       catch (Exception e) {
 
       }
-      req.getParameter("");
-
 
       try (PrintWriter out = resp.getWriter()) {
          out.write("id");
@@ -122,6 +118,11 @@ public class EmployeeServlet extends HttpServlet {
       try (PrintWriter out = resp.getWriter()) {
          out.write("true");
       }
+   }
+
+   @Override
+   protected void doHead(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+      super.doHead(req, resp);
    }
 
    @Override
