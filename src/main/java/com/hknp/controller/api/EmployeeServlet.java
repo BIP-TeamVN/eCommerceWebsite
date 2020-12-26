@@ -4,10 +4,12 @@ import com.hknp.model.cons.*;
 import com.hknp.model.dao.*;
 import com.hknp.model.entity.*;
 import com.hknp.utils.*;
+import javafx.beans.property.ReadOnlySetProperty;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
+import javax.xml.transform.Result;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.math.BigDecimal;
@@ -36,6 +38,7 @@ public class EmployeeServlet extends HttpServlet {
    @Override
    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
       resp.setContentType("text/html; charset=UTF-8");
+      String result = "";
 
       try {
          String lastName = req.getParameter("last-name");
@@ -58,7 +61,7 @@ public class EmployeeServlet extends HttpServlet {
          UserEntity newUser = new UserEntity();
 
          newUser.setFirstName(firstName);
-         newUser.setLastName(firstName);
+         newUser.setLastName(lastName);
          newUser.setGender(gender);
          newUser.setDateOfBirth(DateTimeUtils.stringToDate(dateOfBirth, "dd/MM/yyyy"));
          newUser.setPhoneNumber(phoneNumber);
@@ -80,6 +83,7 @@ public class EmployeeServlet extends HttpServlet {
             newAddress.setProvinceEntity(ProvinceDAO.getInstance().getById(provinceId));
             newAddress.setDistrictEntity(DistrictDAO.getInstance().getById(districtId));
             newAddress.setCommuneEntity(CommuneDAO.getInstance().getById(communeId));
+
             newAddress.setFullName(lastName + " " + firstName);
             newAddress.setAddressName(AddressCons.DEFAULT_ADDRESS_NAME);
             newAddress.setUserId(newUserId);
@@ -96,18 +100,23 @@ public class EmployeeServlet extends HttpServlet {
                newEmployee.setUserId(newUserId);
                newEmployee.setUserEntity(user);
                newEmployee.setSalary(StringUtils.toBigDecimal(salary));
-               newEmployee.setStartDate(DateTimeUtils.currentDate());
+               newEmployee.setStartDate(DateTimeUtils.stringToDate(startDate, "dd/MM/yyyy"));
 
                EmployeeDAO.getInstance().insert((newEmployee));
-            }
-         }
-      }
-      catch (Exception e) {
 
+               result += "true\n" + newUserId.toString();
+            } else {
+               result += "false\nError while insert address";
+            }
+         } else {
+            result += "false\nError while insert user";
+         }
+      } catch (Exception e) {
+         result += "false\n" + e.getMessage();
       }
 
       try (PrintWriter out = resp.getWriter()) {
-         out.write("id");
+         out.write(result);
       }
    }
 
