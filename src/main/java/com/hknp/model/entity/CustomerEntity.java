@@ -1,5 +1,7 @@
 package com.hknp.model.entity;
 
+import com.hknp.utils.DateTimeUtils;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.sql.Date;
@@ -56,5 +58,19 @@ public class CustomerEntity implements Serializable {
 
    public void setUserEntity(UserEntity userEntity) {
       this.userEntity = userEntity;
+   }
+
+   public String toJson() {
+      return "{" +
+              "\"id\":\"" + userId + "\"," +
+              "\"fullName\":\"" + userEntity.getFullName() + "\"," +
+              "\"gender\":\"" + userEntity.getGender() + "\"," +
+              "\"dob\":\"" + userEntity.getDateOfBirthStr() + "\"," +
+              "\"phone\":\"" + userEntity.getPhoneNumber() +"\"," +
+              "\"email\":\"" + userEntity.getEmail() +"\"," +
+              "\"registerDate\":\"" + DateTimeUtils.dateToString(registerDate, "dd/MM/yyyy") +"\"," +
+              "\"imgSrc\":\"" + userEntity.getImageSrc() +"\"," +
+              "\"status\":\"" + userEntity.getStatus() +"\"" +
+              "}";
    }
 }

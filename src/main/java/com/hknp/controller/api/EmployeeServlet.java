@@ -176,15 +176,81 @@ public class EmployeeServlet extends HttpServlet {
    @Override
    protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
       resp.setContentType("text/html; charset=UTF-8");
+      String result = "";
+
+      try {
+         String id = req.getParameter("id");
+         String lastName = req.getParameter("last-name");
+         String firstName = req.getParameter("first-name");
+
+         String gender = req.getParameter("gender");
+         String dateOfBirth = req.getParameter("dob");
+         String phoneNumber = req.getParameter("phone-number");
+         String ssn = req.getParameter("ssn");
+         String email = req.getParameter("email");
+
+         String provinceId = req.getParameter("province");
+         String districtId = req.getParameter("district");
+         String communeId = req.getParameter("commune");
+         String addressStreet = req.getParameter("address-street");
+
+         String startDate = req.getParameter("start-date");
+         String salary = req.getParameter("salary");
+
+         UserEntity updateUser = UserDAO.getInstance().getById(StringUtils.toLong(id));
+
+         updateUser.setFirstName(firstName);
+         updateUser.setLastName(lastName);
+         updateUser.setGender(gender);
+         updateUser.setDateOfBirth(DateTimeUtils.stringToDate(dateOfBirth, "dd/MM/yyyy"));
+         updateUser.setPhoneNumber(phoneNumber);
+         updateUser.setSsn(ssn);
+         updateUser.setEmail(email);
+
+         updateUser.setUserType(UserCons.USER_TYPE_EMPLOYEE);
+         updateUser.setUserName(phoneNumber);
+         updateUser.setPassword(HashUtils.getMd5(Base64Utils.encodeFromString(phoneNumber)));
+         updateUser.setStatus(true);
+
+         Boolean updateResult = UserDAO.getInstance().update(updateUser);
+
+         if (updateResult != false) {
+            AddressEntity updateAddress = updateUser.getAddressEntities().get(0);
+
+            updateAddress.setPhoneNumber(phoneNumber);
+            updateAddress.setStreet(addressStreet);
+            updateAddress.setProvinceEntity(ProvinceDAO.getInstance().getById(provinceId));
+            updateAddress.setDistrictEntity(DistrictDAO.getInstance().getById(districtId));
+            updateAddress.setCommuneEntity(CommuneDAO.getInstance().getById(communeId));
+
+            updateAddress.setFullName(lastName + " " + firstName);
+            updateAddress.setAddressName(AddressCons.DEFAULT_ADDRESS_NAME);
+            updateAddress.setUserId(updateUser.getUserId());
+
+            Boolean updateResltAddress = AddressDAO.getInstance().update(updateAddress);
+
+            if (updateResltAddress != false) {
+               EmployeeEntity employeeEntity = EmployeeDAO.getInstance().getById(updateUser.getUserId());
+
+               employeeEntity.setSalary(StringUtils.toBigDecimal(salary));
+               employeeEntity.setStartDate(DateTimeUtils.stringToDate(startDate, "dd/MM/yyyy"));
+
+               EmployeeDAO.getInstance().update((employeeEntity));
+
+               result += "true\n" + updateUser.getUserId().toString();
+            } else {
+               result += "false\nError while insert address";
+            }
+         } else {
+            result += "false\nError while insert user";
+         }
+      } catch (Exception e) {
+         result += "false\n" + e.getMessage();
+      }
 
       try (PrintWriter out = resp.getWriter()) {
-         out.write("true");
+         out.write(result);
       }
-   }
-
-   @Override
-   protected void doHead(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-      super.doHead(req, resp);
    }
 
    @Override
