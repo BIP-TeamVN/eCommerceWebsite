@@ -40,7 +40,7 @@ public class UserEntity implements Serializable {
    @Column(name = "EMAIL", columnDefinition = "VARCHAR(40) NULL")
    String email;
 
-   @Column(name = "USER_NAME", columnDefinition = "VARCHAR(16) NOT NULL")
+   @Column(name = "USER_NAME", columnDefinition = "VARCHAR(40) NOT NULL")
    String userName;
 
    @Column(name = "PASSWORD", columnDefinition = "VARCHAR(32) NOT NULL")

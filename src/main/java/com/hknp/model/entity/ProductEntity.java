@@ -51,7 +51,7 @@ public class ProductEntity implements Serializable {
    @JoinColumn(name = "PRODUCT_ID")
    Set<ProductTypeEntity> productTypeEntities;
    @ManyToMany(fetch = FetchType.EAGER)
-   @JoinTable(name = "categories_products",
+   @JoinTable(name = "CATEGORIES_FOR_PRODUCTS",
            joinColumns = {@JoinColumn(name = "PRODUCT_ID", nullable = false, updatable = false)},
            inverseJoinColumns = {@JoinColumn(name = "PRODUCT_CATEGORY_ID", nullable = false, updatable = false)})
    private Set<ProductCategoryEntity> productCategoryEntities;

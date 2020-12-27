@@ -1,5 +1,7 @@
 package com.hknp.model.entity;
 
+import com.hknp.utils.DateTimeUtils;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -34,8 +36,9 @@ public class EmployeeEntity implements Serializable {
               "\"dob\":\"" + userEntity.getDateOfBirthStr() + "\"," +
               "\"phone\":\"" + userEntity.getPhoneNumber() +"\"," +
               "\"email\":\"" + userEntity.getEmail() +"\"," +
-              "\"salary\":\"" + salary +"\"," +
               "\"imgSrc\":\"" + userEntity.getImageSrc() +"\"," +
+              "\"salary\":\"" + salary +"\"," +
+              "\"startDate\":\"" + DateTimeUtils.dateToString(startDate, "dd/MM/yyyy") +"\"," +
               "\"status\":\"" + userEntity.getStatus() +"\"" +
               "}";
    }
