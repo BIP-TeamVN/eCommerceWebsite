@@ -62,7 +62,7 @@ public class StringUtils {
     * @param str string to remove non-digit character
     * @return 0 or Integer value
     */
-   public static Integer toInt(String str){
+   public static Integer toInt(String str) {
       Integer result;
       str = removeNonDigit(str);
 

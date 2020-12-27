@@ -175,8 +175,7 @@ $('#employee-form').submit(function (e) {
 
   if (!isValidate) {
     e.preventDefault();
-  }
-  else {
+  } else {
     $.ajax({
       url: '/api/employees',
       method: 'POST',
@@ -186,7 +185,7 @@ $('#employee-form').submit(function (e) {
         'first-name': firstName.value.trim(),
         'gender': gender.value,
         'dob': dob.value,
-        'phone-number':phoneNumber.value,
+        'phone-number': phoneNumber.value,
         'ssn': ssn.value,
         'email': email.value,
         'province': province.value,
@@ -200,8 +199,7 @@ $('#employee-form').submit(function (e) {
         let result = data.toString().split('\n');
         if (result[0] === 'true') {
           alert("Thêm nhân viên mới thành công !");
-        }
-        else {
+        } else {
           alert("Lỗi: " + result[1]);
           e.preventDefault();
         }
@@ -214,6 +212,6 @@ $('#employee-form').submit(function (e) {
   }
 });
 
-$('#btn-cancel').click(function(){
+$('#btn-cancel').click(function () {
   $('#employee-form')[0].reset();
 });

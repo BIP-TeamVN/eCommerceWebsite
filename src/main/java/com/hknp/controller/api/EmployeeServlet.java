@@ -1,16 +1,21 @@
 package com.hknp.controller.api;
 
-import com.hknp.model.cons.*;
+import com.hknp.model.cons.AddressCons;
+import com.hknp.model.cons.UserCons;
 import com.hknp.model.dao.*;
-import com.hknp.model.entity.*;
-import com.hknp.utils.*;
-import org.apache.commons.fileupload.disk.DiskFileItemFactory;
-import org.apache.commons.fileupload.servlet.ServletFileUpload;
+import com.hknp.model.entity.AddressEntity;
+import com.hknp.model.entity.EmployeeEntity;
+import com.hknp.model.entity.UserEntity;
+import com.hknp.utils.Base64Utils;
+import com.hknp.utils.DateTimeUtils;
+import com.hknp.utils.HashUtils;
+import com.hknp.utils.StringUtils;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.*;
-import java.io.File;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;

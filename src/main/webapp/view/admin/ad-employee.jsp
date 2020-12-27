@@ -43,7 +43,9 @@
       <!--Button thêm-->
       <div class="row">
          <div class="col-md-10 ml-auto mr-auto text-right">
-            <button type="button" data-toggle="modal" data-target="#modal-add-employee" class="text-uppercase btn btn-primary pl-4 pr-4 mb-4">Thêm nhân viên</button>
+            <button type="button" data-toggle="modal" data-target="#modal-add-employee"
+                    class="text-uppercase btn btn-primary pl-4 pr-4 mb-4">Thêm nhân viên
+            </button>
          </div>
          <!-- From add employee -->
          <%@ include file="../../common/form-add-employee.jsp" %>
@@ -138,15 +140,15 @@
             '<i class="fa fa-edit"></i>' +
             '</a>' +
 
-            ( item.status === "true" ?
-               '<a href="#" class="btn btn-danger px-2 py-1" data-toggle="tooltip" data-placement="top" title="Thôi việc">' +
-               '<i class="fa fa-lock"></i>' +
-               '</a>'
-            :
-               '</a>' +
-               '<a href="#" class="btn btn-success px-2 py-1" data-toggle="tooltip" data-placement="top" title="Làm việc lại">' +
-               '<i class="fa fa-lock-open"></i>' +
-               '</a>'
+            (item.status === "true" ?
+                '<a href="#" class="btn btn-danger px-2 py-1" data-toggle="tooltip" data-placement="top" title="Thôi việc">' +
+                '<i class="fa fa-lock"></i>' +
+                '</a>'
+                :
+                '</a>' +
+                '<a href="#" class="btn btn-success px-2 py-1" data-toggle="tooltip" data-placement="top" title="Làm việc lại">' +
+                '<i class="fa fa-lock-open"></i>' +
+                '</a>'
             ) +
 
             '</td>' +

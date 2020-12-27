@@ -34,12 +34,12 @@ public class EmployeeEntity implements Serializable {
               "\"fullName\":\"" + userEntity.getFullName() + "\"," +
               "\"gender\":\"" + userEntity.getGender() + "\"," +
               "\"dob\":\"" + userEntity.getDateOfBirthStr() + "\"," +
-              "\"phone\":\"" + userEntity.getPhoneNumber() +"\"," +
-              "\"email\":\"" + userEntity.getEmail() +"\"," +
-              "\"imgSrc\":\"" + userEntity.getImageSrc() +"\"," +
-              "\"salary\":\"" + salary +"\"," +
-              "\"startDate\":\"" + DateTimeUtils.dateToString(startDate, "dd/MM/yyyy") +"\"," +
-              "\"status\":\"" + userEntity.getStatus() +"\"" +
+              "\"phone\":\"" + userEntity.getPhoneNumber() + "\"," +
+              "\"email\":\"" + userEntity.getEmail() + "\"," +
+              "\"imgSrc\":\"" + userEntity.getImageSrc() + "\"," +
+              "\"salary\":\"" + salary + "\"," +
+              "\"startDate\":\"" + DateTimeUtils.dateToString(startDate, "dd/MM/yyyy") + "\"," +
+              "\"status\":\"" + userEntity.getStatus() + "\"" +
               "}";
    }
 

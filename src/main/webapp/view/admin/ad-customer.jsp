@@ -97,39 +97,39 @@
 <!--Javascript-->
 <%@ include file="../../common/import-js.jsp" %>
 <script>
-   $(document).ready(function () {
-      const apiUrl = "/api/customer";
+  $(document).ready(function () {
+    const apiUrl = "/api/customer";
 
-      $.ajax({
-         url: apiUrl,
-         method: "GET",
-         data: {},
-         success: function (data) {
-            let obj = $.parseJSON(data);
-            console.log(obj);
-            $('#tb-list').find('tr').remove();
-            $.each(obj, function (key, value) {
-               let html =
-                       '<tr>' +
-                       '<td>' +
-                       '<a href="#" class="media align-items-center">' +
-                       '<img class="avatar rounded-circle" src="' + value.imgSrc + '" alt="avatar_image" >' +
-                       '</a>' +
-                       '</td>' +
-                       '<td>' + value.id + '</td>' +
-                       '<td>' + value.fullName + '</td>' +
-                       '<td>' + value.gender + '</td>' +
-                       '<td>' + value.dob + '</td>' +
-                       '<td>' + value.phone + '</td>' +
-                       '<td>' + value.email + '</td>' +
-                       '<td>' + value.registerDate + '</td>' +
-                       '</tr>';
-               $('#tb-list').append(html);
-            });
-         },
-         cache: false
-      });
-   });
+    $.ajax({
+      url: apiUrl,
+      method: "GET",
+      data: {},
+      success: function (data) {
+        let obj = $.parseJSON(data);
+        console.log(obj);
+        $('#tb-list').find('tr').remove();
+        $.each(obj, function (key, value) {
+          let html =
+            '<tr>' +
+            '<td>' +
+            '<a href="#" class="media align-items-center">' +
+            '<img class="avatar rounded-circle" src="' + value.imgSrc + '" alt="avatar_image" >' +
+            '</a>' +
+            '</td>' +
+            '<td>' + value.id + '</td>' +
+            '<td>' + value.fullName + '</td>' +
+            '<td>' + value.gender + '</td>' +
+            '<td>' + value.dob + '</td>' +
+            '<td>' + value.phone + '</td>' +
+            '<td>' + value.email + '</td>' +
+            '<td>' + value.registerDate + '</td>' +
+            '</tr>';
+          $('#tb-list').append(html);
+        });
+      },
+      cache: false
+    });
+  });
 </script>
 </body>
 </html>
