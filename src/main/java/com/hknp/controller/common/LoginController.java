@@ -1,9 +1,8 @@
-package com.hknp.controller.Common;
+package com.hknp.controller.common;
 
 import com.hknp.model.dao.UserDAO;
 import com.hknp.model.entity.Cons;
 import com.hknp.utils.ServletUtils;
-import com.hknp.utils.StringUtils;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -51,7 +50,7 @@ public class LoginController extends HttpServlet {
          try {
             String userName = req.getParameter("username");
             String password = req.getParameter("password");
-            Long id = UserDAO.getInstance().CheckLogin(userName, password);
+            Long id = UserDAO.getInstance().checkLogin(userName, password);
             if (id != 0) {
                session.setAttribute("id", id);
                ServletUtils.forward(req, resp, "/login");

@@ -1,4 +1,4 @@
-package com.hknp.controller.Common;
+package com.hknp.controller.common;
 
 import com.hknp.utils.ServletUtils;
 

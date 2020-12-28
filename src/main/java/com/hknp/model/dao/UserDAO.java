@@ -9,6 +9,7 @@ import com.hknp.utils.HashUtils;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import java.util.ArrayList;
 
@@ -105,7 +106,7 @@ public class UserDAO implements IRetrieveEntity<UserEntity, Long>, IModifySingle
       return true;
    }
 
-   public Long CheckLogin(String username, String password) {
+   public Long checkLogin(String username, String password) {
       EntityManager entityMgr = EntityUtils.getEntityManager();
       long id = 0L;
       try {
@@ -118,6 +119,44 @@ public class UserDAO implements IRetrieveEntity<UserEntity, Long>, IModifySingle
          exception.printStackTrace();
       }
       return id;
+   }
+
+   /**
+    * Check email exist in User table on database
+    *
+    * @param userId        Id of user, pass 0 if null
+    * @param email         Email value to check
+    * @return true if email not exist in database else false
+    */
+   public Boolean checkEmail(Long userId, String email) {
+      EntityManager entityMgr = EntityUtils.getEntityManager();
+
+      String queryStr = "select count(*) from UserEntity user where user.userId <> :userIdPara and user.email = :emailPara";
+      Query query = entityMgr.createQuery(queryStr);
+      query.setParameter("userIdPara", userId);
+      query.setParameter("emailPara", email);
+
+      Long count = (Long) query.getSingleResult();
+      return count == 0;
+   }
+
+   /**
+    * Check phone number exist in User table on database
+    *
+    * @param userId        Id of user, pass 0 if null
+    * @param phoneNumber   Phone number value to check
+    * @return true if phone number not exist in database else false
+    */
+   public Boolean checkPhoneNumber(Long userId, String phoneNumber) {
+      EntityManager entityMgr = EntityUtils.getEntityManager();
+
+      String queryStr = "select count(*) from UserEntity user where user.userId <> :userIdPara and user.phoneNumber = :phoneNumberPara";
+      Query query = entityMgr.createQuery(queryStr);
+      query.setParameter("userIdPara", userId);
+      query.setParameter("phoneNumberPara", phoneNumber);
+
+      Long count = (Long) query.getSingleResult();
+      return count == 0;
    }
 }
 
