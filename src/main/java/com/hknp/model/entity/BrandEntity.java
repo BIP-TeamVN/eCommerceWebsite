@@ -77,7 +77,7 @@ public class BrandEntity implements Serializable {
       if (image == null || image.isEmpty()) {
          return Cons.Brand.DEFAULT_BRAND_IMAGE;
       } else {
-         return Cons.DEFAULT_IMAGE_SRC_PREFIX + image;
+         return image;
       }
    }
    public void setImage(String image) {
