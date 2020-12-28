@@ -1,4 +1,4 @@
-package com.hknp.controller.admin;
+package com.hknp.controller.Common;
 
 import com.hknp.utils.ServletUtils;
 
@@ -7,17 +7,22 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
-@WebServlet(urlPatterns = {"/admin"})
-public class HomeController extends HttpServlet {
+@WebServlet(urlPatterns = {"/logout"})
+public class LogoutController extends HttpServlet {
    @Override
    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-      ServletUtils.forward(req, resp, "/view/admin/ad-dashboard.jsp");
+      doPost(req, resp);
    }
 
    @Override
    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-      doGet(req, resp);
+      try {
+         HttpSession session = req.getSession();
+         session.invalidate();
+      } catch (Exception e) {}
+      ServletUtils.forward(req, resp, "/login");
    }
 }
