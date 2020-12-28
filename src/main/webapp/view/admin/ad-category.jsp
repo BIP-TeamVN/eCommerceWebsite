@@ -93,8 +93,8 @@
                        '<td>' + item.id + '</td>' +
                        '<td>' + item.name + '</td>' +
                        '<td>' +
-                       '<a href="#" class="media align-items-center">' +
-                       '<img class="avatar rounded-circle" src="' + item.image + '" alt="product-category_image" >' +
+                       '<a href="#" class="media m-auto align-items-center">' +
+                       '<img class="avatar m-auto rounded-circle" src="' + item.image + '" alt="product-category_image" >' +
                        '</a>' +
                        '</td>' +
                        '<td class="td-actions text-center">' +
