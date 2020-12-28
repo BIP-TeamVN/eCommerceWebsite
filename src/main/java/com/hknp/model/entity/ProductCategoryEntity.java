@@ -1,5 +1,7 @@
 package com.hknp.model.entity;
 
+import com.hknp.utils.DateTimeUtils;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Set;
@@ -23,7 +25,13 @@ public class ProductCategoryEntity implements Serializable {
 
    public ProductCategoryEntity() {
    }
-
+   public String toJson() {
+      return "{" +
+              "\"id\":\"" + productCategoryId + "\"," +
+              "\"name\":\"" + productCategoryName + "\"," +
+              "\"image\":\"" + image + "\"" +
+              "}";
+   }
    public Long getProductCategoryId() {
       return productCategoryId;
    }
