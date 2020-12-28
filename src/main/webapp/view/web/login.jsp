@@ -108,13 +108,13 @@
                         <div class="tab-content" id="myTabContent">
                            <div class="tab-pane fade show active" id="tabs-icons-text-1" role="tabpanel"
                                 aria-labelledby="tabs-icons-text-1-tab">
-                              <form role="form">
+                              <form role="form" action="login" method="post">
                                  <div class="form-group mb-3">
                                     <div class="input-group input-group-merge input-group-alternative">
                                        <div class="input-group-prepend">
                                           <span class="input-group-text"><i class="ni ni-email-83"></i></span>
                                        </div>
-                                       <input class="form-control" placeholder="Tài khoản" type="email">
+                                       <input class="form-control" placeholder="Tài khoản" type="text" name="username" value="${user}">
                                     </div>
                                  </div>
                                  <div class="form-group">
@@ -122,11 +122,11 @@
                                        <div class="input-group-prepend">
                                           <span class="input-group-text"><i class="ni ni-lock-circle-open"></i></span>
                                        </div>
-                                       <input class="form-control" placeholder="Mật khẩu" type="password">
+                                       <input class="form-control" placeholder="Mật khẩu" type="password" name="password" value="${pass}">
                                     </div>
                                  </div>
                                  <div class="text-center">
-                                    <button type="button" class="btn btn-primary my-4 btn-sign">Đăng nhập</button>
+                                    <button type="submit" class="btn btn-primary my-4 btn-sign">Đăng nhập</button>
                                  </div>
                               </form>
                            </div>

@@ -169,7 +169,7 @@
                         <div class="custom-file">
                            <label class="custom-file-label custom-file-img-label" for="up-image">Select file</label>
                            <input type="file" class="custom-file-input" id="up-image" name="up-image" accept="image/*"
-                                  lang="vi">
+                                  onchange="encodeImgToBase64(this)">
                         </div>
                      </div>
                   </form>

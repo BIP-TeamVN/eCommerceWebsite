@@ -4,7 +4,7 @@
 <%@ page import="java.time.Duration" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%;
+<%
    String minDob = DateTimeUtils.dateToString(Date.from(Instant.now().minus(Duration.ofDays(36520))), "yyyy-MM-dd");
 %>
 
@@ -16,9 +16,8 @@
 </head>
 
 <body>
-<%@ include file="../../common/ad-side-nav.jsp" %>
-
-<jsp:include page="../../common/ad-side-nav.jsp">
+<!--Left side nav-->
+<jsp:include page="./ad--side-nav.jsp">
    <jsp:param name="selectedIndex" value="1"/>
 </jsp:include>
 

@@ -3,7 +3,9 @@ package com.hknp.model.dao;
 import com.hknp.interfaces.IModifySingleEntityAutoIncrement;
 import com.hknp.interfaces.IRetrieveEntity;
 import com.hknp.model.entity.UserEntity;
+import com.hknp.utils.Base64Utils;
 import com.hknp.utils.EntityUtils;
+import com.hknp.utils.HashUtils;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
@@ -101,6 +103,21 @@ public class UserDAO implements IRetrieveEntity<UserEntity, Long>, IModifySingle
          return false;
       }
       return true;
+   }
+
+   public Long CheckLogin(String username, String password) {
+      EntityManager entityMgr = EntityUtils.getEntityManager();
+      long id = 0L;
+      try {
+         password = HashUtils.getMd5(Base64Utils.encodeFromString(password));
+         String query = "SELECT u FROM UserEntity AS u WHERE u.userName = '" + username + "'";
+         UserEntity userEntity = entityMgr.createQuery(query, UserEntity.class).getSingleResult();
+         if (userEntity.getPassword().equals(password))
+            id = userEntity.getUserId();
+      } catch (Exception exception) {
+         exception.printStackTrace();
+      }
+      return id;
    }
 }
 

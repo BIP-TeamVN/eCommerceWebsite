@@ -2,13 +2,13 @@
 <html>
 <head>
    <%@ include file="../../common/meta-info.jsp" %>
-   <title>eCommerce Website - Admin</title>
+   <title>eCommerce Website - Seller</title>
    <%@ include file="../../common/link-css.jsp" %>
 </head>
 
 <body>
 <!--Left side nav-->
-<jsp:include page="./ad--side-nav.jsp">
+<jsp:include page="./sh-side-nav.jsp">
    <jsp:param name="selectedIndex" value="5"/>
 </jsp:include>
 
@@ -48,7 +48,6 @@
          <!-- From add product-category -->
          <%@ include file="../../common/form-add-product-category.jsp" %>
       </div>
-
       <!-- Table -->
       <div class="row">
          <div class="col ml--3 table-responsive">
@@ -66,7 +65,6 @@
             </table>
          </div>
       </div>
-
       <!-- Footer -->
       <%@ include file="../../common/footer.jsp" %>
    </div>
@@ -75,42 +73,42 @@
 <!--Javascript-->
 <%@ include file="../../common/import-js.jsp" %>
 <script>
-   $(document).ready(function () {
-      const apiUrl = "/api/product-categories";
+  $(document).ready(function () {
+    const apiUrl = "/api/product-categories";
 
-      $.ajax({
-         url: apiUrl,
-         method: 'GET',
-         data: {
-            page: '1',
-         },
-         success: function (data, textStatus, jqXHR) {
-            let list = $.parseJSON(data);
-            console.log(list);
+    $.ajax({
+      url: apiUrl,
+      method: 'GET',
+      data: {
+        page: '1',
+      },
+      success: function (data, textStatus, jqXHR) {
+        let list = $.parseJSON(data);
+        console.log(list);
 
-            $.each(list, function (index, item) {
-               let html =
-                       '<tr>' +
-                       '<td>' + item.id + '</td>' +
-                       '<td>' + item.name + '</td>' +
-                       '<td>' +
-                       '<a href="#" class="media m-auto align-items-center">' +
-                       '<img class="avatar m-auto rounded-circle" src="' + item.image + '" alt="product-category_image" >' +
-                       '</a>' +
-                       '</td>' +
-                       '<td class="td-actions text-center">' +
-                       '<a href="#" class="btn btn-primary px-2 py-1" data-toggle="tooltip" data-placement="top" title="Chỉnh sửa thông tin">' +
-                       '<i class="fa fa-edit"></i>' +
-                       '</a>' +
-                       '</td>' +
-                       '</tr>';
-               console.log(html);
-               $('#tb-list').append(html);
-            });
-         },
-         cache: false
-      });
-   });
+        $.each(list, function (index, item) {
+          let html =
+            '<tr>' +
+            '<td>' + item.id + '</td>' +
+            '<td>' + item.name + '</td>' +
+            '<td>' +
+            '<a href="#" class="media align-items-center">' +
+            '<img class="avatar rounded-circle" src="' + item.image + '" alt="product-category_image" >' +
+            '</a>' +
+            '</td>' +
+            '<td class="td-actions text-center">' +
+            '<a href="#" class="btn btn-primary px-2 py-1" data-toggle="tooltip" data-placement="top" title="Chỉnh sửa thông tin">' +
+            '<i class="fa fa-edit"></i>' +
+            '</a>' +
+            '</td>' +
+            '</tr>';
+          console.log(html);
+          $('#tb-list').append(html);
+        });
+      },
+      cache: false
+    });
+  });
 </script>
 </body>
 </html>
