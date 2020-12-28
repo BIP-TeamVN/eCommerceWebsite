@@ -62,20 +62,18 @@ public class EmployeeServlet extends HttpServlet {
          String startDate = req.getParameter("start-date");
          String salary = req.getParameter("salary");
 
-         UserEntity newUser = new UserEntity();
-
-         newUser.setFirstName(firstName);
-         newUser.setLastName(lastName);
-         newUser.setGender(gender);
-         newUser.setDateOfBirth(DateTimeUtils.stringToDate(dateOfBirth, "yyyy-MM-dd"));
-         newUser.setPhoneNumber(phoneNumber);
-         newUser.setSsn(ssn);
-         newUser.setEmail(email);
-
-         newUser.setUserType(Cons.User.USER_TYPE_EMPLOYEE);
-         newUser.setUserName(phoneNumber);
-         newUser.setPassword(HashUtils.getMd5(Base64Utils.encodeFromString(phoneNumber)));
-         newUser.setStatus(true);
+         UserEntity newUser = new UserEntity(
+                 lastName,
+                 firstName,
+                 gender,
+                 DateTimeUtils.stringToDate(dateOfBirth, "yyyy-MM-dd"),
+                 ssn,
+                 phoneNumber,
+                 email,
+                 phoneNumber, // default username
+                 HashUtils.getMd5(Base64Utils.encodeFromString(phoneNumber)),
+                 Cons.User.USER_TYPE_EMPLOYEE
+         );
 
          EmployeeEntity newEmployee = new EmployeeEntity();
          newEmployee.setUserEntity(newUser);

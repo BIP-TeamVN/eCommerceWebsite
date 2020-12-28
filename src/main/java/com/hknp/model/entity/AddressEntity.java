@@ -43,11 +43,13 @@ public class AddressEntity implements Serializable {
    String phoneNumber;
 
    public AddressEntity(String street, String communeId, String districtId, String provinceId, Long userId, String fullName, String addressName, String phoneNumber) {
-      this.addressId = 0L;
+      this.addressId = null;
+
       this.street = street;
       this.communeEntity = CommuneDAO.getInstance().getById(communeId);
       this.districtEntity = DistrictDAO.getInstance().getById(districtId);
       this.provinceEntity = ProvinceDAO.getInstance().getById(provinceId);
+
       this.userId = userId;
       this.fullName = fullName;
       this.addressName = addressName;
