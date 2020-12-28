@@ -16,6 +16,7 @@ const district = document.getElementById('district');
 const commune = document.getElementById('commune');
 const addressStreet = document.getElementById('address-street');
 
+var imgBase64 = '';
 
 let isValidate = true;
 
@@ -133,6 +134,14 @@ function isEmail(email) {
   return /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(email);
 }
 
+function encodeImgToBase64(element) {
+  let img = element.files[0];
+  let imgReader = new FileReader();
+  imgReader.onloadend = function() {
+    imgBase64 = imgReader.result;
+  }
+  imgReader.readAsDataURL(img);
+}
 
 $('#employee-form').submit(function (e) {
   checkInputs();
@@ -193,7 +202,8 @@ $('#employee-form').submit(function (e) {
         'commune': commune.value,
         'address-street': addressStreet.value.trim(),
         'start-date': startDate.value,
-        'salary': salary.value
+        'salary': salary.value,
+        'imageBase64': imgBase64
       },
       success: function (data, textStatus, jqXHR) {
         let result = data.toString().split('\n');

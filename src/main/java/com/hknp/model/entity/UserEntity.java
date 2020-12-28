@@ -94,7 +94,7 @@ public class UserEntity implements Serializable {
             return Cons.User.DEFAULT_USER_IMAGE_MALE_SRC;
          }
       } else {
-         return Cons.DEFAULT_IMAGE_SRC_PREFIX + image;
+         return image;
       }
    }
 
