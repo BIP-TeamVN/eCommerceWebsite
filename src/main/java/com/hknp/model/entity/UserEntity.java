@@ -82,9 +82,9 @@ public class UserEntity implements Serializable {
       return lastName + " " + firstName;
    }
 
-   public String getDateOfBirthStr() {
-      return DateTimeUtils.dateToString(dateOfBirth, "dd/MM/yyyy");
-   }
+   public String getDateOfBirthStr() { return getDateOfBirthStr("dd/MM/yyyy"); }
+
+   public String getDateOfBirthStr(String formatPattern) { return DateTimeUtils.dateToString(dateOfBirth, formatPattern); }
 
    public String getImageSrc() {
       if (image == null || image.isEmpty()) {
@@ -94,7 +94,7 @@ public class UserEntity implements Serializable {
             return Cons.User.DEFAULT_USER_IMAGE_MALE_SRC;
          }
       } else {
-         return Cons.DEFAULT_IMAGE_SRC_PREFIX + image;
+         return image;
       }
    }
 

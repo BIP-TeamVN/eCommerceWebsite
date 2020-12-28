@@ -10,15 +10,15 @@ import javax.persistence.EntityTransaction;
 import javax.persistence.TypedQuery;
 import java.util.ArrayList;
 
-public class BranDAO implements IRetrieveEntity<BrandEntity, Long>, IModifySingleEntityAutoIncrement<BrandEntity, Long> {
-   private static BranDAO instance = null;
+public class BrandDAO implements IRetrieveEntity<BrandEntity, Long>, IModifySingleEntityAutoIncrement<BrandEntity, Long> {
+   private static BrandDAO instance = null;
 
-   private BranDAO() {
+   private BrandDAO() {
    }
 
-   public static BranDAO getInstance() {
+   public static BrandDAO getInstance() {
       if (instance == null) {
-         instance = new BranDAO();
+         instance = new BrandDAO();
       }
       return instance;
    }

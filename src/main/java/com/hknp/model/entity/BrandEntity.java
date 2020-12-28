@@ -1,5 +1,7 @@
 package com.hknp.model.entity;
 
+import com.hknp.utils.DateTimeUtils;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
@@ -28,6 +30,14 @@ public class BrandEntity implements Serializable {
    public BrandEntity() {
    }
 
+   public String toJson() {
+      return "{" +
+              "\"id\":\"" + brandId + "\"," +
+              "\"brandName\":\"" + brandName + "\"," +
+              "\"brandOrigin\":\"" + brandOrigin + "\"," +
+              "\"image\":\"" + getImageSrc() + "\"" +
+              "}";
+   }
    public List<ProductEntity> getProductEntities() {
       return productEntities;
    }
@@ -58,5 +68,19 @@ public class BrandEntity implements Serializable {
 
    public void setBrandOrigin(String brandOrigin) {
       this.brandOrigin = brandOrigin;
+   }
+
+   public String getImage() {
+      return image;
+   }
+   public String getImageSrc() {
+      if (image == null || image.isEmpty()) {
+         return Cons.Brand.DEFAULT_BRAND_IMAGE;
+      } else {
+         return Cons.DEFAULT_IMAGE_SRC_PREFIX + image;
+      }
+   }
+   public void setImage(String image) {
+      this.image = image;
    }
 }

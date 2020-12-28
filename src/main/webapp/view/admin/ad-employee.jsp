@@ -8,9 +8,8 @@
 </head>
 
 <body>
-<%@ include file="../../common/ad-side-nav.jsp" %>
-
-<jsp:include page="../../common/ad-side-nav.jsp">
+<!--Left side nav-->
+<jsp:include page="./ad--side-nav.jsp">
    <jsp:param name="selectedIndex" value="1"/>
 </jsp:include>
 
@@ -42,7 +41,7 @@
 
       <!--Button thêm-->
       <div class="row">
-         <div class="col-md-10 ml-auto mr-auto text-right">
+         <div class="col ml-auto mr-auto text-right">
             <button type="button" data-toggle="modal" data-target="#modal-add-employee"
                     class="text-uppercase btn btn-primary pl-4 pr-4 mb-4">Thêm nhân viên
             </button>
@@ -124,7 +123,7 @@
             '<tr>' +
             '<td>' +
             '<a href="#" class="media align-items-center">' +
-            '<img class="avatar rounded-circle" src="' + item.imgSrc + '" alt="avatar_image" >' +
+            '<img class="m-auto avatar rounded-circle" src="' + item.imgSrc + '" alt="avatar_image" >' +
             '</a>' +
             '</td>' +
             '<td>' + item.id + '</td>' +
@@ -136,7 +135,7 @@
             '<td>' + item.salary + '</td>' +
             '<td>' + item.startDate + '</td>' +
             '<td class="td-actions text-center">' +
-            '<a href="#" class="btn btn-primary px-2 py-1" data-toggle="tooltip" data-placement="top" title="Chỉnh sửa thông tin">' +
+            '<a href="/admin/employee/edit?id=' + item.id +'" class="btn btn-primary px-2 py-1" data-toggle="tooltip" data-placement="top" title="Chỉnh sửa thông tin">' +
             '<i class="fa fa-edit"></i>' +
             '</a>' +
 

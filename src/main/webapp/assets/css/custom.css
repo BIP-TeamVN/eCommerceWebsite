@@ -33,6 +33,7 @@
 .avatar {
   width: 56px;
   height: 56px;
+  object-fit: cover;
 }
 
 .pagination > .page-item.active {
