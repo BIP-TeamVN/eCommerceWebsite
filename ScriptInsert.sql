@@ -111,27 +111,27 @@ VALUES
 
 INSERT INTO `USER`(`FIRST_NAME`, `LAST_NAME`, `GENDER`, `DATE_OF_BIRTH`, `SSN`, `PHONE_NUMBER`, `EMAIL`, `USER_NAME`, `PASSWORD`, `USER_TYPE`, `STATUS`)
 VALUES
-    ('Lý', 'Nguyễn Khách', 'Nữ', '20000331', '072356850000', '0965639521', NULL, 'empl', '7e7175c2e20d590551e9fb500bc38c8c', 'CUSTOMER', 1),		-- 12					
-	('Giang',  'Lê Hàng', 'Nam', '19951203', '596522653964', '0965632521', 'giangle1995@gmail.com', '0965632521', 'e73adf9842e38aab89b6a8b9c8824051', 'CUSTOMER', 1);-- 13
+    ('Lý', 'Nguyễn Khách', 'Nữ', '20000331', '072356850000', '0965639521', NULL, 'empl', '7e7175c2e20d590551e9fb500bc38c8c', 'CUSTOMER', 1),		-- 10008		
+	('Giang',  'Lê Hàng', 'Nam', '19951203', '596522653964', '0965632521', 'giangle1995@gmail.com', '0965632521', 'e73adf9842e38aab89b6a8b9c8824051', 'CUSTOMER', 1);-- 10009
     
 INSERT INTO `CUSTOMER`(`USER_ID`, `REGISTER_DATE`)
 VALUES
-    (12, '20201023'),							
-	(13, '20191214');
+    (10008, '20201023'),							
+	(10009, '20191214');
     
 INSERT INTO `ADDRESS`(`USER_ID`, `STREET`, `COMMUNE_ID`, `DISTRICT_ID`, `PROVINCE_ID`, `FULL_NAME`, `PHONE_NUMBER`, `ADDRESS_NAME`)
 VALUES 
 	(10001, '1 Võ Văn Ngân', '00001', '001', '79', 'Trần Quốc 1', '1111111111', 'Nhà'),
     (10000, '34 Đường ABC', '26764', '761', '79', 'Trần Quốc 2', '2222222222', 'Khách Sạn'),
-    (12, '54 Đường ABC', '26803', '762', '79', 'Trần Quốc 3', '3333333333', 'Trường'),
-    (13, '12/23 Đường ABC', '26833', '763', '79', 'Trần Quốc 4', '444444444', 'Trọ'),
-    (13, '12/3 Đường ABC', '26767', '761', '79', 'Trần Quốc 1', '1111111111', 'nhà');
+    (10008, '54 Đường ABC', '26803', '762', '79', 'Trần Quốc 3', '3333333333', 'Trường'),
+    (10008, '12/23 Đường ABC', '26833', '763', '79', 'Trần Quốc 4', '444444444', 'Trọ'),
+    (10009, '12/3 Đường ABC', '26767', '761', '79', 'Trần Quốc 1', '1111111111', 'nhà');
     
 INSERT INTO `BILL`(`CUSTOMER_ID`, `ADDRESS_ID`, `DISCOUNT_ID`)
 VALUES
-    (12, 18, 1),							
-	(12, 17, 2),
-    (13, 20, 1);
+    (10008, 18, 1),							
+	(10008, 17, 2),
+    (10009, 20, 1);
     
 INSERT INTO `BILL_DETAIL` (`BILL_ID`, `PRODUCT_ID`, `QUANTITY`)
 VALUES
@@ -148,5 +148,17 @@ VALUES
     (2, 1),							
 	(3, 2),
     (3, 1);
+    
+    
+INSERT INTO `USER`(`FIRST_NAME`, `LAST_NAME`, `GENDER`, `DATE_OF_BIRTH`, `SSN`, `PHONE_NUMBER`, `EMAIL`, `USER_NAME`, `PASSWORD`, `USER_TYPE`, `STATUS`)
+VALUES
+    ('Giao', 'Nguyễn Khách', 'Nữ', '20000331', '072356850000', '0965639521', NULL, 'giaohang1', '7e7175c2e20d590551e9fb500bc38c8c', 'DELIVERY', 1),	-- 10010					
+	('Hàng',  'Lê Hàng', 'Nam', '19951203', '596522653964', '0965632521', 'hang5@gmail.com', 'giaohang2', 'e73adf9842e38aab89b6a8b9c8824051', 'DELIVERY', 1); -- 10011
+
+INSERT INTO `EMPLOYEE` (`USER_ID`, `START_DATE`, `SALARY`)
+VALUES
+	(10010, '20181025', 8000000),
+	(10011, '20181102', 6500000);
+
 
 
