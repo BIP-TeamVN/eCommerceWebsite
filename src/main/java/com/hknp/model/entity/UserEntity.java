@@ -45,7 +45,7 @@ public class UserEntity implements Serializable {
    @Column(name = "PASSWORD", columnDefinition = "VARCHAR(32) NOT NULL")
    String password;
 
-   @Column(name = "USER_TYPE", columnDefinition = "VARCHAR(15) DEFAULT 'CUSTOMMER' NOT NULL")
+   @Column(name = "USER_TYPE", columnDefinition = "VARCHAR(15) DEFAULT 'CUSTOMER' NOT NULL")
    String userType;
 
    @Column(name = "STATUS", columnDefinition = "TINYINT(1) DEFAULT '1'")
@@ -57,6 +57,23 @@ public class UserEntity implements Serializable {
 
    public UserEntity() {
 
+   }
+
+   public UserEntity(String lastName, String firstName, String gender, Date dateOfBirth, String ssn, String phoneNumber, String email, String userName, String password, String userType) {
+      this.lastName = lastName;
+      this.firstName = firstName;
+      this.gender = gender;
+      this.dateOfBirth = dateOfBirth;
+
+      this.ssn = ssn;
+      this.phoneNumber = phoneNumber;
+      this.email = email;
+
+      this.userName = userName;
+      this.password = password;
+      this.userType = userType;
+
+      this.status = true;
    }
 
    public String getFullName() {

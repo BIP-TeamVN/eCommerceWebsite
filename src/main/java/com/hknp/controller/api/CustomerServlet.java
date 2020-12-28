@@ -1,8 +1,8 @@
 package com.hknp.controller.api;
 
-import com.hknp.model.cons.UserCons;
 import com.hknp.model.dao.CustomerDAO;
 import com.hknp.model.dao.UserDAO;
+import com.hknp.model.entity.Cons;
 import com.hknp.model.entity.CustomerEntity;
 import com.hknp.model.entity.UserEntity;
 import com.hknp.utils.Base64Utils;
@@ -18,7 +18,6 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 @WebServlet(urlPatterns = {"/api/customer"})
@@ -64,7 +63,7 @@ public class CustomerServlet extends HttpServlet {
          newUser.setSsn(ssn);
          newUser.setEmail(email);
 
-         newUser.setUserType(UserCons.USER_TYPE_CUSTOMER);
+         newUser.setUserType(Cons.User.USER_TYPE_CUSTOMER);
          newUser.setUserName(phoneNumber);
          newUser.setPassword(password);
          newUser.setPassword(HashUtils.getMd5(Base64Utils.encodeFromString(phoneNumber)));
@@ -114,7 +113,7 @@ public class CustomerServlet extends HttpServlet {
          updateUser.setSsn(ssn);
          updateUser.setEmail(email);
 
-         updateUser.setUserType(UserCons.USER_TYPE_CUSTOMER);
+         updateUser.setUserType(Cons.User.USER_TYPE_CUSTOMER);
          updateUser.setUserName(phoneNumber);
          updateUser.setPassword(HashUtils.getMd5(Base64Utils.encodeFromString(phoneNumber)));
          updateUser.setStatus(true);

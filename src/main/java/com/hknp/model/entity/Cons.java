@@ -20,4 +20,8 @@ public class Cons {
    public static class Address {
       public static String DEFAULT_ADDRESS_NAME = "Mặc định";
    }
+
+   public static class ProductCategory {
+      public static String DEFAULT_PRODUCT_CATEGORY_IMAGE = "../../assets/img/unknown-category.svg";
+   }
 }

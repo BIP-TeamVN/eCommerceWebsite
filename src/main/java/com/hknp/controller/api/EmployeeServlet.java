@@ -77,38 +77,34 @@ public class EmployeeServlet extends HttpServlet {
          newUser.setPassword(HashUtils.getMd5(Base64Utils.encodeFromString(phoneNumber)));
          newUser.setStatus(true);
 
-         Long newUserId = UserDAO.getInstance().insert(newUser);
+         EmployeeEntity newEmployee = new EmployeeEntity();
+         newEmployee.setUserEntity(newUser);
+         newEmployee.setSalary(StringUtils.toBigDecimal(salary));
+         newEmployee.setStartDate(DateTimeUtils.stringToDate(startDate, "yyyy-MM-dd"));
 
-         if (newUserId != 0) {
-            AddressEntity newAddress = new AddressEntity();
+         Long newEmployeeId = EmployeeDAO.getInstance().insert(newEmployee);
 
-            newAddress.setPhoneNumber(phoneNumber);
-            newAddress.setStreet(addressStreet);
-            newAddress.setProvinceEntity(ProvinceDAO.getInstance().getById(provinceId));
-            newAddress.setDistrictEntity(DistrictDAO.getInstance().getById(districtId));
-            newAddress.setCommuneEntity(CommuneDAO.getInstance().getById(communeId));
-
-            newAddress.setFullName(lastName + " " + firstName);
-            newAddress.setAddressName(Cons.Address.DEFAULT_ADDRESS_NAME);
-            newAddress.setUserId(newUserId);
+         if (newEmployeeId != 0) {
+            AddressEntity newAddress = new AddressEntity(
+                    addressStreet,
+                    communeId,
+                    districtId,
+                    provinceId,
+                    newEmployeeId,
+                    lastName + " " + firstName,
+                    Cons.Address.DEFAULT_ADDRESS_NAME,
+                    phoneNumber
+            );
 
             Long newAddressId = AddressDAO.getInstance().insert(newAddress);
 
             if (newAddressId != 0) {
-               UserEntity user = UserDAO.getInstance().getById(newUserId);
+               UserEntity user = UserDAO.getInstance().getById(newEmployeeId);
                user.setAddressEntities(Collections.singletonList(AddressDAO.getInstance().getById(newAddressId)));
-
                UserDAO.getInstance().update(user);
 
-               EmployeeEntity newEmployee = new EmployeeEntity();
-               newEmployee.setUserId(newUserId);
-               newEmployee.setUserEntity(user);
-               newEmployee.setSalary(StringUtils.toBigDecimal(salary));
-               newEmployee.setStartDate(DateTimeUtils.stringToDate(startDate, "yyyy-MM-dd"));
-
                EmployeeDAO.getInstance().insert((newEmployee));
-
-               result += "true\n" + newUserId.toString();
+               result += "true\n" + newEmployeeId.toString();
             } else {
                result += "false\nError while insert address";
             }
