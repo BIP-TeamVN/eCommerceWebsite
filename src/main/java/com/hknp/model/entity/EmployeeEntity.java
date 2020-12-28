@@ -38,10 +38,12 @@ public class EmployeeEntity implements Serializable {
               "\"email\":\"" + userEntity.getEmail() + "\"," +
               "\"imgSrc\":\"" + userEntity.getImageSrc() + "\"," +
               "\"salary\":\"" + salary + "\"," +
-              "\"startDate\":\"" + DateTimeUtils.dateToString(startDate, "dd/MM/yyyy") + "\"," +
+              "\"startDate\":\"" + getStartDateStr("dd/MM/yyyy") + "\"," +
               "\"status\":\"" + userEntity.getStatus() + "\"" +
               "}";
    }
+
+   public String getStartDateStr(String formatPattern) { return DateTimeUtils.dateToString(startDate, formatPattern); }
 
    public Long getUserId() {
       return userId;

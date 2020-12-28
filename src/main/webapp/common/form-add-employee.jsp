@@ -7,7 +7,7 @@
    String minDob = DateTimeUtils.dateToString(Date.from(Instant.now().minus(Duration.ofDays(36520))), "yyyy-MM-dd");
    String defaultDob = DateTimeUtils.dateToString(Date.from(Instant.now().minus(Duration.ofDays(3652))), "yyyy-MM-dd");
    String today = DateTimeUtils.dateToString(Date.from(Instant.now()), "yyyy-MM-dd");
-%>>
+%>
 
 <!-- Modal -->
 <div class="modal fade bd-example-modal-lg" id="modal-add-employee" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
