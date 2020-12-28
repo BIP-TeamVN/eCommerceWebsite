@@ -92,7 +92,11 @@
                        '<tr>' +
                        '<td>' + item.id + '</td>' +
                        '<td>' + item.name + '</td>' +
-                       '<td>' + item.image + '</td>' +
+                       '<td>' +
+                       '<a href="#" class="media align-items-center">' +
+                       '<img class="avatar rounded-circle" src="' + item.image + '" alt="product-category_image" >' +
+                       '</a>' +
+                       '</td>' +
                        '<td class="td-actions text-center">' +
                        '<a href="#" class="btn btn-primary px-2 py-1" data-toggle="tooltip" data-placement="top" title="Chỉnh sửa thông tin">' +
                        '<i class="fa fa-edit"></i>' +
@@ -106,6 +110,7 @@
                        '</a>' +
                        '</td>' +
                        '</tr>';
+               console.log(html);
                $('#tb-list').append(html);
             });
          },
