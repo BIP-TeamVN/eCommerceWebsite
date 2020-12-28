@@ -1,8 +1,6 @@
 package com.hknp.model.entity;
 
 public class Cons {
-   public static String DEFAULT_IMAGE_SRC_PREFIX = "data:image/png;base64,";
-
    public static class User {
       public static String USER_GENDER_MALE = "Nam";
       public static String USER_GENDER_FEMALE = "Nữ";

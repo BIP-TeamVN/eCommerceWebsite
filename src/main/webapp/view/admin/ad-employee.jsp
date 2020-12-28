@@ -8,9 +8,8 @@
 </head>
 
 <body>
-<%@ include file="../../common/ad-side-nav.jsp" %>
-
-<jsp:include page="../../common/ad-side-nav.jsp">
+<!--Left side nav-->
+<jsp:include page="./ad--side-nav.jsp">
    <jsp:param name="selectedIndex" value="1"/>
 </jsp:include>
 
@@ -42,7 +41,7 @@
 
       <!--Button thêm-->
       <div class="row">
-         <div class="col-md-10 ml-auto mr-auto text-right">
+         <div class="col ml-auto mr-auto text-right">
             <button type="button" data-toggle="modal" data-target="#modal-add-employee"
                     class="text-uppercase btn btn-primary pl-4 pr-4 mb-4">Thêm nhân viên
             </button>

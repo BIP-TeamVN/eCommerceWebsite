@@ -7,9 +7,8 @@
 </head>
 
 <body>
-<%@ include file="../../common/ad-side-nav.jsp" %>
-
-<jsp:include page="../../common/ad-side-nav.jsp">
+<!--Left side nav-->
+<jsp:include page="./ad--side-nav.jsp">
    <jsp:param name="selectedIndex" value="4"/>
 </jsp:include>
 

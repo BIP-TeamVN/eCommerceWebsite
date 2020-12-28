@@ -59,7 +59,7 @@ public class ProductCategoryEntity implements Serializable {
       if (image == null || image.isEmpty()) {
          return Cons.ProductCategory.DEFAULT_PRODUCT_CATEGORY_IMAGE;
       } else {
-         return Cons.DEFAULT_IMAGE_SRC_PREFIX + image;
+         return image;
       }
    }
    public void setImage(String image) {

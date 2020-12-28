@@ -62,6 +62,8 @@ public class EmployeeServlet extends HttpServlet {
          String startDate = req.getParameter("start-date");
          String salary = req.getParameter("salary");
 
+         String imageBase64 = req.getParameter("imageBase64");
+
          UserEntity newUser = new UserEntity(
                  lastName,
                  firstName,
@@ -74,6 +76,10 @@ public class EmployeeServlet extends HttpServlet {
                  HashUtils.getMd5(Base64Utils.encodeFromString(phoneNumber)),
                  Cons.User.USER_TYPE_EMPLOYEE
          );
+
+         if(imageBase64 != null && !imageBase64.isEmpty()) {
+            newUser.setImage(imageBase64);
+         }
 
          EmployeeEntity newEmployee = new EmployeeEntity();
          newEmployee.setUserEntity(newUser);
