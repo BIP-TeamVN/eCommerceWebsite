@@ -35,6 +35,7 @@ public class CustomerDAO implements IRetrieveEntity<CustomerEntity, Long>, IModi
          entityTrans.begin();
 
          newUserId = UserDAO.getInstance().insert(entity.getUserEntity());
+         entity.setUserId(newUserId);
          entityMgr.persist(entity);
 
          entityTrans.commit();
