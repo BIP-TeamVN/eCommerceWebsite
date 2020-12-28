@@ -45,11 +45,12 @@
 │   │   │   │   └── admin
 │   │   │   │   └── delivery
 │   │   │   │   └── employee
+│   │   │   │   └── seller
 │   │   │   │   └── web
 │   │   │   ├── com.hknp.interfaces
 │   │   │   ├── com.hknp.model
-│   │   │   │   └── dal
-│   │   │   │   └── dto
+│   │   │   │   └── dao
+│   │   │   │   └── enity
 │   │   ├── webapp
 │   │   │   ├── WEB-INF
 │   │   │   │   └─── <a href="./resource/tut-1/src/main/webapp/WEB-INF/web.xml" target="_blank">web.xml</a>
@@ -57,6 +58,7 @@
 │   │   │   │   └── admin
 │   │   │   │   └── delivery
 │   │   │   │   └── employee
+│   │   │   │   └── seller
 │   │   │   │   └── web
 │   │   │   ├── index.jsp (redirect to web/home.jsp)
 └── pom.xml
