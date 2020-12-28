@@ -101,7 +101,6 @@ public class EmployeeServlet extends HttpServlet {
                user.setAddressEntities(Collections.singletonList(AddressDAO.getInstance().getById(newAddressId)));
                UserDAO.getInstance().update(user);
 
-               EmployeeDAO.getInstance().insert((newEmployee));
                result += "true\n" + newEmployeeId.toString();
             } else {
                result += "false\nError while insert address";

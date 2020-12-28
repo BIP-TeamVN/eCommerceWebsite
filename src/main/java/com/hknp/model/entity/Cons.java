@@ -25,4 +25,8 @@ public class Cons {
    public static class ProductCategory {
       public static String DEFAULT_PRODUCT_CATEGORY_IMAGE = "../../assets/img/unknown-category.svg";
    }
+
+   public static class Brand {
+      public static String DEFAULT_BRAND_IMAGE = "../../assets/img/unknown-brand.svg";
+   }
 }
