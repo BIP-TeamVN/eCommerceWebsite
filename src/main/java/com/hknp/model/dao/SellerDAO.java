@@ -35,6 +35,7 @@ public class SellerDAO implements IRetrieveEntity<SellerEntity, Long>, IModifySi
          entityTrans.begin();
 
          newUserId = UserDAO.getInstance().insert(entity.getUserEntity());
+         entity.setUserId(newUserId);
          entityMgr.persist(entity);
 
          entityTrans.commit();
