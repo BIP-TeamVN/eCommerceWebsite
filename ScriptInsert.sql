@@ -148,8 +148,8 @@ VALUES
     (2, 1),							
 	(3, 2),
     (3, 1);
-    
-    
+ 
+ 
 INSERT INTO `USER`(`FIRST_NAME`, `LAST_NAME`, `GENDER`, `DATE_OF_BIRTH`, `SSN`, `PHONE_NUMBER`, `EMAIL`, `USER_NAME`, `PASSWORD`, `USER_TYPE`, `STATUS`)
 VALUES
     ('Giao', 'Nguyễn Khách', 'Nữ', '20000331', '072356850000', '0965639521', NULL, 'giaohang1', '7e7175c2e20d590551e9fb500bc38c8c', 'DELIVERY', 1),	-- 10010					
