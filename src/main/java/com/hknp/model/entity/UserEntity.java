@@ -60,6 +60,8 @@ public class UserEntity implements Serializable {
    }
 
    public UserEntity(String lastName, String firstName, String gender, Date dateOfBirth, String ssn, String phoneNumber, String email, String userName, String password, String userType) {
+      this.userId = null;
+
       this.lastName = lastName;
       this.firstName = firstName;
       this.gender = gender;
