@@ -68,4 +68,9 @@ public class ProductCategoryServlet extends HttpServlet {
             out.write(result);
         }
     }
+
+    @Override
+    protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        super.doPut(req, resp);
+    }
 }
