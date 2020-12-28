@@ -15,6 +15,7 @@ public class Cons {
 
       public static String DEFAULT_USER_IMAGE_MALE_SRC = "../../assets/img/default-image-male.png";
       public static String DEFAULT_USER_IMAGE_FEMALE_SRC = "../../assets/img/default-image-female.png";
+
    }
 
    public static class Address {

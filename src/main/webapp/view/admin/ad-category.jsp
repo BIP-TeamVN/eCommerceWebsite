@@ -42,12 +42,12 @@
       <!--Button thêm-->
       <div class="row">
          <div class="col-md-10 ml-auto mr-auto text-right">
-            <button type="button" data-toggle="modal" data-target="#modal-add-employee"
+            <button type="button" data-toggle="modal" data-target="#modal-add-product-category"
                     class="text-uppercase btn btn-primary pl-4 pr-4 mb-4">Thêm ngành hàng
             </button>
          </div>
          <!-- From add product-category -->
-<%--         <%@ include file="../../common/form-add-employee.jsp" %>--%>
+         <%@ include file="../../common/form-add-product-category.jsp" %>
       </div>
       <!-- Table -->
       <div class="row">
@@ -92,20 +92,18 @@
                        '<tr>' +
                        '<td>' + item.id + '</td>' +
                        '<td>' + item.name + '</td>' +
-                       '<td>' + item.image + '</td>' +
+                       '<td>' +
+                       '<a href="#" class="media align-items-center">' +
+                       '<img class="avatar rounded-circle" src="' + item.image + '" alt="product-category_image" >' +
+                       '</a>' +
+                       '</td>' +
                        '<td class="td-actions text-center">' +
                        '<a href="#" class="btn btn-primary px-2 py-1" data-toggle="tooltip" data-placement="top" title="Chỉnh sửa thông tin">' +
                        '<i class="fa fa-edit"></i>' +
                        '</a>' +
-                       '<a href="#" class="btn btn-danger px-2 py-1" data-toggle="tooltip" data-placement="top" title="Xóa">' +
-                       '<i class="fa fa-lock"></i>' +
-                       '</a>'+
-                       '</a>' +
-                       '<a href="#" class="btn btn-success px-2 py-1" data-toggle="tooltip" data-placement="top" title="Cập nhật">' +
-                       '<i class="fa fa-lock-open"></i>' +
-                       '</a>' +
                        '</td>' +
                        '</tr>';
+               console.log(html);
                $('#tb-list').append(html);
             });
          },

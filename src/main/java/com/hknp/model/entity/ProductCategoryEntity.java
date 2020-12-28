@@ -25,11 +25,14 @@ public class ProductCategoryEntity implements Serializable {
 
    public ProductCategoryEntity() {
    }
+
+
+
    public String toJson() {
       return "{" +
               "\"id\":\"" + productCategoryId + "\"," +
               "\"name\":\"" + productCategoryName + "\"," +
-              "\"image\":\"" + image + "\"" +
+              "\"image\":\"" + getImageSrc() + "\"" +
               "}";
    }
    public Long getProductCategoryId() {
@@ -46,6 +49,21 @@ public class ProductCategoryEntity implements Serializable {
 
    public void setProductCategoryName(String productCategoryName) {
       this.productCategoryName = productCategoryName;
+   }
+
+   public String getImage() {
+      return image;
+   }
+
+   public String getImageSrc() {
+      if (image == null || image.isEmpty()) {
+         return Cons.ProductCategory.DEFAULT_PRODUCT_CATEGORY_IMAGE;
+      } else {
+         return Cons.DEFAULT_IMAGE_SRC_PREFIX + image;
+      }
+   }
+   public void setImage(String image) {
+      this.image = image;
    }
 
    public Set<ProductEntity> getProductEntities() {
