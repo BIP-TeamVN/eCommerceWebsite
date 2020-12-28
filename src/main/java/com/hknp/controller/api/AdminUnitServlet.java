@@ -28,17 +28,17 @@ public class AdminUnitServlet extends HttpServlet {
          List<String> listJsonStr = new ArrayList<>();
 
          if (type.equals("province")) {
-            for (ProvinceEntity province: ProvinceDAO.getInstance().gets()) {
+            for (ProvinceEntity province : ProvinceDAO.getInstance().gets()) {
                listJsonStr.add(province.toJson());
             }
          } else if (type.equals("district")) {
             String id = request.getParameter("id");
-            for (DistrictEntity district: DistrictDAO.getInstance().getByProvinceId(id)) {
+            for (DistrictEntity district : DistrictDAO.getInstance().getByProvinceId(id)) {
                listJsonStr.add(district.toJson());
             }
          } else if (type.equals("commune")) {
             String id = request.getParameter("id");
-            for (CommuneEntity commune: CommuneDAO.getInstance().getByDistrictId(id)) {
+            for (CommuneEntity commune : CommuneDAO.getInstance().getByDistrictId(id)) {
                listJsonStr.add(commune.toJson());
             }
          }

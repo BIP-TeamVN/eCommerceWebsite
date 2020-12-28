@@ -1,16 +1,7 @@
 package com.hknp.controller.api;
 
-import com.hknp.model.cons.AddressCons;
-import com.hknp.model.cons.UserCons;
-import com.hknp.model.dao.*;
-import com.hknp.model.entity.AddressEntity;
+import com.hknp.model.dao.CustomerDAO;
 import com.hknp.model.entity.CustomerEntity;
-import com.hknp.model.entity.EmployeeEntity;
-import com.hknp.model.entity.UserEntity;
-import com.hknp.utils.Base64Utils;
-import com.hknp.utils.DateTimeUtils;
-import com.hknp.utils.HashUtils;
-import com.hknp.utils.StringUtils;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -32,7 +23,7 @@ public class CustomerServlet extends HttpServlet {
       ArrayList<CustomerEntity> listCustomer = CustomerDAO.getInstance().gets();
       List<String> listJsonStr = new ArrayList<>();
 
-      for (CustomerEntity customer: listCustomer) {
+      for (CustomerEntity customer : listCustomer) {
          listJsonStr.add(customer.toJson());
       }
 

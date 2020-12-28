@@ -66,11 +66,11 @@ public class CustomerEntity implements Serializable {
               "\"fullName\":\"" + userEntity.getFullName() + "\"," +
               "\"gender\":\"" + userEntity.getGender() + "\"," +
               "\"dob\":\"" + userEntity.getDateOfBirthStr() + "\"," +
-              "\"phone\":\"" + userEntity.getPhoneNumber() +"\"," +
-              "\"email\":\"" + userEntity.getEmail() +"\"," +
-              "\"registerDate\":\"" + DateTimeUtils.dateToString(registerDate, "dd/MM/yyyy") +"\"," +
-              "\"imgSrc\":\"" + userEntity.getImageSrc() +"\"," +
-              "\"status\":\"" + userEntity.getStatus() +"\"" +
+              "\"phone\":\"" + userEntity.getPhoneNumber() + "\"," +
+              "\"email\":\"" + userEntity.getEmail() + "\"," +
+              "\"registerDate\":\"" + DateTimeUtils.dateToString(registerDate, "dd/MM/yyyy") + "\"," +
+              "\"imgSrc\":\"" + userEntity.getImageSrc() + "\"," +
+              "\"status\":\"" + userEntity.getStatus() + "\"" +
               "}";
    }
 }

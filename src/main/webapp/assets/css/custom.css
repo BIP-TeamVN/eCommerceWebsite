@@ -1,8 +1,4 @@
-.page-title {
-  text-align: center !important;
-  text-transform: uppercase !important;
-  margin: 2.5rem 0 !important;
-}
+@charset "UTF-8";
 
 .error-input {
   margin-left: 0.2rem;
@@ -19,18 +15,6 @@
 
 .form-group > small {
   display: none;
-}
-
-.form-group.error > small {
-  display: inline;
-}
-
-.form-group.error > .form-control {
-  border-color: var(--danger);
-}
-
-.form-group.success > .form-control {
-  border-color: var(--success);
 }
 
 .form-group > select > option {

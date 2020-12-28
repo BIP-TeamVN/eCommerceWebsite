@@ -18,6 +18,9 @@ public class BrandEntity implements Serializable {
    @Column(name = "BRAND_ORIGIN")
    String brandOrigin;
 
+   @Column(name = "IMAGE", columnDefinition = "LONGTEXT DEFAULT NULL")
+   String image;
+
    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
    @JoinColumn(name = "BRAND_ID")
    List<ProductEntity> productEntities;

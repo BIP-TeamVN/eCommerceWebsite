@@ -31,7 +31,7 @@ public class UserEntity implements Serializable {
    @Column(name = "SSN", columnDefinition = "VARCHAR(12) NULL")
    String ssn;
 
-   @Column(name = "IMAGE", columnDefinition = "VARCHAR(100) NULL")
+   @Column(name = "IMAGE", columnDefinition = "LONGTEXT DEFAULT NULL")
    String image;
 
    @Column(name = "PHONE_NUMBER", columnDefinition = "VARCHAR(15) NULL")
@@ -40,7 +40,7 @@ public class UserEntity implements Serializable {
    @Column(name = "EMAIL", columnDefinition = "VARCHAR(40) NULL")
    String email;
 
-   @Column(name = "USER_NAME", columnDefinition = "VARCHAR(16) NOT NULL")
+   @Column(name = "USER_NAME", columnDefinition = "VARCHAR(40) NOT NULL")
    String userName;
 
    @Column(name = "PASSWORD", columnDefinition = "VARCHAR(32) NOT NULL")

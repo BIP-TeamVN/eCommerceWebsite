@@ -1,4 +1,4 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8" %>
 <footer class="footer pt-6">
    <div class="row align-items-center justify-content-lg-between">
       <div class="col-lg-6">

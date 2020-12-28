@@ -36,66 +36,40 @@
       <!--Title-->
       <div class="row">
          <div class="col-md-10 ml-auto mr-auto">
-            <h2 class="display-3 page-title">Danh sách nhân viên</h2>
+            <h2 class="display-3 text-center text-uppercase my-5">Danh sách nhân viên</h2>
          </div>
       </div>
 
       <!--Button thêm-->
       <div class="row">
          <div class="col-md-10 ml-auto mr-auto text-right">
-            <a href="/admin/employee/add" class="text-uppercase btn btn-primary pl-4 pr-4 mb-4">Thêm nhân viên</a>
+            <button type="button" data-toggle="modal" data-target="#modal-add-employee"
+                    class="text-uppercase btn btn-primary pl-4 pr-4 mb-4">Thêm nhân viên
+            </button>
          </div>
+         <!-- From add employee -->
+         <%@ include file="../../common/form-add-employee.jsp" %>
       </div>
 
       <!-- Table -->
       <div class="row">
-         <div class="col-md-10 ml-auto mr-auto table-responsive">
-            <table class="table align-items-center">
-               <thead class="thead-light">
+         <div class="col m-auto table-responsive">
+            <table class="table">
+               <thead>
                <tr>
-                  <th scope="col" class="sort text-center">Ảnh</th>
-                  <th scope="col" class="sort text-center">Mã</th>
-                  <th scope="col" class="sort text-center">Họ và tên</th>
-                  <th scope="col" class="sort text-center">Giới tính</th>
-                  <th scope="col" class="sort text-center">Ngày sinh</th>
-                  <th scope="col" class="sort text-center">Số điện thoại</th>
-                  <th scope="col" class="sort text-center">Email</th>
-                  <th scope="col" class="sort text-center">Lương</th>
-                  <th scope="col" class="sort text-center">Tùy chọn</th>
+                  <th scope="col" class="text-center">Ảnh</th>
+                  <th scope="col" class="text-center">Mã</th>
+                  <th scope="col" class="text-center">Họ và tên</th>
+                  <th scope="col" class="text-center">Giới tính</th>
+                  <th scope="col" class="text-center">Ngày sinh</th>
+                  <th scope="col" class="text-center">Số điện thoại</th>
+                  <th scope="col" class="text-center">Email</th>
+                  <th scope="col" class="text-center">Lương</th>
+                  <th scope="col" class="text-center">Ngày bắt đầu</th>
+                  <th scope="col" class="text-center">Tùy chọn</th>
                </tr>
                </thead>
                <tbody class="list" id="tb-list">
-               <%--<c:forEach items="${listEmployee}" var="employee">
-                  <tr>
-                     <td>
-                        <a href="#" class="media align-items-center">
-                           <img class="avatar rounded-circle" src="${employee.getUserEntity().getImageSrc()}" alt="avatar_image" >
-                        </a>
-                     </td>
-                     <td>${employee.getUserId()}</td>
-                     <td>${employee.getUserEntity().getFullName()}</td>
-                     <td>${employee.getUserEntity().getGender()}</td>
-                     <td>${employee.getUserEntity().getDateOfBirthStr()}</td>
-                     <td>${employee.getUserEntity().getPhoneNumber()}</td>
-                     <td>${employee.getUserEntity().getEmail()}</td>
-                     <td>${employee.getSalary()}</td>
-                     <td class="td-actions text-center">
-                        <a href="#" class="btn btn-success px-2 py-1" data-toggle="tooltip" data-placement="top"
-                           title="Chỉnh sửa thông tin">
-                           <i class="fa fa-edit"></i>
-                        </a>
-                        <a href="#" class="btn btn-danger px-2 py-1" data-toggle="tooltip" data-placement="top"
-                           title="Thôi việc">
-                           <i class="fa fa-user-slash"></i>
-                        </a>
-                        </a>
-                        <a href="#" class="btn btn-default px-2 py-1" data-toggle="tooltip" data-placement="top"
-                           title="Làm việc lại">
-                           <i class="fa fa-user-check"></i>
-                        </a>
-                     </td>
-                  </tr>
-               </c:forEach>--%>
                </tbody>
             </table>
          </div>
@@ -137,38 +111,46 @@
 
     $.ajax({
       url: apiUrl,
-      method: "GET",
-      data: {},
-      success: function (data) {
-        let obj = $.parseJSON(data);
-        console.log(obj);
-        $('#tb-list').find('tr').remove();
-        $.each(obj, function (key, value) {
+      method: 'GET',
+      data: {
+        page: '1',
+      },
+      success: function (data, textStatus, jqXHR) {
+        let list = $.parseJSON(data);
+        console.log(list);
+
+        $.each(list, function (index, item) {
           let html =
             '<tr>' +
             '<td>' +
             '<a href="#" class="media align-items-center">' +
-            '<img class="avatar rounded-circle" src="' + value.imgSrc + '" alt="avatar_image" >' +
+            '<img class="avatar rounded-circle" src="' + item.imgSrc + '" alt="avatar_image" >' +
             '</a>' +
             '</td>' +
-            '<td>' + value.id + '</td>' +
-            '<td>' + value.fullName + '</td>' +
-            '<td>' + value.gender + '</td>' +
-            '<td>' + value.dob + '</td>' +
-            '<td>' + value.phone + '</td>' +
-            '<td>' + value.email + '</td>' +
-            '<td>' + value.salary + '</td>' +
+            '<td>' + item.id + '</td>' +
+            '<td>' + item.fullName + '</td>' +
+            '<td>' + item.gender + '</td>' +
+            '<td>' + item.dob + '</td>' +
+            '<td>' + item.phone + '</td>' +
+            '<td>' + item.email + '</td>' +
+            '<td>' + item.salary + '</td>' +
+            '<td>' + item.startDate + '</td>' +
             '<td class="td-actions text-center">' +
-            '<a href="#" class="btn btn-success px-2 py-1" data-toggle="tooltip" data-placement="top" title="Chỉnh sửa thông tin">' +
+            '<a href="#" class="btn btn-primary px-2 py-1" data-toggle="tooltip" data-placement="top" title="Chỉnh sửa thông tin">' +
             '<i class="fa fa-edit"></i>' +
             '</a>' +
-            '<a href="#" class="btn btn-danger px-2 py-1" data-toggle="tooltip" data-placement="top" title="Thôi việc">' +
-            '<i class="fa fa-user-slash"></i>' +
-            '</a>' +
-            '</a>' +
-            '<a href="#" class="btn btn-default px-2 py-1" data-toggle="tooltip" data-placement="top" title="Làm việc lại">' +
-            '<i class="fa fa-user-check"></i>' +
-            '</a>' +
+
+            (item.status === "true" ?
+                '<a href="#" class="btn btn-danger px-2 py-1" data-toggle="tooltip" data-placement="top" title="Thôi việc">' +
+                '<i class="fa fa-lock"></i>' +
+                '</a>'
+                :
+                '</a>' +
+                '<a href="#" class="btn btn-success px-2 py-1" data-toggle="tooltip" data-placement="top" title="Làm việc lại">' +
+                '<i class="fa fa-lock-open"></i>' +
+                '</a>'
+            ) +
+
             '</td>' +
             '</tr>';
           $('#tb-list').append(html);

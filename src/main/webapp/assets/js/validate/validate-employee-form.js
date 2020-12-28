@@ -2,15 +2,20 @@ const lastName = document.getElementById('last-name');
 const firstName = document.getElementById('first-name');
 
 const gender = document.getElementById('gender');
+const dob = document.getElementById('dob')
+
 const phoneNumber = document.getElementById('phone-number');
+const ssn = document.getElementById('ssn');
+const email = document.getElementById('email');
+
+const salary = document.getElementById('salary');
+const startDate = document.getElementById('start-date');
 
 const province = document.getElementById('province');
 const district = document.getElementById('district');
 const commune = document.getElementById('commune');
 const addressStreet = document.getElementById('address-street');
 
-const ssn = document.getElementById('ssn');
-const email = document.getElementById('email');
 
 let isValidate = true;
 
@@ -20,14 +25,13 @@ function checkInputs() {
   const firstNameValue = firstName.value.trim();
 
   const phoneNumberValue = phoneNumber.value.trim();
+  const ssnValue = ssn.value.trim();
+  const emailValue = email.value.trim();
 
   const provinceValue = province.value;
   const districtValue = district.value;
   const communeValue = commune.value;
   const addressStreetValue = addressStreet.value.trim();
-
-  const ssnValue = ssn.value.trim();
-  const emailValue = email.value.trim();
 
   isValidate = true;
 
@@ -93,17 +97,27 @@ function checkInputs() {
 }
 
 function setErrorFor(input, message) {
+  if (isValidate) {
+    input.focus();
+  }
+
   isValidate = false;
 
-  const formGroup = input.parentElement;
-  const small = formGroup.querySelector('small');
-  formGroup.className = 'form-group error';
+  input.parentElement.className = 'has-danger';
+  input.className = 'form-control is-invalid';
+
+  let small = input.parentElement.parentElement.querySelector('small');
   small.innerText = message;
+  small.setAttribute("style", "display: inline;");
 }
 
 function setSuccessFor(input) {
-  const formGroup = input.parentElement;
-  formGroup.className = 'form-group success';
+  input.parentElement.className = 'has-success';
+  input.className = 'form-control is-valid';
+
+  let small = input.parentElement.parentElement.querySelector('small');
+  small.innerText = '';
+  small.setAttribute("style", "display: none;");
 }
 
 function isPhoneNumber(phoneNumber) {
@@ -119,48 +133,85 @@ function isEmail(email) {
   return /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(email);
 }
 
-$(document).ready(function () {
-  $('#add-employee-form').submit(function (e) {
-    checkInputs();
 
-    // check phone number exits
-    $.ajax({
-      url: "/api/users/check-info",
-      method: "GET",
-      data: {
-        type: "phone-number",
-        chkValue: $('#phone-number').val()
-      },
-      async: false,   // wait until done this scope
-      success: function (data) {
-        console.log(data);
-        if (data.toString() === 'false') {
-          setErrorFor(phoneNumber, "Số điện thoại đã được sử dụng cho tài khoản khác");
-        }
-      },
-      cache: false
-    });
+$('#employee-form').submit(function (e) {
+  checkInputs();
 
-    // check email exist
-    $.ajax({
-      url: "/api/users/check-info",
-      method: "GET",
-      data: {
-        type: "email",
-        chkValue: $('#email').val()
-      },
-      async: false,   // wait until done this scope
-      success: function (data) {
-        console.log(data);
-        if (data.toString() === 'false') {
-          setErrorFor(email, "Email đã được sử dụng cho tài khoản khác");
-        }
-      },
-      cache: false
-    });
-
-    if (!isValidate) {
-      e.preventDefault();
-    }
+  // check phone number exits
+  $.ajax({
+    url: "/api/users/check-info",
+    method: "GET",
+    data: {
+      type: "phone-number",
+      chkValue: $('#phone-number').val()
+    },
+    async: false,   // wait until done this scope
+    success: function (data) {
+      console.log(data);
+      if (data.toString() === 'false') {
+        setErrorFor(phoneNumber, "Số điện thoại đã được sử dụng cho tài khoản khác");
+      }
+    },
+    cache: false
   });
+
+  // check email exist
+  $.ajax({
+    url: "/api/users/check-info",
+    method: "GET",
+    data: {
+      type: "email",
+      chkValue: $('#email').val()
+    },
+    async: false,   // wait until done this scope
+    success: function (data) {
+      console.log(data);
+      if (data.toString() === 'false') {
+        setErrorFor(email, "Email đã được sử dụng cho tài khoản khác");
+      }
+    },
+    cache: false
+  });
+
+  if (!isValidate) {
+    e.preventDefault();
+  } else {
+    $.ajax({
+      url: '/api/employees',
+      method: 'POST',
+      async: false,
+      data: {
+        'last-name': lastName.value.trim(),
+        'first-name': firstName.value.trim(),
+        'gender': gender.value,
+        'dob': dob.value,
+        'phone-number': phoneNumber.value,
+        'ssn': ssn.value,
+        'email': email.value,
+        'province': province.value,
+        'district': district.value,
+        'commune': commune.value,
+        'address-street': addressStreet.value.trim(),
+        'start-date': startDate.value,
+        'salary': salary.value
+      },
+      success: function (data, textStatus, jqXHR) {
+        let result = data.toString().split('\n');
+        if (result[0] === 'true') {
+          alert("Thêm nhân viên mới thành công !");
+        } else {
+          alert("Lỗi: " + result[1]);
+          e.preventDefault();
+        }
+      },
+      error: function (jqXHR, textStatus, errorThrown) {
+        alert("Lỗi: " + errorThrown);
+        e.preventDefault();
+      }
+    });
+  }
+});
+
+$('#btn-cancel').click(function () {
+  $('#employee-form')[0].reset();
 });

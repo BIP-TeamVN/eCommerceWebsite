@@ -5,6 +5,7 @@ import java.math.BigDecimal;
 public class StringUtils {
    /**
     * Remove non-digit character from string
+    *
     * @param str string to remove non-digit character
     * @return digit string or "0"
     */
@@ -19,10 +20,11 @@ public class StringUtils {
 
    /**
     * Convert String to BigDecimal
+    *
     * @param str string to remove non-digit character
     * @return 0 or BigDecimal value
     */
-   public static BigDecimal toBigDecimal(String str){
+   public static BigDecimal toBigDecimal(String str) {
       BigDecimal result;
       str = removeNonDigit(str);
 
@@ -49,6 +51,25 @@ public class StringUtils {
          result = Long.parseLong(str);
       } catch (NumberFormatException e) {
          result = 0L;
+      }
+
+      return result;
+   }
+
+   /**
+    * Convert String to Integer
+    *
+    * @param str string to remove non-digit character
+    * @return 0 or Integer value
+    */
+   public static Integer toInt(String str) {
+      Integer result;
+      str = removeNonDigit(str);
+
+      try {
+         result = Integer.parseInt(str);
+      } catch (NumberFormatException e) {
+         result = 0;
       }
 
       return result;

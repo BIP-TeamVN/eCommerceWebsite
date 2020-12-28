@@ -14,6 +14,10 @@ public class ProductCategoryEntity implements Serializable {
 
    @Column(name = "PRODUCT_CATEGORY_NAME")
    String productCategoryName;
+
+   @Column(name = "IMAGE", columnDefinition = "LONGTEXT DEFAULT NULL")
+   String image;
+
    @ManyToMany(fetch = FetchType.EAGER, mappedBy = "productCategoryEntities")
    Set<ProductEntity> productEntities;
 
