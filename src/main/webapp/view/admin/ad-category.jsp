@@ -101,13 +101,6 @@
                        '<a href="#" class="btn btn-primary px-2 py-1" data-toggle="tooltip" data-placement="top" title="Chỉnh sửa thông tin">' +
                        '<i class="fa fa-edit"></i>' +
                        '</a>' +
-                       '<a href="#" class="btn btn-danger px-2 py-1" data-toggle="tooltip" data-placement="top" title="Xóa">' +
-                       '<i class="fa fa-lock"></i>' +
-                       '</a>'+
-                       '</a>' +
-                       '<a href="#" class="btn btn-success px-2 py-1" data-toggle="tooltip" data-placement="top" title="Cập nhật">' +
-                       '<i class="fa fa-lock-open"></i>' +
-                       '</a>' +
                        '</td>' +
                        '</tr>';
                console.log(html);

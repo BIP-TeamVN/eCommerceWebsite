@@ -23,16 +23,16 @@
                 <div class="row">
                     <div class="col mx-3">
                         <form id="product-category-form" method="POST" enctype="multipart/form-data">
-                            <!--Họ và tên-->
+                            <!--Tên ngành hàng-->
                             <div class="row">
-                                <div class="col-md-6">
+                                <div class="col-md-10">
                                     <div class="form-group">
-                                        <label for="last-name" class="form-control-label">Họ và tên đệm</label>
-                                        <a tabindex="-1" href="javascript:void(0)" class="badge badge-secondary" data-toggle="popover" data-placement="right" data-content="Trường bắt buộc - Tối đa 40 ký tự">?</a>
+                                        <label for="name" class="form-control-label">Tên ngành hàng</label>
+                                        <a tabindex="-1" href="javascript:void(0)" class="badge badge-secondary" data-toggle="popover" data-placement="right" data-content="Trường bắt buộc - Tối đa 100 ký tự">?</a>
                                         <div>
-                                            <input class="form-control" type="text" placeholder="VD: Nguyễn Văn" id="last-name" name="last-name" maxlength="40">
+                                            <input class="form-control" type="text" placeholder="VD: Tên ngành hàng ..." id="name" name="name" maxlength="100">
                                         </div>
-                                        <small class="error-input text-danger">Vui lòng nhập họ và tên đệm</small>
+                                        <small class="error-input text-danger">Vui lòng nhập tên ngành hàng</small>
                                     </div>
                                 </div>
                             </div>
