@@ -31,6 +31,7 @@
             </nav>
          </div>
       </div>
+
       <!--Title-->
       <div class="row">
          <div class="col-md-10 ml-auto mr-auto">
@@ -41,13 +42,14 @@
       <!--Button thêm-->
       <div class="row">
          <div class="col-md-10 ml-auto mr-auto text-right">
-            <button type="button" data-toggle="modal" data-target="#modal-add-product-category"
+            <button type="button" data-toggle="modal" data-target="#modal-add-brand"
                     class="text-uppercase btn btn-primary pl-4 pr-4 mb-4">Thêm thương hiệu
             </button>
          </div>
          <!-- From add product-category -->
-<%--         <%@ include file="../../common/form-add-product-category.jsp" %>--%>
+         <%@ include file="../../common/form-add-brand.jsp" %>
       </div>
+
       <!-- Table -->
       <div class="row">
          <div class="col ml--3 table-responsive">
@@ -66,6 +68,7 @@
             </table>
          </div>
       </div>
+
       <!-- Footer -->
       <%@ include file="../../common/footer.jsp" %>
    </div>

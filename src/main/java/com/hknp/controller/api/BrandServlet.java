@@ -2,8 +2,10 @@ package com.hknp.controller.api;
 
 import com.hknp.model.dao.BrandDAO;
 import com.hknp.model.dao.EmployeeDAO;
+import com.hknp.model.dao.ProductCategoryDAO;
 import com.hknp.model.entity.BrandEntity;
 import com.hknp.model.entity.EmployeeEntity;
+import com.hknp.model.entity.ProductCategoryEntity;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -31,6 +33,37 @@ public class BrandServlet extends HttpServlet {
 
       try (PrintWriter out = resp.getWriter()) {
          out.write("[" + String.join(", ", listJsonStr) + "]");
+      }
+   }
+
+   @Override
+   protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
+      resp.setContentType("text/html; charset=UTF-8");
+
+      String result = "";
+
+      try {
+         String brandName = req.getParameter("brandName");
+         String brandOrigin = req.getParameter("brandOrigin");
+
+         BrandEntity newBrand = new BrandEntity();
+         newBrand.setBrandName(brandName);
+         newBrand.setBrandOrigin(brandOrigin);
+
+         Long newBrandId = BrandDAO.getInstance().insert(newBrand);
+
+         if (newBrandId != 0) {
+            result += "true\n" + newBrandId.toString();
+         } else {
+            result += "false\nError while insert brand";
+         }
+      } catch (Exception e) {
+         result += "false\n" + e.getMessage();
+      }
+
+      try (PrintWriter out = resp.getWriter()) {
+         out.write(result);
       }
    }
 }

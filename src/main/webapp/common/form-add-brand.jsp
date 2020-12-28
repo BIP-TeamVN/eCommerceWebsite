@@ -5,11 +5,11 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8" %>
 
 <!-- Modal -->
-<div class="modal fade bd-example-modal-lg" id="modal-add-product-category" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade bd-example-modal-lg" id="modal-add-brand" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header p-3">
-                <h5 class="display-3 mx-3 my-2 text-uppercase">Thêm ngành hàng mới</h5>
+                <h5 class="display-3 mx-3 my-2 text-uppercase">Thêm thương hiệu mới</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -17,17 +17,30 @@
             <div class="modal-body p-3">
                 <div class="row">
                     <div class="col mx-3">
-                        <form id="product-category-form" method="POST" enctype="multipart/form-data">
-                            <!--Tên ngành hàng-->
+                        <form id="brand-form" method="POST" enctype="multipart/form-data">
+                            <!--Tên thương hiệu-->
                             <div class="row">
                                 <div class="col-md-10">
                                     <div class="form-group">
-                                        <label for="name" class="form-control-label">Tên ngành hàng</label>
+                                        <label for="brandName" class="form-control-label">Tên thương hiệu</label>
                                         <a tabindex="-1" href="javascript:void(0)" class="badge badge-secondary" data-toggle="popover" data-placement="right" data-content="Trường bắt buộc - Tối đa 100 ký tự">?</a>
                                         <div>
-                                            <input class="form-control" type="text" placeholder="VD: Tên ngành hàng ..." id="name" name="name" maxlength="100">
+                                            <input class="form-control" type="text" placeholder="VD: Tên thương hiệu ..." id="brandName" name="brandName" maxlength="100">
                                         </div>
-                                        <small class="error-input text-danger">Vui lòng nhập tên ngành hàng</small>
+                                        <small class="error-input text-danger">Vui lòng nhập tên thương hiệu</small>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--Xuất xứ-->
+                            <div class="row">
+                                <div class="col-md-10">
+                                    <div class="form-group">
+                                        <label for="brandOrigin" class="form-control-label">Xuất xứ</label>
+                                        <a tabindex="-1" href="javascript:void(0)" class="badge badge-secondary" data-toggle="popover" data-placement="right" data-content="Trường bắt buộc - Tối đa 30 ký tự">?</a>
+                                        <div>
+                                            <input class="form-control" type="text" placeholder="VD: Xuất xứ ..." id="brandOrigin" name="brandOrigin" maxlength="30">
+                                        </div>
+                                        <small class="error-input text-danger">Vui lòng nhập xuất xứ</small>
                                     </div>
                                 </div>
                             </div>
@@ -46,11 +59,11 @@
             </div>
             <div class="modal-footer p-3 text-uppercase">
                 <button class="btn btn-secondary pl-6 pr-6" type="button" id="btn-cancel" data-dismiss="modal">Hủy</button>
-                <button class="btn btn-primary pl-6 pr-6" type="submit" form="product-category-form">Lưu</button>
+                <button class="btn btn-primary pl-6 pr-6" type="submit" form="brand-form">Lưu</button>
             </div>
         </div>
     </div>
 </div>
 <%@ include file="import-js.jsp" %>
 <script src="../../assets/js/dynamic-admin-unit-drop-down.js"></script>
-<script src="../assets/js/validate/validate-product-category-form.js"></script>
+<script src="../assets/js/validate/validate-brand-form.js"></script>

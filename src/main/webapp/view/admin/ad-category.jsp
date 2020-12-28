@@ -49,6 +49,7 @@
          <!-- From add product-category -->
          <%@ include file="../../common/form-add-product-category.jsp" %>
       </div>
+
       <!-- Table -->
       <div class="row">
          <div class="col ml--3 table-responsive">
@@ -66,6 +67,7 @@
             </table>
          </div>
       </div>
+
       <!-- Footer -->
       <%@ include file="../../common/footer.jsp" %>
    </div>
