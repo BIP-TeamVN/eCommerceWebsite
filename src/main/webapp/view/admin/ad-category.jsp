@@ -42,12 +42,12 @@
       <!--Button thêm-->
       <div class="row">
          <div class="col-md-10 ml-auto mr-auto text-right">
-            <button type="button" data-toggle="modal" data-target="#modal-add-employee"
+            <button type="button" data-toggle="modal" data-target="#modal-add-product-category"
                     class="text-uppercase btn btn-primary pl-4 pr-4 mb-4">Thêm ngành hàng
             </button>
          </div>
          <!-- From add product-category -->
-<%--         <%@ include file="../../common/form-add-employee.jsp" %>--%>
+         <%@ include file="../../common/form-add-product-category.jsp" %>
       </div>
       <!-- Table -->
       <div class="row">
