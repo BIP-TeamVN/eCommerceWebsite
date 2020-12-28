@@ -1,6 +1,5 @@
 package com.hknp.model.entity;
 
-import com.hknp.model.cons.UserCons;
 import com.hknp.utils.DateTimeUtils;
 
 import javax.persistence.*;
@@ -70,13 +69,13 @@ public class UserEntity implements Serializable {
 
    public String getImageSrc() {
       if (image == null || image.isEmpty()) {
-         if (gender.equals(UserCons.USER_GENDER_FEMALE)) {
-            return UserCons.DEFAULT_USER_IMAGE_FEMALE_SRC;
+         if (gender.equals(Cons.User.USER_GENDER_FEMALE)) {
+            return Cons.User.DEFAULT_USER_IMAGE_FEMALE_SRC;
          } else {
-            return UserCons.DEFAULT_USER_IMAGE_MALE_SRC;
+            return Cons.User.DEFAULT_USER_IMAGE_MALE_SRC;
          }
       } else {
-         return UserCons.DEFAULT_USER_IMAGE_SRC_PREFIX + image;
+         return Cons.DEFAULT_IMAGE_SRC_PREFIX + image;
       }
    }
 
