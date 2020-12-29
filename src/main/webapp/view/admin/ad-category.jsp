@@ -51,13 +51,13 @@
 
       <!-- Table -->
       <div class="row">
-         <div class="col ml--3 table-responsive">
+         <div class="col-md-10 m-auto table-responsive">
             <table class="table">
                <thead>
                <tr>
-                  <th scope="col" class="text-center">Mã ngành hàng</th>
+                  <th scope="col" class="text-center">#</th>
                   <th scope="col" class="text-center">Tên ngành hàng</th>
-                  <th scope="col" class="text-center">Ảnh minh hoại</th>
+                  <th scope="col" class="text-center">Ảnh minh họa</th>
                   <th scope="col" class="text-center">Tùy chọn</th>
                </tr>
                </thead>
