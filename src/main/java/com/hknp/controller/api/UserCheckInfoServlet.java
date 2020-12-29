@@ -17,7 +17,7 @@ public class UserCheckInfoServlet extends HttpServlet {
    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
       try (PrintWriter out = response.getWriter()) {
          String infoType = request.getParameter("type");
-         String checkValue = request.getParameter("chkValue");
+         String checkValue = request.getParameter("chk-value");
          String idPara = request.getParameter("id");
          Long userId = StringUtils.toLong(idPara);
 

@@ -211,23 +211,47 @@
 
                <!--Ảnh-->
                <div class="form-group">
-                  <label for="up-image" class="form-control-label">Ảnh</label>
+                  <label for="up-image" class="form-control-label d-inline-block w-100">Ảnh</label>
+                  <img id="img-upload" class="mb-2 rounded avatar-img" src="${employeeEdit.getUserEntity().getImageSrc()}"/>
                   <div class="custom-file">
                      <label class="custom-file-label custom-file-img-label" for="up-image">Select file</label>
-                     <input type="file" class="custom-file-input" id="up-image" name="up-image" accept="image/*" lang="vi">
+                     <input type="file" class="custom-file-input" id="up-image" name="up-image" accept="image/*"
+                            onchange="encodeImgToBase64(this)">
                   </div>
                </div>
 
                <!--Button-->
                <div class="row mt-6">
                   <div class="col-md-6 text-md-right text-center">
-                     <button type="submit" class="btn btn-primary pl-6 pr-6">LƯU</button>
+                     <button type="submit" class="btn btn-primary px-6">LƯU</button>
                   </div>
                   <div class="col-md-6 text-md-left text-center">
-                     <a href="/admin/employee" class="btn btn-secondary pl-6 pr-6">HỦY</a>
+                     <button type="button" data-toggle="modal" data-target="#conform-modal" class="btn btn-secondary px-6">HỦY</button>
                   </div>
                </div>
             </form>
+         </div>
+      </div>
+
+      <!-- Modal -->
+      <div class="modal fade" id="conform-modal" tabindex="-1" role="dialog" aria-labelledby="conform-modal-lb" aria-hidden="true">
+         <div class="modal-dialog" role="document">
+            <div class="modal-content">
+               <div class="modal-header">
+                  <h5 class="modal-title" id="conform-modal-lb">Cảnh báo</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                     <span aria-hidden="true">&times;</span>
+                  </button>
+               </div>
+               <div class="modal-body">
+                  Những thay đổi sẽ không được cập nhật !<br>
+                  Bạn có muốn hủy thay đổi ?
+               </div>
+               <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary px-3" data-dismiss="modal">KHÔNG</button>
+                  <a href="/admin/employee" class="btn btn-primary px-4">CÓ</a>
+               </div>
+            </div>
          </div>
       </div>
 
@@ -239,14 +263,15 @@
 <!--Javascript-->
 <%@ include file="../../common/import-js.jsp" %>
 <script>
-  const apiUrl = "/api/admin-units";
+  const ADMIN_UNIT_API_URL = "/api/admin-units";
 
   $.ajax({
-    url: apiUrl,
+    url: ADMIN_UNIT_API_URL,
     method: "GET",
     data: {
       type: 'province'
     },
+    cache: false,
     success: function (data) {
       let obj = $.parseJSON(data);
       console.log(obj);
@@ -258,8 +283,7 @@
           $('#province').append('<option value="' + value.id + '">' + value.name + '</option>');
         }
       });
-    },
-    cache: false
+    }
   });
 
   $('#province').change(function () {
@@ -269,12 +293,13 @@
     $('#commune').append('<option value="00000">Chọn xã/ phường</option>');
 
     $.ajax({
-      url: apiUrl,
+      url: ADMIN_UNIT_API_URL,
       method: "GET",
       data: {
         type: "district",
         id: $('#province').val()
       },
+      cache: false,
       success: function (data) {
         let obj = $.parseJSON(data);
         console.log(obj);
@@ -286,8 +311,7 @@
             $('#district').append('<option value="' + value.id + '">' + value.name + '</option>');
           }
         });
-      },
-      cache: false
+      }
     });
   });
 
@@ -296,12 +320,13 @@
     $('#commune').append('<option value="00000">Chọn xã/ phường</option>');
 
     $.ajax({
-      url: apiUrl,
+      url: ADMIN_UNIT_API_URL,
       method: "GET",
       data: {
         type: "commune",
         id: $('#district').val()
       },
+      cache: false,
       success: function (data) {
         let obj = $.parseJSON(data);
         console.log(obj);
@@ -312,27 +337,10 @@
             $('#commune').append('<option value="' + value.id + '">' + value.name + '</option>');
           }
         });
-      },
-      cache: false
-    });
-  });
-
-  $(document).ready(function () {
-    const apiUrl = "/api/employees";
-
-    $.ajax({
-      url: apiUrl,
-      method: 'GET',
-      data: {
-        page: '1',
-      },
-      success: function (data, textStatus, jqXHR) {
-        let list = $.parseJSON(data);
-        console.log(list);
-      },
-      cache: false
+      }
     });
   });
 </script>
+<script src="../../assets/js/validate/validate-employee-edit-form.js"></script>
 </body>
 </html>

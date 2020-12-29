@@ -1,5 +1,6 @@
-const FORM_ID = 'employee-form';
+const FORM_ID = 'employee-edit-form';
 
+let id = document.getElementById('id');
 let lastName = document.getElementById('last-name');
 let firstName = document.getElementById('first-name');
 
@@ -153,7 +154,8 @@ $('#' + FORM_ID).submit(function (e) {
     method: "GET",
     data: {
       'type': "phone-number",
-      'chk-value': $('#phone-number').val()
+      'chk-value': $('#phone-number').val(),
+      'id': $('#id').val()
     },
     async: false,   // wait until done this scope
     success: function (data) {
@@ -171,7 +173,8 @@ $('#' + FORM_ID).submit(function (e) {
     method: "GET",
     data: {
       'type': "email",
-      'chk-value': $('#email').val()
+      'chk-value': $('#email').val(),
+      'id': $('#id').val()
     },
     async: false,   // wait until done this scope
     success: function (data) {
@@ -188,9 +191,10 @@ $('#' + FORM_ID).submit(function (e) {
   } else {
     $.ajax({
       url: '/api/employees',
-      method: 'POST',
+      method: 'PUT',
       async: false,
       data: {
+        'id': id.value,
         'last-name': lastName.value.trim(),
         'first-name': firstName.value.trim(),
         'gender': gender.value,
@@ -210,7 +214,7 @@ $('#' + FORM_ID).submit(function (e) {
         let result = data.toString().split('\n');
         if (result[0] === 'true') {
           $('#' + FORM_ID).trigger("reset");
-          alert("Thêm nhân viên mới thành công !");
+          alert("Cập nhật thông tin thành công !");
         } else {
           alert("Lỗi: " + result[1]);
           e.preventDefault();

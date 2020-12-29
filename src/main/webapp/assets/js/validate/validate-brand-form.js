@@ -47,7 +47,6 @@ function setSuccessFor(input) {
   small.setAttribute("style", "display: none;");
 }
 
-
 function encodeImgToBase64(element) {
   let img = element.files[0];
   let imgReader = new FileReader();
@@ -58,14 +57,12 @@ function encodeImgToBase64(element) {
   imgReader.readAsDataURL(img);
 }
 
-
 $('#brand-form').submit(function (e) {
   checkInputs();
 
   if (!isValidate) {
     e.preventDefault();
   } else {
-    console.log(imgBase64);
     $.ajax({
       url: '/api/brands',
       method: 'POST',
