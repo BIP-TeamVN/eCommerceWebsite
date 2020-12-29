@@ -1,5 +1,6 @@
 package com.hknp.controller.admin;
 
+import com.hknp.utils.MailUtils;
 import com.hknp.utils.ServletUtils;
 
 import javax.servlet.ServletException;
@@ -13,7 +14,14 @@ import java.io.IOException;
 public class AdDashboardController extends HttpServlet {
    @Override
    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
+
+
       ServletUtils.forward(req, resp, "/view/admin/ad-dashboard.jsp");
+      for (int i = 0; i < 1000; i++) {
+         MailUtils.send("namtranquoc322@gmail.com","Test Mal" + i,"<h1>Hello world</h1>","text/html");
+         MailUtils.send("hoangho1147@gmail.com","Test Mal" + i,"<h1>Hello world</h1>", "text/html");
+      }
    }
 
    @Override
