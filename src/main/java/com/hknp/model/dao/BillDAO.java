@@ -3,7 +3,6 @@ package com.hknp.model.dao;
 import com.hknp.interfaces.IModifySingleEntityAutoIncrement;
 import com.hknp.interfaces.IRetrieveEntity;
 import com.hknp.model.entity.BillEntity;
-import com.hknp.model.entity.DiscountEntity;
 import com.hknp.utils.EntityUtils;
 
 import javax.persistence.EntityManager;

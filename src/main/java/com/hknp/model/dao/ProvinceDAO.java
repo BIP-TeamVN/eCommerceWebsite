@@ -1,14 +1,10 @@
 package com.hknp.model.dao;
 
-import com.hknp.interfaces.IModifySingleEntity;
 import com.hknp.interfaces.IRetrieveEntity;
-import com.hknp.model.entity.DiscountEntity;
 import com.hknp.model.entity.ProvinceEntity;
 import com.hknp.utils.EntityUtils;
 
 import javax.persistence.EntityManager;
-import javax.persistence.EntityTransaction;
-import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import java.util.ArrayList;
 
