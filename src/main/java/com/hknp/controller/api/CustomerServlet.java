@@ -79,7 +79,7 @@ public class CustomerServlet extends HttpServlet {
             if (newUserId != 0) {
                String otp = GenerateUtils.oneTimePassword(6);
                String sVerify = "OTP: " + otp;
-               MailUtils.send(email, "Xác thực tài khoản", sVerify);
+               MailUtils.sendPlanText(email, "Xác thực tài khoản", sVerify);
                otp = HashUtils.getMd5(otp);
                CookieUtils.addCookie(resp, "otp", otp, 60*5);
                result += "true\n" + newUserId.toString();

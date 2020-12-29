@@ -79,11 +79,21 @@ public class DiscountDAO implements IRetrieveEntity<DiscountEntity, Long>, IModi
    }
 
    @Override
-   public ArrayList<DiscountEntity> gets() {
+   public ArrayList<DiscountEntity> gets() { return gets(null, null); }
+
+   @Override
+   public ArrayList<DiscountEntity> gets(Integer firstResult, Integer maxResults) {
       EntityManager entityMgr = EntityUtils.getEntityManager();
 
       String query = "SELECT u FROM DiscountEntity u";
       TypedQuery<DiscountEntity> typedQuery = entityMgr.createQuery(query, DiscountEntity.class);
+
+      if (firstResult != null) {
+         typedQuery.setFirstResult(firstResult);
+      }
+      if (maxResults != null) {
+         typedQuery.setMaxResults(maxResults);
+      }
 
       ArrayList<DiscountEntity> result = null;
       try {
@@ -99,7 +109,6 @@ public class DiscountDAO implements IRetrieveEntity<DiscountEntity, Long>, IModi
    @Override
    public DiscountEntity getById(Long id) {
       EntityManager entityMgr = EntityUtils.getEntityManager();
-      DiscountEntity discountEntity = entityMgr.find(DiscountEntity.class, id);
-      return discountEntity;
+      return entityMgr.find(DiscountEntity.class, id);
    }
 }

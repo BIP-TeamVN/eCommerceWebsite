@@ -79,11 +79,21 @@ public class ReplyCommentDAO implements IRetrieveEntity<ReplyCommentEntity, Long
    }
 
    @Override
-   public ArrayList<ReplyCommentEntity> gets() {
+   public ArrayList<ReplyCommentEntity> gets() { return gets(null, null); }
+
+   @Override
+   public ArrayList<ReplyCommentEntity> gets(Integer firstResult, Integer maxResults) {
       EntityManager entityMgr = EntityUtils.getEntityManager();
 
       String query = "SELECT u FROM ReplyCommentEntity u";
       TypedQuery<ReplyCommentEntity> typedQuery = entityMgr.createQuery(query, ReplyCommentEntity.class);
+
+      if (firstResult != null) {
+         typedQuery.setFirstResult(firstResult);
+      }
+      if (maxResults != null) {
+         typedQuery.setMaxResults(maxResults);
+      }
 
       ArrayList<ReplyCommentEntity> result = null;
       try {
@@ -99,7 +109,6 @@ public class ReplyCommentDAO implements IRetrieveEntity<ReplyCommentEntity, Long
    @Override
    public ReplyCommentEntity getById(Long id) {
       EntityManager entityMgr = EntityUtils.getEntityManager();
-      ReplyCommentEntity rateCommentEntity = entityMgr.find(ReplyCommentEntity.class, id);
-      return rateCommentEntity;
+      return entityMgr.find(ReplyCommentEntity.class, id);
    }
 }

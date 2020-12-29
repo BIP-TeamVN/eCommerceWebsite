@@ -40,11 +40,22 @@ public class DistrictDAO implements IRetrieveEntity<DistrictEntity, String> {
    }
 
    @Override
-   public ArrayList<DistrictEntity> gets() {
+   public ArrayList<DistrictEntity> gets() { return gets(null, null); }
+
+   @Override
+   public ArrayList<DistrictEntity> gets(Integer firstResult, Integer maxResults) {
+
       EntityManager entityMgr = EntityUtils.getEntityManager();
 
       String query = "SELECT d FROM DistrictEntity d";
       TypedQuery<DistrictEntity> typedQuery = entityMgr.createQuery(query, DistrictEntity.class);
+
+      if (firstResult != null) {
+         typedQuery.setFirstResult(firstResult);
+      }
+      if (maxResults != null) {
+         typedQuery.setMaxResults(maxResults);
+      }
 
       ArrayList<DistrictEntity> result = null;
       try {
@@ -60,7 +71,6 @@ public class DistrictDAO implements IRetrieveEntity<DistrictEntity, String> {
    @Override
    public DistrictEntity getById(String id) {
       EntityManager entityMgr = EntityUtils.getEntityManager();
-      DistrictEntity result = entityMgr.find(DistrictEntity.class, id);
-      return result;
+      return entityMgr.find(DistrictEntity.class, id);
    }
 }
