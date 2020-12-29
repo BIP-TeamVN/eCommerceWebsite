@@ -1,7 +1,3 @@
-<%@ page import="java.util.Date" %>
-<%@ page import="com.hknp.utils.DateTimeUtils" %>
-<%@ page import="java.time.Instant" %>
-<%@ page import="java.time.Duration" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8" %>
 
 <!-- Modal -->
@@ -20,7 +16,7 @@
                         <form id="product-category-form" method="POST" enctype="multipart/form-data">
                             <!--Tên ngành hàng-->
                             <div class="row">
-                                <div class="col-md-10">
+                                <div class="col">
                                     <div class="form-group">
                                         <label for="name" class="form-control-label">Tên ngành hàng</label>
                                         <a tabindex="-1" href="javascript:void(0)" class="badge badge-secondary" data-toggle="popover" data-placement="right" data-content="Trường bắt buộc - Tối đa 100 ký tự">?</a>
