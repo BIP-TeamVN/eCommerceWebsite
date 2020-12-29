@@ -10,6 +10,7 @@ public class Cons {
       public static final String USER_TYPE_EMPLOYEE = "EMPLOYEE";
       public static final String USER_TYPE_SELLER = "SELLER";
       public static final String USER_TYPE_CUSTOMER = "CUSTOMER";
+      public static final String USER_TYPE_DELIVERY = "DELIVERY";
 
       public static String DEFAULT_USER_IMAGE_MALE_SRC = "../../assets/img/default-image-male.png";
       public static String DEFAULT_USER_IMAGE_FEMALE_SRC = "../../assets/img/default-image-female.png";
