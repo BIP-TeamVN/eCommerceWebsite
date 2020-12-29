@@ -1,6 +1,7 @@
 const brandName = document.getElementById('brandName');
 const brandOrigin = document.getElementById('brandOrigin');
 
+var imgBase64 = '';
 
 let isValidate = true;
 
@@ -49,19 +50,31 @@ function setSuccessFor(input) {
 }
 
 
+function encodeImgToBase64(element) {
+  let img = element.files[0];
+  let imgReader = new FileReader();
+  imgReader.onloadend = function() {
+    imgBase64 = imgReader.result;
+  }
+  imgReader.readAsDataURL(img);
+}
+
+
 $('#brand-form').submit(function (e) {
   checkInputs();
 
   if (!isValidate) {
     e.preventDefault();
   } else {
+    console.log(imgBase64);
     $.ajax({
       url: '/api/brands',
       method: 'POST',
       async: false,
       data: {
         'brandName': brandName.value.trim(),
-        'brandOrigin': brandOrigin.value.trim()
+        'brandOrigin': brandOrigin.value.trim(),
+        'imageBase64': imgBase64
       },
       success: function (data, textStatus, jqXHR) {
         let result = data.toString().split('\n');

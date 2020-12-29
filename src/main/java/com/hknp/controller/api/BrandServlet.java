@@ -1,11 +1,7 @@
 package com.hknp.controller.api;
 
 import com.hknp.model.dao.BrandDAO;
-import com.hknp.model.dao.EmployeeDAO;
-import com.hknp.model.dao.ProductCategoryDAO;
 import com.hknp.model.entity.BrandEntity;
-import com.hknp.model.entity.EmployeeEntity;
-import com.hknp.model.entity.ProductCategoryEntity;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -47,10 +43,16 @@ public class BrandServlet extends HttpServlet {
          String brandName = req.getParameter("brandName");
          String brandOrigin = req.getParameter("brandOrigin");
 
+         String imageBase64 = req.getParameter("imageBase64");
+
+
          BrandEntity newBrand = new BrandEntity();
          newBrand.setBrandName(brandName);
          newBrand.setBrandOrigin(brandOrigin);
 
+         if(imageBase64 != null && !imageBase64.isEmpty()) {
+            newBrand.setImage(imageBase64);
+         }
          Long newBrandId = BrandDAO.getInstance().insert(newBrand);
 
          if (newBrandId != 0) {

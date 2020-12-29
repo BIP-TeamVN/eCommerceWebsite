@@ -49,8 +49,7 @@
                                 <label for="up-image" class="form-control-label">Ảnh</label>
                                 <div class="custom-file">
                                     <label class="custom-file-label custom-file-img-label" for="up-image">Select file</label>
-                                    <input type="file" class="custom-file-input" id="up-image" name="up-image" accept="image/*"
-                                           lang="vi">
+                                    <input type="file" class="custom-file-input" id="up-image" name="up-image" accept="image/*" onchange="encodeImgToBase64(this)">
                                 </div>
                             </div>
                         </form>
@@ -64,6 +63,6 @@
         </div>
     </div>
 </div>
-<%@ include file="import-js.jsp" %>
+<%@ include file="import-js.jsp"%>
 <script src="../../assets/js/dynamic-admin-unit-drop-down.js"></script>
 <script src="../../assets/js/validate/validate-brand-form.js"></script>
