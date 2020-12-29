@@ -28,10 +28,22 @@ public class UserDAO implements IRetrieveEntity<UserEntity, Long>, IModifySingle
 
    @Override
    public ArrayList<UserEntity> gets() {
+      return gets(null, null);
+   }
+
+   @Override
+   public ArrayList<UserEntity> gets(Integer firstResult, Integer maxResults) {
       EntityManager entityMgr = EntityUtils.getEntityManager();
 
       String query = "SELECT u FROM UserEntity u";
       TypedQuery<UserEntity> typedQuery = entityMgr.createQuery(query, UserEntity.class);
+
+      if (firstResult != null) {
+         typedQuery.setFirstResult(firstResult);
+      }
+      if (maxResults != null) {
+         typedQuery.setMaxResults(maxResults);
+      }
 
       ArrayList<UserEntity> result = null;
       try {
@@ -47,8 +59,7 @@ public class UserDAO implements IRetrieveEntity<UserEntity, Long>, IModifySingle
    @Override
    public UserEntity getById(Long id) {
       EntityManager entityMgr = EntityUtils.getEntityManager();
-      UserEntity user = entityMgr.find(UserEntity.class, id);
-      return user;
+      return entityMgr.find(UserEntity.class, id);
    }
 
    @Override
@@ -124,8 +135,8 @@ public class UserDAO implements IRetrieveEntity<UserEntity, Long>, IModifySingle
    /**
     * Check email exist in User table on database
     *
-    * @param userId        Id of user, pass 0 if null
-    * @param email         Email value to check
+    * @param userId Id of user, pass 0 if null
+    * @param email  Email value to check
     * @return true if email not exist in database else false
     */
    public Boolean checkEmail(Long userId, String email) {
@@ -143,8 +154,8 @@ public class UserDAO implements IRetrieveEntity<UserEntity, Long>, IModifySingle
    /**
     * Check phone number exist in User table on database
     *
-    * @param userId        Id of user, pass 0 if null
-    * @param phoneNumber   Phone number value to check
+    * @param userId      Id of user, pass 0 if null
+    * @param phoneNumber Phone number value to check
     * @return true if phone number not exist in database else false
     */
    public Boolean checkPhoneNumber(Long userId, String phoneNumber) {
@@ -158,5 +169,8 @@ public class UserDAO implements IRetrieveEntity<UserEntity, Long>, IModifySingle
       Long count = (Long) query.getSingleResult();
       return count == 0;
    }
+
+   @Override
+   public Long count() {return EntityUtils.count(UserEntity.class.getName());}
 }
 

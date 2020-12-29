@@ -86,11 +86,21 @@ public class DeliveryDAO implements IRetrieveEntity<DeliveryEntity, Long>, IModi
    }
 
    @Override
-   public ArrayList<DeliveryEntity> gets() {
+   public ArrayList<DeliveryEntity> gets() { return gets(null, null); }
+
+   @Override
+   public ArrayList<DeliveryEntity> gets(Integer firstResult, Integer maxResults) {
       EntityManager entityMgr = EntityUtils.getEntityManager();
 
       String query = "SELECT u FROM DeliveryEntity u";
       TypedQuery<DeliveryEntity> typedQuery = entityMgr.createQuery(query, DeliveryEntity.class);
+
+      if (firstResult != null) {
+         typedQuery.setFirstResult(firstResult);
+      }
+      if (maxResults != null) {
+         typedQuery.setMaxResults(maxResults);
+      }
 
       ArrayList<DeliveryEntity> result = null;
       try {
@@ -106,7 +116,9 @@ public class DeliveryDAO implements IRetrieveEntity<DeliveryEntity, Long>, IModi
    @Override
    public DeliveryEntity getById(Long id) {
       EntityManager entityMgr = EntityUtils.getEntityManager();
-      DeliveryEntity deliveryEntity = entityMgr.find(DeliveryEntity.class, id);
-      return deliveryEntity;
+      return entityMgr.find(DeliveryEntity.class, id);
    }
+
+   @Override
+   public Long count() {return EntityUtils.count(DeliveryEntity.class.getName());}
 }

@@ -27,7 +27,13 @@ public class EmployeeServlet extends HttpServlet {
    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
       resp.setContentType("text/html; charset=UTF-8");
 
-      ArrayList<EmployeeEntity> listEmployee = EmployeeDAO.getInstance().gets();
+      String pagePara = req.getParameter("page");
+      Integer page = StringUtils.toInt(pagePara);
+      if (page <= 0) {
+         page = 1;
+      }
+
+      ArrayList<EmployeeEntity> listEmployee = EmployeeDAO.getInstance().gets((page - 1) * 10, 10);
       List<String> listJsonStr = new ArrayList<>();
 
       for (EmployeeEntity employee : listEmployee) {
@@ -38,6 +44,7 @@ public class EmployeeServlet extends HttpServlet {
          out.write("[" + String.join(", ", listJsonStr) + "]");
       }
    }
+
 
    @Override
    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

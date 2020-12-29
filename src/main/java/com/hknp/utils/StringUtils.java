@@ -10,6 +10,10 @@ public class StringUtils {
     * @return digit string or "0"
     */
    public static String removeNonDigit(String str) {
+      if (str == null || str.isEmpty()) {
+         str = "0";
+      }
+
       str = str.replaceAll("[^0-9]", "");
 
       if (str == null || str.isEmpty()) {

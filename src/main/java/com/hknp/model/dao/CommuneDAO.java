@@ -41,10 +41,22 @@ public class CommuneDAO implements IRetrieveEntity<CommuneEntity, String> {
 
    @Override
    public ArrayList<CommuneEntity> gets() {
+      return gets(null, null);
+   }
+
+   @Override
+   public ArrayList<CommuneEntity> gets(Integer firstResult, Integer maxResults) {
       EntityManager entityMgr = EntityUtils.getEntityManager();
 
       String query = "SELECT c FROM CommuneEntity c";
       TypedQuery<CommuneEntity> typedQuery = entityMgr.createQuery(query, CommuneEntity.class);
+
+      if (firstResult != null) {
+         typedQuery.setFirstResult(firstResult);
+      }
+      if (maxResults != null) {
+         typedQuery.setMaxResults(maxResults);
+      }
 
       ArrayList<CommuneEntity> result = null;
       try {
@@ -60,7 +72,9 @@ public class CommuneDAO implements IRetrieveEntity<CommuneEntity, String> {
    @Override
    public CommuneEntity getById(String id) {
       EntityManager entityMgr = EntityUtils.getEntityManager();
-      CommuneEntity result = entityMgr.find(CommuneEntity.class, id);
-      return result;
+      return entityMgr.find(CommuneEntity.class, id);
    }
+
+   @Override
+   public Long count() {return EntityUtils.count(CommuneEntity.class.getName());}
 }

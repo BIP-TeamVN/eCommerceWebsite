@@ -86,11 +86,21 @@ public class CustomerDAO implements IRetrieveEntity<CustomerEntity, Long>, IModi
    }
 
    @Override
-   public ArrayList<CustomerEntity> gets() {
+   public ArrayList<CustomerEntity> gets() { return gets(null, null); }
+
+   @Override
+   public ArrayList<CustomerEntity> gets(Integer firstResult, Integer maxResults) {
       EntityManager entityMgr = EntityUtils.getEntityManager();
 
       String query = "SELECT u FROM CustomerEntity u";
       TypedQuery<CustomerEntity> typedQuery = entityMgr.createQuery(query, CustomerEntity.class);
+
+      if (firstResult != null) {
+         typedQuery.setFirstResult(firstResult);
+      }
+      if (maxResults != null) {
+         typedQuery.setMaxResults(maxResults);
+      }
 
       ArrayList<CustomerEntity> result = null;
       try {
@@ -106,7 +116,9 @@ public class CustomerDAO implements IRetrieveEntity<CustomerEntity, Long>, IModi
    @Override
    public CustomerEntity getById(Long id) {
       EntityManager entityMgr = EntityUtils.getEntityManager();
-      CustomerEntity customerEntity = entityMgr.find(CustomerEntity.class, id);
-      return customerEntity;
+      return entityMgr.find(CustomerEntity.class, id);
    }
+
+   @Override
+   public Long count() {return EntityUtils.count(CustomerEntity.class.getName());}
 }

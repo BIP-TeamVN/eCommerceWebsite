@@ -66,4 +66,9 @@ public class BrandServlet extends HttpServlet {
          out.write(result);
       }
    }
+
+   @Override
+   protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
+   }
 }

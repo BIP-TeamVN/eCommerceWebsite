@@ -86,11 +86,21 @@ public class EmployeeDAO implements IRetrieveEntity<EmployeeEntity, Long>, IModi
    }
 
    @Override
-   public ArrayList<EmployeeEntity> gets() {
+   public ArrayList<EmployeeEntity> gets() { return gets(null, null); }
+
+   @Override
+   public ArrayList<EmployeeEntity> gets(Integer firstResult, Integer maxResults) {
       EntityManager entityMgr = EntityUtils.getEntityManager();
 
       String query = "SELECT u FROM EmployeeEntity u";
       TypedQuery<EmployeeEntity> typedQuery = entityMgr.createQuery(query, EmployeeEntity.class);
+
+      if (firstResult != null) {
+         typedQuery.setFirstResult(firstResult);
+      }
+      if (maxResults != null) {
+         typedQuery.setMaxResults(maxResults);
+      }
 
       ArrayList<EmployeeEntity> result = null;
       try {
@@ -106,7 +116,9 @@ public class EmployeeDAO implements IRetrieveEntity<EmployeeEntity, Long>, IModi
    @Override
    public EmployeeEntity getById(Long id) {
       EntityManager entityMgr = EntityUtils.getEntityManager();
-      EmployeeEntity employeeEntity = entityMgr.find(EmployeeEntity.class, id);
-      return employeeEntity;
+      return entityMgr.find(EmployeeEntity.class, id);
    }
+
+   @Override
+   public Long count() {return EntityUtils.count(EmployeeEntity.class.getName());}
 }
