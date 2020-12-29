@@ -1,6 +1,5 @@
 package com.hknp.controller.admin;
 
-import com.hknp.utils.MailUtils;
 import com.hknp.utils.ServletUtils;
 
 import javax.servlet.ServletException;

@@ -80,10 +80,22 @@ public class BillDetailDAO implements IRetrieveEntity<BillDetailEntity, Long>, I
 
    @Override
    public ArrayList<BillDetailEntity> gets() {
+      return gets(null, null);
+   }
+
+   @Override
+   public ArrayList<BillDetailEntity> gets(Integer firstResult, Integer maxResults) {
       EntityManager entityMgr = EntityUtils.getEntityManager();
 
       String query = "SELECT u FROM BillDetailEntity u";
       TypedQuery<BillDetailEntity> typedQuery = entityMgr.createQuery(query, BillDetailEntity.class);
+
+      if (firstResult != null) {
+         typedQuery.setFirstResult(firstResult);
+      }
+      if (maxResults != null) {
+         typedQuery.setMaxResults(maxResults);
+      }
 
       ArrayList<BillDetailEntity> result = null;
       try {
@@ -99,7 +111,6 @@ public class BillDetailDAO implements IRetrieveEntity<BillDetailEntity, Long>, I
    @Override
    public BillDetailEntity getById(Long id) {
       EntityManager entityMgr = EntityUtils.getEntityManager();
-      BillDetailEntity billDetailEntity = entityMgr.find(BillDetailEntity.class, id);
-      return billDetailEntity;
+      return entityMgr.find(BillDetailEntity.class, id);
    }
 }

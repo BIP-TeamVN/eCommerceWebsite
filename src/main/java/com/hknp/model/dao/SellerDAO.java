@@ -53,8 +53,9 @@ public class SellerDAO implements IRetrieveEntity<SellerEntity, Long>, IModifySi
 
    @Override
    public boolean update(SellerEntity entity) {
-      if (UserDAO.getInstance().update(entity.getUserEntity()))
+      if (UserDAO.getInstance().update(entity.getUserEntity())) {
          return EntityUtils.merge(entity);
+      }
       return false;
    }
 
@@ -86,11 +87,21 @@ public class SellerDAO implements IRetrieveEntity<SellerEntity, Long>, IModifySi
    }
 
    @Override
-   public ArrayList<SellerEntity> gets() {
+   public ArrayList<SellerEntity> gets() { return gets(null, null); }
+
+   @Override
+   public ArrayList<SellerEntity> gets(Integer firstResult, Integer maxResults) {
       EntityManager entityMgr = EntityUtils.getEntityManager();
 
       String query = "SELECT u FROM SellerEntity u";
       TypedQuery<SellerEntity> typedQuery = entityMgr.createQuery(query, SellerEntity.class);
+
+      if (firstResult != null) {
+         typedQuery.setFirstResult(firstResult);
+      }
+      if (maxResults != null) {
+         typedQuery.setMaxResults(maxResults);
+      }
 
       ArrayList<SellerEntity> result = null;
       try {
@@ -106,7 +117,6 @@ public class SellerDAO implements IRetrieveEntity<SellerEntity, Long>, IModifySi
    @Override
    public SellerEntity getById(Long id) {
       EntityManager entityMgr = EntityUtils.getEntityManager();
-      SellerEntity sellerEntity = entityMgr.find(SellerEntity.class, id);
-      return sellerEntity;
+      return entityMgr.find(SellerEntity.class, id);
    }
 }

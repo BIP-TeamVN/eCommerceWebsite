@@ -105,19 +105,20 @@
 <!--Javascript-->
 <%@ include file="../../common/import-js.jsp" %>
 <script>
-  $(document).ready(function () {
-    const apiUrl = "/api/employees";
+  const apiUrl = "/api/employees";
+  goToPage(2);
 
+  function goToPage(pageNumber) {
     $.ajax({
       url: apiUrl,
       method: 'GET',
       data: {
-        page: '1',
+        page: pageNumber,
       },
       success: function (data, textStatus, jqXHR) {
         let list = $.parseJSON(data);
         console.log(list);
-
+        $('#tb-list').find('tr').remove();
         $.each(list, function (index, item) {
           let html =
             '<tr>' +
@@ -157,7 +158,7 @@
       },
       cache: false
     });
-  });
+  }
 </script>
 </body>
 </html>

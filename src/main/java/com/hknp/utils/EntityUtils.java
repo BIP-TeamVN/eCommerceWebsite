@@ -4,6 +4,9 @@ import com.hknp.model.entity.EmployeeEntity;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import com.hknp.model.entity.AddressEntity;
+
+import javax.persistence.*;
 
 public class EntityUtils {
    private static final EntityManagerFactory entityMgrFactory = Persistence.createEntityManagerFactory("eCommerceDb");

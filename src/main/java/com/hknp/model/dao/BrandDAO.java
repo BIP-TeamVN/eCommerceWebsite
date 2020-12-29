@@ -80,10 +80,22 @@ public class BrandDAO implements IRetrieveEntity<BrandEntity, Long>, IModifySing
 
    @Override
    public ArrayList<BrandEntity> gets() {
+      return gets(null, null);
+   }
+
+   @Override
+   public ArrayList<BrandEntity> gets(Integer firstResult, Integer maxResults) {
       EntityManager entityMgr = EntityUtils.getEntityManager();
 
       String query = "SELECT u FROM BrandEntity u";
       TypedQuery<BrandEntity> typedQuery = entityMgr.createQuery(query, BrandEntity.class);
+
+      if (firstResult != null) {
+         typedQuery.setFirstResult(firstResult);
+      }
+      if (maxResults != null) {
+         typedQuery.setMaxResults(maxResults);
+      }
 
       ArrayList<BrandEntity> result = null;
       try {
@@ -99,7 +111,6 @@ public class BrandDAO implements IRetrieveEntity<BrandEntity, Long>, IModifySing
    @Override
    public BrandEntity getById(Long id) {
       EntityManager entityMgr = EntityUtils.getEntityManager();
-      BrandEntity brandEntity = entityMgr.find(BrandEntity.class, id);
-      return brandEntity;
+      return entityMgr.find(BrandEntity.class, id);
    }
 }

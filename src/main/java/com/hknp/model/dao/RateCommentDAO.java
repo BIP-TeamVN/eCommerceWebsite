@@ -79,11 +79,21 @@ public class RateCommentDAO implements IRetrieveEntity<RateCommentEntity, Long>,
    }
 
    @Override
-   public ArrayList<RateCommentEntity> gets() {
+   public ArrayList<RateCommentEntity> gets() { return gets(null, null); }
+
+   @Override
+   public ArrayList<RateCommentEntity> gets(Integer firstResult, Integer maxResults) {
       EntityManager entityMgr = EntityUtils.getEntityManager();
 
       String query = "SELECT u FROM RateCommentEntity u";
       TypedQuery<RateCommentEntity> typedQuery = entityMgr.createQuery(query, RateCommentEntity.class);
+
+      if (firstResult != null) {
+         typedQuery.setFirstResult(firstResult);
+      }
+      if (maxResults != null) {
+         typedQuery.setMaxResults(maxResults);
+      }
 
       ArrayList<RateCommentEntity> result = null;
       try {
@@ -99,7 +109,6 @@ public class RateCommentDAO implements IRetrieveEntity<RateCommentEntity, Long>,
    @Override
    public RateCommentEntity getById(Long id) {
       EntityManager entityMgr = EntityUtils.getEntityManager();
-      RateCommentEntity rateCommentEntity = entityMgr.find(RateCommentEntity.class, id);
-      return rateCommentEntity;
+      return entityMgr.find(RateCommentEntity.class, id);
    }
 }

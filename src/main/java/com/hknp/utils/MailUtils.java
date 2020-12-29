@@ -30,32 +30,23 @@ public class MailUtils {
       return props;
    }
 
-   public static boolean send(String receiveEmail, String subject, String body) {
-      Session session = Session.getInstance(getProperties(), getAuthenticator());
-      try {
-         Message message = new MimeMessage(session);
-         message.setFrom(new InternetAddress(AUTH_MAIL_ADDRESS));
-         message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(receiveEmail));
-         message.setSubject(subject);
-         message.setText(body);
-
-         // Send message
-         Transport.send(message);
-         return true;
-      } catch (MessagingException e) {
-         e.printStackTrace();
-         return false;
-      }
+   public static boolean sendPlanText(String receiveEmail, String subject, Object body) {
+      return send(receiveEmail, subject, body,"text/plain");
    }
 
-   public static boolean send(String receiveEmail, String subject, Object contentObjet, String contentType) {
+   public static boolean sendHtmlText(String receiveEmail, String subject, Object body) {
+      return send(receiveEmail, subject, body,"text/html");
+   }
+
+   public static boolean send(String receiveEmail, String subject, Object body, String contentType) {
       Session session = Session.getInstance(getProperties(), getAuthenticator());
       try {
          Message message = new MimeMessage(session);
+
          message.setFrom(new InternetAddress(AUTH_MAIL_ADDRESS));
          message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(receiveEmail));
          message.setSubject(subject);
-         message.setContent(contentObjet, contentType);
+         message.setContent(body, contentType+"; charset=UTF-8");
 
          // Send message
          Transport.send(message);

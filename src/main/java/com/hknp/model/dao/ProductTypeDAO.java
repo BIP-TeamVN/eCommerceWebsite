@@ -79,11 +79,21 @@ public class ProductTypeDAO implements IRetrieveEntity<ProductTypeEntity, Long>,
    }
 
    @Override
-   public ArrayList<ProductTypeEntity> gets() {
+   public ArrayList<ProductTypeEntity> gets() { return gets(null, null); }
+
+   @Override
+   public ArrayList<ProductTypeEntity> gets(Integer firstResult, Integer maxResults) {
       EntityManager entityMgr = EntityUtils.getEntityManager();
 
       String query = "SELECT u FROM ProductTypeEntity u";
       TypedQuery<ProductTypeEntity> typedQuery = entityMgr.createQuery(query, ProductTypeEntity.class);
+
+      if (firstResult != null) {
+         typedQuery.setFirstResult(firstResult);
+      }
+      if (maxResults != null) {
+         typedQuery.setMaxResults(maxResults);
+      }
 
       ArrayList<ProductTypeEntity> result = null;
       try {
@@ -99,7 +109,6 @@ public class ProductTypeDAO implements IRetrieveEntity<ProductTypeEntity, Long>,
    @Override
    public ProductTypeEntity getById(Long id) {
       EntityManager entityMgr = EntityUtils.getEntityManager();
-      ProductTypeEntity productTypeEntity = entityMgr.find(ProductTypeEntity.class, id);
-      return productTypeEntity;
+      return entityMgr.find(ProductTypeEntity.class, id);
    }
 }
