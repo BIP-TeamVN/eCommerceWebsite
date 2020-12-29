@@ -16,8 +16,6 @@ const district = document.getElementById('district');
 const commune = document.getElementById('commune');
 const addressStreet = document.getElementById('address-street');
 
-var imgBase64 = '';
-
 let isValidate = true;
 
 function checkInputs() {
@@ -138,7 +136,8 @@ function encodeImgToBase64(element) {
   let img = element.files[0];
   let imgReader = new FileReader();
   imgReader.onloadend = function() {
-    imgBase64 = imgReader.result;
+    $('#img-upload').attr('class','mb-2 rounded avatar-img');
+    $('#img-upload').attr('src',imgReader.result);
   }
   imgReader.readAsDataURL(img);
 }
@@ -203,11 +202,12 @@ $('#employee-form').submit(function (e) {
         'address-street': addressStreet.value.trim(),
         'start-date': startDate.value,
         'salary': salary.value,
-        'imageBase64': imgBase64
+        'imageBase64': $('#img-upload').attr('src')
       },
       success: function (data, textStatus, jqXHR) {
         let result = data.toString().split('\n');
         if (result[0] === 'true') {
+          $('#employee-form').trigger("reset");
           alert("Thêm nhân viên mới thành công !");
         } else {
           alert("Lỗi: " + result[1]);
@@ -223,5 +223,5 @@ $('#employee-form').submit(function (e) {
 });
 
 $('#btn-cancel').click(function () {
-  $('#employee-form')[0].reset();
+  $('#employee-form').trigger("reset");
 });

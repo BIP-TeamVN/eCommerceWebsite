@@ -105,13 +105,11 @@
 <!--Javascript-->
 <%@ include file="../../common/import-js.jsp" %>
 <script>
-  const apiUrl = "/api/employees";
-  const prevPaginationButton =
-    '<li class="page-item"><button type="button" class="page-link" onclick="goFirst()"><i class="fa fa-angle-double-left"></i><span class="sr-only">Trang đầu tiên</span></button></li>' +
-    '<li class="page-item"><button type="button" class="page-link" onclick="goPrev()"><i class="fa fa-angle-left"></i><span class="sr-only">Trang trước</span></button></li>';
-  const nextPaginationButton =
-    '<li class="page-item"><button type="button" class="page-link" onclick="goNext()"><i class="fa fa-angle-right"></i><span class="sr-only">Trang sau</span></button></li>' +
-    '<li class="page-item"><button type="button" class="page-link" onclick="goLast()"><i class="fa fa-angle-double-right"></i><span class="sr-only">Trang cuối</span></button></li>';
+  let firstPageButton = '<li class="page-item"><button type="button" class="page-link" onclick="goFirst()"><i class="fa fa-angle-double-left"></i><span class="sr-only">Trang đầu tiên</span></button></li>';
+  let prevPageButton = '<li class="page-item"><button type="button" class="page-link" onclick="goPrev()"><i class="fa fa-angle-left"></i><span class="sr-only">Trang trước</span></button></li>';
+  let nextPageButton = '<li class="page-item"><button type="button" class="page-link" onclick="goNext()"><i class="fa fa-angle-right"></i><span class="sr-only">Trang sau</span></button></li>';
+  let lastPageButton = '<li class="page-item"><button type="button" class="page-link" onclick="goLast()"><i class="fa fa-angle-double-right"></i><span class="sr-only">Trang cuối</span></button></li>';
+
   let totalPage = ${totalPage};
   let currentPage = ${currentPage};
 
@@ -153,35 +151,32 @@
   function updatePagination() {
     $('#page-pagination').find('li').remove();
 
-    if(currentPage > 1) {
-      $('#page-pagination').append(prevPaginationButton);
-    }
+    $('#page-pagination').append(currentPage > 2 ? firstPageButton : '');
+    $('#page-pagination').append(currentPage > 1 ? prevPageButton : '');
 
     let startIndex = currentPage - 3 > 1 ? currentPage - 3 : 1;
     for (let i = startIndex; i < currentPage; i++) {
       $('#page-pagination').append('<li class="page-item"><button type="button" class="page-link" onclick="goToPage(' + i + ')">' + i + '</but></li>');
     }
 
-    $('#page-pagination').append('<li class="page-item active"><a class="page-link" href="javascipt:void(0)">' + currentPage + '</a></li>');
+    $('#page-pagination').append('<li class="page-item active"><a class="page-link" href="javascript:void(0)">' + currentPage + '</a></li>');
 
     for (let i = currentPage + 1; i < currentPage + 4 && i <= totalPage; i++) {
       $('#page-pagination').append('<li class="page-item"><button type="button" class="page-link" onclick="goToPage(' + i + ')">' + i + '</but></li>');
     }
 
-    if(currentPage <totalPage) {
-      $('#page-pagination').append(nextPaginationButton);
-    }
+    $('#page-pagination').append(currentPage < totalPage ? nextPageButton : '');
+    $('#page-pagination').append(currentPage < totalPage - 1 ? lastPageButton : '');
   }
 
   function reloadPage() {
     updatePagination();
 
     $.ajax({
-      url: apiUrl,
+      url: '/api/employees',
       method: 'GET',
-      data: {
-        page: currentPage,
-      },
+      data: { page: currentPage },
+      cache: false,
       success: function (data, textStatus, jqXHR) {
         let list = $.parseJSON(data);
         console.log(list);
@@ -206,23 +201,18 @@
             '<a href="/admin/employee/edit?id=' + item.id +'" class="btn btn-primary px-2 py-1" data-toggle="tooltip" data-placement="top" title="Chỉnh sửa thông tin">' +
             '<i class="fa fa-edit"></i>' +
             '</a>' +
-
             (item.status === "true" ?
-                '<a href="#" class="btn btn-danger px-2 py-1" data-toggle="tooltip" data-placement="top" title="Thôi việc">' +
-                '<i class="fa fa-lock"></i>' +
-                '</a>'
-                :
-                '</a>' +
-                '<a href="#" class="btn btn-success px-2 py-1" data-toggle="tooltip" data-placement="top" title="Làm việc lại">' +
-                '<i class="fa fa-lock-open"></i>' +
-                '</a>'
-            ) +
+            '<a href="#" class="btn btn-danger px-2 py-1" data-toggle="tooltip" data-placement="top" title="Thôi việc">' +
+            '<i class="fa fa-lock"></i>' +
+            '</a>' :
+            '<a href="#" class="btn btn-success px-2 py-1" data-toggle="tooltip" data-placement="top" title="Làm việc lại">' +
+            '<i class="fa fa-lock-open"></i>' +
+            '</a>') +
             '</td>' +
             '</tr>';
           $('#tb-list').append(html);
         });
-      },
-      cache: false
+      }
     });
   }
 </script>

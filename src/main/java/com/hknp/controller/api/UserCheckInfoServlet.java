@@ -1,6 +1,7 @@
 package com.hknp.controller.api;
 
 import com.hknp.model.dao.UserDAO;
+import com.hknp.utils.StringUtils;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -17,12 +18,15 @@ public class UserCheckInfoServlet extends HttpServlet {
       try (PrintWriter out = response.getWriter()) {
          String infoType = request.getParameter("type");
          String checkValue = request.getParameter("chkValue");
+         String idPara = request.getParameter("id");
+         Long userId = StringUtils.toLong(idPara);
+
          String result = "true";
 
          if (infoType.equals("email")) {
-            result = UserDAO.getInstance().checkEmail(0L, checkValue).toString();
+            result = UserDAO.getInstance().checkEmail(userId, checkValue).toString();
          } else if (infoType.equals("phone-number")) {
-            result = UserDAO.getInstance().checkPhoneNumber(0L, checkValue).toString();
+            result = UserDAO.getInstance().checkPhoneNumber(userId, checkValue).toString();
          }
          out.write(result);
       }

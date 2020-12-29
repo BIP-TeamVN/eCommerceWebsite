@@ -1,5 +1,10 @@
 @charset "UTF-8";
 
+img {
+  display: inline-block;
+  max-width: 100%;
+}
+
 .error-input {
   margin-left: 0.2rem;
   margin-top: 0.5rem;
@@ -33,6 +38,17 @@
 .avatar {
   width: 56px;
   height: 56px;
+  object-fit: cover;
+}
+
+.avatar-img {
+  height: 180px;
+  object-fit: cover;
+  display: inline-block !important;
+}
+
+.product-image {
+  height: 256px;
   object-fit: cover;
 }
 

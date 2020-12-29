@@ -51,7 +51,17 @@
       <!-- form edit -->
       <div class="row">
          <div class="col-md-10 ml-auto mr-auto">
-            <form id="employee-edit-form" method="POST" enctype="multipart/form-data">
+            <form id="employee-edit-form">
+               <!--Mã-->
+               <div class="form-group">
+                  <label for="id" class="form-control-label">Mã</label>
+                  <div>
+                     <input class="form-control" type="email" id="id" name="id" readonly
+                            placeholder="VD: user@gmail.com" value="${employeeEdit.getUserId()}">
+                  </div>
+                  <small class="error-input text-danger">Email sai định dạng</small>
+               </div>
+
                <!--Họ và tên-->
                <div class="row">
                   <div class="col-md-6">

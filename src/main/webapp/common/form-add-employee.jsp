@@ -165,7 +165,8 @@
 
                      <!--Ảnh-->
                      <div class="form-group">
-                        <label for="up-image" class="form-control-label">Ảnh</label>
+                        <label for="up-image" class="form-control-label d-inline-block w-100">Ảnh</label>
+                        <img id="img-upload" class="d-none"/>
                         <div class="custom-file">
                            <label class="custom-file-label custom-file-img-label" for="up-image">Select file</label>
                            <input type="file" class="custom-file-input" id="up-image" name="up-image" accept="image/*"
