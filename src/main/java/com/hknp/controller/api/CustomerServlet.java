@@ -5,10 +5,7 @@ import com.hknp.model.dao.UserDAO;
 import com.hknp.model.entity.Cons;
 import com.hknp.model.entity.CustomerEntity;
 import com.hknp.model.entity.UserEntity;
-import com.hknp.utils.Base64Utils;
-import com.hknp.utils.DateTimeUtils;
-import com.hknp.utils.HashUtils;
-import com.hknp.utils.StringUtils;
+import com.hknp.utils.*;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -49,35 +46,48 @@ public class CustomerServlet extends HttpServlet {
          String gender = req.getParameter("gender");
          String dateOfBirth = req.getParameter("dob");
          String phoneNumber = req.getParameter("phone-number");
-         String ssn = req.getParameter("ssn");
+         //String ssn = req.getParameter("ssn");
          String email = req.getParameter("email");
          String password = req.getParameter("password");
+         String passwordAgain = req.getParameter("password-again");
 
-         UserEntity newUser = new UserEntity();
+         if (passwordAgain.equals(password)) {
 
-         newUser.setFirstName(firstName);
-         newUser.setLastName(lastName);
-         newUser.setGender(gender);
-         newUser.setDateOfBirth(DateTimeUtils.stringToDate(dateOfBirth, "dd/MM/yyyy"));
-         newUser.setPhoneNumber(phoneNumber);
-         newUser.setSsn(ssn);
-         newUser.setEmail(email);
+            UserEntity newUser = new UserEntity();
 
-         newUser.setUserType(Cons.User.USER_TYPE_CUSTOMER);
-         newUser.setUserName(phoneNumber);
-         newUser.setPassword(password);
-         newUser.setPassword(HashUtils.getMd5(Base64Utils.encodeFromString(phoneNumber)));
-         newUser.setStatus(true);
+            newUser.setFirstName(firstName);
+            newUser.setLastName(lastName);
+            newUser.setGender(gender);
+            newUser.setDateOfBirth(DateTimeUtils.stringToDate(dateOfBirth, "dd/MM/yyyy"));
+            newUser.setPhoneNumber(phoneNumber);
+            //newUser.setSsn(ssn);
+            newUser.setEmail(email);
 
-         //Long newUserId = UserDAO.getInstance().insert(newUser);
+            newUser.setUserType(Cons.User.USER_TYPE_CUSTOMER);
+            newUser.setUserName(phoneNumber);
+            newUser.setPassword(password);
+            newUser.setPassword(HashUtils.getMd5(Base64Utils.encodeFromString(phoneNumber)));
+            newUser.setStatus(true);
 
-         CustomerEntity newCustomer = new CustomerEntity();
-         newCustomer.setUserEntity(newUser);
-         newCustomer.setRegisterDate(DateTimeUtils.currentDate());
+            //Long newUserId = UserDAO.getInstance().insert(newUser);
 
-         Long newUserId = CustomerDAO.getInstance().insert(newCustomer);
+            CustomerEntity newCustomer = new CustomerEntity();
+            newCustomer.setUserEntity(newUser);
+            newCustomer.setRegisterDate(DateTimeUtils.currentDate());
 
-         result += "true\n" + newUserId.toString();
+            Long newUserId = CustomerDAO.getInstance().insert(newCustomer);
+            if (newUserId != 0) {
+               String otp = GenerateUtils.oneTimePassword(6);
+               String sVerify = "OTP: " + otp;
+               MailUtils.send(email, "Xác thực tài khoản", sVerify);
+               otp = HashUtils.getMd5(otp);
+               CookieUtils.addCookie(resp, "otp", otp, 60*5);
+               result += "true\n" + newUserId.toString();
+            }
+         }
+         else {
+            result += "false\nError while insert customer\n";
+         }
       } catch (Exception e) {
          result += "false\nError while insert customer\n" + e.getMessage();
       }
