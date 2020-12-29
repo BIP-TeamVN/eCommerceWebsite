@@ -16,6 +16,10 @@
         <location>/error?code=500</location>
     </error-page>
     <error-page>
+        <error-code>405</error-code>
+        <location>/error?code=405</location>
+    </error-page>
+    <error-page>
         <exception-type>java.io.IOException</exception-type>
         <location>/error?page=abc</location>
     </error-page>

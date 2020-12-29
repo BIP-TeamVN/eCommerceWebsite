@@ -26,6 +26,10 @@ public class ErrorController extends HttpServlet {
             title = "Lỗi kết nối Server";
             detail = "Đường truyền đến server hiện đang không truy cập được.<br>Vui long truy cập sau.<br>Nhấp vào nút bên dưới để quay lại";
             break;
+         case "405":
+            title = "Phương thức không được hổ trợ";
+            detail = "Nhấp vào nút bên dưới để quay lại";
+            break;
          default:
             break;
       }
