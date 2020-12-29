@@ -76,23 +76,23 @@
 
       <!-- Pagination -->
       <nav aria-label="...">
-         <ul class="pagination justify-content-center mt-5">
-            <li class="page-item disabled text-default">
-               <a class="page-link" href="#" tabindex="-1">
+         <ul id="page-pagination" class="pagination justify-content-center mt-3">
+            <li class="page-item">
+               <button type="button" class="page-link" onclick="goPrev()">
                   <i class="fa fa-angle-left"></i>
-                  <span class="sr-only">Previous</span>
-               </a>
+                  <span class="sr-only">Trang trước</span>
+               </button>
             </li>
             <li class="page-item"><a class="page-link" href="#">1</a></li>
             <li class="page-item active">
-               <a class="page-link" href="#">2 <span class="sr-only">(current)</span></a>
+               <a class="page-link" href="#">2</a>
             </li>
             <li class="page-item"><a class="page-link" href="#">3</a></li>
             <li class="page-item">
-               <a class="page-link" href="#">
+               <button type="button" class="page-link" onclick="goNext()">
                   <i class="fa fa-angle-right"></i>
-                  <span class="sr-only">Next</span>
-               </a>
+                  <span class="sr-only">Trang sau</span>
+               </button>
             </li>
          </ul>
       </nav>
@@ -106,14 +106,81 @@
 <%@ include file="../../common/import-js.jsp" %>
 <script>
   const apiUrl = "/api/employees";
-  goToPage(2);
+  const prevPaginationButton =
+    '<li class="page-item"><button type="button" class="page-link" onclick="goFirst()"><i class="fa fa-angle-double-left"></i><span class="sr-only">Trang đầu tiên</span></button></li>' +
+    '<li class="page-item"><button type="button" class="page-link" onclick="goPrev()"><i class="fa fa-angle-left"></i><span class="sr-only">Trang trước</span></button></li>';
+  const nextPaginationButton =
+    '<li class="page-item"><button type="button" class="page-link" onclick="goNext()"><i class="fa fa-angle-right"></i><span class="sr-only">Trang sau</span></button></li>' +
+    '<li class="page-item"><button type="button" class="page-link" onclick="goLast()"><i class="fa fa-angle-double-right"></i><span class="sr-only">Trang cuối</span></button></li>';
+  let totalPage = ${totalPage};
+  let currentPage = ${currentPage};
 
-  function goToPage(pageNumber) {
+  reloadPage();
+
+  function goFirst() {
+    if(currentPage > 1) {
+      currentPage = 1;
+      reloadPage();
+    }
+  }
+
+  function goPrev() {
+    if(currentPage > 1) {
+      currentPage = currentPage - 1;
+      reloadPage();
+    }
+  }
+
+  function goNext() {
+    if(currentPage < totalPage) {
+      currentPage = currentPage + 1;
+      reloadPage();
+    }
+  }
+
+  function goLast() {
+    if(currentPage < totalPage) {
+      currentPage = totalPage;
+      reloadPage();
+    }
+  }
+
+  function goToPage(page) {
+    currentPage = page;
+    reloadPage();
+  }
+
+  function updatePagination() {
+    $('#page-pagination').find('li').remove();
+
+    if(currentPage > 1) {
+      $('#page-pagination').append(prevPaginationButton);
+    }
+
+    let startIndex = currentPage - 3 > 1 ? currentPage - 3 : 1;
+    for (let i = startIndex; i < currentPage; i++) {
+      $('#page-pagination').append('<li class="page-item"><button type="button" class="page-link" onclick="goToPage(' + i + ')">' + i + '</but></li>');
+    }
+
+    $('#page-pagination').append('<li class="page-item active"><a class="page-link" href="javascipt:void(0)">' + currentPage + '</a></li>');
+
+    for (let i = currentPage + 1; i < currentPage + 4 && i <= totalPage; i++) {
+      $('#page-pagination').append('<li class="page-item"><button type="button" class="page-link" onclick="goToPage(' + i + ')">' + i + '</but></li>');
+    }
+
+    if(currentPage <totalPage) {
+      $('#page-pagination').append(nextPaginationButton);
+    }
+  }
+
+  function reloadPage() {
+    updatePagination();
+
     $.ajax({
       url: apiUrl,
       method: 'GET',
       data: {
-        page: pageNumber,
+        page: currentPage,
       },
       success: function (data, textStatus, jqXHR) {
         let list = $.parseJSON(data);
@@ -150,7 +217,6 @@
                 '<i class="fa fa-lock-open"></i>' +
                 '</a>'
             ) +
-
             '</td>' +
             '</tr>';
           $('#tb-list').append(html);

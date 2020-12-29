@@ -1,7 +1,10 @@
 package com.hknp.controller.admin;
 
+import com.hknp.model.dao.EmployeeDAO;
 import com.hknp.utils.ServletUtils;
+import com.hknp.utils.StringUtils;
 
+import javax.persistence.Persistence;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -13,8 +16,21 @@ import java.io.IOException;
 public class AdEmployeeController extends HttpServlet {
    @Override
    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-      /*ArrayList<EmployeeEntity> listEmployee = EmployeeDAO.getInstance().gets();
-      req.setAttribute("listEmployee", listEmployee);*/
+      Long totalRows = EmployeeDAO.getInstance().count();
+      String page = req.getParameter("page");
+
+      Long currentPage = StringUtils.toLong(page);
+      Long totalPage = (totalRows / 10) + ((totalRows % 10 == 0) ? 0 : 1);
+
+      if (currentPage > totalPage) {
+         currentPage = totalPage;
+      }
+      if (currentPage < 1) {
+         currentPage = 1L;
+      }
+
+      req.setAttribute("totalPage", totalPage);
+      req.setAttribute("currentPage", currentPage);
       ServletUtils.forward(req, resp, "/view/admin/ad-employee.jsp");
    }
 

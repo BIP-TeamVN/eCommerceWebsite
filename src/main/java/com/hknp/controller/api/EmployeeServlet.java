@@ -33,7 +33,7 @@ public class EmployeeServlet extends HttpServlet {
          page = 1;
       }
 
-      ArrayList<EmployeeEntity> listEmployee = EmployeeDAO.getInstance().gets((page -1) * 10, 10);
+      ArrayList<EmployeeEntity> listEmployee = EmployeeDAO.getInstance().gets((page - 1) * 10, 10);
       List<String> listJsonStr = new ArrayList<>();
 
       for (EmployeeEntity employee : listEmployee) {
