@@ -1,8 +1,6 @@
 const brandName = document.getElementById('brandName');
 const brandOrigin = document.getElementById('brandOrigin');
 
-var imgBase64 = '';
-
 let isValidate = true;
 
 function checkInputs() {
@@ -54,7 +52,8 @@ function encodeImgToBase64(element) {
   let img = element.files[0];
   let imgReader = new FileReader();
   imgReader.onloadend = function() {
-    imgBase64 = imgReader.result;
+    $('#img-upload').attr('class','mb-2 rounded avatar-img');
+    $('#img-upload').attr('src',imgReader.result);
   }
   imgReader.readAsDataURL(img);
 }
@@ -74,7 +73,7 @@ $('#brand-form').submit(function (e) {
       data: {
         'brandName': brandName.value.trim(),
         'brandOrigin': brandOrigin.value.trim(),
-        'imageBase64': imgBase64
+        'imageBase64': $('#img-upload').attr('src')
       },
       success: function (data, textStatus, jqXHR) {
         let result = data.toString().split('\n');
@@ -94,5 +93,5 @@ $('#brand-form').submit(function (e) {
 });
 
 $('#btn-cancel').click(function () {
-  $('#brand-form')[0].reset();
+  $('#brand-form').trigger("reset");
 });
