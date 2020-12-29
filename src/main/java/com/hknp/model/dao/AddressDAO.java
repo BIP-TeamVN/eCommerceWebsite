@@ -80,10 +80,22 @@ public class AddressDAO implements IRetrieveEntity<AddressEntity, Long>, IModify
 
    @Override
    public ArrayList<AddressEntity> gets() {
+      return gets(null, null);
+   }
+
+   @Override
+   public ArrayList<AddressEntity> gets(Integer firstResult, Integer maxResults) {
       EntityManager entityMgr = EntityUtils.getEntityManager();
 
       String query = "SELECT u FROM AddressEntity u";
       TypedQuery<AddressEntity> typedQuery = entityMgr.createQuery(query, AddressEntity.class);
+
+      if (firstResult != null) {
+         typedQuery.setFirstResult(firstResult);
+      }
+      if (maxResults != null) {
+         typedQuery.setMaxResults(maxResults);
+      }
 
       ArrayList<AddressEntity> result = null;
       try {
@@ -93,13 +105,16 @@ public class AddressDAO implements IRetrieveEntity<AddressEntity, Long>, IModify
       } finally {
          entityMgr.close();
       }
+
       return result;
    }
 
    @Override
    public AddressEntity getById(Long id) {
       EntityManager entityMgr = EntityUtils.getEntityManager();
-      AddressEntity result = entityMgr.find(AddressEntity.class, id);
-      return result;
+      return entityMgr.find(AddressEntity.class, id);
    }
+
+   @Override
+   public Long count() {return EntityUtils.count(AddressEntity.class.getName());}
 }

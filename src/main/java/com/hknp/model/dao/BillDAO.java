@@ -80,10 +80,22 @@ public class BillDAO implements IRetrieveEntity<BillEntity, Long>, IModifySingle
 
    @Override
    public ArrayList<BillEntity> gets() {
+      return gets(null, null);
+   }
+
+   @Override
+   public ArrayList<BillEntity> gets(Integer firstResult, Integer maxResults) {
       EntityManager entityMgr = EntityUtils.getEntityManager();
 
       String query = "SELECT u FROM BillEntity u";
       TypedQuery<BillEntity> typedQuery = entityMgr.createQuery(query, BillEntity.class);
+
+      if (firstResult != null) {
+         typedQuery.setFirstResult(firstResult);
+      }
+      if (maxResults != null) {
+         typedQuery.setMaxResults(maxResults);
+      }
 
       ArrayList<BillEntity> result = null;
       try {
@@ -99,7 +111,9 @@ public class BillDAO implements IRetrieveEntity<BillEntity, Long>, IModifySingle
    @Override
    public BillEntity getById(Long id) {
       EntityManager entityMgr = EntityUtils.getEntityManager();
-      BillEntity billEntity = entityMgr.find(BillEntity.class, id);
-      return billEntity;
+      return entityMgr.find(BillEntity.class, id);
    }
+
+   @Override
+   public Long count() {return EntityUtils.count(BillEntity.class.getName());}
 }

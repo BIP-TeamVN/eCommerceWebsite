@@ -79,11 +79,21 @@ public class ProductCategoryDAO implements IRetrieveEntity<ProductCategoryEntity
    }
 
    @Override
-   public ArrayList<ProductCategoryEntity> gets() {
+   public ArrayList<ProductCategoryEntity> gets() { return gets(null, null); }
+
+   @Override
+   public ArrayList<ProductCategoryEntity> gets(Integer firstResult, Integer maxResults) {
       EntityManager entityMgr = EntityUtils.getEntityManager();
 
       String query = "SELECT u FROM ProductCategoryEntity u";
       TypedQuery<ProductCategoryEntity> typedQuery = entityMgr.createQuery(query, ProductCategoryEntity.class);
+
+      if (firstResult != null) {
+         typedQuery.setFirstResult(firstResult);
+      }
+      if (maxResults != null) {
+         typedQuery.setMaxResults(maxResults);
+      }
 
       ArrayList<ProductCategoryEntity> result = null;
       try {
@@ -99,7 +109,10 @@ public class ProductCategoryDAO implements IRetrieveEntity<ProductCategoryEntity
    @Override
    public ProductCategoryEntity getById(Long id) {
       EntityManager entityMgr = EntityUtils.getEntityManager();
-      ProductCategoryEntity productCategoryEntity = entityMgr.find(ProductCategoryEntity.class, id);
-      return productCategoryEntity;
+      return entityMgr.find(ProductCategoryEntity.class, id);
    }
+
+
+   @Override
+   public Long count() {return EntityUtils.count(ProductCategoryEntity.class.getName());}
 }
