@@ -2,6 +2,7 @@ package com.hknp.model.dao;
 
 import com.hknp.interfaces.IRetrieveEntity;
 import com.hknp.model.entity.CommuneEntity;
+import com.hknp.model.entity.DiscountEntity;
 import com.hknp.utils.EntityUtils;
 
 import javax.persistence.EntityManager;
@@ -74,4 +75,7 @@ public class CommuneDAO implements IRetrieveEntity<CommuneEntity, String> {
       EntityManager entityMgr = EntityUtils.getEntityManager();
       return entityMgr.find(CommuneEntity.class, id);
    }
+
+   @Override
+   public Long count() {return EntityUtils.count(CommuneEntity.class.getName());}
 }

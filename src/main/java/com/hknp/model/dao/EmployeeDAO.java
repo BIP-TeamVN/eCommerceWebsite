@@ -2,6 +2,7 @@ package com.hknp.model.dao;
 
 import com.hknp.interfaces.IModifySingleEntityAutoIncrement;
 import com.hknp.interfaces.IRetrieveEntity;
+import com.hknp.model.entity.DiscountEntity;
 import com.hknp.model.entity.EmployeeEntity;
 import com.hknp.model.entity.UserEntity;
 import com.hknp.utils.EntityUtils;
@@ -118,4 +119,7 @@ public class EmployeeDAO implements IRetrieveEntity<EmployeeEntity, Long>, IModi
       EntityManager entityMgr = EntityUtils.getEntityManager();
       return entityMgr.find(EmployeeEntity.class, id);
    }
+
+   @Override
+   public Long count() {return EntityUtils.count(EmployeeEntity.class.getName());}
 }

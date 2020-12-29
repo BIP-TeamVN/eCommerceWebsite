@@ -111,4 +111,7 @@ public class DiscountDAO implements IRetrieveEntity<DiscountEntity, Long>, IModi
       EntityManager entityMgr = EntityUtils.getEntityManager();
       return entityMgr.find(DiscountEntity.class, id);
    }
+
+   @Override
+   public Long count() {return EntityUtils.count(DiscountEntity.class.getName());}
 }

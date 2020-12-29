@@ -3,6 +3,7 @@ package com.hknp.model.dao;
 import com.hknp.interfaces.IModifySingleEntityAutoIncrement;
 import com.hknp.interfaces.IRetrieveEntity;
 import com.hknp.model.entity.BillDetailEntity;
+import com.hknp.model.entity.DiscountEntity;
 import com.hknp.utils.EntityUtils;
 
 import javax.persistence.EntityManager;
@@ -113,4 +114,7 @@ public class BillDetailDAO implements IRetrieveEntity<BillDetailEntity, Long>, I
       EntityManager entityMgr = EntityUtils.getEntityManager();
       return entityMgr.find(BillDetailEntity.class, id);
    }
+
+   @Override
+   public Long count() {return EntityUtils.count(BillDetailEntity.class.getName());}
 }

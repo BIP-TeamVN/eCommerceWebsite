@@ -3,6 +3,7 @@ package com.hknp.model.dao;
 import com.hknp.interfaces.IModifySingleEntityAutoIncrement;
 import com.hknp.interfaces.IRetrieveEntity;
 import com.hknp.model.entity.DeliveryEntity;
+import com.hknp.model.entity.DiscountEntity;
 import com.hknp.model.entity.UserEntity;
 import com.hknp.utils.EntityUtils;
 
@@ -117,4 +118,7 @@ public class DeliveryDAO implements IRetrieveEntity<DeliveryEntity, Long>, IModi
       EntityManager entityMgr = EntityUtils.getEntityManager();
       return entityMgr.find(DeliveryEntity.class, id);
    }
+
+   @Override
+   public Long count() {return EntityUtils.count(DeliveryEntity.class.getName());}
 }

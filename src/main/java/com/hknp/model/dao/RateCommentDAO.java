@@ -2,6 +2,7 @@ package com.hknp.model.dao;
 
 import com.hknp.interfaces.IModifySingleEntityAutoIncrement;
 import com.hknp.interfaces.IRetrieveEntity;
+import com.hknp.model.entity.DiscountEntity;
 import com.hknp.model.entity.RateCommentEntity;
 import com.hknp.utils.EntityUtils;
 
@@ -111,4 +112,7 @@ public class RateCommentDAO implements IRetrieveEntity<RateCommentEntity, Long>,
       EntityManager entityMgr = EntityUtils.getEntityManager();
       return entityMgr.find(RateCommentEntity.class, id);
    }
+
+   @Override
+   public Long count() {return EntityUtils.count(RateCommentEntity.class.getName());}
 }

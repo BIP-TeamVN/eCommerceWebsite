@@ -3,6 +3,7 @@ package com.hknp.model.dao;
 import com.hknp.interfaces.IModifySingleEntityAutoIncrement;
 import com.hknp.interfaces.IRetrieveEntity;
 import com.hknp.model.entity.BrandEntity;
+import com.hknp.model.entity.DiscountEntity;
 import com.hknp.utils.EntityUtils;
 
 import javax.persistence.EntityManager;
@@ -113,4 +114,7 @@ public class BrandDAO implements IRetrieveEntity<BrandEntity, Long>, IModifySing
       EntityManager entityMgr = EntityUtils.getEntityManager();
       return entityMgr.find(BrandEntity.class, id);
    }
+
+   @Override
+   public Long count() {return EntityUtils.count(BrandEntity.class.getName());}
 }

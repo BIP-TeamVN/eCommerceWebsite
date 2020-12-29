@@ -2,6 +2,7 @@ package com.hknp.model.dao;
 
 import com.hknp.interfaces.IModifySingleEntityAutoIncrement;
 import com.hknp.interfaces.IRetrieveEntity;
+import com.hknp.model.entity.DiscountEntity;
 import com.hknp.model.entity.SellerCategoryEntity;
 import com.hknp.utils.EntityUtils;
 
@@ -113,4 +114,7 @@ public class SellerCategoryDAO implements IRetrieveEntity<SellerCategoryEntity, 
       EntityManager entityMgr = EntityUtils.getEntityManager();
       return entityMgr.find(SellerCategoryEntity.class, id);
    }
+
+   @Override
+   public Long count() {return EntityUtils.count(SellerCategoryEntity.class.getName());}
 }

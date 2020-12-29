@@ -2,6 +2,7 @@ package com.hknp.model.dao;
 
 import com.hknp.interfaces.IModifySingleEntity;
 import com.hknp.interfaces.IRetrieveEntity;
+import com.hknp.model.entity.DiscountEntity;
 import com.hknp.model.entity.ProvinceEntity;
 import com.hknp.utils.EntityUtils;
 
@@ -70,4 +71,7 @@ public class ProvinceDAO implements IRetrieveEntity<ProvinceEntity, String> {
       }
       return province;
    }
+
+   @Override
+   public Long count() {return EntityUtils.count(ProvinceEntity.class.getName());}
 }

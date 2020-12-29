@@ -2,6 +2,7 @@ package com.hknp.model.dao;
 
 import com.hknp.interfaces.IModifySingleEntityAutoIncrement;
 import com.hknp.interfaces.IRetrieveEntity;
+import com.hknp.model.entity.DiscountEntity;
 import com.hknp.model.entity.UserEntity;
 import com.hknp.utils.Base64Utils;
 import com.hknp.utils.EntityUtils;
@@ -169,5 +170,8 @@ public class UserDAO implements IRetrieveEntity<UserEntity, Long>, IModifySingle
       Long count = (Long) query.getSingleResult();
       return count == 0;
    }
+
+   @Override
+   public Long count() {return EntityUtils.count(UserEntity.class.getName());}
 }
 

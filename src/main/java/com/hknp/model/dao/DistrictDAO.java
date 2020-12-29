@@ -1,6 +1,7 @@
 package com.hknp.model.dao;
 
 import com.hknp.interfaces.IRetrieveEntity;
+import com.hknp.model.entity.DiscountEntity;
 import com.hknp.model.entity.DistrictEntity;
 import com.hknp.utils.EntityUtils;
 
@@ -73,4 +74,7 @@ public class DistrictDAO implements IRetrieveEntity<DistrictEntity, String> {
       EntityManager entityMgr = EntityUtils.getEntityManager();
       return entityMgr.find(DistrictEntity.class, id);
    }
+
+   @Override
+   public Long count() {return EntityUtils.count(DistrictEntity.class.getName());}
 }
