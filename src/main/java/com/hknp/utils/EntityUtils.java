@@ -1,9 +1,9 @@
 package com.hknp.utils;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.EntityTransaction;
-import javax.persistence.Persistence;
+import com.hknp.model.entity.EmployeeEntity;
+
+import javax.persistence.*;
+import java.util.ArrayList;
 
 public class EntityUtils {
    private static final EntityManagerFactory entityMgrFactory = Persistence.createEntityManagerFactory("eCommerceDb");
@@ -36,5 +36,14 @@ public class EntityUtils {
       }
 
       return isSucceed;
+   }
+
+   public static Long count(String table) {
+      EntityManager entityMgr = EntityUtils.getEntityManager();
+
+      String query = "SELECT COUNT(*) FROM " + table + " u";
+      Long count = (Long) entityMgr.createQuery(query).getSingleResult();
+
+      return count;
    }
 }
