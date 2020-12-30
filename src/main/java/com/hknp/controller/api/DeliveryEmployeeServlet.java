@@ -147,7 +147,7 @@ public class DeliveryEmployeeServlet extends HttpServlet {
          updateUser.setSsn(ssn);
          updateUser.setEmail(email);
 
-         updateUser.setUserType(Cons.User.USER_TYPE_EMPLOYEE);
+         updateUser.setUserType(Cons.User.USER_TYPE_DELIVERY);
          updateUser.setUserName(phoneNumber);
          updateUser.setPassword(HashUtils.getMd5(Base64Utils.encodeFromString(phoneNumber)));
          updateUser.setStatus(true);
@@ -170,12 +170,12 @@ public class DeliveryEmployeeServlet extends HttpServlet {
             Boolean updateAddressResult = AddressDAO.getInstance().update(updateAddress);
 
             if (updateAddressResult != false) {
-               EmployeeEntity employeeEntity = EmployeeDAO.getInstance().getById(updateUser.getUserId());
+               DeliveryEntity deliveryEntity = DeliveryDAO.getInstance().getById(updateUser.getUserId());
 
-               employeeEntity.setSalary(StringUtils.toBigDecimal(salary));
-               employeeEntity.setStartDate(DateTimeUtils.stringToDate(startDate, "dd/MM/yyyy"));
+               deliveryEntity.setSalary(StringUtils.toBigDecimal(salary));
+               deliveryEntity.setStartDate(DateTimeUtils.stringToDate(startDate, "dd/MM/yyyy"));
 
-               EmployeeDAO.getInstance().update((employeeEntity));
+               DeliveryDAO.getInstance().update((deliveryEntity));
 
                result += "true\n" + updateUser.getUserId().toString();
             } else {
