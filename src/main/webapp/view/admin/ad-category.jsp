@@ -55,7 +55,7 @@
             <table class="table">
                <thead>
                <tr>
-                  <th scope="col" class="text-center">#</th>
+                  <th scope="col" class="text-center">Mã</th>
                   <th scope="col" class="text-center">Tên ngành hàng</th>
                   <th scope="col" class="text-center">Ảnh minh họa</th>
                   <th scope="col" class="text-center">Tùy chọn</th>
@@ -99,7 +99,7 @@
                        '</a>' +
                        '</td>' +
                        '<td class="td-actions text-center">' +
-                       '<a href="#" class="btn btn-primary px-2 py-1" data-toggle="tooltip" data-placement="top" title="Chỉnh sửa thông tin">' +
+                       '<a href="/admin/product-category/edit?id=' + item.id +'"class="btn btn-primary px-2 py-1" data-toggle="tooltip" data-placement="top" title="Chỉnh sửa thông tin">' +
                        '<i class="fa fa-edit"></i>' +
                        '</a>' +
                        '</td>' +

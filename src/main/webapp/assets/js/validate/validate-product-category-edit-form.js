@@ -1,19 +1,21 @@
-const name = document.getElementById('name');
+const FORM_ID = 'product-category-edit-form';
 
+let id = document.getElementById('id');
 
+let productCategoryName = document.getElementById('gender');
 
 let isValidate = true;
 
 function checkInputs() {
   // trim to remove the whitespaces
-  const nameValue = name.value.trim();
+  let productCategoryNameValue = productCategoryName.value.trim();
 
   isValidate = true;
 
-  if (nameValue === '') {
-    setErrorFor(name, 'Vui lòng nhập tên ngành hàng');
+  if (productCategoryNameValue === '') {
+    setErrorFor(productCategoryName, 'Vui lòng nhập tên ngành hàng');
   } else {
-    setSuccessFor(name);
+    setSuccessFor(productCategoryName);
   }
 }
 
@@ -51,24 +53,27 @@ function encodeImgToBase64(element) {
   imgReader.readAsDataURL(img);
 }
 
-$('#product-category-form').submit(function (e) {
+$('#' + FORM_ID).submit(function (e) {
   checkInputs();
+
 
   if (!isValidate) {
     e.preventDefault();
   } else {
     $.ajax({
-      url: '/api/product-categories',
-      method: 'POST',
+      url: '/api/employees',
+      method: 'PUT',
       async: false,
       data: {
-        'name': name.value.trim(),
+        'productCategoryId': id.value,
+        'productCategoryName': productCategoryName.value.trim(),
         'imageBase64': $('#img-upload').attr('src')
       },
       success: function (data, textStatus, jqXHR) {
         let result = data.toString().split('\n');
         if (result[0] === 'true') {
-          alert("Thêm ngành hàng mới thành công !");
+          $('#' + FORM_ID).trigger("reset");
+          alert("Cập nhật thông tin thành công !");
         } else {
           alert("Lỗi: " + result[1]);
           e.preventDefault();
@@ -83,5 +88,5 @@ $('#product-category-form').submit(function (e) {
 });
 
 $('#btn-cancel').click(function () {
-  $('#product-category-form').trigger("reset");
+  $('#' + FORM_ID).trigger("reset");
 });
