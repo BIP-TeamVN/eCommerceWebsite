@@ -16,13 +16,19 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
-@WebServlet(urlPatterns = {"/api/deliveryemployee"})
-public class DeliveryEmployeeServlet extends HttpServlet {
+@WebServlet(urlPatterns = {"/api/deliveries"})
+public class DeliveryServlet extends HttpServlet {
    @Override
    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
       resp.setContentType("text/html; charset=UTF-8");
 
-      ArrayList<DeliveryEntity> listDelivery = DeliveryDAO.getInstance().gets();
+      String pagePara = req.getParameter("page");
+      Integer page = StringUtils.toInt(pagePara);
+      if (page <= 0) {
+         page = 1;
+      }
+
+      ArrayList<DeliveryEntity> listDelivery = DeliveryDAO.getInstance().gets((page - 1) * 10, 10);
       List<String> listJsonStr = new ArrayList<>();
 
       for (DeliveryEntity delivery : listDelivery) {

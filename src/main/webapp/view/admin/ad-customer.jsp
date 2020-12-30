@@ -92,38 +92,103 @@
 <!--Javascript-->
 <%@ include file="../../common/import-js.jsp" %>
 <script>
-  $(document).ready(function () {
+   let firstPageButton = '<li class="page-item"><button type="button" class="page-link" onclick="goFirst()"><i class="fa fa-angle-double-left"></i><span class="sr-only">Trang đầu tiên</span></button></li>';
+   let prevPageButton = '<li class="page-item"><button type="button" class="page-link" onclick="goPrev()"><i class="fa fa-angle-left"></i><span class="sr-only">Trang trước</span></button></li>';
+   let nextPageButton = '<li class="page-item"><button type="button" class="page-link" onclick="goNext()"><i class="fa fa-angle-right"></i><span class="sr-only">Trang sau</span></button></li>';
+   let lastPageButton = '<li class="page-item"><button type="button" class="page-link" onclick="goLast()"><i class="fa fa-angle-double-right"></i><span class="sr-only">Trang cuối</span></button></li>';
 
-    $.ajax({
-      url: "/api/customer",
-      method: "GET",
-      data: {},
-      success: function (data) {
-        let obj = $.parseJSON(data);
-        console.log(obj);
-        $('#tb-list').find('tr').remove();
-        $.each(obj, function (key, value) {
-          let html =
-            '<tr>' +
-            '<td>' +
-            '<a href="#" class="media align-items-center">' +
-            '<img class="avatar rounded-circle" src="' + value.imgSrc + '" alt="avatar_image" >' +
-            '</a>' +
-            '</td>' +
-            '<td>' + value.id + '</td>' +
-            '<td>' + value.fullName + '</td>' +
-            '<td>' + value.gender + '</td>' +
-            '<td>' + value.dob + '</td>' +
-            '<td>' + value.phone + '</td>' +
-            '<td>' + value.email + '</td>' +
-            '<td>' + value.registerDate + '</td>' +
-            '</tr>';
-          $('#tb-list').append(html);
-        });
-      },
-      cache: false
-    });
-  });
+   let totalPage = ${totalPage};
+   let currentPage = ${currentPage};
+
+   reloadPage();
+
+   function goFirst() {
+      if(currentPage > 1) {
+         currentPage = 1;
+         reloadPage();
+      }
+   }
+
+   function goPrev() {
+      if(currentPage > 1) {
+         currentPage = currentPage - 1;
+         reloadPage();
+      }
+   }
+
+   function goNext() {
+      if(currentPage < totalPage) {
+         currentPage = currentPage + 1;
+         reloadPage();
+      }
+   }
+
+   function goLast() {
+      if(currentPage < totalPage) {
+         currentPage = totalPage;
+         reloadPage();
+      }
+   }
+
+   function goToPage(page) {
+      currentPage = page;
+      reloadPage();
+   }
+
+   function updatePagination() {
+      $('#page-pagination').find('li').remove();
+
+      $('#page-pagination').append(currentPage > 2 ? firstPageButton : '');
+      $('#page-pagination').append(currentPage > 1 ? prevPageButton : '');
+
+      let startIndex = currentPage - 3 > 1 ? currentPage - 3 : 1;
+      for (let i = startIndex; i < currentPage; i++) {
+         $('#page-pagination').append('<li class="page-item"><button type="button" class="page-link" onclick="goToPage(' + i + ')">' + i + '</but></li>');
+      }
+
+      $('#page-pagination').append('<li class="page-item active"><a class="page-link" href="javascript:void(0)">' + currentPage + '</a></li>');
+
+      for (let i = currentPage + 1; i < currentPage + 4 && i <= totalPage; i++) {
+         $('#page-pagination').append('<li class="page-item"><button type="button" class="page-link" onclick="goToPage(' + i + ')">' + i + '</but></li>');
+      }
+
+      $('#page-pagination').append(currentPage < totalPage ? nextPageButton : '');
+      $('#page-pagination').append(currentPage < totalPage - 1 ? lastPageButton : '');
+   }
+
+   function reloadPage() {
+      updatePagination();
+
+      $.ajax({
+         url: '/api/customers',
+         method: 'GET',
+         data: { page: currentPage },
+         cache: false,
+         success: function (data, textStatus, jqXHR) {
+            let list = $.parseJSON(data);
+            console.log(list);
+            $('#tb-list').find('tr').remove();
+            $.each(list, function (index, item) {
+               let html =
+                       '<tr>' +
+                       '<td>' +
+                       '<a href="#" class="media align-items-center">' +
+                       '<img class="m-auto avatar rounded-circle" src="' + item.imgSrc + '" alt="avatar_image" >' +
+                       '</a>' +
+                       '</td>' +
+                       '<td>' + item.id + '</td>' +
+                       '<td>' + item.fullName + '</td>' +
+                       '<td>' + item.gender + '</td>' +
+                       '<td>' + item.dob + '</td>' +
+                       '<td>' + item.phone + '</td>' +
+                       '<td>' + item.email + '</td>' +
+                       '<td>' + item.registerDate + '</td>' +
+                       '</tr>';
+               $('#tb-list').append(html);
+            });
+         }
+      });
+   }
 </script>
 </body>
 </html>
