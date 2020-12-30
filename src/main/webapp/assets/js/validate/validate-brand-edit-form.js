@@ -1,21 +1,32 @@
-const FORM_ID = 'product-category-edit-form';
+const FORM_ID = 'brand-edit-form';
 
 let id = document.getElementById('id');
 
-let productCategoryName = document.getElementById('name');
+let brandName = document.getElementById('name');
+
+let brandOrigin = document.getElementById('brand-origin');
+
 
 let isValidate = true;
 
 function checkInputs() {
   // trim to remove the whitespaces
-  let productCategoryNameValue = productCategoryName.value.trim();
+  let brandNameValue = brandName.value.trim();
+
+  let brandOriginValue = brandName.value.trim();
 
   isValidate = true;
 
-  if (productCategoryNameValue === '') {
-    setErrorFor(productCategoryName, 'Vui lòng nhập tên ngành hàng');
+  if (brandNameValue === '') {
+    setErrorFor(brandName, 'Vui lòng nhập tên thương hiệu');
   } else {
-    setSuccessFor(productCategoryName);
+    setSuccessFor(brandName);
+  }
+
+  if (brandOriginValue === '') {
+    setErrorFor(brandOrigin, 'Vui lòng nhập nơi xuất xứ');
+  } else {
+    setSuccessFor(brandOrigin);
   }
 }
 
@@ -59,7 +70,8 @@ $('#' + FORM_ID).submit(function (e) {
 
   let paras = JSON.stringify({
     'id': id.value,
-    'name': productCategoryName.value.trim(),
+    'name': brandName.value.trim(),
+    'brand-origin': brandOrigin.value.trim(),
     'image': $('#img-upload').attr('src')
   });
 
@@ -67,7 +79,7 @@ $('#' + FORM_ID).submit(function (e) {
     e.preventDefault();
   } else {
     $.ajax({
-      url: '/api/product-categories',
+      url: '/api/brands',
       method: 'PUT',
       async: false,
       cache: false,

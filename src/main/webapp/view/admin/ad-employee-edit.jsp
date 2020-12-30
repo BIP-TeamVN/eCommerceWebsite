@@ -233,7 +233,7 @@
          </div>
       </div>
 
-      <!-- Modal -->
+      <!-- Modal conform close -->
       <div class="modal fade" id="conform-modal" tabindex="-1" role="dialog" aria-labelledby="conform-modal-lb" aria-hidden="true">
          <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -250,6 +250,26 @@
                <div class="modal-footer">
                   <button type="button" class="btn btn-secondary px-3" data-dismiss="modal">KHÔNG</button>
                   <a href="/admin/employee" class="btn btn-primary px-4">CÓ</a>
+               </div>
+            </div>
+         </div>
+      </div>
+
+      <!-- Modal update successful -->
+      <div class="modal fade" id="successful-modal" tabindex="-1" role="dialog" aria-labelledby="conform-modal-lb" aria-hidden="true">
+         <div class="modal-dialog" role="document">
+            <div class="modal-content">
+               <div class="modal-header">
+                  <h5 class="modal-title" id="successful-modal-lb">Thông báo</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                     <span aria-hidden="true">&times;</span>
+                  </button>
+               </div>
+               <div class="modal-body">
+                  Cập nhật thông tin nhân viên thành công !
+               </div>
+               <div class="modal-footer">
+                  <a href="/admin/employee" class="btn btn-primary px-4">OK</a>
                </div>
             </div>
          </div>

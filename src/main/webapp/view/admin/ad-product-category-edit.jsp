@@ -43,7 +43,7 @@
         <!-- form edit -->
         <div class="row">
             <div class="col-md-10 ml-auto mr-auto">
-                <form id="brand-edit-form" method="POST" enctype="multipart/form-data">
+                <form id="product-category-edit-form" >
 
                     <!--Mã-->
                     <div class="form-group">
@@ -121,25 +121,6 @@
 
 <!--Javascript-->
 <%@ include file="../../common/import-js.jsp" %>
-<script>
-
-  $(document).ready(function () {
-    const apiUrl = "/api/product-categories";
-
-    $.ajax({
-      url: apiUrl,
-      method: 'PUT',
-      data: {
-        page: '1',
-      },
-      success: function (data, textStatus, jqXHR) {
-        let list = $.parseJSON(data);
-        console.log(list);
-      },
-      cache: false
-    });
-  });
-</script>
 <script src="../../assets/js/validate/validate-product-category-edit-form.js"></script>
 </body>
 </html>
