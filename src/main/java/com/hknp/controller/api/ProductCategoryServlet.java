@@ -23,8 +23,13 @@ public class ProductCategoryServlet extends HttpServlet {
 
       resp.setContentType("text/html; charset=UTF-8");
 
-      ArrayList<ProductCategoryEntity> listProductCategory = ProductCategoryDAO.getInstance().gets();
+      String pagePara = req.getParameter("page");
+      Integer page = StringUtils.toInt(pagePara);
+      if (page <= 0) {
+         page = 1;
+      }
 
+      ArrayList<ProductCategoryEntity> listProductCategory = ProductCategoryDAO.getInstance().gets((page - 1) * 10, 10);
       List<String> listJsonStr = new ArrayList<>();
 
       for (ProductCategoryEntity productCategory : listProductCategory) {
@@ -61,6 +66,10 @@ public class ProductCategoryServlet extends HttpServlet {
          }
       } catch (Exception e) {
          result += "false\n" + e.getMessage();
+      }
+
+      try (PrintWriter out = resp.getWriter()) {
+         out.write(result);
       }
    }
 
