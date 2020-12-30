@@ -21,14 +21,14 @@ public class ServletUtils {
       reqDispatcher.forward(req, resp);
    }
 
-   public static Map<String,Object> getParametersMap(HttpServletRequest req) throws IOException {
+   public static Map<String, Object> getParametersMap(HttpServletRequest req) throws IOException {
       InputStream inputStream = req.getInputStream();
-      InputStreamReader inputStreamReader = new InputStreamReader(inputStream , StandardCharsets.UTF_8);
+      InputStreamReader inputStreamReader = new InputStreamReader(inputStream, StandardCharsets.UTF_8);
 
       BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
-      String parameterJson = bufferedReader.readLine().replace("[", "").replace("]","");
+      String parameterJson = bufferedReader.readLine();
 
-      Map<String,Object> parameterMap = new ObjectMapper().readValue(parameterJson, HashMap.class);
+      Map<String, Object> parameterMap = new ObjectMapper().readValue(parameterJson, HashMap.class);
       return parameterMap;
    }
 }

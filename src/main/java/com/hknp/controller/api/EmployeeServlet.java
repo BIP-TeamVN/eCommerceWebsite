@@ -12,8 +12,12 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.*;
-import java.util.*;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
 
 @WebServlet(urlPatterns = {"/api/employees"})
 public class EmployeeServlet extends HttpServlet {
@@ -77,7 +81,7 @@ public class EmployeeServlet extends HttpServlet {
                  Cons.User.USER_TYPE_EMPLOYEE
          );
 
-         if(image != null && !image.isEmpty()) {
+         if (image != null && !image.isEmpty()) {
             newUser.setImage(image);
          }
 
@@ -127,7 +131,7 @@ public class EmployeeServlet extends HttpServlet {
    protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
       resp.setContentType("text/html; charset=UTF-8");
       String result = "";
-      Map<String,Object> parameterMap = ServletUtils.getParametersMap(req);
+      Map<String, Object> parameterMap = ServletUtils.getParametersMap(req);
 
       try {
          String id = (String) parameterMap.get("id");

@@ -81,11 +81,10 @@ public class CustomerServlet extends HttpServlet {
                String sVerify = "OTP: " + otp;
                MailUtils.sendPlanText(email, "Xác thực tài khoản", sVerify);
                otp = HashUtils.getMd5(otp);
-               CookieUtils.addCookie(resp, "otp", otp, 60*5);
+               CookieUtils.addCookie(resp, "otp", otp, 60 * 5);
                result += "true\n" + newUserId.toString();
             }
-         }
-         else {
+         } else {
             result += "false\nError while insert customer\n";
          }
       } catch (Exception e) {

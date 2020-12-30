@@ -1,7 +1,10 @@
 package com.hknp.controller.api;
 
 import com.hknp.model.dao.*;
-import com.hknp.model.entity.*;
+import com.hknp.model.entity.AddressEntity;
+import com.hknp.model.entity.Cons;
+import com.hknp.model.entity.SellerEntity;
+import com.hknp.model.entity.UserEntity;
 import com.hknp.utils.Base64Utils;
 import com.hknp.utils.DateTimeUtils;
 import com.hknp.utils.HashUtils;
@@ -61,7 +64,6 @@ public class SellerServlet extends HttpServlet {
          String businessLicenseld = req.getParameter("business-licenseld");
          String sellerCategoryId = req.getParameter("seller-category-id");
          String bankAccountId = req.getParameter("bank-account-id");
-
 
 
          UserEntity newUser = new UserEntity(
