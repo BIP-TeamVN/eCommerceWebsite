@@ -2,10 +2,7 @@ package com.hknp.controller.api;
 
 import com.hknp.model.dao.*;
 import com.hknp.model.entity.*;
-import com.hknp.utils.Base64Utils;
-import com.hknp.utils.DateTimeUtils;
-import com.hknp.utils.HashUtils;
-import com.hknp.utils.StringUtils;
+import com.hknp.utils.*;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -17,6 +14,7 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 
 @WebServlet(urlPatterns = {"/api/deliveryemployee"})
 public class DeliveryEmployeeServlet extends HttpServlet {
@@ -118,25 +116,26 @@ public class DeliveryEmployeeServlet extends HttpServlet {
    protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
       resp.setContentType("text/html; charset=UTF-8");
       String result = "";
+      Map<String,Object> parameterMap = ServletUtils.getParametersMap(req);
 
       try {
-         String id = req.getParameter("id");
-         String lastName = req.getParameter("last-name");
-         String firstName = req.getParameter("first-name");
+         String id = (String) parameterMap.get("id");
+         String lastName = (String) parameterMap.get("last-name");
+         String firstName = (String) parameterMap.get("first-name");
 
-         String gender = req.getParameter("gender");
-         String dateOfBirth = req.getParameter("dob");
-         String phoneNumber = req.getParameter("phone-number");
-         String ssn = req.getParameter("ssn");
-         String email = req.getParameter("email");
+         String gender = (String) parameterMap.get("gender");
+         String dateOfBirth = (String) parameterMap.get("dob");
+         String phoneNumber = (String) parameterMap.get("phone-number");
+         String ssn = (String) parameterMap.get("ssn");
+         String email = (String) parameterMap.get("email");
 
-         String provinceId = req.getParameter("province");
-         String districtId = req.getParameter("district");
-         String communeId = req.getParameter("commune");
-         String addressStreet = req.getParameter("address-street");
+         String provinceId = (String) parameterMap.get("province");
+         String districtId = (String) parameterMap.get("district");
+         String communeId = (String) parameterMap.get("commune");
+         String addressStreet = (String) parameterMap.get("address-street");
 
-         String startDate = req.getParameter("start-date");
-         String salary = req.getParameter("salary");
+         String startDate = (String) parameterMap.get("start-date");
+         String salary = (String) parameterMap.get("salary");
 
          UserEntity updateUser = UserDAO.getInstance().getById(StringUtils.toLong(id));
 

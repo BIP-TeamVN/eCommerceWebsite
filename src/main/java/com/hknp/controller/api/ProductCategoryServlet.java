@@ -2,6 +2,8 @@ package com.hknp.controller.api;
 
 import com.hknp.model.dao.ProductCategoryDAO;
 import com.hknp.model.entity.ProductCategoryEntity;
+import com.hknp.utils.ServletUtils;
+import com.hknp.utils.StringUtils;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -12,10 +14,10 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 @WebServlet(urlPatterns = {"/api/product-categories"})
 public class ProductCategoryServlet extends HttpServlet {
-
    @Override
    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
@@ -37,7 +39,6 @@ public class ProductCategoryServlet extends HttpServlet {
    @Override
    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
       resp.setContentType("text/html; charset=UTF-8");
-
       String result = "";
 
       try {
@@ -61,14 +62,39 @@ public class ProductCategoryServlet extends HttpServlet {
       } catch (Exception e) {
          result += "false\n" + e.getMessage();
       }
-
-      try (PrintWriter out = resp.getWriter()) {
-         out.write(result);
-      }
    }
 
    @Override
    protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-      super.doPut(req, resp);
+      resp.setContentType("text/html; charset=UTF-8");
+      String result = "";
+      Map<String, Object> parameterMap = ServletUtils.getParametersMap(req);
+
+      try {
+         String id = (String) parameterMap.get("id");
+         String name = (String) parameterMap.get("name");
+         String imageBase64 = (String) parameterMap.get("imageBase64");
+
+         ProductCategoryEntity updateProductCategory = ProductCategoryDAO.getInstance().getById(StringUtils.toLong(id));
+         updateProductCategory.setProductCategoryName(name);
+
+         if (imageBase64 != null && !imageBase64.isEmpty()) {
+            updateProductCategory.setImage(imageBase64);
+         }
+
+         Boolean updateResult = ProductCategoryDAO.getInstance().update(updateProductCategory);
+
+         if (updateResult != false) {
+            result += "true\n" + updateProductCategory.getProductCategoryId().toString();
+         } else {
+            result += "false\nError while insert product-category";
+         }
+      } catch (Exception e) {
+         result += "false\n" + e.getMessage();
+      }
+
+      try (PrintWriter out = resp.getWriter()) {
+         out.write(result);
+      }
    }
 }
