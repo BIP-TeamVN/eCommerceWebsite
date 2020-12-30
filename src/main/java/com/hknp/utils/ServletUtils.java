@@ -26,7 +26,7 @@ public class ServletUtils {
       InputStreamReader inputStreamReader = new InputStreamReader(inputStream , StandardCharsets.UTF_8);
 
       BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
-      String parameterJson = bufferedReader.readLine();
+      String parameterJson = bufferedReader.readLine().replace("[", "").replace("]","");
 
       Map<String,Object> parameterMap = new ObjectMapper().readValue(parameterJson, HashMap.class);
       return parameterMap;

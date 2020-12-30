@@ -204,8 +204,6 @@ $('#' + FORM_ID).submit(function (e) {
     'image': $('#img-upload').attr('src')
   });
 
-  console.log(paras);
-
   if (!isValidate) {
     e.preventDefault();
   } else {
@@ -215,7 +213,6 @@ $('#' + FORM_ID).submit(function (e) {
       async: false,
       cache: false,
       data: paras,
-      dataType: 'json',
       success: function (data, textStatus, jqXHR) {
         let result = data.toString().split('\n');
         if (result[0] === 'true') {
