@@ -16,6 +16,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 @WebServlet(urlPatterns = {"/api/customer"})
 public class CustomerServlet extends HttpServlet {
@@ -101,17 +102,17 @@ public class CustomerServlet extends HttpServlet {
    protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
       resp.setContentType("text/html; charset=UTF-8");
       String result = "";
+      Map<String,Object> parameterMap = ServletUtils.getParametersMap(req);
 
       try {
-         String id = req.getParameter("id");
-         String lastName = req.getParameter("last-name");
-         String firstName = req.getParameter("first-name");
-         String gender = req.getParameter("gender");
-         String dateOfBirth = req.getParameter("dob");
-         String phoneNumber = req.getParameter("phone-number");
-         String ssn = req.getParameter("ssn");
-         String email = req.getParameter("email");
-         String password = req.getParameter("password");
+         String id = (String) parameterMap.get("id");
+         String lastName = (String) parameterMap.get("last-name");
+         String firstName = (String) parameterMap.get("first-name");
+         String gender = (String) parameterMap.get("gender");
+         String dateOfBirth = (String) parameterMap.get("dob");
+         String phoneNumber = (String) parameterMap.get("phone-number");
+         String ssn = (String) parameterMap.get("ssn");
+         String email = (String) parameterMap.get("email");
 
          UserEntity updateUser = UserDAO.getInstance().getById(StringUtils.toLong(id));
 
