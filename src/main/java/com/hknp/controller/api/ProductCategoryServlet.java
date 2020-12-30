@@ -49,9 +49,14 @@ public class ProductCategoryServlet extends HttpServlet {
 
         try {
             String name = req.getParameter("name");
+            String imageBase64 = req.getParameter("imageBase64");
 
             ProductCategoryEntity newProductCategory = new ProductCategoryEntity();
             newProductCategory.setProductCategoryName(name);
+
+            if(imageBase64 != null && !imageBase64.isEmpty()) {
+                newProductCategory.setImage(imageBase64);
+            }
 
             Long newProductCategoryId = ProductCategoryDAO.getInstance().insert(newProductCategory);
 
