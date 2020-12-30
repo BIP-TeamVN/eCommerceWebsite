@@ -1,7 +1,10 @@
 package com.hknp.controller.api;
 
 import com.hknp.model.dao.*;
-import com.hknp.model.entity.*;
+import com.hknp.model.entity.AddressEntity;
+import com.hknp.model.entity.Cons;
+import com.hknp.model.entity.SellerEntity;
+import com.hknp.model.entity.UserEntity;
 import com.hknp.utils.*;
 
 import javax.servlet.ServletException;
@@ -59,7 +62,6 @@ public class SellerServlet extends HttpServlet {
          String businessLicenseld = req.getParameter("business-licenseld");
          String sellerCategoryId = req.getParameter("seller-category-id");
          String bankAccountId = req.getParameter("bank-account-id");
-
 
 
          UserEntity newUser = new UserEntity(
@@ -144,7 +146,7 @@ public class SellerServlet extends HttpServlet {
 
          String storeName = (String) parameterMap.get("store-name");
          String storeLink = (String) parameterMap.get("store-link");
-         String businessLicenseld = (String) parameterMap.get("business-licenseld");
+         String businessLicenseId = (String) parameterMap.get("business-license-id");
          String sellerCategoryId = (String) parameterMap.get("seller-category-id");
          String bankAccountId = (String) parameterMap.get("bank-account-id");
 
@@ -184,7 +186,7 @@ public class SellerServlet extends HttpServlet {
                SellerEntity sellerEntity = SellerDAO.getInstance().getById(updateUser.getUserId());
                sellerEntity.setStoreName(storeName);
                sellerEntity.setStoreLink(storeLink);
-               sellerEntity.setBusinessLicenseId(businessLicenseld);
+               sellerEntity.setBusinessLicenseId(businessLicenseId);
                sellerEntity.setSellerCategoryEntity(SellerCategoryDAO.getInstance().getById(StringUtils.toLong(sellerCategoryId)));
                sellerEntity.setBankAccountId(StringUtils.toLong(bankAccountId));
 

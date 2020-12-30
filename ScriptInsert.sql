@@ -74,17 +74,17 @@ VALUES
 	(10, 'Store Nam', '/namshop', '456456456456', 1, 123123123),
     (11, 'Store Nữ', '/nushop', '52345345234243', 1, 3455321231);
 
-INSERT INTO `PRODUCT` (`BRAND_ID`,`SELLER_ID`,`PRODUCT_NAME`,`PRODUCT_RATE`,`PRODUCT_ORIGIN`,`PRODUCT_DESC`,`QUANTITY`,`PRICE_ORIGIN`,`PRICE_ORDER`)
+INSERT INTO `PRODUCT` (`BRAND_ID`,`SELLER_ID`,`PRODUCT_NAME`,`PRODUCT_RATE`,`PRODUCT_ORIGIN`,`PRODUCT_DESC`,`PRICE_ORIGIN`,`PRICE_ORDER`)
 VALUES
-	(1, 11, 'Nokia 1080', 4.5, 'Việt Nam', 'Nghe, Gọi, Chọi', 20, 500000, 499999),
-    (1, 11, 'Ốp lưng A5', 4.7, 'Việt Nam', 'Bảo vệ điện thoại', 20, 40000, 39999),
-    (2, 11, 'Airpro', 1.1, 'Việt Nam', 'Nghe', 10, 500000, 3999);
+	(1, 11, 'Nokia 1080', 4.5, 'Việt Nam', 'Nghe, Gọi, Chọi', 500000, 499999),
+    (1, 11, 'Ốp lưng A5', 4.7, 'Việt Nam', 'Bảo vệ điện thoại', 40000, 39999),
+    (2, 11, 'Airpro', 1.1, 'Việt Nam', 'Nghe', 500000, 3999);
 
-INSERT INTO `PRODUCT_TYPE` (`PRODUCT_TYPE_NAME`, `PRODUCT_ID`)
+INSERT INTO `PRODUCT_TYPE` (`PRODUCT_TYPE_NAME`, `PRODUCT_ID`, `QUANTITY`)
 VALUES 
-	('Xanh', 1),
-    ('Đỏ', 1),
-    ('Tim', 1);
+	('Xanh', 1, 90),
+    ('Đỏ', 1, 34),
+    ('Tim', 1, 23);
 
 INSERT INTO `RATE_COMMENT` (`RATE_START`, `COMMENT`, `NO_OF_LIKE`, `NO_OF_DISLIKE`, `USER_ID`, `PRODUCT_ID`)
 VALUES 

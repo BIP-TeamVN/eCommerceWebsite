@@ -18,7 +18,22 @@ public class ProductTypeEntity implements Serializable {
    @Column(name = "PRODUCT_TYPE_NAME")
    String productTypeName;
 
+   @Column(name = "QUANTITY")
+   Integer quantity;
+
    public ProductTypeEntity() {
+   }
+
+   public ProductTypeEntity(String productTypeName) {
+      this.productTypeName = productTypeName;
+   }
+
+   public Integer getQuantity() {
+      return quantity;
+   }
+
+   public void setQuantity(Integer quantity) {
+      this.quantity = quantity;
    }
 
    public Long getProductTypeId() {

@@ -53,7 +53,7 @@ public class BrandServlet extends HttpServlet {
          newBrand.setBrandName(brandName);
          newBrand.setBrandOrigin(brandOrigin);
 
-         if(imageBase64 != null && !imageBase64.isEmpty()) {
+         if (imageBase64 != null && !imageBase64.isEmpty()) {
             newBrand.setImage(imageBase64);
          }
          Long newBrandId = BrandDAO.getInstance().insert(newBrand);
@@ -80,10 +80,10 @@ public class BrandServlet extends HttpServlet {
 
       try {
          String id = (String) parameterMap.get("id");
-         String brandName = (String) parameterMap.get("brandName");
-         String brandOrigin = (String) parameterMap.get("brandOrigin");
+         String brandName = (String) parameterMap.get("name");
+         String brandOrigin = (String) parameterMap.get("brand-origin");
 
-         String imageBase64 = (String) parameterMap.get("imageBase64");
+         String imageBase64 = (String) parameterMap.get("image");
 
 
          BrandEntity updateBrand = BrandDAO.getInstance().getById(StringUtils.toLong(id));

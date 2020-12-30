@@ -3,6 +3,7 @@ package com.hknp.model.dao;
 import com.hknp.interfaces.IModifySingleEntityAutoIncrement;
 import com.hknp.interfaces.IRetrieveEntity;
 import com.hknp.model.entity.ProductEntity;
+import com.hknp.model.entity.ProductTypeEntity;
 import com.hknp.utils.EntityUtils;
 
 import javax.persistence.EntityManager;
@@ -33,10 +34,21 @@ public class ProductDAO implements IRetrieveEntity<ProductEntity, Long>, IModify
          entityTrans = entityMgr.getTransaction();
          entityTrans.begin();
 
-         entityMgr.persist(entity);
-         newId = entity.getProductId();
+         Boolean typeResult = true;
+         for (ProductTypeEntity type: entity.getProductTypeEntities()) {
+            Long newType = ProductTypeDAO.getInstance().insert(type);
+            if (newType == 0) {
+               typeResult = false;
+               break;
+            }
+         }
 
-         entityTrans.commit();
+         if (typeResult != false) {
+            entityMgr.persist(entity);
+            newId = entity.getProductId();
+
+            entityTrans.commit();
+         }
       } catch (Exception e) {
          if (entityTrans != null) {
             entityTrans.rollback();
