@@ -63,30 +63,26 @@
 
       <!-- Pagination -->
       <nav aria-label="...">
-         <ul class="pagination justify-content-center mt-5">
-            <li class="page-item disabled text-default">
-               <a class="page-link" href="#" tabindex="-1">
+         <ul id="page-pagination" class="pagination justify-content-center mt-3">
+            <li class="page-item">
+               <button type="button" class="page-link" onclick="goPrev()">
                   <i class="fa fa-angle-left"></i>
-                  <span class="sr-only">Previous</span>
-               </a>
+                  <span class="sr-only">Trang trước</span>
+               </button>
             </li>
             <li class="page-item"><a class="page-link" href="#">1</a></li>
             <li class="page-item active">
-               <a class="page-link" href="#">2 <span class="sr-only">(current)</span></a>
+               <a class="page-link" href="#">2</a>
             </li>
             <li class="page-item"><a class="page-link" href="#">3</a></li>
             <li class="page-item">
-               <a class="page-link" href="#">
+               <button type="button" class="page-link" onclick="goNext()">
                   <i class="fa fa-angle-right"></i>
-                  <span class="sr-only">Next</span>
-               </a>
+                  <span class="sr-only">Trang sau</span>
+               </button>
             </li>
          </ul>
       </nav>
-
-      <!-- Main Page content
-      <div class="row">
-      </div> -->
 
       <!-- Footer -->
       <%@ include file="../../common/footer.jsp" %>
@@ -97,10 +93,9 @@
 <%@ include file="../../common/import-js.jsp" %>
 <script>
   $(document).ready(function () {
-    const apiUrl = "/api/customer";
 
     $.ajax({
-      url: apiUrl,
+      url: "/api/customer",
       method: "GET",
       data: {},
       success: function (data) {
