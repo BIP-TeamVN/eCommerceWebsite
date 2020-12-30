@@ -146,7 +146,7 @@ public class SellerServlet extends HttpServlet {
 
          String storeName = (String) parameterMap.get("store-name");
          String storeLink = (String) parameterMap.get("store-link");
-         String businessLicenseld = (String) parameterMap.get("business-licenseld");
+         String businessLicenseId = (String) parameterMap.get("business-license-id");
          String sellerCategoryId = (String) parameterMap.get("seller-category-id");
          String bankAccountId = (String) parameterMap.get("bank-account-id");
 
@@ -186,7 +186,7 @@ public class SellerServlet extends HttpServlet {
                SellerEntity sellerEntity = SellerDAO.getInstance().getById(updateUser.getUserId());
                sellerEntity.setStoreName(storeName);
                sellerEntity.setStoreLink(storeLink);
-               sellerEntity.setBusinessLicenseId(businessLicenseld);
+               sellerEntity.setBusinessLicenseId(businessLicenseId);
                sellerEntity.setSellerCategoryEntity(SellerCategoryDAO.getInstance().getById(StringUtils.toLong(sellerCategoryId)));
                sellerEntity.setBankAccountId(StringUtils.toLong(bankAccountId));
 
