@@ -28,6 +28,7 @@
 
         <commons-codec.version>1.14</commons-codec.version>
         <javax.mail.version>1.4.7</javax.mail.version>
+        <jackson-databind.version>2.11.2</jackson-databind.version>
     </properties>
 
     <dependencies>
@@ -91,6 +92,12 @@
             <groupId>javax.mail</groupId>
             <artifactId>mail</artifactId>
             <version>${javax.mail.version}</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind -->
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>${jackson-databind.version}</version>
         </dependency>
     </dependencies>
     <build>

@@ -186,6 +186,26 @@ $('#' + FORM_ID).submit(function (e) {
     cache: false
   });
 
+  let paras = JSON.stringify({
+    'id': id.value.toString(),
+    'last-name': lastName.value.trim(),
+    'first-name': firstName.value.trim(),
+    'gender': gender.value,
+    'dob': dob.value,
+    'phone-number': phoneNumber.value,
+    'ssn': ssn.value,
+    'email': email.value,
+    'province': province.value,
+    'district': district.value,
+    'commune': commune.value,
+    'address-street': addressStreet.value.trim(),
+    'start-date': startDate.value,
+    'salary': salary.value,
+    'image': $('#img-upload').attr('src')
+  });
+
+  console.log(paras);
+
   if (!isValidate) {
     e.preventDefault();
   } else {
@@ -193,23 +213,9 @@ $('#' + FORM_ID).submit(function (e) {
       url: '/api/employees',
       method: 'PUT',
       async: false,
-      data: {
-        'id': id.value,
-        'last-name': lastName.value.trim(),
-        'first-name': firstName.value.trim(),
-        'gender': gender.value,
-        'dob': dob.value,
-        'phone-number': phoneNumber.value,
-        'ssn': ssn.value,
-        'email': email.value,
-        'province': province.value,
-        'district': district.value,
-        'commune': commune.value,
-        'address-street': addressStreet.value.trim(),
-        'start-date': startDate.value,
-        'salary': salary.value,
-        'imageBase64': $('#img-upload').attr('src')
-      },
+      cache: false,
+      data: paras,
+      dataType: 'json',
       success: function (data, textStatus, jqXHR) {
         let result = data.toString().split('\n');
         if (result[0] === 'true') {

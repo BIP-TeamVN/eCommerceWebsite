@@ -5,21 +5,15 @@ import com.hknp.model.entity.AddressEntity;
 import com.hknp.model.entity.Cons;
 import com.hknp.model.entity.EmployeeEntity;
 import com.hknp.model.entity.UserEntity;
-import com.hknp.utils.Base64Utils;
-import com.hknp.utils.DateTimeUtils;
-import com.hknp.utils.HashUtils;
-import com.hknp.utils.StringUtils;
+import com.hknp.utils.*;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.io.*;
+import java.util.*;
 
 @WebServlet(urlPatterns = {"/api/employees"})
 public class EmployeeServlet extends HttpServlet {
@@ -45,7 +39,6 @@ public class EmployeeServlet extends HttpServlet {
       }
    }
 
-
    @Override
    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
       resp.setContentType("text/html; charset=UTF-8");
@@ -69,7 +62,7 @@ public class EmployeeServlet extends HttpServlet {
          String startDate = req.getParameter("start-date");
          String salary = req.getParameter("salary");
 
-         String imageBase64 = req.getParameter("imageBase64");
+         String image = req.getParameter("image");
 
          UserEntity newUser = new UserEntity(
                  lastName,
@@ -84,8 +77,8 @@ public class EmployeeServlet extends HttpServlet {
                  Cons.User.USER_TYPE_EMPLOYEE
          );
 
-         if(imageBase64 != null && !imageBase64.isEmpty()) {
-            newUser.setImage(imageBase64);
+         if(image != null && !image.isEmpty()) {
+            newUser.setImage(image);
          }
 
          EmployeeEntity newEmployee = new EmployeeEntity();
@@ -134,40 +127,39 @@ public class EmployeeServlet extends HttpServlet {
    protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
       resp.setContentType("text/html; charset=UTF-8");
       String result = "";
+      Map<String,Object> parameterMap = ServletUtils.getParametersMap(req);
 
       try {
-         String id = req.getParameter("id");
-         String lastName = req.getParameter("last-name");
-         String firstName = req.getParameter("first-name");
+         String id = (String) parameterMap.get("id");
+         String lastName = (String) parameterMap.get("last-name");
+         String firstName = (String) parameterMap.get("first-name");
 
-         String gender = req.getParameter("gender");
-         String dateOfBirth = req.getParameter("dob");
-         String phoneNumber = req.getParameter("phone-number");
-         String ssn = req.getParameter("ssn");
-         String email = req.getParameter("email");
+         String gender = (String) parameterMap.get("gender");
+         String dateOfBirth = (String) parameterMap.get("dob");
+         String phoneNumber = (String) parameterMap.get("phone-number");
+         String ssn = (String) parameterMap.get("ssn");
+         String email = (String) parameterMap.get("email");
 
-         String provinceId = req.getParameter("province");
-         String districtId = req.getParameter("district");
-         String communeId = req.getParameter("commune");
-         String addressStreet = req.getParameter("address-street");
+         String provinceId = (String) parameterMap.get("province");
+         String districtId = (String) parameterMap.get("district");
+         String communeId = (String) parameterMap.get("commune");
+         String addressStreet = (String) parameterMap.get("address-street");
 
-         String startDate = req.getParameter("start-date");
-         String salary = req.getParameter("salary");
+         String startDate = (String) parameterMap.get("start-date");
+         String salary = (String) parameterMap.get("salary");
+
+         String image = (String) parameterMap.get("image");
 
          UserEntity updateUser = UserDAO.getInstance().getById(StringUtils.toLong(id));
 
          updateUser.setFirstName(firstName);
          updateUser.setLastName(lastName);
          updateUser.setGender(gender);
-         updateUser.setDateOfBirth(DateTimeUtils.stringToDate(dateOfBirth, "dd/MM/yyyy"));
+         updateUser.setDateOfBirth(DateTimeUtils.stringToDate(dateOfBirth, "yyyy-MM-dd"));
          updateUser.setPhoneNumber(phoneNumber);
          updateUser.setSsn(ssn);
          updateUser.setEmail(email);
-
-         updateUser.setUserType(Cons.User.USER_TYPE_EMPLOYEE);
-         updateUser.setUserName(phoneNumber);
-         updateUser.setPassword(HashUtils.getMd5(Base64Utils.encodeFromString(phoneNumber)));
-         updateUser.setStatus(true);
+         updateUser.setImage(image);
 
          Boolean updateResult = UserDAO.getInstance().update(updateUser);
 
@@ -185,12 +177,11 @@ public class EmployeeServlet extends HttpServlet {
             updateAddress.setUserId(updateUser.getUserId());
 
             Boolean updateAddressResult = AddressDAO.getInstance().update(updateAddress);
-
             if (updateAddressResult != false) {
                EmployeeEntity employeeEntity = EmployeeDAO.getInstance().getById(updateUser.getUserId());
 
                employeeEntity.setSalary(StringUtils.toBigDecimal(salary));
-               employeeEntity.setStartDate(DateTimeUtils.stringToDate(startDate, "dd/MM/yyyy"));
+               employeeEntity.setStartDate(DateTimeUtils.stringToDate(startDate, "yyyy-MM-dd"));
 
                EmployeeDAO.getInstance().update((employeeEntity));
 

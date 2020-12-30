@@ -79,7 +79,7 @@ function checkInputs() {
   }
 
   if (districtValue === '000') {
-    setErrorFor(district, 'Vui lòng chọn quận/ huyện');
+    setErrorFor(district, 'Vui lòng chọn quin/ huyện');
   } else {
     setSuccessFor(district);
   }
@@ -204,7 +204,7 @@ $('#' + FORM_ID).submit(function (e) {
         'address-street': addressStreet.value.trim(),
         'start-date': startDate.value,
         'salary': salary.value,
-        'imageBase64': $('#img-upload').attr('src')
+        'image': $('#img-upload').attr('src')
       },
       success: function (data, textStatus, jqXHR) {
         let result = data.toString().split('\n');
