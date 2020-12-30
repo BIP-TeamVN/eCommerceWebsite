@@ -81,13 +81,13 @@ public class ProductCategoryServlet extends HttpServlet {
         try {
             String id = (String) parameterMap.get("id");
             String name = (String) parameterMap.get("name");
-            String imageBase64 = (String) parameterMap.get("imageBase64");
+            String image = (String) parameterMap.get("image");
 
             ProductCategoryEntity updateProductCategory = ProductCategoryDAO.getInstance().getById(StringUtils.toLong(id));
             updateProductCategory.setProductCategoryName(name);
 
-            if(imageBase64 != null && !imageBase64.isEmpty()) {
-                updateProductCategory.setImage(imageBase64);
+            if(image != null && !image.isEmpty()) {
+                updateProductCategory.setImage(image);
             }
 
             Boolean updateResult = ProductCategoryDAO.getInstance().update(updateProductCategory);

@@ -2,7 +2,7 @@ const FORM_ID = 'product-category-edit-form';
 
 let id = document.getElementById('id');
 
-let productCategoryName = document.getElementById('gender');
+let productCategoryName = document.getElementById('name');
 
 let isValidate = true;
 
@@ -53,22 +53,25 @@ function encodeImgToBase64(element) {
   imgReader.readAsDataURL(img);
 }
 
+
 $('#' + FORM_ID).submit(function (e) {
   checkInputs();
 
+  let paras = JSON.stringify({
+    'id': id.value,
+    'name': productCategoryName.value.trim(),
+    'image': $('#img-upload').attr('src')
+  });
 
   if (!isValidate) {
     e.preventDefault();
   } else {
     $.ajax({
-      url: '/api/employees',
+      url: '/api/product-categories',
       method: 'PUT',
       async: false,
-      data: {
-        'productCategoryId': id.value,
-        'productCategoryName': productCategoryName.value.trim(),
-        'imageBase64': $('#img-upload').attr('src')
-      },
+      cache: false,
+      data: paras,
       success: function (data, textStatus, jqXHR) {
         let result = data.toString().split('\n');
         if (result[0] === 'true') {
