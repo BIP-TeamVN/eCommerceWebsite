@@ -1,12 +1,10 @@
 package com.hknp.controller.api;
 
-import com.hknp.model.dao.*;
+import com.hknp.model.dao.AddressDAO;
+import com.hknp.model.dao.CommuneDAO;
+import com.hknp.model.dao.DistrictDAO;
+import com.hknp.model.dao.ProvinceDAO;
 import com.hknp.model.entity.AddressEntity;
-import com.hknp.model.entity.CustomerEntity;
-import com.hknp.model.entity.UserEntity;
-import com.hknp.utils.Base64Utils;
-import com.hknp.utils.DateTimeUtils;
-import com.hknp.utils.HashUtils;
 import com.hknp.utils.StringUtils;
 
 import javax.servlet.ServletException;
@@ -65,11 +63,9 @@ public class AddressServlet extends HttpServlet {
          newAddress.setPhoneNumber(phoneNumber);
 
          Long insertResult = AddressDAO.getInstance().insert(newAddress);
-         if(insertResult != 0)
-         {
+         if (insertResult != 0) {
             result += "true\n" + insertResult;
-         }
-         else {
+         } else {
             result += "false\nError while insert address\n";
          }
       } catch (Exception e) {

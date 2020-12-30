@@ -53,7 +53,7 @@ public class BrandServlet extends HttpServlet {
          newBrand.setBrandName(brandName);
          newBrand.setBrandOrigin(brandOrigin);
 
-         if(imageBase64 != null && !imageBase64.isEmpty()) {
+         if (imageBase64 != null && !imageBase64.isEmpty()) {
             newBrand.setImage(imageBase64);
          }
          Long newBrandId = BrandDAO.getInstance().insert(newBrand);

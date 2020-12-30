@@ -1,12 +1,9 @@
 package com.hknp.utils;
 
-import com.hknp.model.entity.EmployeeEntity;
-
-import javax.persistence.*;
-import java.util.ArrayList;
-import com.hknp.model.entity.AddressEntity;
-
-import javax.persistence.*;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.EntityTransaction;
+import javax.persistence.Persistence;
 
 public class EntityUtils {
    private static final EntityManagerFactory entityMgrFactory = Persistence.createEntityManagerFactory("eCommerceDb");

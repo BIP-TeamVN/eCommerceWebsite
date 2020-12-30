@@ -1,9 +1,9 @@
 package com.hknp.utils;
 
-import java.util.Properties;
-
 import javax.mail.*;
-import javax.mail.internet.*;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
+import java.util.Properties;
 
 public class MailUtils {
    static final String SMTP_HOST = "smtp.gmail.com";
@@ -31,11 +31,11 @@ public class MailUtils {
    }
 
    public static boolean sendPlanText(String receiveEmail, String subject, Object body) {
-      return send(receiveEmail, subject, body,"text/plain");
+      return send(receiveEmail, subject, body, "text/plain");
    }
 
    public static boolean sendHtmlText(String receiveEmail, String subject, Object body) {
-      return send(receiveEmail, subject, body,"text/html");
+      return send(receiveEmail, subject, body, "text/html");
    }
 
    public static boolean send(String receiveEmail, String subject, Object body, String contentType) {
@@ -46,7 +46,7 @@ public class MailUtils {
          message.setFrom(new InternetAddress(AUTH_MAIL_ADDRESS));
          message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(receiveEmail));
          message.setSubject(subject);
-         message.setContent(body, contentType+"; charset=UTF-8");
+         message.setContent(body, contentType + "; charset=UTF-8");
 
          // Send message
          Transport.send(message);
