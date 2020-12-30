@@ -34,14 +34,20 @@ public class ProductEntity implements Serializable {
    @Column(name = "PRODUCT_DESC")
    String productDesc;
 
-   @Column(name = "QUANTITY")
-   Integer quantity;
-
    @Column(name = "PRICE_ORIGIN")
    BigDecimal priceOrigin;
 
    @Column(name = "PRICE_ORDER")
    BigDecimal priceOrder;
+
+   @Column(name = "IMAGE_0")
+   String image0;
+
+   @Column(name = "IMAGE_1")
+   String image1;
+
+   @Column(name = "IMAGE_2")
+   String image2;
 
    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
    @JoinColumn(name = "PRODUCT_ID")
@@ -57,6 +63,30 @@ public class ProductEntity implements Serializable {
    private Set<ProductCategoryEntity> productCategoryEntities;
 
    public ProductEntity() {
+   }
+
+   public String getImage0() {
+      return image0;
+   }
+
+   public void setImage0(String image0) {
+      this.image0 = image0;
+   }
+
+   public String getImage1() {
+      return image1;
+   }
+
+   public void setImage1(String image1) {
+      this.image1 = image1;
+   }
+
+   public String getImage2() {
+      return image2;
+   }
+
+   public void setImage2(String image2) {
+      this.image2 = image2;
    }
 
    public Set<ProductTypeEntity> getProductTypeEntities() {
@@ -131,14 +161,6 @@ public class ProductEntity implements Serializable {
       this.productDesc = productDesc;
    }
 
-   public Integer getQuantity() {
-      return quantity;
-   }
-
-   public void setQuantity(Integer quantity) {
-      this.quantity = quantity;
-   }
-
    public BigDecimal getPriceOrigin() {
       return priceOrigin;
    }
@@ -161,5 +183,19 @@ public class ProductEntity implements Serializable {
 
    public void setProductCategoryEntities(Set<ProductCategoryEntity> productCategoryEntities) {
       this.productCategoryEntities = productCategoryEntities;
+   }
+
+   public String toJson() {
+      return "{" +
+              "\"id\":\"" + productId + "\"," +
+              "\"productName\":\"" + productName + "\"," +
+              "\"brand\":\"" + brandEntity.getBrandName() + "\"," +
+              "\"seller\":\"" + sellerEntity.getStoreName() + "\"" +
+              "\"productRate\":\"" + productRate + "\"" +
+              "\"productOrigin\":\"" + productOrigin + "\"" +
+              "\"productDesc\":\"" + productDesc + "\"" +
+              "\"priceOrigin\":\"" + priceOrigin + "\"" +
+              "\"priceOrder\":\"" + priceOrder + "\"" +
+              "}";
    }
 }
