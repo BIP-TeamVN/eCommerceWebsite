@@ -10,7 +10,7 @@ INSERT INTO `USER`(`FIRST_NAME`, `LAST_NAME`, `GENDER`, `DATE_OF_BIRTH`, `SSN`, 
 VALUES
     ('Lý', 'Nguyễn Ngọc Thiên', 'Nữ', '20000331', '072356850000', '0965639521', NULL, 'empl', '7e7175c2e20d590551e9fb500bc38c8c', 'EMPLOYEE', 1),							-- UID = 10000
 	('Giang',  'Lê Trường', 'Nam', '19951203', '596522653964', '0965632521', 'giangle1995@gmail.com', '0965632521', 'e73adf9842e38aab89b6a8b9c8824051', 'EMPLOYEE', 0),		-- UID = 10001
-	('Minh',  'Mai Sỹ', 'Khác', '19940228', '496229526', '0339566263', 'msm1994@yahoo.com', '0339566263', '7e7175c2e20d590551e9fb500bc38c8c', 'SELLER', 1),					-- UID = 10002
+	('Minh',  'Mai Sỹ', 'Khác', '19940228', '496229526', '0339566263', 'msm1994@yahoo.com', 'seller', '7e7175c2e20d590551e9fb500bc38c8c', 'SELLER', 1),					-- UID = 10002
 	('Thu',  'Lê Thị', 'Khác', '19980214', '261626546455', '0368465655', 'thult@gmail.com', '0368465655', 'e73adf9842e38aab89b6a8b9c8824051', 'SELLER', 1),					-- UID = 10003
 	('Toàn',  'Cao Văn', 'Nam', '19950831', '344643356', '0945641535', 'toancv@outlook.com', '0945641535', 'e73adf9842e38aab89b6a8b9c8824051', 'EMPLOYEE', 0),				-- UID = 10004
 	('Cúc',  'Nguyễn Thị Thu', 'Nữ', '19941002', '463786434', '0914846315', 'cuntt@hotmail.com', '0914846315', 'e73adf9842e38aab89b6a8b9c8824051', 'EMPLOYEE', 0),			-- UID = 10005
@@ -76,9 +76,9 @@ VALUES
 
 INSERT INTO `PRODUCT` (`BRAND_ID`,`SELLER_ID`,`PRODUCT_NAME`,`PRODUCT_RATE`,`PRODUCT_ORIGIN`,`PRODUCT_DESC`,`PRICE_ORIGIN`,`PRICE_ORDER`)
 VALUES
-	(1, 11, 'Nokia 1080', 4.5, 'Việt Nam', 'Nghe, Gọi, Chọi', 500000, 499999),
-    (1, 11, 'Ốp lưng A5', 4.7, 'Việt Nam', 'Bảo vệ điện thoại', 40000, 39999),
-    (2, 11, 'Airpro', 1.1, 'Việt Nam', 'Nghe', 500000, 3999);
+	(1, 10002, 'Nokia 1080', 4.5, 'Việt Nam', 'Nghe, Gọi, Chọi', 500000, 499999),
+    (1, 10002, 'Ốp lưng A5', 4.7, 'Việt Nam', 'Bảo vệ điện thoại', 40000, 39999),
+    (2, 10003, 'Airpro', 1.1, 'Việt Nam', 'Nghe', 500000, 3999);
 
 INSERT INTO `PRODUCT_TYPE` (`PRODUCT_TYPE_NAME`, `PRODUCT_ID`, `QUANTITY`)
 VALUES 
@@ -160,10 +160,5 @@ VALUES
 	(10010, '20181025', 8000000),
 	(10011, '20181102', 6500000);
 
-
-INSERT INTO `DELIVERY` (`USER_ID`, `START_DATE`, `SALARY`)
-VALUES
-	(10010, '20181025', 8000000),
-	(10011, '20181102', 6500000);
 
 
