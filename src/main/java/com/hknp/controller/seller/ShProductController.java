@@ -1,6 +1,5 @@
-package com.hknp.controller.admin;
+package com.hknp.controller.seller;
 
-import com.hknp.model.dao.EmployeeDAO;
 import com.hknp.model.dao.ProductDAO;
 import com.hknp.utils.ServletUtils;
 import com.hknp.utils.StringUtils;
@@ -12,8 +11,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet(urlPatterns = {"/admin/product"})
-public class AdProductController extends HttpServlet {
+@WebServlet(urlPatterns = {"/seller/product"})
+public class ShProductController extends HttpServlet {
    @Override
    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
       Long totalRows = ProductDAO.getInstance().count();

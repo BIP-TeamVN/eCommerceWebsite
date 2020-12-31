@@ -1,10 +1,7 @@
 package com.hknp.controller.api;
 
 import com.hknp.model.dao.*;
-import com.hknp.model.entity.BrandEntity;
-import com.hknp.model.entity.ProductCategoryEntity;
-import com.hknp.model.entity.ProductEntity;
-import com.hknp.model.entity.ProductTypeEntity;
+import com.hknp.model.entity.*;
 import com.hknp.utils.ServletUtils;
 import com.hknp.utils.StringUtils;
 
@@ -23,7 +20,13 @@ public class ProductServlet extends HttpServlet {
    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
       resp.setContentType("text/html; charset=UTF-8");
 
-      ArrayList<ProductEntity> listProduct = ProductDAO.getInstance().gets();
+      String pagePara = req.getParameter("page");
+      Integer page = StringUtils.toInt(pagePara);
+      if (page <= 0) {
+         page = 1;
+      }
+
+      ArrayList<ProductEntity> listProduct = ProductDAO.getInstance().gets((page - 1) * 10, 10);
       List<String> listJsonStr = new ArrayList<>();
 
       for (ProductEntity product : listProduct) {

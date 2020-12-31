@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
-@WebFilter(urlPatterns = {"/admin", "/admin/*"})
+@WebFilter(urlPatterns = {"/admin/*"})
 public class AdminFilter implements Filter {
 
    @Override
@@ -31,10 +31,10 @@ public class AdminFilter implements Filter {
             chain.doFilter(req, resp);
          }
          else {
-            ServletUtils.forward(httpReq, httpResp, "/login");
+            ServletUtils.forward(httpReq, httpResp, "/logout");
          }
       } catch (Exception e) {
-         ServletUtils.forward(httpReq, httpResp, "/login");
+         ServletUtils.forward(httpReq, httpResp, "/logout");
       }
    }
 

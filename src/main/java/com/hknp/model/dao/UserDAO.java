@@ -122,7 +122,7 @@ public class UserDAO implements IRetrieveEntity<UserEntity, Long>, IModifySingle
       long id = 0L;
       try {
          password = HashUtils.getMd5(Base64Utils.encodeFromString(password));
-         String query = "SELECT u FROM UserEntity AS u WHERE u.userName = '" + username + "'";
+         String query = "SELECT u FROM UserEntity AS u WHERE u.userName = '" + username + "' or u.phoneNumber = '" + username + "' or u.email = '" + username + "'";
          UserEntity userEntity = entityMgr.createQuery(query, UserEntity.class).getSingleResult();
          if (userEntity.getPassword().equals(password))
             id = userEntity.getUserId();
