@@ -118,6 +118,30 @@ public class ProductDAO implements IRetrieveEntity<ProductEntity, Long>, IModify
       return result;
    }
 
+   public ArrayList<ProductEntity> gets(Integer firstResult, Integer maxResults, Long sellerId) {
+      EntityManager entityMgr = EntityUtils.getEntityManager();
+
+      String query = "SELECT u FROM ProductEntity u where u.sellerEntity.userId = " + sellerId;
+      TypedQuery<ProductEntity> typedQuery = entityMgr.createQuery(query, ProductEntity.class);
+
+      if (firstResult != null) {
+         typedQuery.setFirstResult(firstResult);
+      }
+      if (maxResults != null) {
+         typedQuery.setMaxResults(maxResults);
+      }
+
+      ArrayList<ProductEntity> result = null;
+      try {
+         result = new ArrayList<>(typedQuery.getResultList());
+      } catch (Exception exception) {
+         exception.printStackTrace();
+      } finally {
+         entityMgr.close();
+      }
+      return result;
+   }
+
    @Override
    public ProductEntity getById(Long id) {
       EntityManager entityMgr = EntityUtils.getEntityManager();

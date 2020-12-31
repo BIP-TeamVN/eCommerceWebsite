@@ -28,7 +28,7 @@
 
         <commons-codec.version>1.14</commons-codec.version>
         <javax.mail.version>1.4.7</javax.mail.version>
-        <jackson-databind.version>2.11.3</jackson-databind.version>
+        <jackson-databind.version>2.11.2</jackson-databind.version>
     </properties>
 
     <dependencies>

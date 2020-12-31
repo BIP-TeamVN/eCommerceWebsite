@@ -5,7 +5,10 @@ import com.hknp.utils.DateTimeUtils;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "SELLER")
@@ -36,16 +39,16 @@ public class SellerEntity implements Serializable {
 
    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
    @JoinColumn(name = "SELLER_ID")
-   List<ProductEntity> productEntities;
+   Set<ProductEntity> productEntities;
 
    public SellerEntity() {
    }
 
-   public List<ProductEntity> getProductEntities() {
+   public Set<ProductEntity> getProductEntities() {
       return productEntities;
    }
 
-   public void setProductEntities(List<ProductEntity> productEntities) {
+   public void setProductEntities(Set<ProductEntity> productEntities) {
       this.productEntities = productEntities;
    }
 
