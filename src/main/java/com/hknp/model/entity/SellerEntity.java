@@ -117,7 +117,8 @@ public class SellerEntity implements Serializable {
               "\"storeName\":\"" + storeName + "\","+
               "\"storeLink\":\"" + storeLink + "\"," +
               "\"businessLicenseId\":\"" + businessLicenseId + "\"," +
-              "\"sellerCategoryEntity\":\"" + sellerCategoryEntity.getCategoryName() + "\"" +
+              "\"sellerCategoryEntity\":\"" + sellerCategoryEntity.getCategoryName() + "\"," +
+              "\"bankAccountId\":\"" + bankAccountId + "\"" +
               "}";
    }
 }

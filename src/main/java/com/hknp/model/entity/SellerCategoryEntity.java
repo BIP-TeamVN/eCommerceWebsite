@@ -45,4 +45,7 @@ public class SellerCategoryEntity implements Serializable {
    public void setCategoryName(String categoryName) {
       this.categoryName = categoryName;
    }
+   public String toJson() {
+      return "{\"id\":\"" +sellerCategoryId + "\",\"name\":\"" + getCategoryName() + "\"}";
+   }
 }

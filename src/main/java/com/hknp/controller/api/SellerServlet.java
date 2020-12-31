@@ -66,6 +66,8 @@ public class SellerServlet extends HttpServlet {
          String sellerCategoryId = req.getParameter("seller-category-id");
          String bankAccountId = req.getParameter("bank-account-id");
 
+         String image = req.getParameter("image");
+
 
          UserEntity newUser = new UserEntity(
                  lastName,
@@ -79,6 +81,10 @@ public class SellerServlet extends HttpServlet {
                  HashUtils.getMd5(Base64Utils.encodeFromString(phoneNumber)),
                  Cons.User.USER_TYPE_SELLER
          );
+
+         if (image != null && !image.isEmpty()) {
+            newUser.setImage(image);
+         }
 
          SellerEntity newSeller = new SellerEntity();
          newSeller.setUserEntity(newUser);
