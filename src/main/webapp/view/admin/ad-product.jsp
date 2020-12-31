@@ -34,7 +34,7 @@
       <!--Title-->
       <div class="row">
          <div class="col-md-10 ml-auto mr-auto">
-            <h2 class="display-3 text-center text-uppercase my-5">Danh sách nhân viên</h2>
+            <h2 class="display-3 text-center text-uppercase my-5">Danh sách Sản phẩm</h2>
          </div>
       </div>
 

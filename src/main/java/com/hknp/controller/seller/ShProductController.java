@@ -35,7 +35,7 @@ public class ShProductController extends HttpServlet {
 
       req.setAttribute("totalPage", totalPage);
       req.setAttribute("currentPage", currentPage);
-      ServletUtils.forward(req, resp, "/view/admin/ad-product.jsp");
+      ServletUtils.forward(req, resp, "/view/seller/sh-product.jsp");
    }
 
    @Override
