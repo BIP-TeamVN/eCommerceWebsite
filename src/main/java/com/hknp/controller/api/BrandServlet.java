@@ -23,7 +23,13 @@ public class BrandServlet extends HttpServlet {
 
       resp.setContentType("text/html; charset=UTF-8");
 
-      ArrayList<BrandEntity> listBrand = BrandDAO.getInstance().gets();
+      String pagePara = req.getParameter("page");
+      Integer page = StringUtils.toInt(pagePara);
+      if (page <= 0) {
+         page = 1;
+      }
+
+      ArrayList<BrandEntity> listBrand = BrandDAO.getInstance().gets((page - 1) * 10, 10);
       List<String> listJsonStr = new ArrayList<>();
 
       for (BrandEntity brand : listBrand) {

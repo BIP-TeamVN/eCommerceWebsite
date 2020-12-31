@@ -38,9 +38,6 @@ public class LoginController extends HttpServlet {
             case Cons.User.USER_TYPE_SELLER:
                ServletUtils.forward(req, resp, "/seller");
                break;
-            case Cons.User.USER_TYPE_CUSTOMER:
-               ServletUtils.forward(req, resp, "#");
-               break;
             default:
                ServletUtils.forward(req, resp, "/view/web/login.jsp");
                break;

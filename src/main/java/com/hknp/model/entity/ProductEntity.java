@@ -49,6 +49,9 @@ public class ProductEntity implements Serializable {
    @Column(name = "IMAGE_2")
    String image2;
 
+   @Column(name = "STATUS")
+   Boolean status;
+
    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
    @JoinColumn(name = "PRODUCT_ID")
    List<RateCommentEntity> rateCommentEntities;
@@ -63,6 +66,14 @@ public class ProductEntity implements Serializable {
    private Set<ProductCategoryEntity> productCategoryEntities;
 
    public ProductEntity() {
+   }
+
+   public Boolean getStatus() {
+      return status;
+   }
+
+   public void setStatus(Boolean status) {
+      this.status = status;
    }
 
    public String getImage0() {
@@ -190,12 +201,14 @@ public class ProductEntity implements Serializable {
               "\"id\":\"" + productId + "\"," +
               "\"productName\":\"" + productName + "\"," +
               "\"brand\":\"" + brandEntity.getBrandName() + "\"," +
-              "\"seller\":\"" + sellerEntity.getStoreName() + "\"" +
-              "\"productRate\":\"" + productRate + "\"" +
-              "\"productOrigin\":\"" + productOrigin + "\"" +
-              "\"productDesc\":\"" + productDesc + "\"" +
-              "\"priceOrigin\":\"" + priceOrigin + "\"" +
-              "\"priceOrder\":\"" + priceOrder + "\"" +
+              "\"seller\":\"" + sellerEntity.getStoreName() + "\"," +
+              "\"productRate\":\"" + productRate + "\"," +
+              "\"productOrigin\":\"" + productOrigin + "\"," +
+              "\"productDesc\":\"" + productDesc + "\"," +
+              "\"priceOrigin\":\"" + priceOrigin + "\"," +
+              "\"priceOrder\":\"" + priceOrder + "\"," +
+              "\"image\":\"" + image0 + "\"," +
+              "\"status\":\"" + status + "\"" +
               "}";
    }
 }

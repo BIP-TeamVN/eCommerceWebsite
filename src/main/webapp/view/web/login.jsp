@@ -47,17 +47,6 @@
                   <span class="nav-link-inner--text">Trang chủ</span>
                </a>
             </li>
-            <li class="nav-item">
-               <a href="login.html" class="nav-link">
-                  <span class="nav-link-inner--text">Đăng nhập</span>
-               </a>
-            </li>
-            <li class="nav-item">
-               <a class="nav-link mb-sm-3 mb-md-0" id="tabs-icons-text-2-tab" data-toggle="tab"
-                  href="#tabs-icons-text-2" role="tab" aria-controls="tabs-icons-text-2" aria-selected="false">
-                  <span class="nav-link-inner--text">Đăng kí</span>
-               </a>
-            </li>
          </ul>
          <hr class="d-lg-none"/>
       </div>
@@ -89,20 +78,6 @@
          <div class="col-lg-4S col-md-10">
             <div class="card bg-secondary border-0 mb-0">
                <div class="card-header bg-transparent pb-5">
-                  <div class="nav-wrapper">
-                     <ul class="nav nav-pills nav-fill flex-column flex-md-row" id="tabs-icons-text" role="tablist">
-                        <li class="nav-item">
-                           <a class="nav-link mb-sm-3 mb-md-0 active" id="tabs-icons-text-1-tab" data-toggle="tab"
-                              href="#tabs-icons-text-1" role="tab" aria-controls="tabs-icons-text-1"
-                              aria-selected="true"><i class="fas fa-sign-in-alt mr-2"></i>Đăng nhập</a>
-                        </li>
-                        <li class="nav-item">
-                           <a class="nav-link mb-sm-3 mb-md-0" id="tabs-icons-text-2-tab" data-toggle="tab"
-                              href="#tabs-icons-text-2" role="tab" aria-controls="tabs-icons-text-2"
-                              aria-selected="false"><i class="fas fa-user-plus mr-2"></i>Đăng ký</a>
-                        </li>
-                     </ul>
-                  </div>
                   <div class="card shadow">
                      <div class="card-body">
                         <div class="tab-content" id="myTabContent">
@@ -127,103 +102,6 @@
                                  </div>
                                  <div class="text-center">
                                     <button type="submit" class="btn btn-primary my-4 btn-sign">Đăng nhập</button>
-                                 </div>
-                              </form>
-                           </div>
-                           <div class="tab-pane fade" id="tabs-icons-text-2" role="tabpanel"
-                                aria-labelledby="tabs-icons-text-2-tab">
-                              <form role="form" id="sign-in">
-                                 <!--Họ và tên-->
-                                 <div class="row">
-                                    <div class="col-md-6">
-                                       <div class="form-group">
-                                          <label for="txt-last-name" class="form-control-label">Họ và tên đệm</label>
-                                          <a href="javascript:void(0)" class="badge badge-primary" data-toggle="popover"
-                                             data-placement="right" data-content="Tối đa 40 ký tự">&nbsp;&nbsp;?&nbsp;&nbsp;</a>
-                                          <input class="form-control" type="text" placeholder="VD: Nguyễn Văn"
-                                                 id="txt-last-name" maxlength="40" name="last-name"
-                                                 required>
-                                       </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                       <div class="form-group">
-                                          <label for="txt-fisrt-name" class="form-control-label">Tên</label>
-                                          <a href="javascript:void(0)" class="badge badge-primary" data-toggle="popover"
-                                             data-placement="right" data-content="Tối đa 10 ký tự">&nbsp;&nbsp;?&nbsp;&nbsp;</a>
-                                          <input class="form-control" type="text" placeholder="VD: A"
-                                                 id="txt-fisrt-name" maxlength=10 name="first-name"
-                                                 required>
-                                       </div>
-                                    </div>
-                                 </div>
-
-                                 <!--Giới tính và ngày sinh-->
-                                 <div class="row">
-                                    <div class="col-md-6">
-                                       <div class="form-group">
-                                          <label for="cmb-gender" class="form-control-label">Giới tính</label>
-                                          <select class="form-control" id="cmb-gender" required name="gender">
-                                             <option value="Nam">Nam</option>
-                                             <option value="Nữ">Nữ</option>
-                                             <option value="Khác" selected>Khác</option>
-                                          </select>
-                                       </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                       <div class="form-group">
-                                          <label for="dt-dob" class="form-control-label">Ngày sinh</label>
-                                          <input class="form-control" type="date" min="1900-01-01" value="2000-05-20"
-                                                 id="dt-dob" name="dob">
-                                       </div>
-                                    </div>
-                                 </div>
-
-                                 <!--SDT-->
-                                 <div class="form-group">
-                                    <label for="txt-phone-number" class="form-control-label">Số điện thoại</label>
-                                    <a href="javascript:void(0)" class="badge badge-primary" data-toggle="popover"
-                                       data-placement="right" data-content="10 số, bắt đầu từ số 0">&nbsp;&nbsp;?&nbsp;&nbsp;</a>
-                                    <input class="form-control" type="tel" id="txt-phone-number" maxlength="10"
-                                           placeholder="VD: 0987654321" pattern="[0]{1}[0-9]{9}"
-                                           required name="phone-number">
-                                 </div>
-
-                                 <!--Mail-->
-                                 <div class="form-group">
-                                    <label for="txt-email" class="form-control-label">Email</label>
-                                    <input class="form-control" type="email" maxlength="40"
-                                           placeholder="VD: user@gmail.com" id="txt-email" name="email">
-                                 </div>
-
-                                 <!--Mật khẩu-->
-                                 <div class="form-group">
-                                    <label for="txt-password" class="form-control-label">Mật khẩu</label>
-                                    <div class="input-group input-group-merge input-group-alternative">
-                                       <input class="form-control" type="password" maxlength="32"
-                                              placeholder="Mật khẩu có độ dài từ 6 đến 32 kí tự" id="txt-password" name="password">
-                                    </div>
-                                 </div>
-                                 <div class="form-group">
-                                    <label for="txt-password-again" class="form-control-label">Nhập lại mật khẩu</label>
-                                    <div class="input-group input-group-merge input-group-alternative">
-                                       <input class="form-control" type="password" maxlength="32"
-                                              placeholder="Nhập lại mật khẩu" id="txt-password-again" name="password-again">
-                                    </div>
-                                 </div>
-                                 <!-- Xác nhận gửi thông tin -->
-                                 <div class="custom-control custom-checkbox mb-3">
-                                    <input class="custom-control-input" id="customCheck" type="checkbox">
-                                    <label class="custom-control-label" for="customCheck">Nhận các thông tin và các
-                                       chương trình khuyến mãi qua mail</label>
-                                 </div>
-                                 <!--Button-->
-                                 <div class="text-center">
-                                    <button type="submit" class="btn btn-primary mt-4 btn-sign">Đăng ký</button>
-                                 </div>
-
-                                 <div class="text-center card-body px-lg-5">
-                                    <span class="text-muted">Khi bạn nhấn Đăng ký, bạn đã đồng ý thực hiện mọi giao dịch mua bán theo <a
-                                            href="#">điều kiện sử dụng và chính sách của chúng tôi</a>.</span>
                                  </div>
                               </form>
                            </div>
