@@ -10,6 +10,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.*;
@@ -21,13 +22,23 @@ public class ProductServlet extends HttpServlet {
       resp.setContentType("text/html; charset=UTF-8");
 
       String pagePara = req.getParameter("page");
+      HttpSession session = req.getSession();
+      Long id = (Long) session.getAttribute("id");
+
       Integer page = StringUtils.toInt(pagePara);
       if (page <= 0) {
          page = 1;
       }
 
-      ArrayList<ProductEntity> listProduct = ProductDAO.getInstance().gets((page - 1) * 10, 10);
+      List<ProductEntity> listProduct = new ArrayList<>();
       List<String> listJsonStr = new ArrayList<>();
+
+      if (UserDAO.getInstance().getById(id).getUserType().equals(Cons.User.USER_TYPE_SELLER)) {
+         listProduct = ProductDAO.getInstance().gets((page - 1) * 10, 10, id);
+      }
+      else {
+         listProduct = ProductDAO.getInstance().gets((page - 1) * 10, 10);
+      }
 
       for (ProductEntity product : listProduct) {
          listJsonStr.add(product.toJson());

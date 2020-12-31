@@ -15,7 +15,7 @@
 <!-- Main content -->
 <div class="main-content" id="panel">
     <!--Top navigation-->
-    <%@include file="../../common/ad-top-nav.jsp" %>
+    <%@include file="../../common/sh-top-nav.jsp" %>
 
     <!-- Page content -->
     <div class="container-fluid">
@@ -24,7 +24,7 @@
             <div class="col-md-10 ml-auto mr-auto">
                 <nav aria-label="breadcrumb" role="navigation">
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="/admin"><i class="fa fa-home mr-2"></i>Trang chủ</a></li>
+                        <li class="breadcrumb-item"><a href="/seller"><i class="fa fa-home mr-2"></i>Trang chủ</a></li>
                         <li class="breadcrumb-item active" aria-current="page">Sản phẩm</li>
                     </ol>
                 </nav>
@@ -34,8 +34,19 @@
         <!--Title-->
         <div class="row">
             <div class="col-md-10 ml-auto mr-auto">
-                <h2 class="display-3 text-center text-uppercase my-5">Danh sách nhân viên</h2>
+                <h2 class="display-3 text-center text-uppercase my-5">Danh sách Sản phẩm</h2>
             </div>
+        </div>
+
+        <!--Button thêm-->
+        <div class="row">
+            <div class="col ml-auto mr-auto text-right">
+                <button type="button" data-toggle="modal" data-target="#modal-add-product"
+                        class="text-uppercase btn btn-primary pl-4 pr-4 mb-4">Thêm sản phẩm
+                </button>
+            </div>
+            <!-- From add employee -->
+            <%@ include file="../../common/form-add-product.jsp" %>
         </div>
 
         <!-- Table -->

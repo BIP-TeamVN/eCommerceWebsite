@@ -1,6 +1,7 @@
 package com.hknp.controller.seller;
 
 import com.hknp.model.dao.ProductDAO;
+import com.hknp.model.dao.SellerDAO;
 import com.hknp.utils.ServletUtils;
 import com.hknp.utils.StringUtils;
 
@@ -9,13 +10,17 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 @WebServlet(urlPatterns = {"/seller/product"})
 public class ShProductController extends HttpServlet {
    @Override
    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-      Long totalRows = ProductDAO.getInstance().count();
+      HttpSession session = req.getSession();
+      Long id = (Long) session.getAttribute("id");
+      Long totalRows = SellerDAO.getInstance().getById(id).getProductEntities().stream().count();
+
       String page = req.getParameter("page");
 
       Long currentPage = StringUtils.toLong(page);
@@ -30,7 +35,7 @@ public class ShProductController extends HttpServlet {
 
       req.setAttribute("totalPage", totalPage);
       req.setAttribute("currentPage", currentPage);
-      ServletUtils.forward(req, resp, "/view/admin/ad-product.jsp");
+      ServletUtils.forward(req, resp, "/view/seller/sh-product.jsp");
    }
 
    @Override
