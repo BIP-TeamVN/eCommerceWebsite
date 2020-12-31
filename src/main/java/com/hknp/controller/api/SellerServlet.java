@@ -1,10 +1,7 @@
 package com.hknp.controller.api;
 
 import com.hknp.model.dao.*;
-import com.hknp.model.entity.AddressEntity;
-import com.hknp.model.entity.Cons;
-import com.hknp.model.entity.SellerEntity;
-import com.hknp.model.entity.UserEntity;
+import com.hknp.model.entity.*;
 import com.hknp.utils.*;
 
 import javax.servlet.ServletException;
@@ -25,7 +22,13 @@ public class SellerServlet extends HttpServlet {
    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
       resp.setContentType("text/html; charset=UTF-8");
 
-      ArrayList<SellerEntity> listSeller = SellerDAO.getInstance().gets();
+      String pagePara = req.getParameter("page");
+      Integer page = StringUtils.toInt(pagePara);
+      if (page <= 0) {
+         page = 1;
+      }
+
+      ArrayList<SellerEntity> listSeller = SellerDAO.getInstance().gets((page - 1) * 10, 10);
       List<String> listJsonStr = new ArrayList<>();
 
       for (SellerEntity seller : listSeller) {
