@@ -67,6 +67,29 @@
          </div>
       </div>
 
+      <!-- Pagination -->
+      <nav aria-label="...">
+         <ul id="page-pagination" class="pagination justify-content-center mt-3">
+            <li class="page-item">
+               <button type="button" class="page-link" onclick="goPrev()">
+                  <i class="fa fa-angle-left"></i>
+                  <span class="sr-only">Trang trước</span>
+               </button>
+            </li>
+            <li class="page-item"><a class="page-link" href="#">1</a></li>
+            <li class="page-item active">
+               <a class="page-link" href="#">2</a>
+            </li>
+            <li class="page-item"><a class="page-link" href="#">3</a></li>
+            <li class="page-item">
+               <button type="button" class="page-link" onclick="goNext()">
+                  <i class="fa fa-angle-right"></i>
+                  <span class="sr-only">Trang sau</span>
+               </button>
+            </li>
+         </ul>
+      </nav>
+
       <!-- Footer -->
       <%@ include file="../../common/footer.jsp" %>
    </div>
@@ -74,20 +97,84 @@
 
 <!--Javascript-->
 <%@ include file="../../common/import-js.jsp" %>
+
 <script>
-   $(document).ready(function () {
-      const apiUrl = "/api/product-categories";
+   let firstPageButton = '<li class="page-item"><button type="button" class="page-link" onclick="goFirst()"><i class="fa fa-angle-double-left"></i><span class="sr-only">Trang đầu tiên</span></button></li>';
+   let prevPageButton = '<li class="page-item"><button type="button" class="page-link" onclick="goPrev()"><i class="fa fa-angle-left"></i><span class="sr-only">Trang trước</span></button></li>';
+   let nextPageButton = '<li class="page-item"><button type="button" class="page-link" onclick="goNext()"><i class="fa fa-angle-right"></i><span class="sr-only">Trang sau</span></button></li>';
+   let lastPageButton = '<li class="page-item"><button type="button" class="page-link" onclick="goLast()"><i class="fa fa-angle-double-right"></i><span class="sr-only">Trang cuối</span></button></li>';
+
+   let totalPage = ${totalPage};
+   let currentPage = ${currentPage};
+
+   reloadPage();
+
+   function goFirst() {
+      if(currentPage > 1) {
+         currentPage = 1;
+         reloadPage();
+      }
+   }
+
+   function goPrev() {
+      if(currentPage > 1) {
+         currentPage = currentPage - 1;
+         reloadPage();
+      }
+   }
+
+   function goNext() {
+      if(currentPage < totalPage) {
+         currentPage = currentPage + 1;
+         reloadPage();
+      }
+   }
+
+   function goLast() {
+      if(currentPage < totalPage) {
+         currentPage = totalPage;
+         reloadPage();
+      }
+   }
+
+   function goToPage(page) {
+      currentPage = page;
+      reloadPage();
+   }
+
+   function updatePagination() {
+      $('#page-pagination').find('li').remove();
+
+      $('#page-pagination').append(currentPage > 2 ? firstPageButton : '');
+      $('#page-pagination').append(currentPage > 1 ? prevPageButton : '');
+
+      let startIndex = currentPage - 3 > 1 ? currentPage - 3 : 1;
+      for (let i = startIndex; i < currentPage; i++) {
+         $('#page-pagination').append('<li class="page-item"><button type="button" class="page-link" onclick="goToPage(' + i + ')">' + i + '</but></li>');
+      }
+
+      $('#page-pagination').append('<li class="page-item active"><a class="page-link" href="javascript:void(0)">' + currentPage + '</a></li>');
+
+      for (let i = currentPage + 1; i < currentPage + 4 && i <= totalPage; i++) {
+         $('#page-pagination').append('<li class="page-item"><button type="button" class="page-link" onclick="goToPage(' + i + ')">' + i + '</but></li>');
+      }
+
+      $('#page-pagination').append(currentPage < totalPage ? nextPageButton : '');
+      $('#page-pagination').append(currentPage < totalPage - 1 ? lastPageButton : '');
+   }
+
+   function reloadPage() {
+      updatePagination();
 
       $.ajax({
-         url: apiUrl,
+         url: '/api/product-categories',
          method: 'GET',
-         data: {
-            page: '1',
-         },
+         data: { page: currentPage },
+         cache: false,
          success: function (data, textStatus, jqXHR) {
             let list = $.parseJSON(data);
             console.log(list);
-
+            $('#tb-list').find('tr').remove();
             $.each(list, function (index, item) {
                let html =
                        '<tr>' +
@@ -95,7 +182,7 @@
                        '<td>' + item.name + '</td>' +
                        '<td>' +
                        '<a href="#" class="media m-auto align-items-center">' +
-                       '<img class="avatar m-auto rounded-circle" src="' + item.image + '" alt="product-category_image" >' +
+                       '<img class="avatar m-auto rounded-circle" src="' + item.image + '" alt="category_image" >' +
                        '</a>' +
                        '</td>' +
                        '<td class="td-actions text-center">' +
@@ -104,13 +191,11 @@
                        '</a>' +
                        '</td>' +
                        '</tr>';
-               console.log(html);
                $('#tb-list').append(html);
             });
-         },
-         cache: false
+         }
       });
-   });
+   }
 </script>
 </body>
 </html>

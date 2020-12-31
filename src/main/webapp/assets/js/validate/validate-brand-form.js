@@ -75,6 +75,7 @@ $('#brand-form').submit(function (e) {
       success: function (data, textStatus, jqXHR) {
         let result = data.toString().split('\n');
         if (result[0] === 'true') {
+          $('#' + FORM_ID).trigger("reset");
           alert("Thêm thương hiệu mới thành công !");
         } else {
           alert("Lỗi: " + result[1]);
