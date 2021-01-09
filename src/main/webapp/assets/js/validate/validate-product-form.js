@@ -9,16 +9,17 @@ let productDesc = document.getElementById('product-desc');
 let priceOrigin = document.getElementById('price-origin');
 let priceOrder = document.getElementById('price-order');
 
+let categoriesSelected = document.getElementById('categories-selected');
+
 let types = [];
 let quantities = [];
 function getTypesValue() {
-  for (let i = 1; i <= countType; i++) {
+  for (let i = 0; i < countType; i++) {
     types.push($('#type-name-' + i).val());
     quantities.push($('#quantity-' + i).val());
   }
 }
 
-//let categoriesSelected = document.getElementById('categories-selected');
 let categories = [];
 function getCategoriesValue() {
   categories = $.map($('#categories-selected option'), function(e) { return e.value; });
@@ -37,6 +38,8 @@ function checkInputs() {
   let priceOrderValue = priceOrder.value.trim();
 
   let productDescValue = productDesc.value.trim();
+
+  let categoriesSelectedValue = categoriesSelected.value.trim();
 
   isValidate = true;
 
@@ -70,33 +73,41 @@ function checkInputs() {
     setSuccessFor(priceOrigin);
   }
 
-  if (priceOrder === '') {
+  if (priceOrderValue === '') {
     setErrorFor(priceOrder, 'Vui lòng nhập giá bán');
   } else {
     setSuccessFor(priceOrder);
   }
 
-  if (types.length === 0 || quantities.length === 0 || quantities.length != types.length) {
-    setErrorFor(types, 'Vui lòng nhập chính xác loại và số lượng loại đó');
-  } else {
-    setSuccessFor(types);
+  for (var i = 0; i < countType; i++) {
+    type = document.getElementById('type-name-' + i);
+    quantity = document.getElementById('quantity-' + i);
+
+    if (type.value.trim() === '') {
+      setErrorFor(type, 'Vui lòng nhập loại sản phẩm');
+    } else {
+      setSuccessFor(type);
+    }
+    if (quantity.value.trim() === '') {
+      setErrorFor(quantity, 'Vui lòng nhập loại sản phẩm');
+    } else {
+      setSuccessFor(quantity);
+    }
   }
 
-  if (categories.length === 0) {
-    setErrorFor(categories, 'Vui lòng chọn ít nhất một ngành hàng');
+  if (categoriesSelectedValue === '') {
+    setErrorFor(categoriesSelected, 'Vui lòng chọn ít nhất một ngành hàng');
   } else {
-    setSuccessFor(categories);
+    setSuccessFor(categoriesSelected);
   }
 }
 
 function setErrorFor(input, message) {
-  isValidate = false;
-  /*
   if (isValidate) {
     input.focus();
   }
 
-
+  isValidate = false;
 
   input.parentElement.className = 'has-danger';
   input.className = 'form-control is-invalid';
@@ -104,18 +115,15 @@ function setErrorFor(input, message) {
   let small = input.parentElement.parentElement.querySelector('small');
   small.innerText = message;
   small.setAttribute("style", "display: inline;");
-  */
 }
 
 function setSuccessFor(input) {
-  /*
   input.parentElement.className = 'has-success';
   input.className = 'form-control is-valid';
 
   let small = input.parentElement.parentElement.querySelector('small');
   small.innerText = '';
   small.setAttribute("style", "display: none;");
-  */
 }
 
 function encodeImgToBase64(element, id) {
@@ -132,8 +140,9 @@ $('#product-form').submit(function (e) {
   getTypesValue();
   getCategoriesValue();
   checkInputs();
-
-  if (isValidate) {
+  if (!isValidate){
+    e.preventDefault();
+  } else {
     $.ajax({
       url: '/api/product',
       method: 'POST',
@@ -167,9 +176,6 @@ $('#product-form').submit(function (e) {
         e.preventDefault();
       }
     });
-  }
-  else {
-    e.preventDefault();
   }
 });
 

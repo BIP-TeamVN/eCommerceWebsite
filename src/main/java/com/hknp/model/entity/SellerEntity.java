@@ -25,11 +25,11 @@ public class SellerEntity implements Serializable {
 
    @Column(name = "BUSINESS_LICENSE_ID")
    String businessLicenseId;
-
+/*
    @ManyToOne(fetch = FetchType.EAGER)
    @JoinColumn(name = "SELLER_CATEGORY_ID")
    SellerCategoryEntity sellerCategoryEntity;
-
+*/
    @Column(name = "BANK_ACCOUNT_ID")
    Long bankAccountId;
 
@@ -84,14 +84,6 @@ public class SellerEntity implements Serializable {
       this.businessLicenseId = businessLicenseId;
    }
 
-   public SellerCategoryEntity getSellerCategoryEntity() {
-      return sellerCategoryEntity;
-   }
-
-   public void setSellerCategoryEntity(SellerCategoryEntity sellerCategoryEntity) {
-      this.sellerCategoryEntity = sellerCategoryEntity;
-   }
-
    public Long getBankAccountId() {
       return bankAccountId;
    }
@@ -120,7 +112,6 @@ public class SellerEntity implements Serializable {
               "\"storeName\":\"" + storeName + "\","+
               "\"storeLink\":\"" + storeLink + "\"," +
               "\"businessLicenseId\":\"" + businessLicenseId + "\"," +
-              "\"sellerCategoryEntity\":\"" + sellerCategoryEntity.getCategoryName() + "\"," +
               "\"bankAccountId\":\"" + bankAccountId + "\"" +
               "}";
    }

@@ -23,8 +23,7 @@ public class ProductServlet extends HttpServlet {
 
       String pagePara = req.getParameter("page");
       HttpSession session = req.getSession();
-      //Long id = (Long) session.getAttribute("id");
-      Long id = 10002L;
+      Long id = (Long) session.getAttribute("id");
 
       Integer page = StringUtils.toInt(pagePara);
       if (page <= 0) {
@@ -59,8 +58,7 @@ public class ProductServlet extends HttpServlet {
       try {
          String productName = req.getParameter("product-name");
          String brandId = req.getParameter("brand-id");
-         //String sellerId = (String) session.getAttribute("id");
-         String sellerId = "10002";
+         Long sellerId = (Long) session.getAttribute("id");
          String productOrigin = req.getParameter("product-origin");
          String productDesc = req.getParameter("product-desc");
          String priceOrder = req.getParameter("price-order");
@@ -80,11 +78,12 @@ public class ProductServlet extends HttpServlet {
          ProductEntity newProduct = new ProductEntity();
          newProduct.setProductName(productName);
          newProduct.setBrandEntity(BrandDAO.getInstance().getById(StringUtils.toLong(brandId)));
-         newProduct.setSellerEntity(SellerDAO.getInstance().getById(StringUtils.toLong(sellerId)));
+         newProduct.setSellerEntity(SellerDAO.getInstance().getById(sellerId));
          newProduct.setProductOrigin(productOrigin);
          newProduct.setProductDesc(productDesc);
          newProduct.setPriceOrder(StringUtils.toBigDecimal(priceOrder));
          newProduct.setPriceOrigin(StringUtils.toBigDecimal(priceOrigin));
+         newProduct.setStatus(true);
 
          Set<ProductTypeEntity> productTypeEntities = new HashSet<>();
          for(int i = 0; i < quantities.size(); i++) {

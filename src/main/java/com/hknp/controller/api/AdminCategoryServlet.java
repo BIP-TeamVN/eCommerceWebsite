@@ -1,14 +1,5 @@
 package com.hknp.controller.api;
 
-import com.hknp.model.dao.CommuneDAO;
-import com.hknp.model.dao.DistrictDAO;
-import com.hknp.model.dao.ProvinceDAO;
-import com.hknp.model.dao.SellerCategoryDAO;
-import com.hknp.model.entity.CommuneEntity;
-import com.hknp.model.entity.DistrictEntity;
-import com.hknp.model.entity.ProvinceEntity;
-import com.hknp.model.entity.SellerCategoryEntity;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;

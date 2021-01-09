@@ -199,7 +199,7 @@
               '<td>' + item.priceOrigin + '</td>' +
               '<td>' + item.priceOrder + '</td>' +
               '<td class="td-actions text-center">' +
-              '<a href="/admin/employee/edit?id=' + item.id +'" class="btn btn-primary px-2 py-1" data-toggle="tooltip" data-placement="top" title="Chỉnh sửa thông tin">' +
+              '<a href="/seller/product/edit?id=' + item.id +'" class="btn btn-primary px-2 py-1" data-toggle="tooltip" data-placement="top" title="Chỉnh sửa thông tin sản phẩm">' +
               '<i class="fa fa-edit"></i>' +
               '</a>' +
               (item.status === "true" ?

@@ -36,7 +36,12 @@
                             <div class="row">
                                 <div class="col-md-6 form-group">
                                     <label for="brand" class="form-control-label">Nhãn hiệu</label>
-                                    <select class="form-control" id="brand" name="brand" required></select>
+                                    <a tabindex="-1" href="javascript:void(0)" class="badge badge-secondary" data-toggle="popover" data-placement="right"
+                                       data-content="Hãng sản xuất">?</a>
+                                    <div>
+                                        <select class="form-control" id="brand" name="brand" required></select>
+                                    </div>
+                                    <small class="error-input text-danger">Vui lòng chọn nhãn hiệu</small>
                                 </div>
                                 <div class="col-md-6 form-group">
                                     <div class="form-group">
@@ -46,7 +51,7 @@
                                         <div>
                                             <input class="form-control" type="text" id="product-origin" name="product-origin" maxlength="30" placeholder="VD: Việt Nam">
                                         </div>
-                                        <small class="error-input text-danger">Quốc gia không hợp lệ</small>
+                                        <small class="error-input text-danger">Vui lòng nhập Quốc gia sản xuất</small>
                                     </div>
                                 </div>
                             </div>
@@ -90,9 +95,7 @@
                             <div class="row">
                                 <div class="col-md-6 form-group">
                                     <div class="form-group">
-                                        <label for="type-name-1" class="form-control-label">
-                                            Loại sản phẩm
-                                        </label>
+                                        <label for="type-name-1" class="form-control-label">Loại sản phẩm</label>
                                         <a tabindex="-1" href="javascript:void(0)" class="badge badge-secondary" data-toggle="popover" data-placement="right"
                                            data-content="Loại sản phẩm">?</a>
                                     </div>
@@ -109,7 +112,7 @@
                                 <div class="col-md-6 form-group">
                                     <div class="form-group">
                                         <div>
-                                            <input class="form-control" type="text" id="type-name-2" name="type-name-2" maxlength="30" placeholder="VD: Xanh">
+                                            <input class="form-control" type="text" id="type-name-0" name="type-name-0" maxlength="30" placeholder="VD: Xanh">
                                         </div>
                                         <small class="error-input text-danger">Loại sản phẩm không hợp lệ</small>
                                     </div>
@@ -117,25 +120,7 @@
                                 <div class="col-md-6 form-group">
                                     <div class="form-group">
                                         <div>
-                                            <input class="form-control" type="number" id="quantity-2" name="quantity-2" maxlength="50" placeholder="VD: 99">
-                                        </div>
-                                        <small class="error-input text-danger">Số lượng không hợp lệ</small>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6 form-group">
-                                    <div class="form-group">
-                                        <div>
-                                            <input class="form-control" type="text" id="type-name-3" name="type-name-3" maxlength="30" placeholder="VD: Xanh">
-                                        </div>
-                                        <small class="error-input text-danger">Loại sản phẩm không hợp lệ</small>
-                                    </div>
-                                </div>
-                                <div class="col-md-6 form-group">
-                                    <div class="form-group">
-                                        <div>
-                                            <input class="form-control" type="number" id="quantity-3" name="quantity-3" maxlength="50" placeholder="VD: 99">
+                                            <input class="form-control" type="number" id="quantity-0" name="quantity-0" maxlength="50" placeholder="VD: 99">
                                         </div>
                                         <small class="error-input text-danger">Số lượng không hợp lệ</small>
                                     </div>
@@ -154,6 +139,24 @@
                                     <div class="form-group">
                                         <div>
                                             <input class="form-control" type="number" id="quantity-1" name="quantity-1" maxlength="50" placeholder="VD: 99">
+                                        </div>
+                                        <small class="error-input text-danger">Số lượng không hợp lệ</small>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6 form-group">
+                                    <div class="form-group">
+                                        <div>
+                                            <input class="form-control" type="text" id="type-name-2" name="type-name-2" maxlength="30" placeholder="VD: Xanh">
+                                        </div>
+                                        <small class="error-input text-danger">Loại sản phẩm không hợp lệ</small>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 form-group">
+                                    <div class="form-group">
+                                        <div>
+                                            <input class="form-control" type="number" id="quantity-2" name="quantity-2" maxlength="50" placeholder="VD: 99">
                                         </div>
                                         <small class="error-input text-danger">Số lượng không hợp lệ</small>
                                     </div>

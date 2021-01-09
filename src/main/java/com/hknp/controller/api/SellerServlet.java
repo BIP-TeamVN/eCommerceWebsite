@@ -63,7 +63,6 @@ public class SellerServlet extends HttpServlet {
          String storeName = req.getParameter("store-name");
          String storeLink = req.getParameter("store-link");
          String businessLicenseld = req.getParameter("business-licenseld");
-         String sellerCategoryId = req.getParameter("seller-category-id");
          String bankAccountId = req.getParameter("bank-account-id");
 
          String image = req.getParameter("image");
@@ -91,7 +90,6 @@ public class SellerServlet extends HttpServlet {
          newSeller.setStoreName(storeName);
          newSeller.setStoreLink(storeLink);
          newSeller.setBusinessLicenseId(businessLicenseld);
-         newSeller.setSellerCategoryEntity(SellerCategoryDAO.getInstance().getById(StringUtils.toLong(sellerCategoryId)));
          newSeller.setBankAccountId(StringUtils.toLong(bankAccountId));
 
          Long newSellerId = SellerDAO.getInstance().insert(newSeller);
@@ -156,7 +154,6 @@ public class SellerServlet extends HttpServlet {
          String storeName = (String) parameterMap.get("store-name");
          String storeLink = (String) parameterMap.get("store-link");
          String businessLicenseId = (String) parameterMap.get("business-license-id");
-         String sellerCategoryId = (String) parameterMap.get("seller-category-id");
          String bankAccountId = (String) parameterMap.get("bank-account-id");
 
          UserEntity updateUser = UserDAO.getInstance().getById(StringUtils.toLong(id));
@@ -196,7 +193,6 @@ public class SellerServlet extends HttpServlet {
                sellerEntity.setStoreName(storeName);
                sellerEntity.setStoreLink(storeLink);
                sellerEntity.setBusinessLicenseId(businessLicenseId);
-               sellerEntity.setSellerCategoryEntity(SellerCategoryDAO.getInstance().getById(StringUtils.toLong(sellerCategoryId)));
                sellerEntity.setBankAccountId(StringUtils.toLong(bankAccountId));
 
                SellerDAO.getInstance().update(sellerEntity);
