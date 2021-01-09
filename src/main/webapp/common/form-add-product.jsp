@@ -92,74 +92,30 @@
                             </div>
 
                             <!--liệt kê loại sản phẩm và số lượng -->
-                            <div class="row">
-                                <div class="col-md-6 form-group">
-                                    <div class="form-group">
-                                        <label for="type-name-1" class="form-control-label">Loại sản phẩm</label>
-                                        <a tabindex="-1" href="javascript:void(0)" class="badge badge-secondary" data-toggle="popover" data-placement="right"
-                                           data-content="Loại sản phẩm">?</a>
+                            <div id="list-types">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="form-control-label">Loại sản phẩm</label>
+                                            <a tabindex="-1" href="javascript:void(0)" class="badge badge-secondary" data-toggle="popover" data-placement="right"
+                                               data-content="Loại sản phẩm">?</a>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="col-md-6 form-group">
-                                    <div class="form-group">
-                                        <label for="quantity-1" class="form-control-label">Số lượng</label>
-                                        <a tabindex="-1" href="javascript:void(0)" class="badge badge-secondary" data-toggle="popover" data-placement="right"
-                                           data-content="Số lượng của loại sản phẩm">?</a>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="form-control-label">Số lượng</label>
+                                            <a tabindex="-1" href="javascript:void(0)" class="badge badge-secondary" data-toggle="popover" data-placement="right"
+                                               data-content="Số lượng của loại sản phẩm">?</a>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-md-6 form-group">
-                                    <div class="form-group">
-                                        <div>
-                                            <input class="form-control" type="text" id="type-name-0" name="type-name-0" maxlength="30" placeholder="VD: Xanh">
-                                        </div>
-                                        <small class="error-input text-danger">Loại sản phẩm không hợp lệ</small>
-                                    </div>
+                                <div class="col-md-1 form-group">
+                                    <a class="btn btn-default px-2 py-1" data-toggle="tooltip" data-placement="top" title="Xóa loại sản phẩm" onclick="removeType()"><i class="fa fa-minus"></i></a>
                                 </div>
-                                <div class="col-md-6 form-group">
-                                    <div class="form-group">
-                                        <div>
-                                            <input class="form-control" type="number" id="quantity-0" name="quantity-0" maxlength="50" placeholder="VD: 99">
-                                        </div>
-                                        <small class="error-input text-danger">Số lượng không hợp lệ</small>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6 form-group">
-                                    <div class="form-group">
-                                        <div>
-                                            <input class="form-control" type="text" id="type-name-1" name="type-name-1" maxlength="30" placeholder="VD: Xanh">
-                                        </div>
-                                        <small class="error-input text-danger">Loại sản phẩm không hợp lệ</small>
-                                    </div>
-                                </div>
-                                <div class="col-md-6 form-group">
-                                    <div class="form-group">
-                                        <div>
-                                            <input class="form-control" type="number" id="quantity-1" name="quantity-1" maxlength="50" placeholder="VD: 99">
-                                        </div>
-                                        <small class="error-input text-danger">Số lượng không hợp lệ</small>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6 form-group">
-                                    <div class="form-group">
-                                        <div>
-                                            <input class="form-control" type="text" id="type-name-2" name="type-name-2" maxlength="30" placeholder="VD: Xanh">
-                                        </div>
-                                        <small class="error-input text-danger">Loại sản phẩm không hợp lệ</small>
-                                    </div>
-                                </div>
-                                <div class="col-md-6 form-group">
-                                    <div class="form-group">
-                                        <div>
-                                            <input class="form-control" type="number" id="quantity-2" name="quantity-2" maxlength="50" placeholder="VD: 99">
-                                        </div>
-                                        <small class="error-input text-danger">Số lượng không hợp lệ</small>
-                                    </div>
+                                <div class="col-md-1 form-group">
+                                    <a class="btn btn-google-plus px-2 py-1" data-toggle="tooltip" data-placement="top" title="Thêm loại sản phẩm" onclick="addType()"><i class="fa fa-plus"></i></a>
                                 </div>
                             </div>
 
@@ -232,15 +188,11 @@
 <script src="../../assets/js/dynamic-admin-unit-drop-down.js"></script>
 <script src="../../assets/js/validate/validate-product-form.js"></script>
 <script>
-  let countType = 3;
+  let countType = 0;
   function addType() {
-    countType += 1;
-    let list = $.parseJSON(data);
-    console.log(list);
-    $.each(list, function (index, item) {
-      let html =
-        '<div class="row">' +
-        '   <div class="col-md-6 form-group">' +
+    let html =
+        '<div class="row" id="div-type-' + countType + '">' +
+        '   <div class="col-md-6">' +
         '       <div class="form-group">' +
         '           <div>' +
         '               <input class="form-control" type="text" id="type-name-' + countType + '" name="type-name-' + countType + '" maxlength="30" placeholder="VD: Xanh">' +
@@ -248,7 +200,7 @@
         '           <small class="error-input text-danger">Loại sản phẩm không hợp lệ</small>' +
         '       </div>' +
         '   </div>' +
-        '   <div class="col-md-6 form-group">' +
+        '   <div class="col-md-6">' +
         '       <div class="form-group">' +
         '           <div>' +
         '               <input class="form-control" type="number" id="quantity-' + countType + '" name="quantity-' + countType + '" maxlength="50" placeholder="VD: 99">' +
@@ -257,8 +209,8 @@
         '       </div>' +
         '   </div>' +
         '</div>';
-      $('#list-type').append(html);
-    });
+    $('#list-types').append(html);
+    countType += 1;
   }
   $(document).ready(function () {
     const apiUrl = "/api/seller-units";
@@ -277,4 +229,12 @@
       cache: false
     });
   });
+</script>
+<script>
+    function removeType() {
+      if (countType > 0) {
+        $("#div-type-" + (countType - 1)).remove();
+        countType -= 1;
+      }
+    }
 </script>
