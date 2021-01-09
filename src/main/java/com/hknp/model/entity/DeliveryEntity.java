@@ -1,5 +1,7 @@
 package com.hknp.model.entity;
 
+import com.hknp.utils.DateTimeUtils;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -36,6 +38,7 @@ public class DeliveryEntity implements Serializable {
               "\"email\":\"" + userEntity.getEmail() + "\"," +
               "\"salary\":\"" + salary + "\"," +
               "\"imgSrc\":\"" + userEntity.getImageSrc() + "\"," +
+              "\"startDate\":\"" + getStartDateStr("dd/MM/yyyy") + "\"," +
               "\"status\":\"" + userEntity.getStatus() + "\"" +
               "}";
    }
@@ -47,6 +50,8 @@ public class DeliveryEntity implements Serializable {
    public void setUserId(Long userId) {
       this.userId = userId;
    }
+
+   public String getStartDateStr(String formatPattern) { return DateTimeUtils.dateToString(startDate, formatPattern); }
 
    public Date getStartDate() {
       return startDate;
