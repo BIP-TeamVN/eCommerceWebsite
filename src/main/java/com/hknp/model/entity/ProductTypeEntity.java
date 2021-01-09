@@ -24,8 +24,9 @@ public class ProductTypeEntity implements Serializable {
    public ProductTypeEntity() {
    }
 
-   public ProductTypeEntity(String productTypeName) {
+   public ProductTypeEntity(String productTypeName, Integer quantity) {
       this.productTypeName = productTypeName;
+      this.quantity = quantity;
    }
 
    public Integer getQuantity() {

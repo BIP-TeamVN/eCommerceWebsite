@@ -86,64 +86,132 @@
                                 </div>
                             </div>
 
+                            <!--liệt kê loại sản phẩm và số lượng -->
                             <div class="row">
                                 <div class="col-md-6 form-group">
                                     <div class="form-group">
-                                        <label for="type-name" class="form-control-label">
+                                        <label for="type-name-1" class="form-control-label">
                                             Loại sản phẩm
-                                            <a href="#" class="btn btn-danger px-2 py-1" data-toggle="tooltip" data-placement="top" title="Thêm">
-                                                <i class="fa fa-plus"></i>
-                                            </a>
                                         </label>
                                         <a tabindex="-1" href="javascript:void(0)" class="badge badge-secondary" data-toggle="popover" data-placement="right"
                                            data-content="Loại sản phẩm">?</a>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 form-group">
+                                    <div class="form-group">
+                                        <label for="quantity-1" class="form-control-label">Số lượng</label>
+                                        <a tabindex="-1" href="javascript:void(0)" class="badge badge-secondary" data-toggle="popover" data-placement="right"
+                                           data-content="Số lượng của loại sản phẩm">?</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6 form-group">
+                                    <div class="form-group">
                                         <div>
-                                            <input class="form-control" type="text" id="type-name" name="type-name" maxlength="30" placeholder="VD: Xanh">
+                                            <input class="form-control" type="text" id="type-name-2" name="type-name-2" maxlength="30" placeholder="VD: Xanh">
                                         </div>
                                         <small class="error-input text-danger">Loại sản phẩm không hợp lệ</small>
                                     </div>
                                 </div>
                                 <div class="col-md-6 form-group">
                                     <div class="form-group">
-                                        <label for="quantity" class="form-control-label">Số lượng</label>
-                                        <a tabindex="-1" href="javascript:void(0)" class="badge badge-secondary" data-toggle="popover" data-placement="right"
-                                           data-content="Số lượng của loại sản phẩm">?</a>
                                         <div>
-                                            <input class="form-control" type="number" id="quantity" name="quantity" maxlength="50" placeholder="VD: 99">
+                                            <input class="form-control" type="number" id="quantity-2" name="quantity-2" maxlength="50" placeholder="VD: 99">
                                         </div>
                                         <small class="error-input text-danger">Số lượng không hợp lệ</small>
                                     </div>
                                 </div>
-                                <tbody class="list" id="list-type">
-                                </tbody>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6 form-group">
+                                    <div class="form-group">
+                                        <div>
+                                            <input class="form-control" type="text" id="type-name-3" name="type-name-3" maxlength="30" placeholder="VD: Xanh">
+                                        </div>
+                                        <small class="error-input text-danger">Loại sản phẩm không hợp lệ</small>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 form-group">
+                                    <div class="form-group">
+                                        <div>
+                                            <input class="form-control" type="number" id="quantity-3" name="quantity-3" maxlength="50" placeholder="VD: 99">
+                                        </div>
+                                        <small class="error-input text-danger">Số lượng không hợp lệ</small>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6 form-group">
+                                    <div class="form-group">
+                                        <div>
+                                            <input class="form-control" type="text" id="type-name-1" name="type-name-1" maxlength="30" placeholder="VD: Xanh">
+                                        </div>
+                                        <small class="error-input text-danger">Loại sản phẩm không hợp lệ</small>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 form-group">
+                                    <div class="form-group">
+                                        <div>
+                                            <input class="form-control" type="number" id="quantity-1" name="quantity-1" maxlength="50" placeholder="VD: 99">
+                                        </div>
+                                        <small class="error-input text-danger">Số lượng không hợp lệ</small>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!--chọn ngành hàng-->
+                            <div class="row">
+                                <div class="col-md-5 form-group">
+                                    <label for="categories-all" class="form-control-label">Ngành hàng</label>
+                                    <div>
+                                        <select class="form-control" name="categories-all" id="categories-all" multiple rows="5">
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-2 form-group">
+                                    <div class="row">
+                                        <a><i class="fa fa-angle-left" id="btn-remove-categories"></i></a>
+                                    </div>
+                                    <div class="row">
+                                        <a><i class="fa fa-angle-right" id="btn-add-categories"></i></a>
+                                    </div>
+                                </div>
+                                <div class="col-md-5 form-group">
+                                    <label for="categories-selected" class="form-control-label">Ngành hàng đã chọn</label>
+                                    <div>
+                                        <select class="form-control" name="categories-selected" id="categories-selected" multiple rows="5">
+                                        </select>
+                                    </div>
+                                    <small class="error-input text-danger">Vui lòng chọn ít nhất một ngành hàng</small>
+                                </div>
                             </div>
 
                             <!--Ảnh-->
-                            <div class="form-group">
-                                <label for="up-image1" class="form-control-label d-inline-block w-100">Ảnh 1</label>
-                                <img id="img-upload1" class="d-none"/>
-                                <div class="custom-file">
-                                    <label class="custom-file-label custom-file-img-label" for="up-image1">Select file</label>
-                                    <input type="file" class="custom-file-input" id="up-image1" name="up-image1" accept="image/*"
-                                           onchange="encodeImgToBase64(this)">
+                            <div class="row">
+                                <div class="col-md-4 form-group ">
+                                    <label for="up-image-1" class="form-control-label d-inline-block w-100">Ảnh 1</label>
+                                    <img id="img-upload-1" class="d-none"/>
+                                    <div class="custom-file">
+                                        <input type="file" class="custom-file-input" id="up-image-1" name="up-image-1" accept="image/*"
+                                               onchange="encodeImgToBase64(this, 'img-upload-1')">
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="up-image2" class="form-control-label d-inline-block w-100">Ảnh 2</label>
-                                <img id="img-upload2" class="d-none"/>
-                                <div class="custom-file">
-                                    <label class="custom-file-label custom-file-img-label" for="up-image2">Select file</label>
-                                    <input type="file" class="custom-file-input" id="up-image2" name="up-image2" accept="image/*"
-                                           onchange="encodeImgToBase64(this)">
+                                <div class="col-md-4 form-group">
+                                    <label for="up-image-2" class="form-control-label d-inline-block w-100">Ảnh 2</label>
+                                    <img id="img-upload-2" class="d-none"/>
+                                    <div class="custom-file">
+                                        <input type="file" class="custom-file-input" id="up-image-2" name="up-image-2" accept="image/*"
+                                               onchange="encodeImgToBase64(this, 'img-upload-2')">
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="up-image3" class="form-control-label d-inline-block w-100">Ảnh 3</label>
-                                <img id="img-upload3" class="d-none"/>
-                                <div class="custom-file">
-                                    <label class="custom-file-label custom-file-img-label" for="up-image1">Select file</label>
-                                    <input type="file" class="custom-file-input" id="up-image3" name="up-image3" accept="image/*"
-                                           onchange="encodeImgToBase64(this)">
+                                <div class="col-md-4 form-group">
+                                    <label for="up-image-3" class="form-control-label d-inline-block w-100">Ảnh 3</label>
+                                    <img id="img-upload-3" class="d-none"/>
+                                    <div class="custom-file">
+                                        <input type="file" class="custom-file-input" id="up-image-3" name="up-image-3" accept="image/*"
+                                               onchange="encodeImgToBase64(this, 'img-upload-3')">
+                                    </div>
                                 </div>
                             </div>
                         </form>
@@ -159,43 +227,33 @@
 </div>
 <%@ include file="import-js.jsp" %>
 <script src="../../assets/js/dynamic-admin-unit-drop-down.js"></script>
-<script src="../../assets/js/validate/validate-employee-form.js"></script>
+<script src="../../assets/js/validate/validate-product-form.js"></script>
 <script>
-  let countType = 1;
+  let countType = 3;
   function addType() {
     countType += 1;
     let list = $.parseJSON(data);
     console.log(list);
     $.each(list, function (index, item) {
       let html =
-          '<tr>' +
-          '<td>' +
-          '<a href="#" class="media align-items-center">' +
-          '<img class="m-auto avatar rounded-circle" src="' + item.image + '" alt="product_image" >' +
-          '</a>' +
-          '</td>' +
-          '<td>' + item.id + '</td>' +
-          '<td>' + item.productName + '</td>' +
-          '<td>' + item.brand + '</td>' +
-          '<td>' + item.seller + '</td>' +
-          '<td>' + item.productRate + '</td>' +
-          '<td>' + item.productOrigin + '</td>' +
-          '<td>' + item.productDesc + '</td>' +
-          '<td>' + item.priceOrigin + '</td>' +
-          '<td>' + item.priceOrder + '</td>' +
-          '<td class="td-actions text-center">' +
-          '<a href="/admin/employee/edit?id=' + item.id +'" class="btn btn-primary px-2 py-1" data-toggle="tooltip" data-placement="top" title="Chỉnh sửa thông tin">' +
-          '<i class="fa fa-edit"></i>' +
-          '</a>' +
-          (item.status === "true" ?
-              '<a href="#" class="btn btn-danger px-2 py-1" data-toggle="tooltip" data-placement="top" title="Chưa xác nhận">' +
-              '<i class="fa fa-lock"></i>' +
-              '</a>' :
-              '<a href="#" class="btn btn-success px-2 py-1" data-toggle="tooltip" data-placement="top" title="Đã xác nhận">' +
-              '<i class="fa fa-lock-open"></i>' +
-              '</a>') +
-          '</td>' +
-          '</tr>';
+        '<div class="row">' +
+        '   <div class="col-md-6 form-group">' +
+        '       <div class="form-group">' +
+        '           <div>' +
+        '               <input class="form-control" type="text" id="type-name-' + countType + '" name="type-name-' + countType + '" maxlength="30" placeholder="VD: Xanh">' +
+        '           </div>' +
+        '           <small class="error-input text-danger">Loại sản phẩm không hợp lệ</small>' +
+        '       </div>' +
+        '   </div>' +
+        '   <div class="col-md-6 form-group">' +
+        '       <div class="form-group">' +
+        '           <div>' +
+        '               <input class="form-control" type="number" id="quantity-' + countType + '" name="quantity-' + countType + '" maxlength="50" placeholder="VD: 99">' +
+        '           </div>' +
+        '           <small class="error-input text-danger">Số lượng không hợp lệ</small>' +
+        '       </div>' +
+        '   </div>' +
+        '</div>';
       $('#list-type').append(html);
     });
   }

@@ -23,7 +23,8 @@ public class ProductServlet extends HttpServlet {
 
       String pagePara = req.getParameter("page");
       HttpSession session = req.getSession();
-      Long id = (Long) session.getAttribute("id");
+      //Long id = (Long) session.getAttribute("id");
+      Long id = 10002L;
 
       Integer page = StringUtils.toInt(pagePara);
       if (page <= 0) {
@@ -53,21 +54,28 @@ public class ProductServlet extends HttpServlet {
    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
       resp.setContentType("text/html; charset=UTF-8");
       String result = "";
+      HttpSession session = req.getSession();
 
       try {
          String productName = req.getParameter("product-name");
          String brandId = req.getParameter("brand-id");
-         String sellerId = req.getParameter("seller-id");
+         //String sellerId = (String) session.getAttribute("id");
+         String sellerId = "10002";
          String productOrigin = req.getParameter("product-origin");
          String productDesc = req.getParameter("product-desc");
          String priceOrder = req.getParameter("price-order");
          String priceOrigin = req.getParameter("price-origin");
-         String[] productTypes = req.getParameterValues("product-types");
-         String[] productCategories = req.getParameterValues("product-categories");
 
-         String image0 = req.getParameter("image0");
-         String image1 = req.getParameter("image1");
-         String image2 = req.getParameter("image2");
+         String productTypesReq = req.getParameter("product-types");
+         String quantitiesReq = req.getParameter("quantities");
+         String productCategoriesReq = req.getParameter("product-categories");
+         List<String> productTypes = StringUtils.splitToList(productTypesReq, "@#&");
+         List<String> quantities = StringUtils.splitToList(quantitiesReq, "@#&");
+         List<String> productCategories = StringUtils.splitToList(productCategoriesReq, "@#&");
+
+         String image0 = req.getParameter("image-0");
+         String image1 = req.getParameter("image-1");
+         String image2 = req.getParameter("image-2");
 
          ProductEntity newProduct = new ProductEntity();
          newProduct.setProductName(productName);
@@ -79,8 +87,9 @@ public class ProductServlet extends HttpServlet {
          newProduct.setPriceOrigin(StringUtils.toBigDecimal(priceOrigin));
 
          Set<ProductTypeEntity> productTypeEntities = new HashSet<>();
-         for(String type: productTypes) {
-            ProductTypeEntity productTypeEntity = new ProductTypeEntity(type);
+         for(int i = 0; i < quantities.size(); i++) {
+            ProductTypeEntity productTypeEntity = new ProductTypeEntity(productTypes.get(i), StringUtils.toInt(quantities.get(i)));
+            productTypeEntity.setProductEntity(newProduct);
             productTypeEntities.add(productTypeEntity);
          }
          newProduct.setProductTypeEntities(productTypeEntities);

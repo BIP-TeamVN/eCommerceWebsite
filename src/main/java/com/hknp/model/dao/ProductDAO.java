@@ -36,7 +36,8 @@ public class ProductDAO implements IRetrieveEntity<ProductEntity, Long>, IModify
 
          Boolean typeResult = true;
          for (ProductTypeEntity type: entity.getProductTypeEntities()) {
-            Long newType = ProductTypeDAO.getInstance().insert(type);
+            entityMgr.persist(type);
+            Long newType = type.getProductTypeId();
             if (newType == 0) {
                typeResult = false;
                break;

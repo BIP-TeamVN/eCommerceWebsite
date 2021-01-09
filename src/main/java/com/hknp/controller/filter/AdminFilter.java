@@ -23,9 +23,9 @@ public class AdminFilter implements Filter {
    public void doFilter(ServletRequest req, ServletResponse resp, FilterChain chain) throws IOException, ServletException {
       HttpServletRequest httpReq = (HttpServletRequest) req;
       HttpServletResponse httpResp = (HttpServletResponse) resp;
-      HttpSession session = httpReq.getSession();
-      try {
-         Long id = (Long) session.getAttribute("id");
+      HttpSession session = httpReq.getSession(false);
+      Long id = (Long) session.getAttribute("id");
+      if (id != null) {
          String userType = UserDAO.getInstance().getById(id).getUserType();
          if (userType.equals(Cons.User.USER_TYPE_ADMIN)){
             chain.doFilter(req, resp);
@@ -33,8 +33,9 @@ public class AdminFilter implements Filter {
          else {
             ServletUtils.forward(httpReq, httpResp, "/logout");
          }
-      } catch (Exception e) {
-         ServletUtils.forward(httpReq, httpResp, "/logout");
+      }
+      else {
+         ServletUtils.forward(httpReq, httpResp, "/login");
       }
    }
 

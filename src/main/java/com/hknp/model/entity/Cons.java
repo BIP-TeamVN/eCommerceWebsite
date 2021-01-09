@@ -21,6 +21,10 @@ public class Cons {
       public static String DEFAULT_ADDRESS_NAME = "Mặc định";
    }
 
+   public static class Product {
+      public static String DEFAULT_PRODUCT_IMAGE = "../../assets/img/no-image-product.svg";
+   }
+
    public static class ProductCategory {
       public static String DEFAULT_PRODUCT_CATEGORY_IMAGE = "../../assets/img/unknown-category.svg";
    }
