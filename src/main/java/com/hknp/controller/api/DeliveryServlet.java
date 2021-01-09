@@ -62,6 +62,7 @@ public class DeliveryServlet extends HttpServlet {
 
          String startDate = req.getParameter("start-date");
          String salary = req.getParameter("salary");
+         String image = req.getParameter("image");
 
          UserEntity newUser = new UserEntity(
                  lastName,
@@ -76,6 +77,9 @@ public class DeliveryServlet extends HttpServlet {
                  Cons.User.USER_TYPE_DELIVERY
          );
 
+         if (image != null && !image.isEmpty()) {
+            newUser.setImage(image);
+         }
          DeliveryEntity newDelivery = new DeliveryEntity();
          newDelivery.setUserEntity(newUser);
          newDelivery.setSalary(StringUtils.toBigDecimal(salary));
@@ -142,6 +146,7 @@ public class DeliveryServlet extends HttpServlet {
 
          String startDate = (String) parameterMap.get("start-date");
          String salary = (String) parameterMap.get("salary");
+         String image = (String) parameterMap.get("image");
 
          UserEntity updateUser = UserDAO.getInstance().getById(StringUtils.toLong(id));
 
@@ -152,6 +157,7 @@ public class DeliveryServlet extends HttpServlet {
          updateUser.setPhoneNumber(phoneNumber);
          updateUser.setSsn(ssn);
          updateUser.setEmail(email);
+         updateUser.setImage(image);
 
          updateUser.setUserType(Cons.User.USER_TYPE_DELIVERY);
          updateUser.setUserName(phoneNumber);
