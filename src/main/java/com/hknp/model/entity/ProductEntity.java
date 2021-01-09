@@ -77,7 +77,11 @@ public class ProductEntity implements Serializable {
    }
 
    public String getImage0() {
-      return image0;
+      if (image0 == null || image0.isEmpty()) {
+         return Cons.Product.DEFAULT_PRODUCT_IMAGE;
+      } else {
+         return image0;
+      }
    }
 
    public void setImage0(String image0) {
@@ -85,7 +89,11 @@ public class ProductEntity implements Serializable {
    }
 
    public String getImage1() {
-      return image1;
+      if (image1 == null || image1.isEmpty()) {
+         return Cons.Product.DEFAULT_PRODUCT_IMAGE;
+      } else {
+         return image1;
+      }
    }
 
    public void setImage1(String image1) {
@@ -93,7 +101,11 @@ public class ProductEntity implements Serializable {
    }
 
    public String getImage2() {
-      return image2;
+      if (image2 == null || image2.isEmpty()) {
+         return Cons.Product.DEFAULT_PRODUCT_IMAGE;
+      } else {
+         return image2;
+      }
    }
 
    public void setImage2(String image2) {
@@ -207,7 +219,9 @@ public class ProductEntity implements Serializable {
               "\"productDesc\":\"" + productDesc + "\"," +
               "\"priceOrigin\":\"" + priceOrigin + "\"," +
               "\"priceOrder\":\"" + priceOrder + "\"," +
-              "\"image\":\"" + image0 + "\"," +
+              "\"image0\":\"" + getImage0() + "\"," +
+              "\"image1\":\"" + getImage1() + "\"," +
+              "\"image2\":\"" + getImage2() + "\"," +
               "\"status\":\"" + status + "\"" +
               "}";
    }

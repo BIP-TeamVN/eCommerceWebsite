@@ -21,11 +21,9 @@ public class LoginController extends HttpServlet {
 
    @Override
    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-      HttpSession session = req.getSession();
-
-      try {
-         Long id = (Long) session.getAttribute("id");
-
+      HttpSession session = req.getSession(true);
+      Long id = (Long) session.getAttribute("id");
+      if (id != null) {
          String userType = UserDAO.getInstance().getById(id).getUserType();
 
          switch (userType) {
@@ -43,11 +41,11 @@ public class LoginController extends HttpServlet {
                break;
          }
       }
-      catch (Exception e){
+      else {
          try {
             String userName = req.getParameter("username");
             String password = req.getParameter("password");
-            Long id = UserDAO.getInstance().checkLogin(userName, password);
+            id = UserDAO.getInstance().checkLogin(userName, password);
             if (id != 0) {
                session.setAttribute("id", id);
                ServletUtils.forward(req, resp, "/login");

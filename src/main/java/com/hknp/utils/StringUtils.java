@@ -1,6 +1,9 @@
 package com.hknp.utils;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 public class StringUtils {
    /**
@@ -76,6 +79,19 @@ public class StringUtils {
          result = 0;
       }
 
+      return result;
+   }
+
+   public static List<String> splitToList(String str, String regex) {
+      if (str == null || str.isEmpty()) {
+         return Collections.emptyList();
+      }
+
+      String[] array = str.split(regex);
+      List<String> result = new ArrayList<String>();
+      for (int i = 0; i < array.length; i++) {
+         result.add(array[i]);
+      }
       return result;
    }
 }

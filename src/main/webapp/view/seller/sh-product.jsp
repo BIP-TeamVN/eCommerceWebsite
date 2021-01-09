@@ -186,7 +186,7 @@
               '<tr>' +
               '<td>' +
               '<a href="#" class="media align-items-center">' +
-              '<img class="m-auto avatar rounded-circle" src="' + item.image + '" alt="product_image" >' +
+              '<img class="m-auto avatar rounded-circle" src="' + item.image0 + '" alt="product_image" >' +
               '</a>' +
               '</td>' +
               '<td>' + item.id + '</td>' +
