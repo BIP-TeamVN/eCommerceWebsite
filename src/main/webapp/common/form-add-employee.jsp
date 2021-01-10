@@ -3,14 +3,16 @@
 <%@ page import="java.time.Instant" %>
 <%@ page import="java.time.Duration" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8" %>
-<%;
+<%
+   ;
    String minDob = DateTimeUtils.dateToString(Date.from(Instant.now().minus(Duration.ofDays(36520))), "yyyy-MM-dd");
    String defaultDob = DateTimeUtils.dateToString(Date.from(Instant.now().minus(Duration.ofDays(3652))), "yyyy-MM-dd");
    String today = DateTimeUtils.dateToString(Date.from(Instant.now()), "yyyy-MM-dd");
 %>
 
 <!-- Modal -->
-<div class="modal fade bd-example-modal-lg" id="modal-add-employee" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade bd-example-modal-lg" id="modal-add-employee" tabindex="-1" role="dialog"
+     aria-labelledby="exampleModalLabel" aria-hidden="true">
    <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
       <div class="modal-content">
          <div class="modal-header p-3">
@@ -28,9 +30,12 @@
                         <div class="col-md-6">
                            <div class="form-group">
                               <label for="last-name" class="form-control-label">Họ và tên đệm</label>
-                              <a tabindex="-1" href="javascript:void(0)" class="badge badge-secondary" data-toggle="popover" data-placement="right" data-content="Trường bắt buộc - Tối đa 40 ký tự">?</a>
+                              <a tabindex="-1" href="javascript:void(0)" class="badge badge-secondary"
+                                 data-toggle="popover" data-placement="right"
+                                 data-content="Trường bắt buộc - Tối đa 40 ký tự">?</a>
                               <div>
-                                 <input class="form-control" type="text" placeholder="VD: Nguyễn Văn" id="last-name" name="last-name" maxlength="40">
+                                 <input class="form-control" type="text" placeholder="VD: Nguyễn Văn" id="last-name"
+                                        name="last-name" maxlength="40">
                               </div>
                               <small class="error-input text-danger">Vui lòng nhập họ và tên đệm</small>
                            </div>
@@ -38,10 +43,12 @@
                         <div class="col-md-6">
                            <div class="form-group">
                               <label for="first-name" class="form-control-label">Tên</label>
-                              <a tabindex="-1" href="javascript:void(0)" class="badge badge-secondary" data-toggle="popover" data-placement="right"
+                              <a tabindex="-1" href="javascript:void(0)" class="badge badge-secondary"
+                                 data-toggle="popover" data-placement="right"
                                  data-content="Trường bắt buộc - Tối đa 10 ký tự">?</a>
                               <div>
-                                 <input class="form-control" type="text" placeholder="VD: A" id="first-name" name="first-name" maxlength=10>
+                                 <input class="form-control" type="text" placeholder="VD: A" id="first-name"
+                                        name="first-name" maxlength=10>
                               </div>
                               <small class="error-input text-danger">Vui lòng nhập tên</small>
                            </div>
@@ -60,7 +67,8 @@
                         </div>
                         <div class="col-md-6 form-group">
                            <label for="dob" class="form-control-label">Ngày sinh (không bắt buộc)</label>
-                           <input class="form-control" type="date" min="<%=minDob%>" value="<%=defaultDob%>" id="dob" name="dob">
+                           <input class="form-control" type="date" min="<%=minDob%>" value="<%=defaultDob%>" id="dob"
+                                  name="dob">
                         </div>
                      </div>
 
@@ -70,10 +78,12 @@
                            <!--SDT-->
                            <div class="form-group">
                               <label for="phone-number" class="form-control-label">Số điện thoại</label>
-                              <a tabindex="-1" href="javascript:void(0)" class="badge badge-secondary" data-toggle="popover" data-placement="right"
+                              <a tabindex="-1" href="javascript:void(0)" class="badge badge-secondary"
+                                 data-toggle="popover" data-placement="right"
                                  data-content="10 số, bắt đầu từ số 0">?</a>
                               <div>
-                                 <input class="form-control" type="tel" id="phone-number" name="phone-number" maxlength="10" placeholder="VD: 0987654321">
+                                 <input class="form-control" type="tel" id="phone-number" name="phone-number"
+                                        maxlength="10" placeholder="VD: 0987654321">
                               </div>
                               <small class="error-input text-danger">Số điện thoại không hợp lệ</small>
                            </div>
@@ -82,10 +92,12 @@
                            <!--CMND-->
                            <div class="form-group">
                               <label for="ssn" class="form-control-label">Căn cước công dân</label>
-                              <a tabindex="-1" href="javascript:void(0)" class="badge badge-secondary" data-toggle="popover" data-placement="right"
+                              <a tabindex="-1" href="javascript:void(0)" class="badge badge-secondary"
+                                 data-toggle="popover" data-placement="right"
                                  data-content="9 hoặc 12 số">?</a>
                               <div>
-                                 <input class="form-control" type="text" id="ssn" maxlength="12" placeholder="VD: 123456789 hoặc 123456789012">
+                                 <input class="form-control" type="text" id="ssn" maxlength="12"
+                                        placeholder="VD: 123456789 hoặc 123456789012">
                               </div>
                               <small class="error-input text-danger">Vui lòng nhập chứng mình nhân dân</small>
                            </div>
@@ -96,7 +108,8 @@
                      <div class="form-group">
                         <label for="email" class="form-control-label">Email</label>
                         <div>
-                           <input class="form-control" type="email" id="email" name="email" maxlength="40" placeholder="VD: user@gmail.com">
+                           <input class="form-control" type="email" id="email" name="email" maxlength="40"
+                                  placeholder="VD: user@gmail.com">
                         </div>
                         <small class="error-input text-danger">Email sai định dạng</small>
                      </div>
@@ -111,9 +124,11 @@
                         </div>
                         <div class="col-md-6 form-group">
                            <label for="start-date" class="form-control-label">Ngày bắt đầu</label>
-                           <a tabindex="-1" href="javascript:void(0)" class="badge badge-secondary" data-toggle="popover" data-placement="right"
+                           <a tabindex="-1" href="javascript:void(0)" class="badge badge-secondary"
+                              data-toggle="popover" data-placement="right"
                               data-content="Mặc định là hôm nay">?</a>
-                           <input class="form-control" type="date" min="2000-01-01" value="<%=today%>" id="start-date" name="start-date">
+                           <input class="form-control" type="date" min="2000-01-01" value="<%=today%>" id="start-date"
+                                  name="start-date">
                         </div>
                      </div>
 
@@ -185,7 +200,8 @@
    </div>
 </div>
 <!-- Modal add successful -->
-<div class="modal fade" id="successful-modal" tabindex="-1" role="dialog" aria-labelledby="conform-modal-lb" aria-hidden="true">
+<div class="modal fade" id="successful-modal" tabindex="-1" role="dialog" aria-labelledby="conform-modal-lb"
+     aria-hidden="true">
    <div class="modal-dialog" role="document">
       <div class="modal-content">
          <div class="modal-header">

@@ -30,11 +30,6 @@ img {
   content: "Chọn hình ảnh";
 }
 
-.form-control-label--block {
-  display: inline-block;
-  width: 100%;
-}
-
 .list > tr > td {
   text-align: center;
   padding: 0.5rem;
