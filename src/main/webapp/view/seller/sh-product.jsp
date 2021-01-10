@@ -1,105 +1,105 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8" %>
 <html>
 <head>
-    <%@ include file="../../common/meta-info.jsp" %>
-    <title>eCommerce Website - Admin</title>
-    <%@ include file="../../common/link-css.jsp" %>
+   <%@ include file="../../common/meta-info.jsp" %>
+   <title>eCommerce Website - Admin</title>
+   <%@ include file="../../common/link-css.jsp" %>
 </head>
 
 <body>
 <!--Left side nav-->
 <jsp:include page="./sh-side-nav.jsp">
-    <jsp:param name="selectedIndex" value="6"/>
+   <jsp:param name="selectedIndex" value="6"/>
 </jsp:include>
 
 <!-- Main content -->
 <div class="main-content" id="panel">
-    <!--Top navigation-->
-    <%@include file="../../common/sh-top-nav.jsp" %>
+   <!--Top navigation-->
+   <%@include file="../../common/sh-top-nav.jsp" %>
 
-    <!-- Page content -->
-    <div class="container-fluid">
-        <!-- Breadcrumb -->
-        <div class="row mt-4">
-            <div class="col-md-10 ml-auto mr-auto">
-                <nav aria-label="breadcrumb" role="navigation">
-                    <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="/seller"><i class="fa fa-home mr-2"></i>Trang chủ</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Sản phẩm</li>
-                    </ol>
-                </nav>
-            </div>
-        </div>
+   <!-- Page content -->
+   <div class="container-fluid">
+      <!-- Breadcrumb -->
+      <div class="row mt-4">
+         <div class="col-md-10 ml-auto mr-auto">
+            <nav aria-label="breadcrumb" role="navigation">
+               <ol class="breadcrumb">
+                  <li class="breadcrumb-item"><a href="/seller"><i class="fa fa-home mr-2"></i>Trang chủ</a></li>
+                  <li class="breadcrumb-item active" aria-current="page">Sản phẩm</li>
+               </ol>
+            </nav>
+         </div>
+      </div>
 
-        <!--Title-->
-        <div class="row">
-            <div class="col-md-10 ml-auto mr-auto">
-                <h2 class="display-3 text-center text-uppercase my-5">Danh sách Sản phẩm</h2>
-            </div>
-        </div>
+      <!--Title-->
+      <div class="row">
+         <div class="col-md-10 ml-auto mr-auto">
+            <h2 class="display-3 text-center text-uppercase my-5">Danh sách Sản phẩm</h2>
+         </div>
+      </div>
 
-        <!--Button thêm-->
-        <div class="row">
-            <div class="col ml-auto mr-auto text-right">
-                <button type="button" data-toggle="modal" data-target="#modal-add-product"
-                        class="text-uppercase btn btn-primary pl-4 pr-4 mb-4">Thêm sản phẩm
-                </button>
-            </div>
-            <!-- From add employee -->
-            <%@ include file="../../common/form-add-product.jsp" %>
-        </div>
+      <!--Button thêm-->
+      <div class="row">
+         <div class="col ml-auto mr-auto text-right">
+            <button type="button" data-toggle="modal" data-target="#modal-add-product"
+                    class="text-uppercase btn btn-primary pl-4 pr-4 mb-4">Thêm sản phẩm
+            </button>
+         </div>
+         <!-- From add employee -->
+         <%@ include file="../../common/form-add-product.jsp" %>
+      </div>
 
-        <!-- Table -->
-        <div class="row">
-            <div class="col m-auto table-responsive">
-                <table class="table">
-                    <thead>
-                    <tr>
-                        <th scope="col" class="text-center">Ảnh</th>
-                        <th scope="col" class="text-center">Mã</th>
-                        <th scope="col" class="text-center">Tên sản phẩm</th>
-                        <th scope="col" class="text-center">Nhãn hiệu</th>
-                        <th scope="col" class="text-center">Nhà cung cấp</th>
-                        <th scope="col" class="text-center">Đánh giá</th>
-                        <th scope="col" class="text-center">Xuất xứ</th>
-                        <th scope="col" class="text-center">Mô tả</th>
-                        <th scope="col" class="text-center">Giá thị trường</th>
-                        <th scope="col" class="text-center">Giá bán</th>
-                        <th scope="col" class="text-center">Tùy chọn</th>
-                    </tr>
-                    </thead>
-                    <tbody class="list" id="tb-list">
-                    </tbody>
-                </table>
-            </div>
-        </div>
+      <!-- Table -->
+      <div class="row">
+         <div class="col m-auto table-responsive">
+            <table class="table">
+               <thead>
+               <tr>
+                  <th scope="col" class="text-center">Ảnh</th>
+                  <th scope="col" class="text-center">Mã</th>
+                  <th scope="col" class="text-center">Tên sản phẩm</th>
+                  <th scope="col" class="text-center">Nhãn hiệu</th>
+                  <th scope="col" class="text-center">Nhà cung cấp</th>
+                  <th scope="col" class="text-center">Đánh giá</th>
+                  <th scope="col" class="text-center">Xuất xứ</th>
+                  <th scope="col" class="text-center">Mô tả</th>
+                  <th scope="col" class="text-center">Giá thị trường</th>
+                  <th scope="col" class="text-center">Giá bán</th>
+                  <th scope="col" class="text-center">Tùy chọn</th>
+               </tr>
+               </thead>
+               <tbody class="list" id="tb-list">
+               </tbody>
+            </table>
+         </div>
+      </div>
 
-        <!-- Pagination -->
-        <nav aria-label="...">
-            <ul id="page-pagination" class="pagination justify-content-center mt-3">
-                <li class="page-item">
-                    <button type="button" class="page-link" onclick="goPrev()">
-                        <i class="fa fa-angle-left"></i>
-                        <span class="sr-only">Trang trước</span>
-                    </button>
-                </li>
-                <li class="page-item"><a class="page-link" href="#">1</a></li>
-                <li class="page-item active">
-                    <a class="page-link" href="#">2</a>
-                </li>
-                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                <li class="page-item">
-                    <button type="button" class="page-link" onclick="goNext()">
-                        <i class="fa fa-angle-right"></i>
-                        <span class="sr-only">Trang sau</span>
-                    </button>
-                </li>
-            </ul>
-        </nav>
+      <!-- Pagination -->
+      <nav aria-label="...">
+         <ul id="page-pagination" class="pagination justify-content-center mt-3">
+            <li class="page-item">
+               <button type="button" class="page-link" onclick="goPrev()">
+                  <i class="fa fa-angle-left"></i>
+                  <span class="sr-only">Trang trước</span>
+               </button>
+            </li>
+            <li class="page-item"><a class="page-link" href="#">1</a></li>
+            <li class="page-item active">
+               <a class="page-link" href="#">2</a>
+            </li>
+            <li class="page-item"><a class="page-link" href="#">3</a></li>
+            <li class="page-item">
+               <button type="button" class="page-link" onclick="goNext()">
+                  <i class="fa fa-angle-right"></i>
+                  <span class="sr-only">Trang sau</span>
+               </button>
+            </li>
+         </ul>
+      </nav>
 
-        <!-- Footer -->
-        <%@ include file="../../common/footer.jsp" %>
-    </div>
+      <!-- Footer -->
+      <%@ include file="../../common/footer.jsp" %>
+   </div>
 </div>
 
 <!--Javascript-->
@@ -116,28 +116,28 @@
   reloadPage();
 
   function goFirst() {
-    if(currentPage > 1) {
+    if (currentPage > 1) {
       currentPage = 1;
       reloadPage();
     }
   }
 
   function goPrev() {
-    if(currentPage > 1) {
+    if (currentPage > 1) {
       currentPage = currentPage - 1;
       reloadPage();
     }
   }
 
   function goNext() {
-    if(currentPage < totalPage) {
+    if (currentPage < totalPage) {
       currentPage = currentPage + 1;
       reloadPage();
     }
   }
 
   function goLast() {
-    if(currentPage < totalPage) {
+    if (currentPage < totalPage) {
       currentPage = totalPage;
       reloadPage();
     }
@@ -175,7 +175,7 @@
     $.ajax({
       url: '/api/product',
       method: 'GET',
-      data: { page: currentPage },
+      data: {page: currentPage},
       cache: false,
       success: function (data, textStatus, jqXHR) {
         let list = $.parseJSON(data);
@@ -183,34 +183,34 @@
         $('#tb-list').find('tr').remove();
         $.each(list, function (index, item) {
           let html =
-              '<tr>' +
-              '<td>' +
-              '<a href="#" class="media align-items-center">' +
-              '<img class="m-auto avatar rounded-circle" src="' + item.image0 + '" alt="product_image" >' +
-              '</a>' +
-              '</td>' +
-              '<td>' + item.id + '</td>' +
-              '<td>' + item.productName + '</td>' +
-              '<td>' + item.brand + '</td>' +
-              '<td>' + item.seller + '</td>' +
-              '<td>' + item.productRate + '</td>' +
-              '<td>' + item.productOrigin + '</td>' +
-              '<td>' + item.productDesc + '</td>' +
-              '<td>' + item.priceOrigin + '</td>' +
-              '<td>' + item.priceOrder + '</td>' +
-              '<td class="td-actions text-center">' +
-              '<a href="/seller/product/edit?id=' + item.id +'" class="btn btn-primary px-2 py-1" data-toggle="tooltip" data-placement="top" title="Chỉnh sửa thông tin sản phẩm">' +
-              '<i class="fa fa-edit"></i>' +
-              '</a>' +
-              (item.status === "true" ?
-                  '<a href="#" class="btn btn-danger px-2 py-1" data-toggle="tooltip" data-placement="top" title="Chưa xác nhận">' +
-                  '<i class="fa fa-lock"></i>' +
-                  '</a>' :
-                  '<a href="#" class="btn btn-success px-2 py-1" data-toggle="tooltip" data-placement="top" title="Đã xác nhận">' +
-                  '<i class="fa fa-lock-open"></i>' +
-                  '</a>') +
-              '</td>' +
-              '</tr>';
+            '<tr>' +
+            '<td>' +
+            '<a href="#" class="media align-items-center">' +
+            '<img class="m-auto avatar rounded-circle" src="' + item.image0 + '" alt="product_image" >' +
+            '</a>' +
+            '</td>' +
+            '<td>' + item.id + '</td>' +
+            '<td>' + item.productName + '</td>' +
+            '<td>' + item.brand + '</td>' +
+            '<td>' + item.seller + '</td>' +
+            '<td>' + item.productRate + '</td>' +
+            '<td>' + item.productOrigin + '</td>' +
+            '<td>' + item.productDesc + '</td>' +
+            '<td>' + item.priceOrigin + '</td>' +
+            '<td>' + item.priceOrder + '</td>' +
+            '<td class="td-actions text-center">' +
+            '<a href="/seller/product/edit?id=' + item.id + '" class="btn btn-primary px-2 py-1" data-toggle="tooltip" data-placement="top" title="Chỉnh sửa thông tin sản phẩm">' +
+            '<i class="fa fa-edit"></i>' +
+            '</a>' +
+            (item.status === "true" ?
+              '<a href="#" class="btn btn-danger px-2 py-1" data-toggle="tooltip" data-placement="top" title="Chưa xác nhận">' +
+              '<i class="fa fa-lock"></i>' +
+              '</a>' :
+              '<a href="#" class="btn btn-success px-2 py-1" data-toggle="tooltip" data-placement="top" title="Đã xác nhận">' +
+              '<i class="fa fa-lock-open"></i>' +
+              '</a>') +
+            '</td>' +
+            '</tr>';
           $('#tb-list').append(html);
         });
       }
