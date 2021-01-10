@@ -55,6 +55,7 @@ function encodeImgToBase64(element) {
 
 
 $('#' + FORM_ID).submit(function (e) {
+  e.preventDefault();
   checkInputs();
 
   let paras = JSON.stringify({
@@ -63,9 +64,7 @@ $('#' + FORM_ID).submit(function (e) {
     'image': $('#img-upload').attr('src')
   });
 
-  if (!isValidate) {
-    e.preventDefault();
-  } else {
+  if (isValidate) {
     $.ajax({
       url: '/api/product-categories',
       method: 'PUT',

@@ -52,11 +52,10 @@ function encodeImgToBase64(element) {
 }
 
 $('#product-category-form').submit(function (e) {
+  e.preventDefault();
   checkInputs();
 
-  if (!isValidate) {
-    e.preventDefault();
-  } else {
+  if (isValidate) {
     $.ajax({
       url: '/api/product-categories',
       method: 'POST',
@@ -68,7 +67,10 @@ $('#product-category-form').submit(function (e) {
       success: function (data, textStatus, jqXHR) {
         let result = data.toString().split('\n');
         if (result[0] === 'true') {
-          alert("Thêm ngành hàng mới thành công !");
+          $('#successful-modal').modal('show');
+          $('#successful-modal').on('hidden.bs.modal', function () {
+            window.location.href = window.location.origin +  '/admin/category';
+          });
         } else {
           alert("Lỗi: " + result[1]);
           e.preventDefault();

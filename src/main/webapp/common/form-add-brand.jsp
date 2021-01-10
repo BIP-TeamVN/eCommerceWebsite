@@ -65,6 +65,25 @@
         </div>
     </div>
 </div>
+<!-- Modal add successful -->
+<div class="modal fade" id="successful-modal" tabindex="-1" role="dialog" aria-labelledby="conform-modal-lb" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="successful-modal-lb">Thông báo</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Thêm thương hiệu thành công !
+            </div>
+            <div class="modal-footer">
+                <a href="/admin/brand" class="btn btn-primary px-4">OK</a>
+            </div>
+        </div>
+    </div>
+</div>
 <%@ include file="import-js.jsp"%>
 <script src="../../assets/js/dynamic-admin-unit-drop-down.js"></script>
 <script src="../../assets/js/validate/validate-brand-form.js"></script>
