@@ -11,6 +11,8 @@ let priceOrder = document.getElementById('price-order');
 
 let categories = document.getElementById('categories');
 
+let image0 = document.getElementById('up-image-0');
+
 let isValidate = true;
 
 function checkInputs() {
@@ -26,6 +28,8 @@ function checkInputs() {
   let productDescValue = productDesc.value.trim();
 
   let categoriesValue = categories.value.trim();
+
+  let image0Value = image0.value;
 
   isValidate = true;
 
@@ -61,6 +65,8 @@ function checkInputs() {
 
   if (priceOrderValue === '') {
     setErrorFor(priceOrder, 'Vui lòng nhập giá bán');
+  } else if (parseFloat(priceOriginValue) < parseFloat(priceOrderValue)) {
+    setErrorFor(priceOrder, 'Giá bán phải thấp hơn hoặc bằng giá thị trường');
   } else {
     setSuccessFor(priceOrder);
   }
@@ -85,6 +91,12 @@ function checkInputs() {
     setErrorFor(categories, 'Vui lòng chọn ít nhất một ngành hàng');
   } else {
     setSuccessFor(categories);
+  }
+
+  if (image0Value === "") {
+    setErrorFor(image0, 'Vui lòng chọn chọn ảnh bìa sản phẩm');
+  } else {
+    setSuccessFor(image0);
   }
 }
 
@@ -149,9 +161,9 @@ $('#product-form').submit(function (e) {
         'product-types': types.join('@#&'),
         'quantities': quantities.join('@#&'),
         'product-categories': $('#categories').val().join('@#&'),
-        'image-0': $('#img-upload-1').attr('src'),
-        'image-1': $('#img-upload-2').attr('src'),
-        'image-2': $('#img-upload-3').attr('src')
+        'image-0': $('#img-upload-0').attr('src'),
+        'image-1': $('#img-upload-1').attr('src'),
+        'image-2': $('#img-upload-2').attr('src')
       },
       success: function (data, textStatus, jqXHR) {
         let result = data.toString().split('\n');

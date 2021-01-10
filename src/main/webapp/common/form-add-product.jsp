@@ -152,7 +152,16 @@
                             <!--Ảnh-->
                             <div class="row">
                                 <div class="col-md-4 form-group ">
-                                    <label for="up-image-1" class="form-control-label d-inline-block w-100">Ảnh 1</label>
+                                    <label for="up-image-0" class="form-control-label d-inline-block w-100">Ảnh bìa</label>
+                                    <img id="img-upload-0" class="d-none"/>
+                                    <div class="custom-file">
+                                        <input type="file" class="custom-file-input" id="up-image-0" name="up-image-0" accept="image/*"
+                                               onchange="encodeImgToBase64(this, 'img-upload-0')">
+                                    </div>
+                                    <small class="error-input text-danger">Vui lòng chọn ảnh bìa</small>
+                                </div>
+                                <div class="col-md-4 form-group">
+                                    <label for="up-image-1" class="form-control-label d-inline-block w-100">Ảnh 2</label>
                                     <img id="img-upload-1" class="d-none"/>
                                     <div class="custom-file">
                                         <input type="file" class="custom-file-input" id="up-image-1" name="up-image-1" accept="image/*"
@@ -160,19 +169,11 @@
                                     </div>
                                 </div>
                                 <div class="col-md-4 form-group">
-                                    <label for="up-image-2" class="form-control-label d-inline-block w-100">Ảnh 2</label>
+                                    <label for="up-image-2" class="form-control-label d-inline-block w-100">Ảnh 3</label>
                                     <img id="img-upload-2" class="d-none"/>
                                     <div class="custom-file">
                                         <input type="file" class="custom-file-input" id="up-image-2" name="up-image-2" accept="image/*"
                                                onchange="encodeImgToBase64(this, 'img-upload-2')">
-                                    </div>
-                                </div>
-                                <div class="col-md-4 form-group">
-                                    <label for="up-image-3" class="form-control-label d-inline-block w-100">Ảnh 3</label>
-                                    <img id="img-upload-3" class="d-none"/>
-                                    <div class="custom-file">
-                                        <input type="file" class="custom-file-input" id="up-image-3" name="up-image-3" accept="image/*"
-                                               onchange="encodeImgToBase64(this, 'img-upload-3')">
                                     </div>
                                 </div>
                             </div>
