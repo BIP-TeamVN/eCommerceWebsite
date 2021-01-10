@@ -145,6 +145,7 @@ function encodeImgToBase64(element) {
 }
 
 $('#' + FORM_ID).submit(function (e) {
+  e.preventDefault();
   checkInputs();
 
   // check phone number exits
@@ -183,9 +184,7 @@ $('#' + FORM_ID).submit(function (e) {
     cache: false
   });
 
-  if (!isValidate) {
-    e.preventDefault();
-  } else {
+  if (isValidate) {
     $.ajax({
       url: '/api/employees',
       method: 'POST',
@@ -209,8 +208,10 @@ $('#' + FORM_ID).submit(function (e) {
       success: function (data, textStatus, jqXHR) {
         let result = data.toString().split('\n');
         if (result[0] === 'true') {
-          $('#' + FORM_ID).trigger("reset");
-          alert("Thêm nhân viên mới thành công !");
+          $('#successful-modal').modal('show');
+          $('#successful-modal').on('hidden.bs.modal', function () {
+            window.location.href = window.location.origin +  '/admin/employee';
+          });
         } else {
           alert("Lỗi: " + result[1]);
           e.preventDefault();

@@ -167,6 +167,10 @@ public class DeliveryServlet extends HttpServlet {
          Boolean updateResult = UserDAO.getInstance().update(updateUser);
 
          if (updateResult != false) {
+
+            if (updateUser.getAddressEntities().size() == 0) {
+               updateUser.setAddressEntities(Collections.singletonList(new AddressEntity()));
+            }
             AddressEntity updateAddress = updateUser.getAddressEntities().get(0);
 
             updateAddress.setPhoneNumber(phoneNumber);
