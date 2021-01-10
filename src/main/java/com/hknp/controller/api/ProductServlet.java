@@ -83,7 +83,9 @@ public class ProductServlet extends HttpServlet {
          newProduct.setProductDesc(productDesc);
          newProduct.setPriceOrder(StringUtils.toBigDecimal(priceOrder));
          newProduct.setPriceOrigin(StringUtils.toBigDecimal(priceOrigin));
+
          newProduct.setStatus(true);
+         newProduct.setProductRate(0f);
 
          Set<ProductTypeEntity> productTypeEntities = new HashSet<>();
          for(int i = 0; i < quantities.size(); i++) {

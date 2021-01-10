@@ -9,21 +9,7 @@ let productDesc = document.getElementById('product-desc');
 let priceOrigin = document.getElementById('price-origin');
 let priceOrder = document.getElementById('price-order');
 
-let categoriesSelected = document.getElementById('categories-selected');
-
-let types = [];
-let quantities = [];
-function getTypesValue() {
-  for (let i = 0; i < countType; i++) {
-    types.push($('#type-name-' + i).val());
-    quantities.push($('#quantity-' + i).val());
-  }
-}
-
-let categories = [];
-function getCategoriesValue() {
-  categories = $.map($('#categories-selected option'), function(e) { return e.value; });
-}
+let categories = document.getElementById('categories');
 
 let isValidate = true;
 
@@ -39,7 +25,7 @@ function checkInputs() {
 
   let productDescValue = productDesc.value.trim();
 
-  let categoriesSelectedValue = categoriesSelected.value.trim();
+  let categoriesValue = categories.value.trim();
 
   isValidate = true;
 
@@ -95,10 +81,10 @@ function checkInputs() {
     }
   }
 
-  if (categoriesSelectedValue === '') {
-    setErrorFor(categoriesSelected, 'Vui lòng chọn ít nhất một ngành hàng');
+  if (categoriesValue === '') {
+    setErrorFor(categories, 'Vui lòng chọn ít nhất một ngành hàng');
   } else {
-    setSuccessFor(categoriesSelected);
+    setSuccessFor(categories);
   }
 }
 
@@ -137,8 +123,14 @@ function encodeImgToBase64(element, id) {
 }
 
 $('#product-form').submit(function (e) {
-  getTypesValue();
-  getCategoriesValue();
+
+  let types = [];
+  let quantities = [];
+  for (let i = 0; i < countType; i++) {
+    types.push($('#type-name-' + i).val());
+    quantities.push($('#quantity-' + i).val());
+  }
+
   checkInputs();
   if (!isValidate){
     e.preventDefault();
@@ -156,7 +148,7 @@ $('#product-form').submit(function (e) {
         'price-order': priceOrder.value,
         'product-types': types.join('@#&'),
         'quantities': quantities.join('@#&'),
-        'product-categories': categories.join('@#&'),
+        'product-categories': $('#categories').val().join('@#&'),
         'image-0': $('#img-upload-1').attr('src'),
         'image-1': $('#img-upload-2').attr('src'),
         'image-2': $('#img-upload-3').attr('src')
@@ -165,6 +157,7 @@ $('#product-form').submit(function (e) {
         let result = data.toString().split('\n');
         if (result[0] === 'true') {
           $('#product-form').trigger("reset");
+          countType = 1;
           alert("Thêm sản phẩm mới thành công !");
         } else {
           alert("Lỗi: " + result[1]);
@@ -183,38 +176,16 @@ $('#btn-cancel').click(function () {
   $('#' + FORM_ID).trigger("reset");
 });
 
+//load tất cả ngành hàng
 $.ajax({
-  url: "/api/product-categories",
+  url: "/api/categories-for-product",
   method: "GET",
   cache: false,
   success: function (data) {
     let obj = $.parseJSON(data);
     console.log(obj);
     $.each(obj, function (key, value) {
-        $('#categories-all').append('<option value="' + value.id + '">' + value.name + '</option>');
+        $('#categories').append('<option value="' + value.id + '">' + value.name + '</option>');
     });
   }
-});
-
-$('#btn-add-categories').click(function() {
-  !$('#categories-all option:selected').remove().appendTo('#categories-selected');
-
-  var options = $('#categories-selected option');
-  var arr = options.map(function(_, o) { return { t: $(o).text(), v: o.value }; }).get();
-  arr.sort(function(o1, o2) { return o1.t < o2.t ? 1 : o1.t > o2.t ? -1 : 0; });
-  options.each(function(i, o) {
-    o.value = arr[i].v;
-    $(o).text(arr[i].t);
-  });
-});
-$('#btn-remove-categories').click(function() {
-  !$('#categories-selected option:selected').remove().appendTo('#categories-all');
-
-  var options = $('#categories-all option');
-  var arr = options.map(function(_, o) { return { t: $(o).text(), v: o.value }; }).get();
-  arr.sort(function(o1, o2) { return o1.t < o2.t ? 1 : o1.t > o2.t ? -1 : 0; });
-  options.each(function(i, o) {
-    o.value = arr[i].v;
-    $(o).text(arr[i].t);
-  });
 });

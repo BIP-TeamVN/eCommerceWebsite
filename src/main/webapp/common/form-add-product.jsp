@@ -109,6 +109,24 @@
                                         </div>
                                     </div>
                                 </div>
+                                <div class="row" id="div-type-0">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <div>
+                                                <input class="form-control" type="text" id="type-name-0" name="type-name-0" maxlength="30" placeholder="VD: Xanh">
+                                            </div>
+                                            <small class="error-input text-danger">Loại sản phẩm không hợp lệ</small>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <div>
+                                                <input class="form-control" type="number" id="quantity-0" name="quantity-0" maxlength="50" placeholder="VD: 99">
+                                            </div>
+                                            <small class="error-input text-danger">Số lượng không hợp lệ</small>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                             <div class="row">
                                 <div class="col-md-1 form-group">
@@ -120,29 +138,14 @@
                             </div>
 
                             <!--chọn ngành hàng-->
-                            <div class="row">
-                                <div class="col-md-5 form-group">
-                                    <label for="categories-all" class="form-control-label">Ngành hàng</label>
+                            <div class="row form-group">
+                                <div class="col form-group">
+                                    <label for="categories" class="form-control-label">Ngành hàng</label>
                                     <div>
-                                        <select class="form-control" name="categories-all" id="categories-all" multiple rows="5">
+                                        <select class="form-control" name="categories" id="categories" multiple rows="5">
                                         </select>
                                     </div>
-                                </div>
-                                <div class="col-md-2 form-group">
-                                    <div class="row">
-                                        <a><i class="fa fa-angle-left" id="btn-remove-categories"></i></a>
-                                    </div>
-                                    <div class="row">
-                                        <a><i class="fa fa-angle-right" id="btn-add-categories"></i></a>
-                                    </div>
-                                </div>
-                                <div class="col-md-5 form-group">
-                                    <label for="categories-selected" class="form-control-label">Ngành hàng đã chọn</label>
-                                    <div>
-                                        <select class="form-control" name="categories-selected" id="categories-selected" multiple rows="5">
-                                        </select>
-                                    </div>
-                                    <small class="error-input text-danger">Vui lòng chọn ít nhất một ngành hàng</small>
+                                    <small class="error-input text-danger">Vui lòng chọn ngành hàng</small>
                                 </div>
                             </div>
 
@@ -188,7 +191,7 @@
 <script src="../../assets/js/dynamic-admin-unit-drop-down.js"></script>
 <script src="../../assets/js/validate/validate-product-form.js"></script>
 <script>
-  let countType = 0;
+  let countType = 1;
   function addType() {
     let html =
         '<div class="row" id="div-type-' + countType + '">' +
@@ -232,9 +235,16 @@
 </script>
 <script>
     function removeType() {
-      if (countType > 0) {
+      if (countType > 1) {
         $("#div-type-" + (countType - 1)).remove();
         countType -= 1;
       }
     }
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/slim-select/1.27.0/slimselect.min.js"></script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/slim-select/1.27.0/slimselect.min.css" rel="stylesheet"></link>
+<script>
+  new SlimSelect({
+    select: '#categories'
+  })
 </script>
