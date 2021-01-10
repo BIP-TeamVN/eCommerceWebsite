@@ -17,8 +17,7 @@ let addressStreet = document.getElementById('address-street');
 
 let storeName = document.getElementById('store-name');
 let storeLink = document.getElementById('store-link');
-let businessLicenseld = document.getElementById('business-licenseld');
-let sellerCategoryId = document.getElementById('seller-category-id');
+let businessLicenseld = document.getElementById('business-license-id');
 let bankAccountId = document.getElementById('bank-account-id');
 
 let isValidate = true;
@@ -40,7 +39,6 @@ function checkInputs() {
   let storeNameValue = storeName.value.trim();
   let storeLinkValue = storeLink.value.trim();
   let businessLicenseldValue = businessLicenseld.value.trim();
-  let sellerCategoryIdValue = sellerCategoryId.value.trim();
   let bankAccountIdValue = bankAccountId.value.trim();
 
   isValidate = true;
@@ -121,12 +119,6 @@ function checkInputs() {
     setErrorFor(businessLicenseld, 'Vui lòng nhập giấy phép kinh doanh')
   } else {
     setSuccessFor(businessLicenseld);
-  }
-
-  if(sellerCategoryIdValue === '00000'){
-    setErrorFor(sellerCategoryId, 'Vui lòng chọn ngành hàng')
-  } else {
-    setSuccessFor(sellerCategoryId);
   }
 
   if(bankAccountIdValue === ''){
@@ -244,8 +236,7 @@ $('#' + FORM_ID).submit(function (e) {
         'image': $('#img-upload').attr('src'),
         'store-name': storeName.value,
         'store-link': storeLink.value,
-        'business-licenseld': businessLicenseld.value,
-        'seller-category-id': sellerCategoryId.value,
+        'business-license-id': businessLicenseld.value,
         'bank-account-id': bankAccountId.value
       },
       success: function (data, textStatus, jqXHR) {

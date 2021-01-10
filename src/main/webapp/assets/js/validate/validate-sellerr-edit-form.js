@@ -1,5 +1,6 @@
 const FORM_ID = 'seller-edit-form';
 
+let id = document.getElementById('id');
 let lastName = document.getElementById('last-name');
 let firstName = document.getElementById('first-name');
 
@@ -17,8 +18,7 @@ let addressStreet = document.getElementById('address-street');
 
 let storeName = document.getElementById('store-name');
 let storeLink = document.getElementById('store-link');
-let businessLicenseld = document.getElementById('business-licenseld');
-let sellerCategoryId = document.getElementById('seller-category-id');
+let businessLicenseld = document.getElementById('business-license-id');
 let bankAccountId = document.getElementById('bank-account-id');
 
 let isValidate = true;
@@ -37,120 +37,97 @@ function checkInputs() {
   let communeValue = commune.value;
   let addressStreetValue = addressStreet.value.trim();
 
+  let storeNameValue = storeName.value.trim();
+  let storeLinkValue = storeLink.value.trim();
+  let businessLicenseldValue = businessLicenseld.value.trim();
+  let bankAccountIdValue = bankAccountId.value.trim();
+
   isValidate = true;
 
-  function checkInputs() {
-    // trim to remove the whitespaces
-    let lastNameValue = lastName.value.trim();
-    let firstNameValue = firstName.value.trim();
-
-    let phoneNumberValue = phoneNumber.value.trim();
-    let ssnValue = ssn.value.trim();
-    let emailValue = email.value.trim();
-
-    let provinceValue = province.value;
-    let districtValue = district.value;
-    let communeValue = commune.value;
-    let addressStreetValue = addressStreet.value.trim();
-
-    let storeNameValue = storeName.value.trim();
-    let storeLinkValue = storeLink.value.trim();
-    let businessLicenseldValue = businessLicenseld.value.trim();
-    let sellerCategoryIdValue = sellerCategoryId.value.trim();
-    let bankAccountIdValue = bankAccountId.value.trim();
-
-    isValidate = true;
-
-    if (lastNameValue === '') {
-      setErrorFor(lastName, 'Vui lòng nhập họ và tên đệm');
-    } else {
-      setSuccessFor(lastName);
-    }
-
-    if (firstNameValue === '') {
-      setErrorFor(firstName, 'Vui lòng nhập tên');
-    } else {
-      setSuccessFor(firstName);
-    }
-
-    if (phoneNumberValue === '') {
-      setErrorFor(phoneNumber, 'Vui lòng nhập số điện thoại');
-    } else if (!isPhoneNumber(phoneNumberValue)) {
-      setErrorFor(phoneNumber, 'Số điện thoại phải có 10 chữ số, bắt đầu từ số 0');
-    } else {
-      setSuccessFor(phoneNumber);
-    }
-
-    if (ssnValue === '') {
-      setErrorFor(ssn, 'Vui lòng nhập căn cước công dân');
-    } else if (!isSsn(ssnValue)) {
-      setErrorFor(ssn, 'Số trên thẻ căn cước công dân có 9 hoặc 12 chữ số');
-    } else {
-      setSuccessFor(ssn);
-    }
-
-    if (emailValue === '') {
-      setErrorFor(email, 'Vui lòng nhập email');
-    } else if (!isEmail(emailValue)) {
-      setErrorFor(email, 'Email không đúng định dạng');
-    } else {
-      setSuccessFor(email);
-    }
-
-    if (provinceValue === '00') {
-      setErrorFor(province, 'Vui lòng chọn tỉnh/ thành phố');
-    } else {
-      setSuccessFor(province);
-    }
-
-    if (districtValue === '000') {
-      setErrorFor(district, 'Vui lòng chọn quin/ huyện');
-    } else {
-      setSuccessFor(district);
-    }
-
-    if (communeValue === '00000') {
-      setErrorFor(commune, 'Vui lòng chọn xã/ phường');
-    } else {
-      setSuccessFor(commune);
-    }
-
-    if (addressStreetValue === '') {
-      setErrorFor(addressStreet, 'Vui lòng nhập địa chỉ cửa hàng');
-    } else {
-      setSuccessFor(addressStreet);
-    }
-
-    if(storeNameValue === ''){
-      setErrorFor(storeName, 'Vui lòng nhập tên cửa hàng')
-    } else {
-      setSuccessFor(storeName);
-    }
-
-    if(storeLinkValue === ''){
-      setErrorFor(storeLink, 'Vui lòng nhập Link cửa hàng')
-    } else {
-      setSuccessFor(storeLink);
-    }
-
-    if(businessLicenseldValue === ''){
-      setErrorFor(businessLicenseld, 'Vui lòng nhập giấy phép kinh doanh')
-    } else {
-      setSuccessFor(businessLicenseld);
-    }
-
-    if(sellerCategoryIdValue === '00000'){
-      setErrorFor(sellerCategoryId, 'Vui lòng chọn ngành hàng')
-    } else {
-      setSuccessFor(sellerCategoryId);
-    }
-
-    if(bankAccountIdValue === ''){
-      setErrorFor(bankAccountId, 'Vui lòng nhập số tài khoản ngân hàng')
-    } else {
-      setSuccessFor(bankAccountId);
-    }
+  if (lastNameValue === '') {
+    setErrorFor(lastName, 'Vui lòng nhập họ và tên đệm');
+  } else {
+    setSuccessFor(lastName);
   }
+
+  if (firstNameValue === '') {
+    setErrorFor(firstName, 'Vui lòng nhập tên');
+  } else {
+    setSuccessFor(firstName);
+  }
+
+  if (phoneNumberValue === '') {
+    setErrorFor(phoneNumber, 'Vui lòng nhập số điện thoại');
+  } else if (!isPhoneNumber(phoneNumberValue)) {
+    setErrorFor(phoneNumber, 'Số điện thoại phải có 10 chữ số, bắt đầu từ số 0');
+  } else {
+    setSuccessFor(phoneNumber);
+  }
+
+  if (ssnValue === '') {
+    setErrorFor(ssn, 'Vui lòng nhập căn cước công dân');
+  } else if (!isSsn(ssnValue)) {
+    setErrorFor(ssn, 'Số trên thẻ căn cước công dân có 9 hoặc 12 chữ số');
+  } else {
+    setSuccessFor(ssn);
+  }
+
+  if (emailValue === '') {
+    setErrorFor(email, 'Vui lòng nhập email');
+  } else if (!isEmail(emailValue)) {
+    setErrorFor(email, 'Email không đúng định dạng');
+  } else {
+    setSuccessFor(email);
+  }
+
+  if (provinceValue === '00') {
+    setErrorFor(province, 'Vui lòng chọn tỉnh/ thành phố');
+  } else {
+    setSuccessFor(province);
+  }
+
+  if (districtValue === '000') {
+    setErrorFor(district, 'Vui lòng chọn quận/ huyện');
+  } else {
+    setSuccessFor(district);
+  }
+
+  if (communeValue === '00000') {
+    setErrorFor(commune, 'Vui lòng chọn xã/ phường');
+  } else {
+    setSuccessFor(commune);
+  }
+
+  if (addressStreetValue === '') {
+    setErrorFor(addressStreet, 'Vui lòng nhập địa chỉ giao hàng');
+  } else {
+    setSuccessFor(addressStreet);
+  }
+
+  if(storeNameValue === ''){
+    setErrorFor(storeName, 'Vui lòng nhập tên cửa hàng')
+  } else {
+    setSuccessFor(storeName);
+  }
+
+  if(storeLinkValue === ''){
+    setErrorFor(storeLink, 'Vui lòng nhập Link cửa hàng')
+  } else {
+    setSuccessFor(storeLink);
+  }
+
+  if(businessLicenseldValue === ''){
+    setErrorFor(businessLicenseld, 'Vui lòng nhập giấy phép kinh doanh')
+  } else {
+    setSuccessFor(businessLicenseld);
+  }
+
+  if(bankAccountIdValue === ''){
+    setErrorFor(bankAccountId, 'Vui lòng nhập số tài khoản ngân hàng')
+  } else {
+    setSuccessFor(bankAccountId);
+  }
+}
 
 function setErrorFor(input, message) {
   if (isValidate) {
@@ -174,6 +151,19 @@ function setSuccessFor(input) {
   let small = input.parentElement.parentElement.querySelector('small');
   small.innerText = '';
   small.setAttribute("style", "display: none;");
+}
+
+function isPhoneNumber(phoneNumber) {
+  return phoneNumber[0] === '0' && phoneNumber.match(/\d/g).length === 10;
+}
+
+function isSsn(ssn) {
+  let match = ssn.match(/\d/g);
+  return match != null && (match.length === 9 || match.length === 12);
+}
+
+function isEmail(email) {
+  return /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(email);
 }
 
 function encodeImgToBase64(element) {
@@ -241,14 +231,16 @@ $('#' + FORM_ID).submit(function (e) {
     'district': district.value,
     'commune': commune.value,
     'address-street': addressStreet.value.trim(),
-    'start-date': startDate.value,
-    'salary': salary.value,
-    'image': $('#img-upload').attr('src')
+    'image': $('#img-upload').attr('src'),
+    'store-name': storeName.value,
+    'store-link': storeLink.value,
+    'business-license-id': businessLicenseld.value,
+    'bank-account-id': bankAccountId.value
   });
 
   if (isValidate) {
     $.ajax({
-      url: '/api/employees',
+      url: '/api/seller',
       method: 'PUT',
       async: false,
       cache: false,
@@ -258,7 +250,7 @@ $('#' + FORM_ID).submit(function (e) {
         if (result[0] === 'true') {
           $('#successful-modal').modal('show');
           $('#successful-modal').on('hidden.bs.modal', function () {
-            window.location.href = window.location.origin +  '/admin/employee';
+            window.location.href = window.location.origin +  '/admin/seller';
           });
           //window.location.href = window.location.origin +  '/admin/employee';
         } else {
