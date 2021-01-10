@@ -38,7 +38,7 @@
                         <div class="col-md-6">
                            <div class="form-group">
                               <label for="first-name" class="form-control-label">Tên</label>
-                              <a tabindex="-1" tabindex="-1" href="javascript:void(0)" class="badge badge-secondary" data-toggle="popover" data-placement="right"
+                              <a tabindex="-1" href="javascript:void(0)" class="badge badge-secondary" data-toggle="popover" data-placement="right"
                                  data-content="Trường bắt buộc - Tối đa 10 ký tự">?</a>
                               <div>
                                  <input class="form-control" type="text" placeholder="VD: A" id="first-name" name="first-name" maxlength=10>
@@ -103,15 +103,15 @@
 
                      <div class="row">
                         <div class="col-md-6 form-group">
-                           <label for="email" class="form-control-label">Mức lương</label>
+                           <label for="salary" class="form-control-label">Mức lương</label>
                            <div>
-                              <input class="form-control" type="text" id="salary" name="salary" maxlength="20">
+                              <input class="form-control" type="number" id="salary" name="salary" maxlength="20">
                            </div>
                            <small class="error-input text-danger">...</small>
                         </div>
                         <div class="col-md-6 form-group">
                            <label for="start-date" class="form-control-label">Ngày bắt đầu</label>
-                           <a tabindex="-1" tabindex="-1" href="javascript:void(0)" class="badge badge-secondary" data-toggle="popover" data-placement="right"
+                           <a tabindex="-1" href="javascript:void(0)" class="badge badge-secondary" data-toggle="popover" data-placement="right"
                               data-content="Mặc định là hôm nay">?</a>
                            <input class="form-control" type="date" min="2000-01-01" value="<%=today%>" id="start-date" name="start-date">
                         </div>
@@ -180,6 +180,25 @@
          <div class="modal-footer p-3 text-uppercase">
             <button class="btn btn-secondary pl-6 pr-6" type="button" id="btn-cancel" data-dismiss="modal">Hủy</button>
             <button class="btn btn-primary pl-6 pr-6" type="submit" form="employee-form">Lưu</button>
+         </div>
+      </div>
+   </div>
+</div>
+<!-- Modal add successful -->
+<div class="modal fade" id="successful-modal" tabindex="-1" role="dialog" aria-labelledby="conform-modal-lb" aria-hidden="true">
+   <div class="modal-dialog" role="document">
+      <div class="modal-content">
+         <div class="modal-header">
+            <h5 class="modal-title" id="successful-modal-lb">Thông báo</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+               <span aria-hidden="true">&times;</span>
+            </button>
+         </div>
+         <div class="modal-body">
+            Thêm nhân viên thành công !
+         </div>
+         <div class="modal-footer">
+            <a href="/admin/employee" class="btn btn-primary px-4">OK</a>
          </div>
       </div>
    </div>

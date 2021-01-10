@@ -61,7 +61,6 @@
                   <th scope="col" class="text-center">Tên cửa hàng</th>
                   <th scope="col" class="text-center">Link cửa hàng</th>
                   <th scope="col" class="text-center">Giấy phép kinh doanh</th>
-                  <th scope="col" class="text-center">Ngành hàng</th>
                   <th scope="col" class="text-center">Số tài khoản</th>
                   <th scope="col" class="text-center">Tùy chọn</th>
                </tr>
@@ -193,10 +192,9 @@
                        '<td>' + item.storeName + '</td>' +
                        '<td>' + item.storeLink + '</td>' +
                        '<td>' + item.businessLicenseId + '</td>' +
-                       '<td>' + item.sellerCategoryEntity + '</td>' +
                        '<td>' + item.bankAccountId + '</td>' +
                        '<td class="td-actions text-center">' +
-                       '<a href="/admin/employee/edit?id=' + item.id +'" class="btn btn-primary px-2 py-1" data-toggle="tooltip" data-placement="top" title="Chỉnh sửa thông tin">' +
+                       '<a href="/admin/seller/edit?id=' + item.id +'" class="btn btn-primary px-2 py-1" data-toggle="tooltip" data-placement="top" title="Chỉnh sửa thông tin">' +
                        '<i class="fa fa-edit"></i>' +
                        '</a>' +
                        (item.status === "true" ?

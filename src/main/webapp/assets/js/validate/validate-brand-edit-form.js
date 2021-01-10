@@ -66,6 +66,7 @@ function encodeImgToBase64(element) {
 
 
 $('#' + FORM_ID).submit(function (e) {
+  e.preventDefault();
   checkInputs();
 
   let paras = JSON.stringify({
@@ -75,9 +76,7 @@ $('#' + FORM_ID).submit(function (e) {
     'image': $('#img-upload').attr('src')
   });
 
-  if (!isValidate) {
-    e.preventDefault();
-  } else {
+  if (isValidate) {
     $.ajax({
       url: '/api/brands',
       method: 'PUT',
@@ -87,8 +86,10 @@ $('#' + FORM_ID).submit(function (e) {
       success: function (data, textStatus, jqXHR) {
         let result = data.toString().split('\n');
         if (result[0] === 'true') {
-          $('#' + FORM_ID).trigger("reset");
-          alert("Cập nhật thông tin thành công !");
+          $('#successful-modal').modal('show');
+          $('#successful-modal').on('hidden.bs.modal', function () {
+            window.location.href = window.location.origin +  '/admin/brand';
+          });
         } else {
           alert("Lỗi: " + result[1]);
           e.preventDefault();

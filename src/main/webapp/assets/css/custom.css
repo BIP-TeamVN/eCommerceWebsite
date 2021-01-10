@@ -30,6 +30,11 @@ img {
   content: "Chọn hình ảnh";
 }
 
+.form-control-label--block {
+  display: inline-block;
+  width: 100%;
+}
+
 .list > tr > td {
   text-align: center;
   padding: 0.5rem;
@@ -41,10 +46,53 @@ img {
   object-fit: cover;
 }
 
+.product-category-img {
+  background-color: #F4F4F4;
+}
+
 .avatar-img {
   height: 180px;
   object-fit: cover;
   display: inline-block !important;
+}
+
+#img-upload {
+  display: none;
+}
+
+.carousel-item-image {
+  height: 180px;
+  object-fit: cover;
+}
+
+.carousel-button {
+  position: absolute;
+  top: calc(50% - 30px);
+  transform: translate(-50%, -50%);
+}
+
+.carousel-button-prev {
+  left: -2rem;
+}
+
+.carousel-button-next {
+  right: -3.2rem;
+}
+
+.carousel-button > em {
+  font-size: 1.8rem;
+}
+
+a.card {
+  margin-bottom: 20px;
+}
+
+a.card:hover {
+  background-color: #f8f9fe;
+  box-shadow: rgba(0, 0, 0, .1) 0 0 0 1px, rgba(0, 0, 0, .1) 0 4px 16px;
+  margin-left: -10px;
+  margin-right: -10px;
+  margin-bottom: 0;
 }
 
 .product-image {
@@ -52,7 +100,59 @@ img {
   object-fit: cover;
 }
 
+.product-title {
+  font-size: 110%;
+}
+
+.product-desc {
+  font-size: 90%;
+}
+
 .pagination > .page-item.active {
   pointer-events: none;
   cursor: default;
+}
+
+.price::after {
+  margin-left: .2rem;
+  content: 'đ';
+  text-decoration: underline;
+  font-size: 69%;
+}
+
+.order-price {
+  margin-left: 0 !important;
+  font-size: 1.4rem !important;
+  font-weight: 600;
+}
+
+.origin-price {
+  margin-left: 3rem;
+
+  color: rgb(120, 120, 120);
+  font-size: 1rem !important;
+  font-weight: 300;
+  text-decoration: line-through;
+}
+
+.price-percent {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.price-percent::before {
+  content: "- ";
+}
+
+.price-percent {
+  position: absolute;
+  top: 1rem;
+  right: 1.5rem;
+}
+
+.btn-float {
+  position: fixed;
+  height: 3rem;
+  width: 3rem;
+  right: 1.5rem;
+  bottom: 2rem;
 }
