@@ -12,24 +12,33 @@ public class Cons {
       public static final String USER_TYPE_CUSTOMER = "CUSTOMER";
       public static final String USER_TYPE_DELIVERY = "DELIVERY";
 
-      public static String DEFAULT_USER_IMAGE_MALE_SRC = "../../assets/img/default-image-male.png";
-      public static String DEFAULT_USER_IMAGE_FEMALE_SRC = "../../assets/img/default-image-female.png";
+      public static final String DEFAULT_USER_IMAGE_MALE_SRC = "../../assets/img/default-image-male.png";
+      public static final String DEFAULT_USER_IMAGE_FEMALE_SRC = "../../assets/img/default-image-female.png";
 
    }
 
    public static class Address {
-      public static String DEFAULT_ADDRESS_NAME = "Mặc định";
+      public static final String DEFAULT_ADDRESS_NAME = "Mặc định";
    }
 
    public static class Product {
-      public static String DEFAULT_PRODUCT_IMAGE = "../../assets/img/no-image-product.svg";
+      public static final String DEFAULT_PRODUCT_IMAGE = "../../assets/img/no-image-product.svg";
    }
 
    public static class ProductCategory {
-      public static String DEFAULT_PRODUCT_CATEGORY_IMAGE = "../../assets/img/unknown-category.svg";
+      public static final String DEFAULT_PRODUCT_CATEGORY_IMAGE = "../../assets/img/unknown-category.svg";
    }
 
    public static class Brand {
-      public static String DEFAULT_BRAND_IMAGE = "../../assets/img/unknown-brand.svg";
+      public static final String DEFAULT_BRAND_IMAGE = "../../assets/img/unknown-brand.svg";
+   }
+
+   public static class Bill {
+      public static final Integer BILL_STATUS_CREATE = 0;      // mới tạo
+      public static final Integer BILL_STATUS_CANCEL = 1;      // hủy
+      public static final Integer BILL_STATUS_VERIFIED = 2;    // shop đã xác nhận
+      public static final Integer BILL_STATUS_SHIPPING = 3;    // shipper đang giao
+      public static final Integer BILL_STATUS_DONE = 4;        // giao xong
+      public static final Integer BILL_STATUS_FAILED = 5;      // giao không được
    }
 }

@@ -38,7 +38,7 @@
                         <div class="col-md-6">
                            <div class="form-group">
                               <label for="first-name" class="form-control-label">Tên</label>
-                              <a tabindex="-1" tabindex="-1" href="javascript:void(0)" class="badge badge-secondary" data-toggle="popover" data-placement="right"
+                              <a tabindex="-1" href="javascript:void(0)" class="badge badge-secondary" data-toggle="popover" data-placement="right"
                                  data-content="Trường bắt buộc - Tối đa 10 ký tự">?</a>
                               <div>
                                  <input class="form-control" type="text" placeholder="VD: A" id="first-name" name="first-name" maxlength=10>
@@ -103,15 +103,15 @@
 
                      <div class="row">
                         <div class="col-md-6 form-group">
-                           <label for="email" class="form-control-label">Mức lương</label>
+                           <label for="salary" class="form-control-label">Mức lương</label>
                            <div>
-                              <input class="form-control" type="text" id="salary" name="salary" maxlength="20">
+                              <input class="form-control" type="number" id="salary" name="salary" maxlength="20">
                            </div>
                            <small class="error-input text-danger">...</small>
                         </div>
                         <div class="col-md-6 form-group">
                            <label for="start-date" class="form-control-label">Ngày bắt đầu</label>
-                           <a tabindex="-1" tabindex="-1" href="javascript:void(0)" class="badge badge-secondary" data-toggle="popover" data-placement="right"
+                           <a tabindex="-1" href="javascript:void(0)" class="badge badge-secondary" data-toggle="popover" data-placement="right"
                               data-content="Mặc định là hôm nay">?</a>
                            <input class="form-control" type="date" min="2000-01-01" value="<%=today%>" id="start-date" name="start-date">
                         </div>

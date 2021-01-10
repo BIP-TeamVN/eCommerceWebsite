@@ -182,7 +182,7 @@
                        '<td>' + item.name + '</td>' +
                        '<td>' +
                        '<a href="#" class="media m-auto align-items-center">' +
-                       '<img class="avatar m-auto rounded-circle" src="' + item.image + '" alt="category_image" >' +
+                       '<img class="avatar product-category-img m-auto rounded-circle" src="' + item.image + '" alt="category_image" >' +
                        '</a>' +
                        '</td>' +
                        '<td class="td-actions text-center">' +

@@ -12,6 +12,9 @@ public class BillEntity implements Serializable {
    @Column(name = "BILL_ID")
    Long billId;
 
+   @Column(name = "BILL_STATUS")
+   Integer status;
+
    @ManyToOne(fetch = FetchType.EAGER)
    @JoinColumn(name = "CUSTOMER_ID")
    CustomerEntity customerEntity;
@@ -31,20 +34,20 @@ public class BillEntity implements Serializable {
    public BillEntity() {
    }
 
-   public List<BillDetailEntity> getBillDetailEntities() {
-      return billDetailEntities;
-   }
-
-   public void setBillDetailEntities(List<BillDetailEntity> billDetailEntities) {
-      this.billDetailEntities = billDetailEntities;
-   }
-
    public Long getBillId() {
       return billId;
    }
 
    public void setBillId(Long billId) {
       this.billId = billId;
+   }
+
+   public Integer getStatus() {
+      return status;
+   }
+
+   public void setStatus(Integer status) {
+      this.status = status;
    }
 
    public CustomerEntity getCustomerEntity() {
@@ -69,5 +72,13 @@ public class BillEntity implements Serializable {
 
    public void setDiscountEntity(DiscountEntity discountEntity) {
       this.discountEntity = discountEntity;
+   }
+
+   public List<BillDetailEntity> getBillDetailEntities() {
+      return billDetailEntities;
+   }
+
+   public void setBillDetailEntities(List<BillDetailEntity> billDetailEntities) {
+      this.billDetailEntities = billDetailEntities;
    }
 }
