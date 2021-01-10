@@ -100,23 +100,7 @@
                                 </div>
                                 <small class="error-input text-danger">Email sai định dạng</small>
                             </div>
-                            <!--
 
-                            <div class="row">
-                                <div class="col-md-6 form-group">
-                                    <label for="email" class="form-control-label">Mức lương</label>
-                                    <div>
-                                        <input class="form-control" type="text" id="salary" name="salary" maxlength="20">
-                                    </div>
-                                    <small class="error-input text-danger">...</small>
-                                </div>
-                                <div class="col-md-6 form-group">
-                                    <label for="start-date" class="form-control-label">Ngày bắt đầu</label>
-                                    <a tabindex="-1" tabindex="-1" href="javascript:void(0)" class="badge badge-secondary" data-toggle="popover" data-placement="right"
-                                       data-content="Mặc định là hôm nay">?</a>
-                                    <input class="form-control" type="date" min="2000-01-01" value="<%=today%>" id="start-date" name="start-date">
-                                </div>
-                            </div>-->
 
                             <!--Tỉnh - huyện - xã-->
                             <div class="row">
@@ -192,60 +176,24 @@
                                     <small class="error-input text-danger">...</small>
                                 </div>
                             </div>
-                            <!--
-                            <div class="row">
-                                <div class="col-md-6 form-group">
-                                    <label for="email" class="form-control-label">Giấy phép kinh doanh</label>
-                                    <div>
-                                        <input class="form-control" type="text" id="business-licenseld" name="business-licenseld" maxlength="20">
-                                    </div>
-                                    <small class="error-input text-danger">...</small>
-                                </div>
-                                <div class="col-md-6 form-group">
-                                    <label for="email" class="form-control-label">Số tài khoản</label>
-                                    <div>
-                                        <input class="form-control" type="text" id="bank-account-id" name="bank-account-id" maxlength="20">
-                                    </div>
-                                    <small class="error-input text-danger">...</small>
-                                </div>
-                                <div class="col-md-4 form-group">
-                                    <label for="commune" class="form-control-label">Ngành hàng</label>
-                                    <div>
-                                        <select class="form-control" id="seller-category-id" name="seller-category-id" required>
-                                            <option value="00000">Chọn ngành hàng</option>
-                                        </select>
-                                    </div>
-                                    <small class="error-input text-danger">Vui lòng chọn ngành hàng/small>
-                                </div>
-                            </div>-->
+
                             <div class="row">
                                 <!--giấy phép kinh doanh-->
-                                <div class="col-md-4 form-group">
+                                <div class="col-md-6 form-group">
                                     <label for="email" class="form-control-label">Giấy phép kinh doanh</label>
                                     <div>
-                                        <input class="form-control" type="text" id="business-licenseld" name="business-licenseld" maxlength="20">
+                                        <input class="form-control" type="text" id="business-license-id" name="business-license-id" maxlength="20">
                                     </div>
                                     <small class="error-input text-danger">...</small>
                                 </div>
 
                                 <!--số tài khoản-->
-                                <div class="col-md-4 form-group">
+                                <div class="col-md-6 form-group">
                                     <label for="email" class="form-control-label">Số tài khoản</label>
                                     <div>
                                         <input class="form-control" type="text" id="bank-account-id" name="bank-account-id" maxlength="20">
                                     </div>
                                     <small class="error-input text-danger">...</small>
-                                </div>
-
-                                <!--ngành hàng-->
-                                <div class="col-md-4 form-group">
-                                    <label for="commune" class="form-control-label">Ngành hàng</label>
-                                    <div>
-                                        <select class="form-control" id="seller-category-id" name="seller-category-id" required>
-                                            <option value="00000">Chọn ngành hàng</option>
-                                        </select>
-                                    </div>
-                                    <small class="error-input text-danger">Vui lòng chọn ngành hàng/small>
                                 </div>
                             </div>
                         </form>
@@ -260,6 +208,6 @@
     </div>
 </div>
 <%@ include file="import-js.jsp" %>
-<script src="../../assets/js/dynamic-admin-category-drop-down.js"></script>
-<script src="../../assets/js/validate/validate-seller-form.js"></script>
 <script src="../../assets/js/dynamic-admin-unit-drop-down.js"></script>
+<script src="../../assets/js/validate/validate-sellerr-form.js"></script>
+

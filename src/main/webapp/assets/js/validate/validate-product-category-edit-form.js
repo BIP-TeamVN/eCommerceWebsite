@@ -75,8 +75,10 @@ $('#' + FORM_ID).submit(function (e) {
       success: function (data, textStatus, jqXHR) {
         let result = data.toString().split('\n');
         if (result[0] === 'true') {
-          $('#' + FORM_ID).trigger("reset");
-          alert("Cập nhật thông tin thành công !");
+          $('#successful-modal').modal('show');
+          $('#successful-modal').on('hidden.bs.modal', function () {
+            window.location.href = window.location.origin +  '/admin/category';
+          });
         } else {
           alert("Lỗi: " + result[1]);
           e.preventDefault();

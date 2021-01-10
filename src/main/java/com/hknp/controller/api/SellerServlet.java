@@ -62,7 +62,7 @@ public class SellerServlet extends HttpServlet {
 
          String storeName = req.getParameter("store-name");
          String storeLink = req.getParameter("store-link");
-         String businessLicenseld = req.getParameter("business-licenseld");
+         String businessLicenseld = req.getParameter("business-license-id");
          String bankAccountId = req.getParameter("bank-account-id");
 
          String image = req.getParameter("image");
