@@ -68,78 +68,83 @@ public class EmployeeServlet extends HttpServlet {
       resp.setContentType("text/html; charset=UTF-8");
       String result = "";
 
-      try {
-         String lastName = req.getParameter("last-name");
-         String firstName = req.getParameter("first-name");
+      if (isAuthentication(req)) {
+         try {
+            String lastName = req.getParameter("last-name");
+            String firstName = req.getParameter("first-name");
 
-         String gender = req.getParameter("gender");
-         String dateOfBirth = req.getParameter("dob");
-         String phoneNumber = req.getParameter("phone-number");
-         String ssn = req.getParameter("ssn");
-         String email = req.getParameter("email");
+            String gender = req.getParameter("gender");
+            String dateOfBirth = req.getParameter("dob");
+            String phoneNumber = req.getParameter("phone-number");
+            String ssn = req.getParameter("ssn");
+            String email = req.getParameter("email");
 
-         String provinceId = req.getParameter("province");
-         String districtId = req.getParameter("district");
-         String communeId = req.getParameter("commune");
-         String addressStreet = req.getParameter("address-street");
+            String provinceId = req.getParameter("province");
+            String districtId = req.getParameter("district");
+            String communeId = req.getParameter("commune");
+            String addressStreet = req.getParameter("address-street");
 
-         String startDate = req.getParameter("start-date");
-         String salary = req.getParameter("salary");
+            String startDate = req.getParameter("start-date");
+            String salary = req.getParameter("salary");
 
-         String image = req.getParameter("image");
+            String image = req.getParameter("image");
 
-         UserEntity newUser = new UserEntity(
-                 lastName,
-                 firstName,
-                 gender,
-                 DateTimeUtils.stringToDate(dateOfBirth, "yyyy-MM-dd"),
-                 ssn,
-                 phoneNumber,
-                 email,
-                 phoneNumber, // default username
-                 HashUtils.getMd5(Base64Utils.encodeFromString(phoneNumber)),
-                 Cons.User.USER_TYPE_EMPLOYEE
-         );
-
-         if (image != null && !image.isEmpty()) {
-            newUser.setImage(image);
-         }
-
-         EmployeeEntity newEmployee = new EmployeeEntity();
-         newEmployee.setUserEntity(newUser);
-         newEmployee.setSalary(StringUtils.toBigDecimal(salary));
-         newEmployee.setStartDate(DateTimeUtils.stringToDate(startDate, "yyyy-MM-dd"));
-
-         Long newEmployeeId = EmployeeDAO.getInstance().insert(newEmployee);
-
-         if (newEmployeeId != 0) {
-            AddressEntity newAddress = new AddressEntity(
-                    addressStreet,
-                    communeId,
-                    districtId,
-                    provinceId,
-                    newEmployeeId,
-                    lastName + " " + firstName,
-                    Cons.Address.DEFAULT_ADDRESS_NAME,
-                    phoneNumber
+            UserEntity newUser = new UserEntity(
+                    lastName,
+                    firstName,
+                    gender,
+                    DateTimeUtils.stringToDate(dateOfBirth, "yyyy-MM-dd"),
+                    ssn,
+                    phoneNumber,
+                    email,
+                    phoneNumber, // default username
+                    HashUtils.getMd5(Base64Utils.encodeFromString(phoneNumber)),
+                    Cons.User.USER_TYPE_EMPLOYEE
             );
 
-            Long newAddressId = AddressDAO.getInstance().insert(newAddress);
-
-            if (newAddressId != 0) {
-               UserEntity user = UserDAO.getInstance().getById(newEmployeeId);
-               user.setAddressEntities(Collections.singletonList(AddressDAO.getInstance().getById(newAddressId)));
-               UserDAO.getInstance().update(user);
-
-               result += "true\n" + newEmployeeId.toString();
-            } else {
-               result += "false\nError while insert address";
+            if (image != null && !image.isEmpty()) {
+               newUser.setImage(image);
             }
-         } else {
-            result += "false\nError while insert user";
+
+            EmployeeEntity newEmployee = new EmployeeEntity();
+            newEmployee.setUserEntity(newUser);
+            newEmployee.setSalary(StringUtils.toBigDecimal(salary));
+            newEmployee.setStartDate(DateTimeUtils.stringToDate(startDate, "yyyy-MM-dd"));
+
+            Long newEmployeeId = EmployeeDAO.getInstance().insert(newEmployee);
+
+            if (newEmployeeId != 0) {
+               AddressEntity newAddress = new AddressEntity(
+                       addressStreet,
+                       communeId,
+                       districtId,
+                       provinceId,
+                       newEmployeeId,
+                       lastName + " " + firstName,
+                       Cons.Address.DEFAULT_ADDRESS_NAME,
+                       phoneNumber
+               );
+
+               Long newAddressId = AddressDAO.getInstance().insert(newAddress);
+
+               if (newAddressId != 0) {
+                  UserEntity user = UserDAO.getInstance().getById(newEmployeeId);
+                  user.setAddressEntities(Collections.singletonList(AddressDAO.getInstance().getById(newAddressId)));
+                  UserDAO.getInstance().update(user);
+
+                  result += "true\n" + newEmployeeId.toString();
+               } else {
+                  result += "false\nError while insert address";
+               }
+            } else {
+               result += "false\nError while insert user";
+            }
+         } catch (Exception e) {
+            result += "false\n" + e.getMessage();
          }
-      } catch (Exception e) {
-         result += "false\n" + e.getMessage();
+      }
+      else {
+         result = "false\nAccess denied";
       }
 
       try (PrintWriter out = resp.getWriter()) {
