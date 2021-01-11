@@ -5,7 +5,7 @@ import com.hknp.model.entity.BrandEntity;
 import com.hknp.utils.ServletUtils;
 import com.hknp.utils.StringUtils;
 
-import javax.servlet.ServletException;
+import javax.servlet.*;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -15,6 +15,7 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+
 
 @WebServlet(urlPatterns = {"/api/brands"})
 public class BrandServlet extends HttpServlet {
