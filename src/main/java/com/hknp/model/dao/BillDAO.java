@@ -112,7 +112,7 @@ public class BillDAO implements IRetrieveEntity<BillEntity, Long>, IModifySingle
    public ArrayList<BillEntity> gets(Integer firstResult, Integer maxResults, Integer status) {
       EntityManager entityMgr = EntityUtils.getEntityManager();
 
-      String query = "SELECT u FROM BillEntity u where u.status = " + status;
+      String query = "SELECT u FROM BillEntity u where u.deliveryEntity.id = null and u.status = " + status;
       TypedQuery<BillEntity> typedQuery = entityMgr.createQuery(query, BillEntity.class);
 
       if (firstResult != null) {
