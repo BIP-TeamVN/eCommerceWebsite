@@ -170,7 +170,25 @@ public class UserDAO implements IRetrieveEntity<UserEntity, Long>, IModifySingle
       return count == 0;
    }
 
+   public String getUserType(Long userId) {
+      EntityManager entityMgr = EntityUtils.getEntityManager();
+
+      String queryStr = "select u.userType from UserEntity u where u.userId = :userIdPara";
+      Query query = entityMgr.createQuery(queryStr).setParameter("userIdPara", userId);
+
+      Object result = null;
+      try {
+         result = query.getSingleResult();
+      } catch (Exception e) {
+         e.printStackTrace();
+      } finally {
+         return result == null ? "" : (String) result;
+      }
+   }
+
    @Override
-   public Long count() {return EntityUtils.count(UserEntity.class.getName());}
+   public Long count() {
+      return EntityUtils.count(UserEntity.class.getName());
+   }
 }
 
