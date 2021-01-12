@@ -8,8 +8,6 @@ import com.hknp.model.entity.UserEntity;
 import com.hknp.utils.*;
 
 import javax.servlet.ServletException;
-import javax.servlet.ServletRequest;
-import javax.servlet.ServletResponse;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -47,6 +45,7 @@ public class EmployeeServlet extends HttpServlet {
                doPost(req, resp);
                break;
             case "PUT":
+            case "PATCH":
                doPut(req, resp);
                break;
             case "DELETE":
