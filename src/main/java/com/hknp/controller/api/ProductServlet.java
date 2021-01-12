@@ -66,14 +66,18 @@ public class ProductServlet extends HttpServlet {
 
          String productTypesReq = req.getParameter("product-types");
          String quantitiesReq = req.getParameter("quantities");
+         String imagesReq = req.getParameter("images");
          String productCategoriesReq = req.getParameter("product-categories");
          List<String> productTypes = StringUtils.splitToList(productTypesReq, "@#&");
          List<String> quantities = StringUtils.splitToList(quantitiesReq, "@#&");
+         List<String> images = StringUtils.splitToList(imagesReq, "@#&");
          List<String> productCategories = StringUtils.splitToList(productCategoriesReq, "@#&");
 
          String image0 = req.getParameter("image-0");
          String image1 = req.getParameter("image-1");
          String image2 = req.getParameter("image-2");
+         String image3 = req.getParameter("image-3");
+         String image4 = req.getParameter("image-4");
 
          ProductEntity newProduct = new ProductEntity();
          newProduct.setProductName(productName);
@@ -89,7 +93,7 @@ public class ProductServlet extends HttpServlet {
 
          Set<ProductTypeEntity> productTypeEntities = new HashSet<>();
          for(int i = 0; i < quantities.size(); i++) {
-            ProductTypeEntity productTypeEntity = new ProductTypeEntity(productTypes.get(i), StringUtils.toInt(quantities.get(i)));
+            ProductTypeEntity productTypeEntity = new ProductTypeEntity(productTypes.get(i), StringUtils.toInt(quantities.get(i)), images.get(i));
             productTypeEntity.setProductEntity(newProduct);
             productTypeEntities.add(productTypeEntity);
          }
@@ -110,6 +114,12 @@ public class ProductServlet extends HttpServlet {
          }
          if(image2 != null && !image2.isEmpty()) {
             newProduct.setImage2(image2);
+         }
+         if(image3 != null && !image3.isEmpty()) {
+            newProduct.setImage3(image3);
+         }
+         if(image4 != null && !image4.isEmpty()) {
+            newProduct.setImage4(image4);
          }
 
          Long newResult = ProductDAO.getInstance().insert(newProduct);

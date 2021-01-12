@@ -1,4 +1,4 @@
-const FORM_ID = 'employee-form';
+const FORM_ID = 'product-form';
 
 let lastName = document.getElementById('last-name');
 let firstName = document.getElementById('first-name');
@@ -208,10 +208,7 @@ $('#' + FORM_ID).submit(function (e) {
       success: function (data, textStatus, jqXHR) {
         let result = data.toString().split('\n');
         if (result[0] === 'true') {
-          $('#successful-modal').modal('show');
-          $('#successful-modal').on('hidden.bs.modal', function () {
-            window.location.href = window.location.origin +  '/admin/employee';
-          });
+          notify();
         } else {
           alert("Lỗi: " + result[1]);
           e.preventDefault();

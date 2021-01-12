@@ -49,6 +49,12 @@ public class ProductEntity implements Serializable {
    @Column(name = "IMAGE_2")
    String image2;
 
+   @Column(name = "IMAGE_3")
+   String image3;
+
+   @Column(name = "IMAGE_4")
+   String image4;
+
    @Column(name = "STATUS")
    Boolean status;
 
@@ -118,6 +124,30 @@ public class ProductEntity implements Serializable {
 
    public void setProductTypeEntities(Set<ProductTypeEntity> productTypeEntities) {
       this.productTypeEntities = productTypeEntities;
+   }
+
+   public String getImage3() {
+      if (image3 == null || image3.isEmpty()) {
+         return Cons.Product.DEFAULT_PRODUCT_IMAGE;
+      } else {
+         return image3;
+      }
+   }
+
+   public void setImage3(String image3) {
+      this.image3 = image3;
+   }
+
+   public String getImage4() {
+      if (image4 == null || image4.isEmpty()) {
+         return Cons.Product.DEFAULT_PRODUCT_IMAGE;
+      } else {
+         return image4;
+      }
+   }
+
+   public void setImage4(String image4) {
+      this.image4 = image4;
    }
 
    public List<RateCommentEntity> getRateCommentEntities() {
@@ -222,6 +252,8 @@ public class ProductEntity implements Serializable {
               "\"image0\":\"" + getImage0() + "\"," +
               "\"image1\":\"" + getImage1() + "\"," +
               "\"image2\":\"" + getImage2() + "\"," +
+              "\"image3\":\"" + getImage3() + "\"," +
+              "\"image4\":\"" + getImage4() + "\"," +
               "\"status\":\"" + status + "\"" +
               "}";
    }

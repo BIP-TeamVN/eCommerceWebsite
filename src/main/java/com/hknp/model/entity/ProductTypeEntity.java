@@ -21,12 +21,16 @@ public class ProductTypeEntity implements Serializable {
    @Column(name = "QUANTITY")
    Integer quantity;
 
+   @Column(name = "IMAGE")
+   String image;
+
    public ProductTypeEntity() {
    }
 
-   public ProductTypeEntity(String productTypeName, Integer quantity) {
+   public ProductTypeEntity(String productTypeName, Integer quantity, String image) {
       this.productTypeName = productTypeName;
       this.quantity = quantity;
+      this.image = image;
    }
 
    public Integer getQuantity() {
@@ -59,5 +63,13 @@ public class ProductTypeEntity implements Serializable {
 
    public void setProductTypeName(String productTypeName) {
       this.productTypeName = productTypeName;
+   }
+
+   public String getImage() {
+      return image;
+   }
+
+   public void setImage(String image) {
+      this.image = image;
    }
 }
