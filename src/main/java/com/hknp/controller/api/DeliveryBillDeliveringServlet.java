@@ -24,7 +24,6 @@ import java.util.List;
 public class DeliveryBillDeliveringServlet extends HttpServlet {
    @Override
    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
       String pagePara = req.getParameter("page");
       HttpSession session = req.getSession();
       Long id = (Long) session.getAttribute("id");
