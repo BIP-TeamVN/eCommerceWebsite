@@ -25,7 +25,7 @@
             <nav aria-label="breadcrumb" role="navigation">
                <ol class="breadcrumb">
                   <li class="breadcrumb-item"><a href="/admin"><i class="fa fa-home mr-2"></i>Trang chủ</a></li>
-                  <li class="breadcrumb-item active" aria-current="page">Danh sách đơn hàng</li>
+                  <li class="breadcrumb-item active" aria-current="page">Danh sách đơn hàng đang giao của bạn</li>
                </ol>
             </nav>
          </div>
