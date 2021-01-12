@@ -15,7 +15,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.Collections;
 
 @WebServlet(urlPatterns = {"/seller/product/edit"})
 public class ShProductEditController extends HttpServlet {
