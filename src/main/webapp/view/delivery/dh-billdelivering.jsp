@@ -67,14 +67,13 @@
 <%@ include file="../../common/import-js.jsp" %>
 <script>
   $(document).ready(function () {
-    const apiUrl = "/api/deliverybill";
+    const apiUrl = "/api/deliverybilldelivering";
 
     $.ajax({
       url: apiUrl,
       method: 'GET',
       data: {
         page: '1',
-
       },
       success: function (data, textStatus, jqXHR) {
         let list = $.parseJSON(data);

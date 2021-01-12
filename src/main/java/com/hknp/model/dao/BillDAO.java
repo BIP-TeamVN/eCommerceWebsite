@@ -8,6 +8,7 @@ import com.hknp.utils.EntityUtils;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.TypedQuery;
+import java.math.BigInteger;
 import java.util.ArrayList;
 
 public class BillDAO implements IRetrieveEntity<BillEntity, Long>, IModifySingleEntityAutoIncrement<BillEntity, Long> {
@@ -131,6 +132,31 @@ public class BillDAO implements IRetrieveEntity<BillEntity, Long>, IModifySingle
       }
       return result;
    }
+
+   public ArrayList<BillEntity> gets(Integer firstResult, Integer maxResults, Long deliveryId) {
+      EntityManager entityMgr = EntityUtils.getEntityManager();
+
+      String query = "SELECT u FROM BillEntity u where u.status = 3 and u.deliveryEntity.id =" + deliveryId ;
+      TypedQuery<BillEntity> typedQuery = entityMgr.createQuery(query, BillEntity.class);
+
+      if (firstResult != null) {
+         typedQuery.setFirstResult(firstResult);
+      }
+      if (maxResults != null) {
+         typedQuery.setMaxResults(maxResults);
+      }
+
+      ArrayList<BillEntity> result = null;
+      try {
+         result = new ArrayList<>(typedQuery.getResultList());
+      } catch (Exception exception) {
+         exception.printStackTrace();
+      } finally {
+         entityMgr.close();
+      }
+      return result;
+   }
+
 
    @Override
    public BillEntity getById(Long id) {

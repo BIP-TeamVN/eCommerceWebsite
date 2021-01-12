@@ -31,6 +31,10 @@ public class BillEntity implements Serializable {
    @JoinColumn(name = "BILL_ID")
    List<BillDetailEntity> billDetailEntities;
 
+   @ManyToOne(fetch = FetchType.EAGER)
+   @JoinColumn(name = "DELIVERY_ID")
+   DeliveryEntity deliveryEntity;
+
    public BillEntity() {
    }
 
@@ -81,6 +85,15 @@ public class BillEntity implements Serializable {
    public void setBillDetailEntities(List<BillDetailEntity> billDetailEntities) {
       this.billDetailEntities = billDetailEntities;
    }
+
+   public DeliveryEntity getDeliveryEntity() {
+      return deliveryEntity;
+   }
+
+   public void setDeliveryEntity(DeliveryEntity deliveryEntity) {
+      this.deliveryEntity = deliveryEntity;
+   }
+
    public String toJson() {
       return "{" +
               "\"id\":\"" + billId + "\"," +
