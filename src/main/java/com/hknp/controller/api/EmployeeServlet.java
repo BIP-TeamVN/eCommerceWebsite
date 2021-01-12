@@ -8,6 +8,8 @@ import com.hknp.model.entity.UserEntity;
 import com.hknp.utils.*;
 
 import javax.servlet.ServletException;
+import javax.servlet.ServletRequest;
+import javax.servlet.ServletResponse;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -35,32 +37,47 @@ public class EmployeeServlet extends HttpServlet {
    }
 
    @Override
+   protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+      if (isAuthentication(req)) {
+         switch (req.getMethod()) {
+            case "GET":
+               doGet(req, resp);
+               break;
+            case "POST":
+               doPost(req, resp);
+               break;
+            case "PUT":
+               doPut(req, resp);
+               break;
+            case "DELETE":
+               doDelete(req, resp);
+               break;
+            default:
+               ServletUtils.printWrite(resp, "Method not found");
+         }
+      } else {
+         ServletUtils.printWrite(resp, "Access denied");
+      }
+   }
+
+   @Override
    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
       resp.setContentType("text/html; charset=UTF-8");
-      String result = "";
 
-      if (isAuthentication(req)) {
-         String pagePara = req.getParameter("page");
-         Integer page = StringUtils.toInt(pagePara);
-         if (page <= 0) {
-            page = 1;
-         }
-
-         ArrayList<EmployeeEntity> listEmployee = EmployeeDAO.getInstance().gets((page - 1) * 10, 10);
-         List<String> listJsonStr = new ArrayList<>();
-
-         for (EmployeeEntity employee : listEmployee) {
-            listJsonStr.add(employee.toJson());
-         }
-
-         result = "[" + String.join(", ", listJsonStr) + "]";
-      } else {
-         result = "Access denied";
+      String pagePara = req.getParameter("page");
+      Integer page = StringUtils.toInt(pagePara);
+      if (page <= 0) {
+         page = 1;
       }
 
-      try (PrintWriter out = resp.getWriter()) {
-         out.write(result);
+      ArrayList<EmployeeEntity> listEmployee = EmployeeDAO.getInstance().gets((page - 1) * 10, 10);
+      List<String> listJsonStr = new ArrayList<>();
+
+      for (EmployeeEntity employee : listEmployee) {
+         listJsonStr.add(employee.toJson());
       }
+
+      ServletUtils.printWrite(resp, "[" + String.join(", ", listJsonStr) + "]");
    }
 
    @Override
