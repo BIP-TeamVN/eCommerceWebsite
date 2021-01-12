@@ -14,7 +14,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -61,8 +60,6 @@ public class EmployeeServlet extends HttpServlet {
 
    @Override
    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-      resp.setContentType("text/html; charset=UTF-8");
-
       String pagePara = req.getParameter("page");
       Integer page = StringUtils.toInt(pagePara);
       if (page <= 0) {
@@ -81,7 +78,6 @@ public class EmployeeServlet extends HttpServlet {
 
    @Override
    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-      resp.setContentType("text/html; charset=UTF-8");
       String result = "";
 
       try {
@@ -157,12 +153,12 @@ public class EmployeeServlet extends HttpServlet {
       } catch (Exception e) {
          result += "false\n" + e.getMessage();
       }
-      try (PrintWriter out = resp.getWriter()) { out.write(result);}
+
+      ServletUtils.printWrite(resp, result);
    }
 
    @Override
    protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-      resp.setContentType("text/html; charset=UTF-8");
       String result = "";
       Map<String, Object> parameterMap = ServletUtils.getParametersMap(req);
 
@@ -235,13 +231,12 @@ public class EmployeeServlet extends HttpServlet {
       } catch (Exception e) {
          result += "false\n" + e.getMessage();
       }
-      try (PrintWriter out = resp.getWriter()) { out.write(result);}
+
+      ServletUtils.printWrite(resp, result);
    }
 
    @Override
    protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-      resp.setContentType("text/html; charset=UTF-8");
-
-      try (PrintWriter out = resp.getWriter()) {out.write("false"); }
+      ServletUtils.printWrite(resp, "false");
    }
 }

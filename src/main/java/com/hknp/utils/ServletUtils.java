@@ -19,6 +19,8 @@ public class ServletUtils {
    }
 
    public static void printWrite(HttpServletResponse resp, String content) throws IOException {
+      resp.setContentType("text/html; charset=UTF-8");
+
       try (PrintWriter out = resp.getWriter()) {
          out.write(content);
       }
