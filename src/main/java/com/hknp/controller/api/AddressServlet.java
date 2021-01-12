@@ -22,7 +22,6 @@ public class AddressServlet extends HttpServlet {
 
    @Override
    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-      resp.setContentType("text/html; charset=UTF-8");
 
       ArrayList<AddressEntity> listAddress = AddressDAO.getInstance().gets();
       List<String> listJsonStr = new ArrayList<>();
@@ -37,7 +36,6 @@ public class AddressServlet extends HttpServlet {
 
    @Override
    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-      resp.setContentType("text/html; charset=UTF-8");
       String result = "";
       try {
          String addressStreet = req.getParameter("address-street");
@@ -69,14 +67,11 @@ public class AddressServlet extends HttpServlet {
       } catch (Exception e) {
          result += "false\n" + e.getMessage();
       }
-      try (PrintWriter out = resp.getWriter()) {
-         out.write(result);
-      }
+      ServletUtils.printWrite(resp, result);
    }
 
    @Override
    protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-      resp.setContentType("text/html; charset=UTF-8");
       String result = "";
       try {
          String addressId = req.getParameter("id");
@@ -109,9 +104,7 @@ public class AddressServlet extends HttpServlet {
          result += "false\n" + e.getMessage();
       }
 
-      try (PrintWriter out = resp.getWriter()) {
-         out.write(result);
-      }
+      ServletUtils.printWrite(resp, result);
    }
 
    @Override

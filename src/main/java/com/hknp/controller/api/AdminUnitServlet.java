@@ -21,7 +21,6 @@ import java.util.List;
 public class AdminUnitServlet extends HttpServlet {
    @Override
    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-      response.setContentType("text/html; charset=UTF-8");
 
       try (PrintWriter out = response.getWriter()) {
          String type = request.getParameter("type");

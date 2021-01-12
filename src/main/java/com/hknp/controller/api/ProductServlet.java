@@ -19,8 +19,6 @@ import java.util.*;
 public class ProductServlet extends HttpServlet {
    @Override
    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-      resp.setContentType("text/html; charset=UTF-8");
-
       String pagePara = req.getParameter("page");
       HttpSession session = req.getSession();
       Long id = (Long) session.getAttribute("id");
@@ -44,14 +42,11 @@ public class ProductServlet extends HttpServlet {
          listJsonStr.add(product.toJson());
       }
 
-      try (PrintWriter out = resp.getWriter()) {
-         out.write("[" + String.join(", ", listJsonStr) + "]");
-      }
+      ServletUtils.printWrite(resp, "[" + String.join(", ", listJsonStr) + "]");
    }
 
    @Override
    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-      resp.setContentType("text/html; charset=UTF-8");
       String result = "";
       HttpSession session = req.getSession();
 
@@ -133,9 +128,7 @@ public class ProductServlet extends HttpServlet {
          result += "false\n" + e.getMessage();
       }
 
-      try (PrintWriter out = resp.getWriter()) {
-         out.write(result);
-      }
+      ServletUtils.printWrite(resp, result);
    }
 
    @Override

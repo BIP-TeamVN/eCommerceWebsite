@@ -59,7 +59,6 @@ public class CustomerServlet extends HttpServlet {
    }
    @Override
    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-      resp.setContentType("text/html; charset=UTF-8");
       String pagePara = req.getParameter("page");
       Integer page = StringUtils.toInt(pagePara);
       if (page <= 0) {
@@ -77,7 +76,6 @@ public class CustomerServlet extends HttpServlet {
 
    @Override
    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-      resp.setContentType("text/html; charset=UTF-8");
       String result = "";
 
       try {
@@ -86,7 +84,6 @@ public class CustomerServlet extends HttpServlet {
          String gender = req.getParameter("gender");
          String dateOfBirth = req.getParameter("dob");
          String phoneNumber = req.getParameter("phone-number");
-         //String ssn = req.getParameter("ssn");
          String email = req.getParameter("email");
          String password = req.getParameter("password");
          String passwordAgain = req.getParameter("password-again");
@@ -100,7 +97,6 @@ public class CustomerServlet extends HttpServlet {
             newUser.setGender(gender);
             newUser.setDateOfBirth(DateTimeUtils.stringToDate(dateOfBirth, "dd/MM/yyyy"));
             newUser.setPhoneNumber(phoneNumber);
-            //newUser.setSsn(ssn);
             newUser.setEmail(email);
 
             newUser.setUserType(Cons.User.USER_TYPE_CUSTOMER);
@@ -109,7 +105,6 @@ public class CustomerServlet extends HttpServlet {
             newUser.setPassword(HashUtils.getMd5(Base64Utils.encodeFromString(phoneNumber)));
             newUser.setStatus(true);
 
-            //Long newUserId = UserDAO.getInstance().insert(newUser);
 
             CustomerEntity newCustomer = new CustomerEntity();
             newCustomer.setUserEntity(newUser);
@@ -131,12 +126,11 @@ public class CustomerServlet extends HttpServlet {
          result += "false\nError while insert customer\n" + e.getMessage();
       }
 
-      try (PrintWriter out = resp.getWriter()) {out.write(result); }
+      ServletUtils.printWrite(resp, result);
    }
 
    @Override
    protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-      resp.setContentType("text/html; charset=UTF-8");
       String result = "";
       Map<String, Object> parameterMap = ServletUtils.getParametersMap(req);
 
@@ -172,10 +166,7 @@ public class CustomerServlet extends HttpServlet {
       } catch (Exception e) {
          result += "false\n" + e.getMessage();
       }
-
-      try (PrintWriter out = resp.getWriter()) {
-         out.write(result);
-      }
+      ServletUtils.printWrite(resp, result);
    }
 
    @Override

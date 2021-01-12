@@ -79,7 +79,6 @@ public class BrandServlet extends HttpServlet {
    }
    @Override
    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-      resp.setContentType("text/html; charset=UTF-8");
 
       String pagePara = req.getParameter("page");
       Integer page = StringUtils.toInt(pagePara);
@@ -98,7 +97,6 @@ public class BrandServlet extends HttpServlet {
 
    @Override
    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-      resp.setContentType("text/html; charset=UTF-8");
       String result = "";
 
       try {
@@ -125,12 +123,11 @@ public class BrandServlet extends HttpServlet {
       } catch (Exception e) {
          result += "false\n" + e.getMessage();
       }
-      try (PrintWriter out = resp.getWriter()) { out.write(result);}
+      ServletUtils.printWrite(resp, result);
    }
 
    @Override
    protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-      resp.setContentType("text/html; charset=UTF-8");
       String result = "";
       Map<String, Object> parameterMap = ServletUtils.getParametersMap(req);
 
@@ -160,6 +157,6 @@ public class BrandServlet extends HttpServlet {
          result += "false\n" + e.getMessage();
       }
 
-      try (PrintWriter out = resp.getWriter()) { out.write(result);}
+      ServletUtils.printWrite(resp, result);
    }
 }
