@@ -1,10 +1,9 @@
 package com.hknp.controller.api;
 
-import com.hknp.model.dao.AddressDAO;
-import com.hknp.model.dao.CommuneDAO;
-import com.hknp.model.dao.DistrictDAO;
-import com.hknp.model.dao.ProvinceDAO;
+import com.hknp.model.dao.*;
 import com.hknp.model.entity.AddressEntity;
+import com.hknp.model.entity.Cons;
+import com.hknp.utils.ServletUtils;
 import com.hknp.utils.StringUtils;
 
 import javax.servlet.ServletException;
@@ -12,6 +11,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -19,6 +19,7 @@ import java.util.List;
 
 @WebServlet(urlPatterns = {"/api/address"})
 public class AddressServlet extends HttpServlet {
+
    @Override
    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
       resp.setContentType("text/html; charset=UTF-8");
@@ -30,18 +31,15 @@ public class AddressServlet extends HttpServlet {
          listJsonStr.add(address.toJson());
       }
 
-      try (PrintWriter out = resp.getWriter()) {
-         out.write("[" + String.join(", ", listJsonStr) + "]");
-      }
+      ServletUtils.printWrite(resp, "[" + String.join(", ", listJsonStr) + "]");
+
    }
 
    @Override
    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
       resp.setContentType("text/html; charset=UTF-8");
       String result = "";
-
       try {
-         //String addressId = req.getParameter("user-id");
          String addressStreet = req.getParameter("address-street");
          String provinceId = req.getParameter("province");
          String districtId = req.getParameter("district");
@@ -71,7 +69,6 @@ public class AddressServlet extends HttpServlet {
       } catch (Exception e) {
          result += "false\n" + e.getMessage();
       }
-
       try (PrintWriter out = resp.getWriter()) {
          out.write(result);
       }
@@ -81,22 +78,18 @@ public class AddressServlet extends HttpServlet {
    protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
       resp.setContentType("text/html; charset=UTF-8");
       String result = "";
-
       try {
          String addressId = req.getParameter("id");
          String addressStreet = req.getParameter("address-street");
          String provinceId = req.getParameter("province");
          String districtId = req.getParameter("district");
          String communeId = req.getParameter("commune");
-         //String userId = req.getParameter("user-id");
          String fullName = req.getParameter("full-name");
          String addressName = req.getParameter("address-name");
          String phoneNumber = req.getParameter("phone-number");
 
          AddressEntity updateAddress = AddressDAO.getInstance().getById(StringUtils.toLong(addressId));
 
-         //updateAddress.setUserId(StringUtils.toLong(userId));
-         //updateAddress.setAddressId(StringUtils.toLong(addressId));
          updateAddress.setStreet(addressStreet);
          updateAddress.setProvinceEntity(ProvinceDAO.getInstance().getById(provinceId));
          updateAddress.setDistrictEntity(DistrictDAO.getInstance().getById(districtId));

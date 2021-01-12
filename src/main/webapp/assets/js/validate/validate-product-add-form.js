@@ -1,3 +1,4 @@
+const FORM_ID = 'product-form';
 
 let productName = document.getElementById('product-name')
 
@@ -134,13 +135,30 @@ function encodeImgToBase64(element, id) {
   imgReader.readAsDataURL(img);
 }
 
-$('#product-form').submit(function (e) {
+//load tất cả ngành hàng
+$.ajax({
+  url: "/api/categories-for-product",
+  method: "GET",
+  cache: false,
+  success: function (data) {
+    let obj = $.parseJSON(data);
+    console.log(obj);
+    $.each(obj, function (key, value) {
+      $('#categories').append('<option value="' + value.id + '">' + value.name + '</option>');
+    });
+  }
+});
+
+$('#' + FORM_ID).submit(function (e) {
+  e.preventDefault();
 
   let types = [];
   let quantities = [];
+  let images = [];
   for (let i = 0; i < countType; i++) {
     types.push($('#type-name-' + i).val());
     quantities.push($('#quantity-' + i).val());
+    images.push($('#img-upload-type-' + i).attr('src'));
   }
 
   checkInputs();
@@ -151,6 +169,7 @@ $('#product-form').submit(function (e) {
       url: '/api/product',
       method: 'POST',
       async: false,
+      cache: false,
       data: {
         'product-name': productName.value.trim(),
         'brand-id': brand.value,
@@ -160,17 +179,20 @@ $('#product-form').submit(function (e) {
         'price-order': priceOrder.value,
         'product-types': types.join('@#&'),
         'quantities': quantities.join('@#&'),
+        'images': images.join('@#&'),
         'product-categories': $('#categories').val().join('@#&'),
         'image-0': $('#img-upload-0').attr('src'),
         'image-1': $('#img-upload-1').attr('src'),
-        'image-2': $('#img-upload-2').attr('src')
+        'image-2': $('#img-upload-2').attr('src'),
+        'image-3': $('#img-upload-3').attr('src'),
+        'image-4': $('#img-upload-4').attr('src')
       },
       success: function (data, textStatus, jqXHR) {
         let result = data.toString().split('\n');
+        console.log("'" + result[0] + "'");
         if (result[0] === 'true') {
-          $('#product-form').trigger("reset");
-          countType = 1;
-          alert("Thêm sản phẩm mới thành công !");
+          console.log("cmm");
+          $('#successful-modal').modal('show');
         } else {
           alert("Lỗi: " + result[1]);
           e.preventDefault();
@@ -185,19 +207,5 @@ $('#product-form').submit(function (e) {
 });
 
 $('#btn-cancel').click(function () {
-  $('#' + FORM_ID).trigger("reset");
-});
-
-//load tất cả ngành hàng
-$.ajax({
-  url: "/api/categories-for-product",
-  method: "GET",
-  cache: false,
-  success: function (data) {
-    let obj = $.parseJSON(data);
-    console.log(obj);
-    $.each(obj, function (key, value) {
-        $('#categories').append('<option value="' + value.id + '">' + value.name + '</option>');
-    });
-  }
+  $('#conform-modal').modal('show');
 });

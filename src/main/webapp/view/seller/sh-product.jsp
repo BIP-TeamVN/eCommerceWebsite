@@ -41,12 +41,12 @@
       <!--Button thêm-->
       <div class="row">
          <div class="col ml-auto mr-auto text-right">
-            <button type="button" data-toggle="modal" data-target="#modal-add-product"
-                    class="text-uppercase btn btn-primary pl-4 pr-4 mb-4">Thêm sản phẩm
-            </button>
+            <a href="/common/form-add-product.jsp">
+               <button type="button" data-toggle="modal" data-target="#modal-add-product"
+                       class="text-uppercase btn btn-primary pl-4 pr-4 mb-4">Thêm sản phẩm
+               </button>
+            </a>
          </div>
-         <!-- From add employee -->
-         <%@ include file="../../common/form-add-product.jsp" %>
       </div>
 
       <!-- Table -->

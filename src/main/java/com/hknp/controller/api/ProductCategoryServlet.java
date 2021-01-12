@@ -1,6 +1,8 @@
 package com.hknp.controller.api;
 
 import com.hknp.model.dao.ProductCategoryDAO;
+import com.hknp.model.dao.UserDAO;
+import com.hknp.model.entity.Cons;
 import com.hknp.model.entity.ProductCategoryEntity;
 import com.hknp.utils.ServletUtils;
 import com.hknp.utils.StringUtils;
@@ -10,6 +12,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -18,9 +21,63 @@ import java.util.Map;
 
 @WebServlet(urlPatterns = {"/api/product-categories"})
 public class ProductCategoryServlet extends HttpServlet {
+
+   public boolean isAuthentication(HttpServletRequest req) {
+      HttpSession session = req.getSession(false);
+      Long id = (Long) session.getAttribute("id");
+
+      if (id != null) {
+         String userType = UserDAO.getInstance().getUserType(id);
+         return userType.equals(Cons.User.USER_TYPE_CUSTOMER) || userType.equals(Cons.User.USER_TYPE_SELLER) || userType.equals(Cons.User.USER_TYPE_DELIVERY);
+      }
+      return false;
+   }
+
+   public boolean isAuthenticationAdmin(HttpServletRequest req) {
+      HttpSession session = req.getSession(false);
+      Long id = (Long) session.getAttribute("id");
+
+      if (id != null) {
+         String userType = UserDAO.getInstance().getUserType(id);
+         return userType.equals(Cons.User.USER_TYPE_ADMIN) || userType.equals(Cons.User.USER_TYPE_EMPLOYEE);
+      }
+      return false;
+   }
+   @Override
+   protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+      if (isAuthentication(req)) {
+         switch (req.getMethod()) {
+            case "GET":
+               doGet(req, resp);
+               break;
+            default:
+               ServletUtils.printWrite(resp, "Method not found");
+         }
+      }
+      if (isAuthenticationAdmin(req)) {
+         switch (req.getMethod()) {
+            case "GET":
+               doGet(req, resp);
+               break;
+            case "POST":
+               doPost(req, resp);
+               break;
+            case "PUT":
+            case "PATCH":
+               doPut(req, resp);
+               break;
+            case "DELETE":
+               doDelete(req, resp);
+               break;
+            default:
+               ServletUtils.printWrite(resp, "Method not found");
+         }
+      } else {
+         ServletUtils.printWrite(resp, "Access denied");
+      }
+   }
    @Override
    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
       resp.setContentType("text/html; charset=UTF-8");
 
       String pagePara = req.getParameter("page");
@@ -28,17 +85,13 @@ public class ProductCategoryServlet extends HttpServlet {
       if (page <= 0) {
          page = 1;
       }
-
       ArrayList<ProductCategoryEntity> listProductCategory = ProductCategoryDAO.getInstance().gets((page - 1) * 10, 10);
       List<String> listJsonStr = new ArrayList<>();
 
       for (ProductCategoryEntity productCategory : listProductCategory) {
          listJsonStr.add(productCategory.toJson());
       }
-
-      try (PrintWriter out = resp.getWriter()) {
-         out.write("[" + String.join(", ", listJsonStr) + "]");
-      }
+      ServletUtils.printWrite(resp, "[" + String.join(", ", listJsonStr) + "]");
    }
 
    @Override
@@ -67,7 +120,6 @@ public class ProductCategoryServlet extends HttpServlet {
       } catch (Exception e) {
          result += "false\n" + e.getMessage();
       }
-
       try (PrintWriter out = resp.getWriter()) {
          out.write(result);
       }

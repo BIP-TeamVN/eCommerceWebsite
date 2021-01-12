@@ -1,26 +1,84 @@
 package com.hknp.controller.api;
 
 import com.hknp.model.dao.BrandDAO;
+import com.hknp.model.dao.UserDAO;
 import com.hknp.model.entity.BrandEntity;
+import com.hknp.model.entity.Cons;
 import com.hknp.utils.ServletUtils;
 import com.hknp.utils.StringUtils;
 
-import javax.servlet.ServletException;
+import javax.servlet.*;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+
 @WebServlet(urlPatterns = {"/api/brands"})
 public class BrandServlet extends HttpServlet {
+
+   public boolean isAuthentication(HttpServletRequest req) {
+      HttpSession session = req.getSession(false);
+      Long id = (Long) session.getAttribute("id");
+
+      if (id != null) {
+         String userType = UserDAO.getInstance().getUserType(id);
+         return userType.equals(Cons.User.USER_TYPE_SELLER);
+      }
+      return false;
+   }
+
+   public boolean isAuthenticationAdmin(HttpServletRequest req) {
+      HttpSession session = req.getSession(false);
+      Long id = (Long) session.getAttribute("id");
+
+      if (id != null) {
+         String userType = UserDAO.getInstance().getUserType(id);
+         return userType.equals(Cons.User.USER_TYPE_ADMIN) || userType.equals(Cons.User.USER_TYPE_EMPLOYEE);
+      }
+      return false;
+   }
+   @Override
+   protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+      if (isAuthentication(req)) {
+         switch (req.getMethod()) {
+            case "GET":
+               doGet(req, resp);
+               break;
+            default:
+               ServletUtils.printWrite(resp, "Method not found");
+         }
+      }
+      if (isAuthenticationAdmin(req)) {
+         switch (req.getMethod()) {
+            case "GET":
+               doGet(req, resp);
+               break;
+            case "POST":
+               doPost(req, resp);
+               break;
+            case "PUT":
+            case "PATCH":
+               doPut(req, resp);
+               break;
+            case "DELETE":
+               doDelete(req, resp);
+               break;
+            default:
+               ServletUtils.printWrite(resp, "Method not found");
+         }
+      } else {
+         ServletUtils.printWrite(resp, "Access denied");
+      }
+   }
    @Override
    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
       resp.setContentType("text/html; charset=UTF-8");
 
       String pagePara = req.getParameter("page");
@@ -28,7 +86,6 @@ public class BrandServlet extends HttpServlet {
       if (page <= 0) {
          page = 1;
       }
-
       ArrayList<BrandEntity> listBrand = BrandDAO.getInstance().gets((page - 1) * 10, 10);
       List<String> listJsonStr = new ArrayList<>();
 
@@ -36,16 +93,12 @@ public class BrandServlet extends HttpServlet {
          listJsonStr.add(brand.toJson());
       }
 
-      try (PrintWriter out = resp.getWriter()) {
-         out.write("[" + String.join(", ", listJsonStr) + "]");
-      }
+      ServletUtils.printWrite(resp, "[" + String.join(", ", listJsonStr) + "]");
    }
 
    @Override
    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
       resp.setContentType("text/html; charset=UTF-8");
-
       String result = "";
 
       try {
@@ -72,17 +125,14 @@ public class BrandServlet extends HttpServlet {
       } catch (Exception e) {
          result += "false\n" + e.getMessage();
       }
-
-      try (PrintWriter out = resp.getWriter()) {
-         out.write(result);
-      }
+      try (PrintWriter out = resp.getWriter()) { out.write(result);}
    }
 
    @Override
    protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
       resp.setContentType("text/html; charset=UTF-8");
       String result = "";
-      Map<String,Object> parameterMap = ServletUtils.getParametersMap(req);
+      Map<String, Object> parameterMap = ServletUtils.getParametersMap(req);
 
       try {
          String id = (String) parameterMap.get("id");
@@ -96,7 +146,7 @@ public class BrandServlet extends HttpServlet {
          updateBrand.setBrandName(brandName);
          updateBrand.setBrandOrigin(brandOrigin);
 
-         if(imageBase64 != null && !imageBase64.isEmpty()) {
+         if (imageBase64 != null && !imageBase64.isEmpty()) {
             updateBrand.setImage(imageBase64);
          }
          Boolean updateResult = BrandDAO.getInstance().update(updateBrand);
@@ -110,8 +160,6 @@ public class BrandServlet extends HttpServlet {
          result += "false\n" + e.getMessage();
       }
 
-      try (PrintWriter out = resp.getWriter()) {
-         out.write(result);
-      }
+      try (PrintWriter out = resp.getWriter()) { out.write(result);}
    }
 }
