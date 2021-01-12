@@ -81,4 +81,15 @@ public class BillEntity implements Serializable {
    public void setBillDetailEntities(List<BillDetailEntity> billDetailEntities) {
       this.billDetailEntities = billDetailEntities;
    }
+   public String toJson() {
+      return "{" +
+              "\"id\":\"" + billId + "\"," +
+              "\"fullName\":\"" + addressEntity.getFullName() + "\"," +
+              "\"phone\":\"" + addressEntity.phoneNumber + "\"," +
+              "\"fullAddress\":\"" + addressEntity.getStreet() +", " +
+              addressEntity.getCommuneEntity().getCommuneFullName() + ", " +
+              addressEntity.getDistrictEntity().getDistrictFullName() + ", " +
+              addressEntity.getProvinceEntity().getProvinceFullName() + "\"" +
+              "}";
+   }
 }

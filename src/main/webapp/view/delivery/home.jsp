@@ -9,7 +9,7 @@
 <body>
 <!--Left side nav-->
 <jsp:include page="./dh-side-nav.jsp">
-   <jsp:param name="selectedIndex" value="5"/>
+   <jsp:param name="selectedIndex" value="2"/>
 </jsp:include>
 
 <!-- Main content -->
@@ -67,7 +67,7 @@
 <%@ include file="../../common/import-js.jsp" %>
 <script>
    $(document).ready(function () {
-      const apiUrl = "/api/product-categories";
+      const apiUrl = "/api/deliverybill";
 
       $.ajax({
          url: apiUrl,
@@ -83,16 +83,19 @@
                let html =
                        '<tr>' +
                        '<td>' + item.id + '</td>' +
-                       '<td>' + item.name + '</td>' +
-                       '<td>' +
-                       '<a href="#" class="media align-items-center">' +
-                       '<img class="avatar rounded-circle" src="' + item.image + '" alt="product-category_image" >' +
-                       '</a>' +
-                       '</td>' +
+                       '<td>' + item.fullName + '</td>' +
+                       '<td>' + item.phone + '</td>' +
+                       '<td>' + item.fullAddress + '</td>' +
                        '<td class="td-actions text-center">' +
-                       '<a href="#" class="btn btn-primary px-2 py-1" data-toggle="tooltip" data-placement="top" title="Chỉnh sửa thông tin">' +
+                       '<a href="/delivery/bill/view?id=' + item.id +'" class="btn btn-primary px-2 py-1" data-toggle="tooltip" data-placement="top" title="Xem chi tiết đơn hàng">' +
                        '<i class="fa fa-edit"></i>' +
-                       '</a>' +
+                       '</a>' + (item.status === "true" ?
+                       '<a href="#" class="btn btn-danger px-2 py-1" data-toggle="tooltip" data-placement="top" title="Thôi việc">' +
+                       '<i class="fa fa-lock"></i>' +
+                       '</a>' :
+                       '<a href="#" class="btn btn-success px-2 py-1" data-toggle="tooltip" data-placement="top" title="Làm việc lại">' +
+                       '<i class="fa fa-lock-open"></i>' +
+                       '</a>') +
                        '</td>' +
                        '</tr>';
                console.log(html);
