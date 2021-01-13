@@ -11,12 +11,40 @@ public class CookieUtils {
       resp.addCookie(cookie);
    }
 
-   public static String getCookie(HttpServletRequest req, String name) {
+   public static Cookie getCookie(HttpServletRequest req, String name) {
       Cookie[] cookies = req.getCookies();
       for (Cookie cookie : cookies) {
          if (cookie.getName().equals(name)) {
-            return cookie.getValue();
+            return cookie;
          }
+      }
+      return null;
+   }
+
+   public static void updateCookie(HttpServletRequest req, HttpServletResponse resp, String name, String newValue, Integer newExpiryInSecond) {
+      Cookie cookie = getCookie(req, name);
+      if (cookie != null) {
+         cookie.setValue(newValue);
+         if (newExpiryInSecond != null) {
+            cookie.setMaxAge(newExpiryInSecond);
+         }
+         resp.addCookie(cookie);
+      }
+   }
+
+   public static void deleteCookie(HttpServletRequest req, HttpServletResponse resp, String name) {
+      Cookie cookie = getCookie(req, name);
+      if (cookie != null) {
+         cookie.setMaxAge(0);
+         cookie.setValue(null);
+         resp.addCookie(cookie);
+      }
+   }
+
+   public static String getCookieValue(HttpServletRequest req, String name) {
+      Cookie cookie = getCookie(req, name);
+      if (cookie != null) {
+         return cookie.getValue();
       }
       return "";
    }
