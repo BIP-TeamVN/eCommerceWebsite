@@ -14,6 +14,12 @@ public class CartServlet extends HttpServlet {
    private static final String COOKIE_NAME = "carts";
    private static final Integer COOKIE_AGE = 10 * 3600 * 24;
 
+
+   @Override
+   protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+      String value = CookieUtils.getCookieValue(req, COOKIE_NAME);
+   }
+
    @Override
    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
       String id = req.getParameter("product-type-id");
