@@ -28,7 +28,7 @@ public class ProductCategoryServlet extends HttpServlet {
 
       if (id != null) {
          String userType = UserDAO.getInstance().getUserType(id);
-         return userType.equals(Cons.User.USER_TYPE_ADMIN) || userType.equals(Cons.User.USER_TYPE_SELLER) || userType.equals(Cons.User.USER_TYPE_EMPLOYEE);
+         return userType.equals(Cons.User.USER_TYPE_CUSTOMER) || userType.equals(Cons.User.USER_TYPE_SELLER) || userType.equals(Cons.User.USER_TYPE_DELIVERY);
       }
       return false;
    }
@@ -43,105 +43,111 @@ public class ProductCategoryServlet extends HttpServlet {
       }
       return false;
    }
-
+   @Override
+   protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+      if (isAuthentication(req)) {
+         switch (req.getMethod()) {
+            case "GET":
+               doGet(req, resp);
+               break;
+            default:
+               ServletUtils.printWrite(resp, "Method not found");
+         }
+      }
+      if (isAuthenticationAdmin(req)) {
+         switch (req.getMethod()) {
+            case "GET":
+               doGet(req, resp);
+               break;
+            case "POST":
+               doPost(req, resp);
+               break;
+            case "PUT":
+            case "PATCH":
+               doPut(req, resp);
+               break;
+            case "DELETE":
+               doDelete(req, resp);
+               break;
+            default:
+               ServletUtils.printWrite(resp, "Method not found");
+         }
+      } else {
+         ServletUtils.printWrite(resp, "Access denied");
+      }
+   }
    @Override
    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
-      resp.setContentType("text/html; charset=UTF-8");
-      String result = "";
-
-      if (isAuthentication(req)) {
-         String pagePara = req.getParameter("page");
-         Integer page = StringUtils.toInt(pagePara);
-         if (page <= 0) {
-            page = 1;
-         }
-
-         ArrayList<ProductCategoryEntity> listProductCategory = ProductCategoryDAO.getInstance().gets((page - 1) * 10, 10);
-         List<String> listJsonStr = new ArrayList<>();
-
-         for (ProductCategoryEntity productCategory : listProductCategory) {
-            listJsonStr.add(productCategory.toJson());
-         }
-         result = "[" + String.join(", ", listJsonStr) + "]";
-      } else {
-         result = "Access denied";
+      String pagePara = req.getParameter("page");
+      Integer page = StringUtils.toInt(pagePara);
+      if (page <= 0) {
+         page = 1;
       }
-      try (PrintWriter out = resp.getWriter()) {
-         out.write(result);
+      ArrayList<ProductCategoryEntity> listProductCategory = ProductCategoryDAO.getInstance().gets((page - 1) * 10, 10);
+      List<String> listJsonStr = new ArrayList<>();
+
+      for (ProductCategoryEntity productCategory : listProductCategory) {
+         listJsonStr.add(productCategory.toJson());
       }
+      ServletUtils.printWrite(resp, "[" + String.join(", ", listJsonStr) + "]");
    }
 
    @Override
    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-      resp.setContentType("text/html; charset=UTF-8");
       String result = "";
 
-      if (isAuthenticationAdmin(req)) {
-         try {
-            String name = req.getParameter("name");
-            String imageBase64 = req.getParameter("imageBase64");
+      try {
+         String name = req.getParameter("name");
+         String imageBase64 = req.getParameter("imageBase64");
 
-            ProductCategoryEntity newProductCategory = new ProductCategoryEntity();
-            newProductCategory.setProductCategoryName(name);
+         ProductCategoryEntity newProductCategory = new ProductCategoryEntity();
+         newProductCategory.setProductCategoryName(name);
 
-            if (imageBase64 != null && !imageBase64.isEmpty()) {
-               newProductCategory.setImage(imageBase64);
-            }
-
-            Long newProductCategoryId = ProductCategoryDAO.getInstance().insert(newProductCategory);
-
-            if (newProductCategoryId != 0) {
-               result += "true\n" + newProductCategoryId.toString();
-            } else {
-               result += "false\nError while insert product-category";
-            }
-         } catch (Exception e) {
-            result += "false\n" + e.getMessage();
+         if (imageBase64 != null && !imageBase64.isEmpty()) {
+            newProductCategory.setImage(imageBase64);
          }
-      } else {
-         result = "Access denied";
+
+         Long newProductCategoryId = ProductCategoryDAO.getInstance().insert(newProductCategory);
+
+         if (newProductCategoryId != 0) {
+            result += "true\n" + newProductCategoryId.toString();
+         } else {
+            result += "false\nError while insert product-category";
+         }
+      } catch (Exception e) {
+         result += "false\n" + e.getMessage();
       }
-      try (PrintWriter out = resp.getWriter()) {
-         out.write(result);
-      }
+      ServletUtils.printWrite(resp, result);
    }
 
    @Override
    protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-      resp.setContentType("text/html; charset=UTF-8");
       String result = "";
       Map<String, Object> parameterMap = ServletUtils.getParametersMap(req);
 
+      try {
+         String id = (String) parameterMap.get("id");
+         String name = (String) parameterMap.get("name");
+         String imageBase64 = (String) parameterMap.get("imageBase64");
 
-      if (isAuthenticationAdmin(req)) {
-         try {
-            String id = (String) parameterMap.get("id");
-            String name = (String) parameterMap.get("name");
-            String imageBase64 = (String) parameterMap.get("imageBase64");
+         ProductCategoryEntity updateProductCategory = ProductCategoryDAO.getInstance().getById(StringUtils.toLong(id));
+         updateProductCategory.setProductCategoryName(name);
 
-            ProductCategoryEntity updateProductCategory = ProductCategoryDAO.getInstance().getById(StringUtils.toLong(id));
-            updateProductCategory.setProductCategoryName(name);
-
-            if (imageBase64 != null && !imageBase64.isEmpty()) {
-               updateProductCategory.setImage(imageBase64);
-            }
-
-            Boolean updateResult = ProductCategoryDAO.getInstance().update(updateProductCategory);
-
-            if (updateResult != false) {
-               result += "true\n" + updateProductCategory.getProductCategoryId().toString();
-            } else {
-               result += "false\nError while insert product-category";
-            }
-         } catch (Exception e) {
-            result += "false\n" + e.getMessage();
+         if (imageBase64 != null && !imageBase64.isEmpty()) {
+            updateProductCategory.setImage(imageBase64);
          }
-      } else {
-         result = "Access denied";
+
+         Boolean updateResult = ProductCategoryDAO.getInstance().update(updateProductCategory);
+
+         if (updateResult != false) {
+            result += "true\n" + updateProductCategory.getProductCategoryId().toString();
+         } else {
+            result += "false\nError while insert product-category";
+         }
+      } catch (Exception e) {
+         result += "false\n" + e.getMessage();
       }
-      try (PrintWriter out = resp.getWriter()) {
-         out.write(result);
-      }
+
+      ServletUtils.printWrite(resp, result);
    }
 }

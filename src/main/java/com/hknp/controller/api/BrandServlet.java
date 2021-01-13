@@ -29,7 +29,7 @@ public class BrandServlet extends HttpServlet {
 
       if (id != null) {
          String userType = UserDAO.getInstance().getUserType(id);
-         return userType.equals(Cons.User.USER_TYPE_ADMIN) || userType.equals(Cons.User.USER_TYPE_SELLER) || userType.equals(Cons.User.USER_TYPE_EMPLOYEE);
+         return userType.equals(Cons.User.USER_TYPE_SELLER);
       }
       return false;
    }
@@ -45,111 +45,118 @@ public class BrandServlet extends HttpServlet {
       return false;
    }
    @Override
-   protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-      resp.setContentType("text/html; charset=UTF-8");
-      String result = "";
-
+   protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
       if (isAuthentication(req)) {
-         String pagePara = req.getParameter("page");
-         Integer page = StringUtils.toInt(pagePara);
-         if (page <= 0) {
-            page = 1;
+         switch (req.getMethod()) {
+            case "GET":
+               doGet(req, resp);
+               break;
+            default:
+               ServletUtils.printWrite(resp, "Method not found");
          }
-
-         ArrayList<BrandEntity> listBrand = BrandDAO.getInstance().gets((page - 1) * 10, 10);
-         List<String> listJsonStr = new ArrayList<>();
-
-         for (BrandEntity brand : listBrand) {
-            listJsonStr.add(brand.toJson());
+      }
+      if (isAuthenticationAdmin(req)) {
+         switch (req.getMethod()) {
+            case "GET":
+               doGet(req, resp);
+               break;
+            case "POST":
+               doPost(req, resp);
+               break;
+            case "PUT":
+            case "PATCH":
+               doPut(req, resp);
+               break;
+            case "DELETE":
+               doDelete(req, resp);
+               break;
+            default:
+               ServletUtils.printWrite(resp, "Method not found");
          }
-         result = "[" + String.join(", ", listJsonStr) + "]";
       } else {
-         result = "Access denied";
+         ServletUtils.printWrite(resp, "Access denied");
+      }
+   }
+   @Override
+   protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
+      String pagePara = req.getParameter("page");
+      Integer page = StringUtils.toInt(pagePara);
+      if (page <= 0) {
+         page = 1;
+      }
+      ArrayList<BrandEntity> listBrand = BrandDAO.getInstance().gets((page - 1) * 10, 10);
+      List<String> listJsonStr = new ArrayList<>();
+
+      for (BrandEntity brand : listBrand) {
+         listJsonStr.add(brand.toJson());
       }
 
-      try (PrintWriter out = resp.getWriter()) {
-         out.write(result);
-      }
+      ServletUtils.printWrite(resp, "[" + String.join(", ", listJsonStr) + "]");
    }
 
    @Override
    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
-      resp.setContentType("text/html; charset=UTF-8");
-
       String result = "";
 
-      if (isAuthenticationAdmin(req)) {
-         try {
-            String brandName = req.getParameter("brandName");
-            String brandOrigin = req.getParameter("brandOrigin");
+      try {
+         String brandName = req.getParameter("brandName");
+         String brandOrigin = req.getParameter("brandOrigin");
 
-            String imageBase64 = req.getParameter("imageBase64");
+         String imageBase64 = req.getParameter("imageBase64");
 
 
-            BrandEntity newBrand = new BrandEntity();
-            newBrand.setBrandName(brandName);
-            newBrand.setBrandOrigin(brandOrigin);
+         BrandEntity newBrand = new BrandEntity();
+         newBrand.setBrandName(brandName);
+         newBrand.setBrandOrigin(brandOrigin);
 
-            if (imageBase64 != null && !imageBase64.isEmpty()) {
-               newBrand.setImage(imageBase64);
-            }
-            Long newBrandId = BrandDAO.getInstance().insert(newBrand);
-
-            if (newBrandId != 0) {
-               result += "true\n" + newBrandId.toString();
-            } else {
-               result += "false\nError while insert brand";
-            }
-         } catch (Exception e) {
-            result += "false\n" + e.getMessage();
+         if (imageBase64 != null && !imageBase64.isEmpty()) {
+            newBrand.setImage(imageBase64);
          }
-      } else {
-         result = "Access denied";
-      }
+         Long newBrandId = BrandDAO.getInstance().insert(newBrand);
 
-      try (PrintWriter out = resp.getWriter()) {
-         out.write(result);
+         if (newBrandId != 0) {
+            result += "true\n" + newBrandId.toString();
+         } else {
+            result += "false\nError while insert brand";
+         }
+      } catch (Exception e) {
+         result += "false\n" + e.getMessage();
       }
+      ServletUtils.printWrite(resp, result);
    }
 
    @Override
    protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-      resp.setContentType("text/html; charset=UTF-8");
       String result = "";
-      Map<String,Object> parameterMap = ServletUtils.getParametersMap(req);
+      Map<String, Object> parameterMap = ServletUtils.getParametersMap(req);
 
-      if (isAuthenticationAdmin(req)) {
-         try {
-            String id = (String) parameterMap.get("id");
-            String brandName = (String) parameterMap.get("name");
-            String brandOrigin = (String) parameterMap.get("brand-origin");
+      try {
+         String id = (String) parameterMap.get("id");
+         String brandName = (String) parameterMap.get("name");
+         String brandOrigin = (String) parameterMap.get("brand-origin");
 
-            String imageBase64 = (String) parameterMap.get("image");
+         String imageBase64 = (String) parameterMap.get("image");
 
 
-            BrandEntity updateBrand = BrandDAO.getInstance().getById(StringUtils.toLong(id));
-            updateBrand.setBrandName(brandName);
-            updateBrand.setBrandOrigin(brandOrigin);
+         BrandEntity updateBrand = BrandDAO.getInstance().getById(StringUtils.toLong(id));
+         updateBrand.setBrandName(brandName);
+         updateBrand.setBrandOrigin(brandOrigin);
 
-            if (imageBase64 != null && !imageBase64.isEmpty()) {
-               updateBrand.setImage(imageBase64);
-            }
-            Boolean updateResult = BrandDAO.getInstance().update(updateBrand);
-
-            if (updateResult != false) {
-               result += "true\n" + updateBrand.getBrandId().toString();
-            } else {
-               result += "false\nError while insert brand";
-            }
-         } catch (Exception e) {
-            result += "false\n" + e.getMessage();
+         if (imageBase64 != null && !imageBase64.isEmpty()) {
+            updateBrand.setImage(imageBase64);
          }
-      } else {
-         result = "Access denied";
+         Boolean updateResult = BrandDAO.getInstance().update(updateBrand);
+
+         if (updateResult != false) {
+            result += "true\n" + updateBrand.getBrandId().toString();
+         } else {
+            result += "false\nError while insert brand";
+         }
+      } catch (Exception e) {
+         result += "false\n" + e.getMessage();
       }
-      try (PrintWriter out = resp.getWriter()) {
-         out.write(result);
-      }
+
+      ServletUtils.printWrite(resp, result);
    }
 }

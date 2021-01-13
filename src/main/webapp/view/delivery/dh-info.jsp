@@ -11,7 +11,7 @@
 <html>
 <head>
     <%@ include file="../../common/meta-info.jsp" %>
-    <title>eCommerce Website - Delivery</title>
+    <title>eCommerce Website - Admin</title>
     <%@ include file="../../common/link-css.jsp" %>
 </head>
 
@@ -51,15 +51,14 @@
         <!-- form edit -->
         <div class="row">
             <div class="col-md-10 ml-auto mr-auto">
-                <form id="dh-info">
+                <form id="delivery-edit-form">
                     <!--Mã-->
                     <div class="form-group">
                         <label for="id" class="form-control-label">Mã</label>
                         <div>
                             <input class="form-control" type="email" id="id" name="id" readonly
-                                   placeholder="VD: user@gmail.com" value="${employeeEdit.getUserId()}">
+                                   value="${deliveryEntity.getUserId()}">
                         </div>
-                        <small class="error-input text-danger">Email sai định dạng</small>
                     </div>
 
                     <!--Họ và tên-->
@@ -70,7 +69,7 @@
                                 <a tabindex="-1" href="javascript:void(0)" class="badge badge-secondary" data-toggle="popover" data-placement="right" data-content="Trường bắt buộc - Tối đa 40 ký tự">?</a>
                                 <div>
                                     <input class="form-control" type="text" placeholder="VD: Nguyễn Văn" id="last-name"
-                                           name="last-name" maxlength="40" value="${employeeEdit.getUserEntity().getLastName()}">
+                                           name="last-name" maxlength="40" value="${deliveryEntity.getUserEntity().getLastName()}">
                                 </div>
                                 <small class="error-input text-danger">Vui lòng nhập họ và tên đệm</small>
                             </div>
@@ -81,7 +80,7 @@
                                 <a tabindex="-1" tabindex="-1" href="javascript:void(0)" class="badge badge-secondary" data-toggle="popover" data-placement="right"
                                    data-content="Trường bắt buộc - Tối đa 10 ký tự">?</a>
                                 <div>
-                                    <input class="form-control" type="text" placeholder="VD: A" id="first-name" name="first-name" value="${employeeEdit.getUserEntity().getFirstName()}" maxlength=10>
+                                    <input class="form-control" type="text" placeholder="VD: A" id="first-name" name="first-name" value="${deliveryEntity.getUserEntity().getFirstName()}" maxlength=10>
                                 </div>
                                 <small class="error-input text-danger">Vui lòng nhập tên</small>
                             </div>
@@ -100,7 +99,7 @@
                         </div>
                         <div class="col-md-6 form-group">
                             <label for="dob" class="form-control-label">Ngày sinh (không bắt buộc)</label>
-                            <input class="form-control" type="date" min="<%=minDob%>" value="${employeeEdit.getUserEntity().getDateOfBirthStr("yyyy-MM-dd")}" id="dob" name="dob">
+                            <input class="form-control" type="date" min="<%=minDob%>" value="${deliveryEntity.getUserEntity().getDateOfBirthStr("yyyy-MM-dd")}" id="dob" name="dob">
                         </div>
                     </div>
 
@@ -115,7 +114,7 @@
                                    data-content="10 số, bắt đầu từ số 0">?</a>
                                 <div>
                                     <input class="form-control" type="tel" id="phone-number" name="phone-number" maxlength="10"
-                                           placeholder="VD: 0987654321" value="${employeeEdit.getUserEntity().getPhoneNumber()}">
+                                           placeholder="VD: 0987654321" value="${deliveryEntity.getUserEntity().getPhoneNumber()}">
                                 </div>
                                 <small class="error-input text-danger">Số điện thoại không hợp lệ</small>
                             </div>
@@ -128,7 +127,7 @@
                                    data-placement="right" data-content="9 hoặc 12 số">?</a>
                                 <div>
                                     <input class="form-control" type="text" id="ssn" maxlength="12"
-                                           placeholder="VD: 123456789 hoặc 123456789012" value="${employeeEdit.getUserEntity().getSsn()}">
+                                           placeholder="VD: 123456789 hoặc 123456789012" value="${deliveryEntity.getUserEntity().getSsn()}">
                                 </div>
                                 <small class="error-input text-danger">Vui lòng nhập chứng mình nhân dân</small>
                             </div>
@@ -140,7 +139,7 @@
                         <label for="email" class="form-control-label">Email</label>
                         <div>
                             <input class="form-control" type="email" id="email" name="email" maxlength="40"
-                                   placeholder="VD: user@gmail.com" value="${employeeEdit.getUserEntity().getEmail()}">
+                                   placeholder="VD: user@gmail.com" value="${deliveryEntity.getUserEntity().getEmail()}">
                         </div>
                         <small class="error-input text-danger">Email sai định dạng</small>
                     </div>
@@ -149,8 +148,8 @@
                         <div class="col-md-6 form-group">
                             <label for="email" class="form-control-label">Mức lương</label>
                             <div>
-                                <input class="form-control" type="text" id="salary" name="salary" maxlength="20"
-                                       value="${employeeEdit.getSalary()}">
+                                <input class="form-control" type="text" id="salary" name="salary" maxlength="20" readonly
+                                       value="${deliveryEntity.getSalary()}">
                             </div>
                             <small class="error-input text-danger">...</small>
                         </div>
@@ -159,8 +158,8 @@
                             <a tabindex="-1" tabindex="-1" href="javascript:void(0)" class="badge badge-secondary"
                                data-toggle="popover" data-placement="right"
                                data-content="Mặc định là hôm nay">?</a>
-                            <input class="form-control" type="date" min="2000-01-01" value="${employeeEdit.getStartDateStr("yyyy-MM-dd")}" id="start-date"
-                                   name="start-date">
+                            <input class="form-control" type="date" min="2000-01-01" value="${deliveryEntity.getStartDateStr("yyyy-MM-dd")}" id="start-date"
+                                   name="start-date" readonly>
                         </div>
                     </div>
 
@@ -204,7 +203,7 @@
                     <div class="form-group">
                         <label for="address-street" class="form-control-label">Địa chỉ</label>
                         <div>
-                            <textarea class="form-control" id="address-street" name="address-street" placeholder="VD: Số 1 Đường ABC" rows="3">${employeeEdit.getUserEntity().getAddressEntities().get(0).getStreet()}</textarea>
+                            <textarea class="form-control" id="address-street" name="address-street" placeholder="VD: Số 1 Đường ABC" rows="3">${deliveryEntity.getUserEntity().getAddressEntities().get(0).getStreet()}</textarea>
                         </div>
                         <small class="error-input text-danger">Vui lòng nhập địa chỉ</small>
                     </div>
@@ -212,7 +211,7 @@
                     <!--Ảnh-->
                     <div class="form-group">
                         <label for="up-image" class="form-control-label d-inline-block w-100">Ảnh</label>
-                        <img id="img-upload" class="mb-2 rounded avatar-img" src="${employeeEdit.getUserEntity().getImageSrc()}"/>
+                        <img id="img-upload" class="mb-2 rounded avatar-img" src="${deliveryEntity.getUserEntity().getImageSrc()}"/>
                         <div class="custom-file">
                             <label class="custom-file-label custom-file-img-label" for="up-image">Select file</label>
                             <input type="file" class="custom-file-input" id="up-image" name="up-image" accept="image/*"
@@ -249,7 +248,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary px-3" data-dismiss="modal">KHÔNG</button>
-                        <a href="/admin/employee" class="btn btn-primary px-4">CÓ</a>
+                        <a href="/admin/delivery" class="btn btn-primary px-4">CÓ</a>
                     </div>
                 </div>
             </div>
@@ -266,10 +265,10 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                        Cập nhật thông tin nhân viên thành công !
+                        Cập nhật thông tin thành công !
                     </div>
                     <div class="modal-footer">
-                        <a href="/admin/employee" class="btn btn-primary px-4">OK</a>
+                        <a href="/delivery" class="btn btn-primary px-4">OK</a>
                     </div>
                 </div>
             </div>
@@ -296,7 +295,7 @@
       let obj = $.parseJSON(data);
       console.log(obj);
       $.each(obj, function (key, value) {
-        if (value.id === '${employeeEdit.getUserEntity().getAddressEntities().get(0).getProvinceEntity().getProvinceId()}') {
+        if (value.id === '${deliveryEntity.getUserEntity().getAddressEntities().get(0).getProvinceEntity().getProvinceId()}') {
           $('#province').append('<option selected value="' + value.id + '">' + value.name + '</option>');
           $('#province').trigger('change');
         } else {
@@ -324,7 +323,7 @@
         let obj = $.parseJSON(data);
         console.log(obj);
         $.each(obj, function (key, value) {
-          if (value.id === '${employeeEdit.getUserEntity().getAddressEntities().get(0).getDistrictEntity().getDistrictId()}') {
+          if (value.id === '${deliveryEntity.getUserEntity().getAddressEntities().get(0).getDistrictEntity().getDistrictId()}') {
             $('#district').append('<option selected value="' + value.id + '">' + value.name + '</option>');
             $('#district').trigger('change');
           } else {
@@ -351,7 +350,7 @@
         let obj = $.parseJSON(data);
         console.log(obj);
         $.each(obj, function (key, value) {
-          if (value.id === '${employeeEdit.getUserEntity().getAddressEntities().get(0).getCommuneEntity().getCommuneId()}') {
+          if (value.id === '${deliveryEntity.getUserEntity().getAddressEntities().get(0).getCommuneEntity().getCommuneId()}') {
             $('#commune').append('<option selected value="' + value.id + '">' + value.name + '</option>');
           } else {
             $('#commune').append('<option value="' + value.id + '">' + value.name + '</option>');
@@ -361,6 +360,6 @@
     });
   });
 </script>
-<script src="../../assets/js/validate/validate-employee-edit-form.js"></script>
+<script src="../../assets/js/validate/validate-delivery-edit-form.js"></script>
 </body>
 </html>

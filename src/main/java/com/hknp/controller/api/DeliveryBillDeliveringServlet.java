@@ -1,13 +1,16 @@
-package com.hknp.controller.api.open;
+package com.hknp.controller.api;
 
+import com.hknp.model.dao.BillDAO;
 import com.hknp.model.dao.ProductDAO;
 import com.hknp.model.dao.UserDAO;
+import com.hknp.model.entity.BillEntity;
 import com.hknp.model.entity.Cons;
 import com.hknp.model.entity.ProductEntity;
 import com.hknp.utils.ServletUtils;
 import com.hknp.utils.StringUtils;
 
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -17,10 +20,10 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ProductServlet extends HttpServlet {
+@WebServlet(urlPatterns = {"/api/deliverybilldelivering"})
+public class DeliveryBillDeliveringServlet extends HttpServlet {
    @Override
    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
       String pagePara = req.getParameter("page");
       HttpSession session = req.getSession();
       Long id = (Long) session.getAttribute("id");
@@ -30,19 +33,15 @@ public class ProductServlet extends HttpServlet {
          page = 1;
       }
 
-      List<ProductEntity> listProduct = new ArrayList<>();
+      List<BillEntity> listBill = new ArrayList<>();
       List<String> listJsonStr = new ArrayList<>();
 
-      if (UserDAO.getInstance().getById(id).getUserType().equals(Cons.User.USER_TYPE_SELLER)) {
-         listProduct = ProductDAO.getInstance().gets((page - 1) * 10, 10, id);
-      }
-      else {
-         listProduct = ProductDAO.getInstance().gets((page - 1) * 10, 10);
+      listBill = BillDAO.getInstance().gets((page - 1) * 10, 10, id);
+
+      for (BillEntity bill : listBill) {
+         listJsonStr.add(bill.toJson());
       }
 
-      for (ProductEntity product : listProduct) {
-         listJsonStr.add(product.toJson());
-      }
       ServletUtils.printWrite(resp, "[" + String.join(", ", listJsonStr) + "]");
    }
 }

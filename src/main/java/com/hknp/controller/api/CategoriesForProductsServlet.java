@@ -2,6 +2,7 @@ package com.hknp.controller.api;
 
 import com.hknp.model.dao.ProductCategoryDAO;
 import com.hknp.model.entity.ProductCategoryEntity;
+import com.hknp.utils.ServletUtils;
 import com.hknp.utils.StringUtils;
 
 import javax.servlet.ServletException;
@@ -18,9 +19,6 @@ import java.util.List;
 public class CategoriesForProductsServlet extends HttpServlet {
    @Override
    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
-      resp.setContentType("text/html; charset=UTF-8");
-
       ArrayList<ProductCategoryEntity> listProductCategory = ProductCategoryDAO.getInstance().gets();
       List<String> listJsonStr = new ArrayList<>();
 
@@ -28,8 +26,6 @@ public class CategoriesForProductsServlet extends HttpServlet {
          listJsonStr.add(productCategory.toJson());
       }
 
-      try (PrintWriter out = resp.getWriter()) {
-         out.write("[" + String.join(", ", listJsonStr) + "]");
-      }
+      ServletUtils.printWrite(resp, "[" + String.join(", ", listJsonStr) + "]");
    }
 }
