@@ -30,6 +30,13 @@ public class CookieUtils {
          }
          resp.addCookie(cookie);
       }
+      else {
+         cookie = new Cookie(name, newValue);
+         if (newExpiryInSecond != null) {
+            cookie.setMaxAge(newExpiryInSecond);
+         }
+         resp.addCookie(cookie);
+      }
    }
 
    public static void deleteCookie(HttpServletRequest req, HttpServletResponse resp, String name) {
