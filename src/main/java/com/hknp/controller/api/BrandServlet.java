@@ -43,6 +43,7 @@ public class BrandServlet extends HttpServlet {
       }
       return false;
    }
+
    @Override
    protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
       if (isAuthentication(req)) {
@@ -135,7 +136,6 @@ public class BrandServlet extends HttpServlet {
          String brandOrigin = (String) parameterMap.get("brand-origin");
 
          String imageBase64 = (String) parameterMap.get("image");
-
 
          BrandEntity updateBrand = BrandDAO.getInstance().getById(StringUtils.toLong(id));
          updateBrand.setBrandName(brandName);
