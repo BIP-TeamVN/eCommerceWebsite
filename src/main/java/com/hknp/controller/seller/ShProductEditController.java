@@ -14,6 +14,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 @WebServlet(urlPatterns = {"/seller/product/edit"})
@@ -24,8 +25,11 @@ public class ShProductEditController extends HttpServlet {
       Long productId = StringUtils.toLong(productIdPara);
       ProductEntity productEntity = null;
 
+      HttpSession session = req.getSession();
+      Long sellerId = (Long) session.getAttribute("id");
+
       if(productId != 0) {
-         productEntity = ProductDAO.getInstance().getById(productId);
+         productEntity = ProductDAO.getInstance().getByIdAndSeller(productId, sellerId);
          if (productEntity != null) {
             req.setAttribute("productEntity", productEntity);
             ServletUtils.forward(req, resp, "/view/seller/sh-product-edit.jsp");

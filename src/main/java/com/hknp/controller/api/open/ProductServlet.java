@@ -4,6 +4,7 @@ import com.hknp.model.dao.ProductDAO;
 import com.hknp.model.dao.UserDAO;
 import com.hknp.model.entity.Cons;
 import com.hknp.model.entity.ProductEntity;
+import com.hknp.utils.ServletUtils;
 import com.hknp.utils.StringUtils;
 
 import javax.servlet.ServletException;
@@ -19,7 +20,6 @@ import java.util.List;
 public class ProductServlet extends HttpServlet {
    @Override
    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-      resp.setContentType("text/html; charset=UTF-8");
 
       String pagePara = req.getParameter("page");
       HttpSession session = req.getSession();
@@ -43,9 +43,6 @@ public class ProductServlet extends HttpServlet {
       for (ProductEntity product : listProduct) {
          listJsonStr.add(product.toJson());
       }
-
-      try (PrintWriter out = resp.getWriter()) {
-         out.write("[" + String.join(", ", listJsonStr) + "]");
-      }
+      ServletUtils.printWrite(resp, "[" + String.join(", ", listJsonStr) + "]");
    }
 }

@@ -66,7 +66,11 @@ public class ProductTypeEntity implements Serializable {
    }
 
    public String getImage() {
-      return image;
+      if (image == null || image.isEmpty()) {
+         return Cons.Product.DEFAULT_PRODUCT_IMAGE;
+      } else {
+         return image;
+      }
    }
 
    public void setImage(String image) {

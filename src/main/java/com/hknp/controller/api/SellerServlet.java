@@ -76,8 +76,6 @@ public class SellerServlet extends HttpServlet {
    }
    @Override
    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-      resp.setContentType("text/html; charset=UTF-8");
-
       String pagePara = req.getParameter("page");
       Integer page = StringUtils.toInt(pagePara);
       if (page <= 0) {
