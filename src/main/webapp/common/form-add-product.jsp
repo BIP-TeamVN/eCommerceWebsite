@@ -124,7 +124,7 @@
                <!--liệt kê loại sản phẩm và số lượng -->
                <div id="list-types">
                   <div class="row">
-                     <div class="col-md-6">
+                     <div class="col">
                         <div class="form-group">
                            <label class="form-control-label">Loại sản phẩm</label>
                            <a tabindex="-1" href="javascript:void(0)" class="badge badge-secondary"
@@ -132,19 +132,12 @@
                               data-content="Loại sản phẩm">?</a>
                         </div>
                      </div>
-                     <div class="col-md-6">
-                        <div class="form-group">
-                           <label class="form-control-label">Số lượng</label>
-                           <a tabindex="-1" href="javascript:void(0)" class="badge badge-secondary"
-                              data-toggle="popover" data-placement="right"
-                              data-content="Số lượng của loại sản phẩm">?</a>
-                        </div>
-                     </div>
                   </div>
 
                   <div class="row" id="div-type-0">
                      <div class="col-md-8">
                         <div class="form-group">
+                           <label for="type-name-0" class="form-control-label">Tên loại</label>
                            <div>
                               <input class="form-control" type="text" id="type-name-0" name="type-name-0"
                                      maxlength="30" placeholder="VD: Xanh">
@@ -152,6 +145,7 @@
                            <small class="error-input text-danger">Loại sản phẩm không hợp lệ</small>
                         </div>
                         <div class="form-group">
+                           <label for="quantity-0" class="form-control-label">Số lượng</label>
                            <div>
                               <input class="form-control" type="number" id="quantity-0" name="quantity-0"
                                      maxlength="50" placeholder="VD: 99">
@@ -309,6 +303,7 @@
       '<div class="row" id="div-type-' + countType + '">' +
         '<div class="col-md-8">' +
           '<div class="form-group">' +
+            '<label for="quantity-' + countType + '" class="form-control-label">Số lượng</label>' +
             '<div>' +
               '<input class="form-control" type="text" id="type-name-' + countType + '" name="type-name-' + countType +  '"' +
                      'maxlength="30" placeholder="VD: Xanh">' +
@@ -316,6 +311,7 @@
             '<small class="error-input text-danger">Loại sản phẩm không hợp lệ</small>' +
           '</div>' +
           '<div class="form-group">' +
+            '<label for="quantity-' + countType + '" class="form-control-label">Số lượng</label>' +
             '<div>' +
               '<input class="form-control" type="number" id="quantity-' + countType + '" name="quantity-' + countType + '"' +
                      'maxlength="50" placeholder="VD: 99">' +
