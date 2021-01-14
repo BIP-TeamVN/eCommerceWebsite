@@ -1,3 +1,10 @@
+<%--
+  Created by IntelliJ IDEA.
+  User: namtr
+  Date: 1/14/2021
+  Time: 10:09 AM
+  To change this template use File | Settings | File Templates.
+--%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8" %>
 <!-- Topnav -->
 <nav class="navbar navbar-top navbar-expand navbar-dark bg-primary border-bottom">
@@ -239,7 +246,7 @@
                      <span>Đổi mật khẩu</span>
                   </a>
                   <div class="dropdown-divider"></div>
-                  <a href="#!" class="dropdown-item">
+                  <a href="/logout" class="dropdown-item">
                      <i class="fa fa-sign-out-alt"></i>
                      <span>Đăng xuất</span>
                   </a>
@@ -249,3 +256,4 @@
       </div>
    </div>
 </nav>
+

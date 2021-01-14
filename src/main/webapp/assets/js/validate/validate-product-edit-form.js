@@ -75,6 +75,7 @@ function checkInputs() {
   for (var i = 0; i < countType; i++) {
     type = document.getElementById('type-name-' + i);
     quantity = document.getElementById('quantity-' + i);
+    image = document.getElementById('img-upload-type-' + i);
 
     if (type.value.trim() === '') {
       setErrorFor(type, 'Vui lòng nhập loại sản phẩm');
@@ -86,6 +87,11 @@ function checkInputs() {
     } else {
       setSuccessFor(quantity);
     }
+    if (image.src === '') {
+      setErrorFor(image, 'Vui lòng Chọn ảnh của loại sản phẩm');
+    } else {
+      setSuccessFor(image);
+    }
   }
 
   if (categoriesValue === '') {
@@ -93,12 +99,13 @@ function checkInputs() {
   } else {
     setSuccessFor(categories);
   }
-
+/*
   if (image0Value === "") {
     setErrorFor(image0, 'Vui lòng chọn chọn ảnh bìa sản phẩm');
   } else {
     setSuccessFor(image0);
   }
+ */
 }
 
 function setErrorFor(input, message) {

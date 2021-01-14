@@ -1,6 +1,7 @@
 package com.hknp.controller.employee;
 
-import javax.servlet.RequestDispatcher;
+import com.hknp.utils.ServletUtils;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -9,11 +10,10 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 @WebServlet(urlPatterns = {"/employee"})
-public class HomeController extends HttpServlet {
+public class EmDashboardController extends HttpServlet {
    @Override
    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-      RequestDispatcher reqDispatcher = req.getRequestDispatcher("/view/employee/home.jsp");
-      reqDispatcher.forward(req, resp);
+      ServletUtils.forward(req, resp, "/view/employee/em-dashboard.jsp");
    }
 
    @Override

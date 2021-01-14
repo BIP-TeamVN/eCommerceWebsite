@@ -1,3 +1,10 @@
+<%--
+  Created by IntelliJ IDEA.
+  User: namtr
+  Date: 1/14/2021
+  Time: 10:11 AM
+  To change this template use File | Settings | File Templates.
+--%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8" %>
 <html>
 <head>
@@ -8,13 +15,13 @@
 
 <body>
 <!--Left side nav-->
-<jsp:include page="./ad--side-nav.jsp">
+<jsp:include page="./em--side-nav.jsp">
    <jsp:param name="selectedIndex" value="0"/>
 </jsp:include>
 
 <!-- Main content -->
 <div class="main-content" id="panel">
-   <%@include file="./ad--top-nav.jsp" %>
+   <%@include file="../../common/em-top-nav.jsp" %>
 
    <!-- Header -->
    <!-- Header -->
@@ -424,3 +431,4 @@
 <%@ include file="../../common/import-js.jsp" %>
 </body>
 </html>
+
