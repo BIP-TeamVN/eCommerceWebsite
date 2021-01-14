@@ -8,14 +8,14 @@
 
 <body>
 <!--Left side nav-->
-<jsp:include page="./dh-side-nav.jsp">
+<jsp:include page="dh--side-nav.jsp">
    <jsp:param name="selectedIndex" value="2"/>
 </jsp:include>
 
 <!-- Main content -->
 <div class="main-content" id="panel">
    <!--Top navigation-->
-   <%@include file="../../common/ad-top-nav.jsp" %>
+   <%@include file="./dh--top-nav.jsp" %>
 
    <!-- Page content -->
    <div class="container-fluid">
@@ -87,7 +87,7 @@
                        '<td>' + item.phone + '</td>' +
                        '<td>' + item.fullAddress + '</td>' +
                        '<td class="td-actions text-center">' +
-                       '<a href="/delivery/bill/view?id=' + item.id +'" class="btn btn-primary px-2 py-1" data-toggle="tooltip" data-placement="top" title="Xem chi tiết đơn hàng">' +
+                       '<a href="/delivery/detailbill?id=' + item.id +'" class="btn btn-primary px-2 py-1" data-toggle="tooltip" data-placement="top" title="Xem chi tiết đơn hàng">' +
                        '<i class="fa fa-edit"></i>' +
                        '</a>' + (item.status === "true" ?
                        '<a href="#" class="btn btn-danger px-2 py-1" data-toggle="tooltip" data-placement="top" title="Thôi việc">' +

@@ -24,7 +24,7 @@ public class LoginController extends HttpServlet {
       HttpSession session = req.getSession(true);
       Long id = (Long) session.getAttribute("id");
       if (id != null) {
-         String userType = UserDAO.getInstance().getById(id).getUserType();
+         String userType = UserDAO.getInstance().getUserType(id);
 
          switch (userType) {
             case Cons.User.USER_TYPE_ADMIN:

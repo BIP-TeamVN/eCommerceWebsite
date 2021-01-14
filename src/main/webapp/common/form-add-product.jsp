@@ -10,7 +10,7 @@
 
 <body>
 <!--Left side nav-->
-<jsp:include page="../view/seller/sh-side-nav.jsp">
+<jsp:include page="../view/seller/sh--side-nav.jsp">
    <jsp:param name="selectedIndex" value="6"/>
 </jsp:include>
 
@@ -68,7 +68,7 @@
                   </div>
                   <div class="col-md-6 form-group">
                      <div class="form-group">
-                        <label for="product-origin" class="form-control-label">Xuất xứ</label>
+                        <label for="product-origin" class="form-control-label">Nơi sản xuất</label>
                         <a tabindex="-1" href="javascript:void(0)" class="badge badge-secondary"
                            data-toggle="popover" data-placement="right"
                            data-content="Quốc gia sản xuất">?</a>

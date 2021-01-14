@@ -8,14 +8,14 @@
 
 <body>
 <!--Left side nav-->
-<jsp:include page="./sh-side-nav.jsp">
+<jsp:include page="sh--side-nav.jsp">
    <jsp:param name="selectedIndex" value="6"/>
 </jsp:include>
 
 <!-- Main content -->
 <div class="main-content" id="panel">
    <!--Top navigation-->
-   <%@include file="../../common/sh-top-nav.jsp" %>
+   <%@include file="./sh--top-nav.jsp" %>
 
    <!-- Page content -->
    <div class="container-fluid">
@@ -41,10 +41,7 @@
       <!--Button thêm-->
       <div class="row">
          <div class="col ml-auto mr-auto text-right">
-            <a href="/common/form-add-product.jsp">
-               <button type="button" data-toggle="modal" data-target="#modal-add-product"
-                       class="text-uppercase btn btn-primary pl-4 pr-4 mb-4">Thêm sản phẩm
-               </button>
+               <a href="${javax.servlet.ServletRequest.getServerName()}/seller/product/add" class="text-uppercase btn btn-primary pl-4 pr-4 mb-4">Thêm sản phẩm</a>
             </a>
          </div>
       </div>
@@ -59,9 +56,9 @@
                   <th scope="col" class="text-center">Mã</th>
                   <th scope="col" class="text-center">Tên sản phẩm</th>
                   <th scope="col" class="text-center">Nhãn hiệu</th>
-                  <th scope="col" class="text-center">Nhà cung cấp</th>
+                  <th scope="col" class="text-center">Cửa hàng</th>
                   <th scope="col" class="text-center">Đánh giá</th>
-                  <th scope="col" class="text-center">Xuất xứ</th>
+                  <th scope="col" class="text-center">Nước sản xuất</th>
                   <th scope="col" class="text-center">Mô tả</th>
                   <th scope="col" class="text-center">Giá thị trường</th>
                   <th scope="col" class="text-center">Giá bán</th>
@@ -178,6 +175,7 @@
       data: {page: currentPage},
       cache: false,
       success: function (data, textStatus, jqXHR) {
+        console.log(data);
         let list = $.parseJSON(data);
         console.log(list);
         $('#tb-list').find('tr').remove();

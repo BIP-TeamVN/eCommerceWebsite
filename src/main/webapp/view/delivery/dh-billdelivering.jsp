@@ -8,14 +8,14 @@
 
 <body>
 <!--Left side nav-->
-<jsp:include page="./dh-side-nav.jsp">
+<jsp:include page="dh--side-nav.jsp">
    <jsp:param name="selectedIndex" value="3"/>
 </jsp:include>
 
 <!-- Main content -->
 <div class="main-content" id="panel">
    <!--Top navigation-->
-   <%@include file="../../common/ad-top-nav.jsp" %>
+   <%@include file="./dh--top-nav.jsp" %>
 
    <!-- Page content -->
    <div class="container-fluid">
@@ -25,7 +25,7 @@
             <nav aria-label="breadcrumb" role="navigation">
                <ol class="breadcrumb">
                   <li class="breadcrumb-item"><a href="/admin"><i class="fa fa-home mr-2"></i>Trang chủ</a></li>
-                  <li class="breadcrumb-item active" aria-current="page">Danh sách đơn hàng đang giao của bạn</li>
+                  <li class="breadcrumb-item active" aria-current="page">Danh sách đơn hàng</li>
                </ol>
             </nav>
          </div>
@@ -34,7 +34,7 @@
       <!--Title-->
       <div class="row">
          <div class="col-md-10 ml-auto mr-auto">
-            <h2 class="display-3 text-center text-uppercase my-5">Danh sách đơn hàng</h2>
+            <h2 class="display-3 text-center text-uppercase my-5">Danh sách đơn hàng đang giao của bạn</h2>
          </div>
       </div>
 

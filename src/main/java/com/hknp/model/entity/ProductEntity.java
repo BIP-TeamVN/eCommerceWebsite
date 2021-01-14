@@ -239,6 +239,13 @@ public class ProductEntity implements Serializable {
    }
 
    public String toJson() {
+      String desc = "";
+      if (productDesc.length() > 30) {
+         desc = getProductDesc().substring(0, 30) + "...";
+      }
+      else {
+         desc = getProductDesc();
+      }
       return "{" +
               "\"id\":\"" + productId + "\"," +
               "\"productName\":\"" + productName + "\"," +
@@ -246,7 +253,7 @@ public class ProductEntity implements Serializable {
               "\"seller\":\"" + sellerEntity.getStoreName() + "\"," +
               "\"productRate\":\"" + productRate + "\"," +
               "\"productOrigin\":\"" + productOrigin + "\"," +
-              "\"productDesc\":\"" + productDesc + "\"," +
+              "\"productDesc\":\"" + desc + "\"," +
               "\"priceOrigin\":\"" + priceOrigin + "\"," +
               "\"priceOrder\":\"" + priceOrder + "\"," +
               "\"image0\":\"" + getImage0() + "\"," +

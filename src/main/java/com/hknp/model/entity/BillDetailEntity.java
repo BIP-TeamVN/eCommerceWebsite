@@ -2,6 +2,7 @@ package com.hknp.model.entity;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.math.BigDecimal;
 
 @Entity
 @Table(name = "BILL_DETAIL")
@@ -16,8 +17,8 @@ public class BillDetailEntity implements Serializable {
    BillEntity billEntity;
 
    @ManyToOne(fetch = FetchType.EAGER)
-   @JoinColumn(name = "PRODUCT_ID")
-   ProductEntity productEntity;
+   @JoinColumn(name = "PRODUCT_TYPE_ID")
+   ProductTypeEntity productTypeEntity;
 
    @Column(name = "QUANTITY")
    Integer quantity;
@@ -38,12 +39,12 @@ public class BillDetailEntity implements Serializable {
       this.billEntity = billEntity;
    }
 
-   public ProductEntity getProductEntity() {
-      return productEntity;
+   public ProductTypeEntity getProductTypeEntity() {
+      return productTypeEntity;
    }
 
-   public void setProductEntity(ProductEntity productEntity) {
-      this.productEntity = productEntity;
+   public void setProductTypeEntity(ProductTypeEntity productTypeEntity) {
+      this.productTypeEntity = productTypeEntity;
    }
 
    public Integer getQuantity() {
@@ -52,5 +53,19 @@ public class BillDetailEntity implements Serializable {
 
    public void setQuantity(Integer quantity) {
       this.quantity = quantity;
+   }
+
+   public BigDecimal getAmount(){
+      return productTypeEntity.getProductEntity().getPriceOrder().multiply(BigDecimal.valueOf(quantity));
+   }
+
+   public String toJson() {
+      return "{" +
+              "\"id\":\"" + productTypeEntity.getProductEntity().getProductId() + "\"," +
+              "\"productName\":\"" + productTypeEntity.getProductEntity().getProductName() + "\"," +
+              "\"quantity\":\"" + quantity + "\"," +
+              "\"price\":\"" + productTypeEntity.getProductEntity().getPriceOrder() + "\"," +
+              "\"Amount\":\"" + getAmount() + "\"" +
+              "}";
    }
 }

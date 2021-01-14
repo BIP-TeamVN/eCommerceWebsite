@@ -108,10 +108,10 @@ public class BillDetailDAO implements IRetrieveEntity<BillDetailEntity, Long>, I
       return result;
    }
 
-   public ArrayList<BillDetailEntity> gets(Integer firstResult, Integer maxResults,Long billId) {
+   public ArrayList<BillDetailEntity> gets(Integer firstResult, Integer maxResults, Long billId) {
       EntityManager entityMgr = EntityUtils.getEntityManager();
 
-      String query = "SELECT u FROM BillDetailEntity u where u.billEntity.billId =" + billId;
+      String query = "SELECT u FROM BillDetailEntity u where u.billEntity.id ="+ billId;
       TypedQuery<BillDetailEntity> typedQuery = entityMgr.createQuery(query, BillDetailEntity.class);
 
       if (firstResult != null) {
