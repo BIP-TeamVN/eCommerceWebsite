@@ -2,6 +2,7 @@ package com.hknp.model.entity;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.List;
 
 @Entity
@@ -92,6 +93,14 @@ public class BillEntity implements Serializable {
 
    public void setDeliveryEntity(DeliveryEntity deliveryEntity) {
       this.deliveryEntity = deliveryEntity;
+   }
+
+   public BigDecimal getTotal(){
+      BigDecimal total = new BigDecimal(0);
+      for (BillDetailEntity billdetail: billDetailEntities) {
+         total = total.add(billdetail.getAmount());
+      }
+      return total;
    }
 
    public String toJson() {
