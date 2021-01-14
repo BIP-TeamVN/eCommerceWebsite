@@ -43,21 +43,37 @@ public class BillViewDetailServlet extends HttpServlet {
    @Override
    protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException{
       String result = "";
+      HttpSession session = req.getSession();
+      Long deliveryId = (Long) session.getAttribute("id");
       Map<String, Object> parameterMap = ServletUtils.getParametersMap(req);
 
       try {
          String billIdid = (String) parameterMap.get("id");
-         String deliveryId = (String) parameterMap.get("deliveryId");
+         Integer status = (Integer) parameterMap.get("status");
+         if(status == 3){
+            BillEntity updateBill = BillDAO.getInstance().getById(StringUtils.toLong(billIdid));
+            updateBill.setDeliveryEntity(DeliveryDAO.getInstance().getById(deliveryId));
+            updateBill.setStatus(status);
+            Boolean updateResult = BillDAO.getInstance().update(updateBill);
 
-         BillEntity updateBill = BillDAO.getInstance().getById(StringUtils.toLong(billIdid));
-         updateBill.setDeliveryEntity(DeliveryDAO.getInstance().getById(StringUtils.toLong(deliveryId)));
-         Boolean updateResult = BillDAO.getInstance().update(updateBill);
-
-         if (updateResult != false) {
-            result += "true\n" + updateBill.getDeliveryEntity().getUserId();
-         } else {
-            result += "false\nError while get bill";
+            if (updateResult != false) {
+               result += "true\n" + updateBill.getDeliveryEntity().getUserId();
+            } else {
+               result += "false\nError while get bill";
+            }
          }
+         else if(status == 4){
+            BillEntity updateBill = BillDAO.getInstance().getById(StringUtils.toLong(billIdid));
+            updateBill.setStatus(status);
+            Boolean updateResult = BillDAO.getInstance().update(updateBill);
+
+            if (updateResult != false) {
+               result += "true\n" + updateBill.getDeliveryEntity().getUserId();
+            } else {
+               result += "false\nError while confirm bill";
+            }
+         }
+
       } catch (Exception e) {
          result += "false\n" + e.getMessage();
       }

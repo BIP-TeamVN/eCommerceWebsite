@@ -81,21 +81,13 @@
 
         $.each(list, function (index, item) {
           let html =
-            '<tr>' +
+            '<tr id="hay'+item.id+'">' +
             '<td>' + item.id + '</td>' +
             '<td>' + item.fullName + '</td>' +
             '<td>' + item.phone + '</td>' +
             '<td>' + item.fullAddress + '</td>' +
             '<td class="td-actions text-center">' +
-            '<a href="/delivery/bill/view?id=' + item.id +'" class="btn btn-primary px-2 py-1" data-toggle="tooltip" data-placement="top" title="Xem chi tiết đơn hàng">' +
-            '<i class="fa fa-edit"></i>' +
-            '</a>' + (item.status === "true" ?
-            '<a href="#" class="btn btn-danger px-2 py-1" data-toggle="tooltip" data-placement="top" title="Thôi việc">' +
-            '<i class="fa fa-lock"></i>' +
-            '</a>' :
-            '<a href="#" class="btn btn-success px-2 py-1" data-toggle="tooltip" data-placement="top" title="Làm việc lại">' +
-            '<i class="fa fa-lock-open"></i>' +
-            '</a>') +
+            '<button class="btn btn-primary pl-6 pr-6" onclick="DoneBill('+ item.id +')">Xác nhận đã Giao</button>'
             '</td>' +
             '</tr>';
           console.log(html);
@@ -105,6 +97,25 @@
       cache: false
     });
   });
+</script>
+<script>
+  function DoneBill(billId){
+    let paras = JSON.stringify({
+      'id': billId.toString(),
+      'status': 4
+    })
+    $.ajax({
+      url: "/api/bill/view/detail",
+      method: 'PUT',
+      async: false,
+      cache: false,
+      data: paras,
+      success: function (){
+        $("#hay" + billId).remove();
+      }
+    })
+    alert("Xác nhận đã giao thành công!");
+  }
 </script>
 </body>
 </html>
