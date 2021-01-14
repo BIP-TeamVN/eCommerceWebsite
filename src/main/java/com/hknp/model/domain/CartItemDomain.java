@@ -3,8 +3,8 @@ package com.hknp.model.domain;
 import com.hknp.utils.StringUtils;
 
 public class CartItemDomain {
-   String productTypeId;
-   Integer quantity;
+   private String productTypeId;
+   private Integer quantity;
 
    public String getProductTypeId() {
       return productTypeId;
@@ -21,6 +21,10 @@ public class CartItemDomain {
    public void setQuantity(Integer quantity) {
       this.quantity = quantity;
    }
+
+   public CartItemDomain() {
+   }
+
 
    public CartItemDomain(String productTypeId, String quantity) {
       this.productTypeId = productTypeId;

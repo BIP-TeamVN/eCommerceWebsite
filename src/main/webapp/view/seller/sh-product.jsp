@@ -41,10 +41,7 @@
       <!--Button thêm-->
       <div class="row">
          <div class="col ml-auto mr-auto text-right">
-            <a href="/common/form-add-product.jsp">
-               <button type="button" data-toggle="modal" data-target="#modal-add-product"
-                       class="text-uppercase btn btn-primary pl-4 pr-4 mb-4">Thêm sản phẩm
-               </button>
+               <a href="${javax.servlet.ServletRequest.getServerName()}/seller/product/add" class="text-uppercase btn btn-primary pl-4 pr-4 mb-4">Thêm sản phẩm</a>
             </a>
          </div>
       </div>

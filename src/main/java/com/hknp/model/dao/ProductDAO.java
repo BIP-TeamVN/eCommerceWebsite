@@ -11,6 +11,7 @@ import com.hknp.utils.HashUtils;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import java.util.ArrayList;
 
@@ -165,4 +166,14 @@ public class ProductDAO implements IRetrieveEntity<ProductEntity, Long>, IModify
 
    @Override
    public Long count() {return EntityUtils.count(ProductEntity.class.getName());}
+
+   public Long count(Long sellerId) {
+      EntityManager entityMgr = EntityUtils.getEntityManager();
+
+      String queryStr = "select count(*) from ProductEntity p where p.sellerEntity.userId = :sellerIdPara";
+      Query query = entityMgr.createQuery(queryStr);
+      query.setParameter("sellerIdPara", sellerId);
+
+      return (Long) query.getSingleResult();
+   }
 }
