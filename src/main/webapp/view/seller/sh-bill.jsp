@@ -38,6 +38,17 @@
          </div>
       </div>
 
+      <div class="col-md-2 form-group">
+         <label for="commune" class="form-control-label">Trạng thái</label>
+         <div>
+            <select class="form-control" id="commune" name="commune" required>
+               <option value="1">Đợi duyệt</option>
+               <option value="2">Đã duyệt</option>
+               <option value="3">Đang giao</option>
+               <option value="4">Đã giao xong</option>
+            </select>
+         </div>
+
       <!-- From add product-category -->
       <%@ include file="../../common/form-add-product-category.jsp" %>
    </div>
