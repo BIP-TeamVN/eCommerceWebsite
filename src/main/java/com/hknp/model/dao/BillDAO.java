@@ -184,7 +184,6 @@ public class BillDAO implements IRetrieveEntity<BillEntity, Long>, IModifySingle
       return result;
    }
 
-
    @Override
    public BillEntity getById(Long id) {
       EntityManager entityMgr = EntityUtils.getEntityManager();

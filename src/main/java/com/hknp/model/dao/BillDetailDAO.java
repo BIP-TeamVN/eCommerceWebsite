@@ -131,7 +131,6 @@ public class BillDetailDAO implements IRetrieveEntity<BillDetailEntity, Long>, I
       }
       return result;
    }
-
    @Override
    public BillDetailEntity getById(Long id) {
       EntityManager entityMgr = EntityUtils.getEntityManager();

@@ -4,7 +4,10 @@ import com.hknp.interfaces.IModifySingleEntityAutoIncrement;
 import com.hknp.interfaces.IRetrieveEntity;
 import com.hknp.model.entity.ProductEntity;
 import com.hknp.model.entity.ProductTypeEntity;
+import com.hknp.model.entity.UserEntity;
+import com.hknp.utils.Base64Utils;
 import com.hknp.utils.EntityUtils;
+import com.hknp.utils.HashUtils;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
@@ -149,6 +152,16 @@ public class ProductDAO implements IRetrieveEntity<ProductEntity, Long>, IModify
       return entityMgr.find(ProductEntity.class, id);
    }
 
+   public ProductEntity getByIdAndSeller(Long productId, Long sellerId) {
+      EntityManager entityMgr = EntityUtils.getEntityManager();
+      try {
+         String query = "SELECT u FROM ProductEntity AS u WHERE u.sellerEntity.userId = " + sellerId + " and u.productId = " + productId;
+         return entityMgr.createQuery(query, ProductEntity.class).getSingleResult();
+      } catch (Exception exception) {
+         exception.printStackTrace();
+      }
+      return null;
+   }
 
    @Override
    public Long count() {return EntityUtils.count(ProductEntity.class.getName());}
