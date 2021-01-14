@@ -157,10 +157,13 @@ public class BillDAO implements IRetrieveEntity<BillEntity, Long>, IModifySingle
       return result;
    }
 
-   public ArrayList<BillEntity> gets(Integer firstResult, Integer maxResults, Integer status, Long customerId ) {
+   public ArrayList<BillEntity> getsForSeller(Integer firstResult, Integer maxResults, Long sellerId, Integer status) {
       EntityManager entityMgr = EntityUtils.getEntityManager();
 
-      String query = "SELECT u FROM BillEntity u where u.customerEntity.customerId =" + customerId + " and u.status = " + status;
+      String query = "SELECT u FROM BillEntity u " +
+              "inner join BillDetailEntity on BillEntity.billId = BillDetailEntity.billEntity.billId " +
+              "inner join ProductEntity on ProductEntity .productId = BillDetailEntity .productEntity.productId " +
+              "where ProductEntity .sellerEntity.id =" + sellerId + "and  BillEntity .status =" + status;
       TypedQuery<BillEntity> typedQuery = entityMgr.createQuery(query, BillEntity.class);
 
       if (firstResult != null) {

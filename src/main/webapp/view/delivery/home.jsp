@@ -87,7 +87,7 @@
                        '<td>' + item.phone + '</td>' +
                        '<td>' + item.fullAddress + '</td>' +
                        '<td class="td-actions text-center">' +
-                       '<a href="/delivery/bill/view?id=' + item.id +'" class="btn btn-primary px-2 py-1" data-toggle="tooltip" data-placement="top" title="Xem chi tiết đơn hàng">' +
+                       '<a href="/delivery/detailbill?id=' + item.id +'" class="btn btn-primary px-2 py-1" data-toggle="tooltip" data-placement="top" title="Xem chi tiết đơn hàng">' +
                        '<i class="fa fa-edit"></i>' +
                        '</a>' + (item.status === "true" ?
                        '<a href="#" class="btn btn-danger px-2 py-1" data-toggle="tooltip" data-placement="top" title="Thôi việc">' +

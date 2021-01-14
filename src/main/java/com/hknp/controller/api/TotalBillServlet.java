@@ -1,11 +1,13 @@
-package com.hknp.controller.delivery;
+package com.hknp.controller.api;
 
 import com.hknp.model.dao.BillDAO;
 import com.hknp.model.dao.BillDetailDAO;
-import com.hknp.model.dao.EmployeeDAO;
-import com.hknp.model.dao.SellerDAO;
+import com.hknp.model.dao.ProductDAO;
+import com.hknp.model.dao.UserDAO;
 import com.hknp.model.entity.BillDetailEntity;
 import com.hknp.model.entity.BillEntity;
+import com.hknp.model.entity.Cons;
+import com.hknp.model.entity.ProductEntity;
 import com.hknp.utils.ServletUtils;
 import com.hknp.utils.StringUtils;
 
@@ -14,28 +16,19 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
-@WebServlet(urlPatterns = {"/delivery/detailbill"})
-public class DeliveryViewBillController extends HttpServlet {
+@WebServlet(urlPatterns = {"/api/total-bill"})
+public class TotalBillServlet extends HttpServlet {
    @Override
    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-      Long totalRows = 9L;
-      String page = req.getParameter("id");
-
-      Long currentPage = StringUtils.toLong(page);
-      Long totalPage = (totalRows / 10) + ((totalRows % 10 == 0) ? 0 : 1);
-
-      if (currentPage > totalPage) {
-         currentPage = totalPage;
-      }
-      if (currentPage < 1) {
-         currentPage = 1L;
-      }
-
+      String billId = req.getParameter("id");
+      Long id = StringUtils.toLong(billId);
 
       BigDecimal total = new BigDecimal(0);
 
@@ -43,13 +36,13 @@ public class DeliveryViewBillController extends HttpServlet {
       BigDecimal price = new BigDecimal(0);
 
       BillEntity bill = new BillEntity();
-      bill = BillDAO.getInstance().getById(currentPage);
+      bill = BillDAO.getInstance().getById(id);
       BigDecimal discount = bill.getDiscountEntity().getDiscountMaxValue();
 
       List<BillDetailEntity> listBillDetail = new ArrayList<>();
       List<String> listJsonStr = new ArrayList<>();
 
-      listBillDetail = BillDetailDAO.getInstance().gets(0, 10, currentPage);
+      listBillDetail = BillDetailDAO.getInstance().gets(0, 10, id);
 
       for (BillDetailEntity billdetail : listBillDetail) {
          quantity = billdetail.getQuantity();
@@ -63,13 +56,6 @@ public class DeliveryViewBillController extends HttpServlet {
       req.setAttribute("total", total);
       req.setAttribute("discount", discount);
 
-      req.setAttribute("totalPage", page);
-      req.setAttribute("currentPage", currentPage);
-      ServletUtils.forward(req, resp, "/view/delivery/dh-viewdetailbill.jsp");
-   }
-
-   @Override
-   protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-      doGet(req, resp);
+      ServletUtils.printWrite(resp, "[" + total + " " + discount +"]");
    }
 }
