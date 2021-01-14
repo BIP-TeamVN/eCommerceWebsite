@@ -239,7 +239,7 @@
                      <span>Đổi mật khẩu</span>
                   </a>
                   <div class="dropdown-divider"></div>
-                  <a href="#!" class="dropdown-item">
+                  <a href="${javax.servlet.ServletRequest.getServerName()}/logout" class="dropdown-item">
                      <i class="fa fa-sign-out-alt"></i>
                      <span>Đăng xuất</span>
                   </a>
