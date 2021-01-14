@@ -126,7 +126,8 @@ public class UserDAO implements IRetrieveEntity<UserEntity, Long>, IModifySingle
 
          String strQuery = "SELECT u.userId FROM UserEntity AS u " +
                  "WHERE u.userName = :usernamePara or u.phoneNumber = :usernamePara or u.email = :usernamePara " +
-                 "and u.password = :passwordHash";
+                 "and u.password = :passwordHash " +
+                 "and u.status = true";
 
          Query query = entityMgr.createQuery(strQuery);
          query.setParameter("usernamePara", username);
