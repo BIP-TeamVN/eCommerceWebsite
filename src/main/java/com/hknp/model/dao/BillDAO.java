@@ -2,11 +2,13 @@ package com.hknp.model.dao;
 
 import com.hknp.interfaces.IModifySingleEntityAutoIncrement;
 import com.hknp.interfaces.IRetrieveEntity;
+import com.hknp.model.entity.BillDetailEntity;
 import com.hknp.model.entity.BillEntity;
 import com.hknp.utils.EntityUtils;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import java.math.BigInteger;
 import java.util.ArrayList;
@@ -160,11 +162,13 @@ public class BillDAO implements IRetrieveEntity<BillEntity, Long>, IModifySingle
    public ArrayList<BillEntity> getsForSeller(Integer firstResult, Integer maxResults, Long sellerId, Integer status) {
       EntityManager entityMgr = EntityUtils.getEntityManager();
 
-      String query = "SELECT u FROM BillEntity u " +
-              "inner join BillDetailEntity on BillEntity.billId = BillDetailEntity.billEntity.billId " +
-              "inner join ProductEntity on ProductEntity .productId = BillDetailEntity .productEntity.productId " +
-              "where ProductEntity .sellerEntity.id =" + sellerId + "and  BillEntity .status =" + status;
-      TypedQuery<BillEntity> typedQuery = entityMgr.createQuery(query, BillEntity.class);
+      String strQuery = "SELECT u.billEntity FROM BillDetailEntity AS u " +
+              "WHERE u.productTypeEntity.productEntity.sellerEntity.userId = "+ sellerId;
+
+      //Query query = entityMgr.createQuery(strQuery);
+      //query.setParameter("sellerId", sellerId);
+      //query.setMaxResults(1);
+      TypedQuery<BillEntity> typedQuery = entityMgr.createQuery(strQuery, BillEntity.class);
 
       if (firstResult != null) {
          typedQuery.setFirstResult(firstResult);

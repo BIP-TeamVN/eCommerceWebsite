@@ -97,9 +97,11 @@ public class BillEntity implements Serializable {
 
    public BigDecimal getTotal(){
       BigDecimal total = new BigDecimal(0);
+
       for (BillDetailEntity billdetail: billDetailEntities) {
          total = total.add(billdetail.getAmount());
       }
+      total = total.subtract(discountEntity.getDiscountMaxValue());
       return total;
    }
 
@@ -111,7 +113,8 @@ public class BillEntity implements Serializable {
               "\"fullAddress\":\"" + addressEntity.getStreet() +", " +
               addressEntity.getCommuneEntity().getCommuneFullName() + ", " +
               addressEntity.getDistrictEntity().getDistrictFullName() + ", " +
-              addressEntity.getProvinceEntity().getProvinceFullName() + "\"" +
+              addressEntity.getProvinceEntity().getProvinceFullName() + "\"," +
+              "\"total\":\"" + getTotal() + "\"" +
               "}";
    }
 }
