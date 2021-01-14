@@ -69,6 +69,7 @@
                   <th scope="col" class="text-center">Tên sản phẩm</th>
                   <th scope="col" class="text-center">Số lượng</th>
                   <th scope="col" class="text-center">Giá tiền/ 1 sản phẩm</th>
+                  <th scope="col" class="text-center">Thành tiền</th>
                </tr>
                </thead>
                <form id="getbill">
@@ -179,6 +180,7 @@
             '<td>' + item.productName + '</td>' +
             '<td>' + item.quantity + '</td>' +
             '<td>' + item.price + '</td>' +
+            '<td>' + item.Amount + '</td>' +
             '</tr>';
           $('#tb-list').append(html);
         });

@@ -133,7 +133,7 @@ public class BillDAO implements IRetrieveEntity<BillEntity, Long>, IModifySingle
       return result;
    }
 
-   public ArrayList<BillEntity> gets(Integer firstResult, Integer maxResults, Long deliveryId) {
+   public ArrayList<BillEntity> getsForDelivery(Integer firstResult, Integer maxResults, Long deliveryId) {
       EntityManager entityMgr = EntityUtils.getEntityManager();
 
       String query = "SELECT u FROM BillEntity u where u.status = 3 and u.deliveryEntity.id =" + deliveryId ;

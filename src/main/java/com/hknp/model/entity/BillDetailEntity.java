@@ -61,10 +61,11 @@ public class BillDetailEntity implements Serializable {
 
    public String toJson() {
       return "{" +
-              "\"id\":\"" + billDetailId + "\"," +
+              "\"id\":\"" + productTypeEntity.getProductEntity().getProductId() + "\"," +
               "\"productName\":\"" + productTypeEntity.getProductEntity().getProductName() + "\"," +
               "\"quantity\":\"" + quantity + "\"," +
-              "\"price\":\"" + productTypeEntity.getProductEntity().getPriceOrder() + "\"" +
+              "\"price\":\"" + productTypeEntity.getProductEntity().getPriceOrder() + "\"," +
+              "\"Amount\":\"" + getAmount() + "\"" +
               "}";
    }
 }

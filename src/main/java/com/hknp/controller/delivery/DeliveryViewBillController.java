@@ -24,9 +24,10 @@ public class DeliveryViewBillController extends HttpServlet {
    @Override
    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
       Long totalRows = 9L;
-      String page = req.getParameter("id");
+      String id = req.getParameter("id");
+      Long billId = StringUtils.toLong(id);
 
-      Long currentPage = StringUtils.toLong(page);
+      Long currentPage = StringUtils.toLong(id);
       Long totalPage = (totalRows / 10) + ((totalRows % 10 == 0) ? 0 : 1);
 
       if (currentPage > totalPage) {
@@ -43,13 +44,13 @@ public class DeliveryViewBillController extends HttpServlet {
       BigDecimal price = new BigDecimal(0);
 
       BillEntity bill = new BillEntity();
-      bill = BillDAO.getInstance().getById(currentPage);
+      bill = BillDAO.getInstance().getById(billId);
       BigDecimal discount = bill.getDiscountEntity().getDiscountMaxValue();
 
       List<BillDetailEntity> listBillDetail = new ArrayList<>();
       List<String> listJsonStr = new ArrayList<>();
 
-      listBillDetail = BillDetailDAO.getInstance().gets(0, 10, currentPage);
+      listBillDetail = BillDetailDAO.getInstance().gets(0, 10, billId);
 
       for (BillDetailEntity billdetail : listBillDetail) {
          quantity = billdetail.getQuantity();
@@ -63,8 +64,8 @@ public class DeliveryViewBillController extends HttpServlet {
       req.setAttribute("total", total);
       req.setAttribute("discount", discount);
 
-      req.setAttribute("totalPage", page);
-      req.setAttribute("currentPage", currentPage);
+      req.setAttribute("totalPage", id);
+      req.setAttribute("currentPage", id);
       ServletUtils.forward(req, resp, "/view/delivery/dh-viewdetailbill.jsp");
    }
 

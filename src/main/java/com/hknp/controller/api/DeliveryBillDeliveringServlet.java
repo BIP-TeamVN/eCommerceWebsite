@@ -36,7 +36,7 @@ public class DeliveryBillDeliveringServlet extends HttpServlet {
       List<BillEntity> listBill = new ArrayList<>();
       List<String> listJsonStr = new ArrayList<>();
 
-      listBill = BillDAO.getInstance().gets((page - 1) * 10, 10, id);
+      listBill = BillDAO.getInstance().getsForDelivery((page - 1) * 10, 10, id);
 
       for (BillEntity bill : listBill) {
          listJsonStr.add(bill.toJson());
