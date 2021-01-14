@@ -162,24 +162,24 @@ public class BillDAO implements IRetrieveEntity<BillEntity, Long>, IModifySingle
    public ArrayList<BillEntity> getsForSeller(Integer firstResult, Integer maxResults, Long sellerId, Integer status) {
       EntityManager entityMgr = EntityUtils.getEntityManager();
 
-      String strQuery = "SELECT u.billEntity FROM BillDetailEntity AS u " +
-              "WHERE u.productTypeEntity.productEntity.sellerEntity.userId = "+ sellerId;
+      String strQuery = "SELECT distinct u.billEntity FROM BillDetailEntity AS u " +
+              "WHERE u.productTypeEntity.productEntity.sellerEntity.userId = :sellerId " +
+              "and u.billEntity.status = :status";
 
-      //Query query = entityMgr.createQuery(strQuery);
-      //query.setParameter("sellerId", sellerId);
-      //query.setMaxResults(1);
-      TypedQuery<BillEntity> typedQuery = entityMgr.createQuery(strQuery, BillEntity.class);
+      Query query = entityMgr.createQuery(strQuery);
+      query.setParameter("sellerId", sellerId);
+      query.setParameter("status", status);
 
       if (firstResult != null) {
-         typedQuery.setFirstResult(firstResult);
+         query.setFirstResult(firstResult);
       }
       if (maxResults != null) {
-         typedQuery.setMaxResults(maxResults);
+         query.setMaxResults(maxResults);
       }
 
       ArrayList<BillEntity> result = null;
       try {
-         result = new ArrayList<>(typedQuery.getResultList());
+         result = new ArrayList<>(query.getResultList());
       } catch (Exception exception) {
          exception.printStackTrace();
       } finally {

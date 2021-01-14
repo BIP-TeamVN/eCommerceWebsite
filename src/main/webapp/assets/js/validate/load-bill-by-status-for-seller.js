@@ -6,63 +6,38 @@
 $(document).ready(function () {
   const apiUrl = "/api/deliverybill";
 
-  $.ajax({
-    url: apiUrl,
-    method: "GET",
-    data: {
-      type: 'province'
-    },
-    success: function (data) {
-      let obj = $.parseJSON(data);
-      console.log(obj);
-      $.each(obj, function (key, value) {
-        $('#province').append('<option value="' + value.id + '">' + value.name + '</option>');
-      });
-    },
-    cache: false
-  });
-
-  $('#province').change(function () {
-    $('#district').find('option').remove();
-    $('#district').append('<option value="000">Chọn quận/ huyện</option>');
-    $('#commune').find('option').remove();
-    $('#commune').append('<option value="00000">Chọn xã/ phường</option>');
+  $('#status').change(function () {
 
     $.ajax({
       url: apiUrl,
-      method: "GET",
-      data: {
-        type: "district",
-        id: $('#province').val()
-      },
-      success: function (data) {
-        let obj = $.parseJSON(data);
-        console.log(obj);
-        $.each(obj, function (key, value) {
-          $('#district').append('<option value="' + value.id + '">' + value.name + '</option>');
-        });
-      },
-      cache: false
-    });
-  });
-
-  $('#district').change(function () {
-
-    $.ajax({
-      url: apiUrl,
-      method: "GET",
+      method: 'GET',
       data: {
         page: '1',
-        status: $('#district').val()
+        status: $('#status').val()
       },
-      success: function (data) {
-        let obj = $.parseJSON(data);
-        console.log(obj);
-        $.each(obj, function (key, value) {
-          $('#commune').append('<option value="' + value.id + '">' + value.name + '</option>');
+      success: function (data, textStatus, jqXHR) {
+        let list = $.parseJSON(data);
+        console.log(list);
+        $('#tb-list').find('tr').remove();
+
+        $.each(list, function (index, item) {
+          let html =
+            '<tr id="hay' + item.id + '">' +
+            '<td>' + item.id + '</td>' +
+            '<td>' + item.fullName + '</td>' +
+            '<td>' + item.phone + '</td>' +
+            '<td>' + item.fullAddress + '</td>' +
+            '<td>' + item.total + '</td>' +
+            '<td class="td-actions text-center">' +
+            '<button class="btn btn-primary pl-2 pr-1" onclick="GetBill(' + item.id + ')">Nhận đơn</button>'
+          '</td>' +
+          '</tr>';
+          console.log(html);
+          $('#tb-list').append(html);
         });
       },
       cache: false
     });
+    alert($('#status').val());
   });
 });

@@ -39,9 +39,9 @@
       </div>
 
       <div class="col-md-2 form-group">
-         <label for="commune" class="form-control-label">Trạng thái</label>
+         <label for="status" class="form-control-label">Trạng thái</label>
          <div>
-            <select class="form-control" id="commune" name="commune" required>
+            <select class="form-control" id="status" name="status" required>
                <option value="1">Đợi duyệt</option>
                <option value="2">Đã duyệt</option>
                <option value="3">Đang giao</option>
@@ -131,5 +131,6 @@
     alert("Nhận đơn thành công!");
   }
 </script>
+<script src="../../assets/js/validate/load-bill-by-status-for-seller.js"></script>
 </body>
 </html>
