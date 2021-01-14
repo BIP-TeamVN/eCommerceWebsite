@@ -29,8 +29,7 @@ public class CookieUtils {
             cookie.setMaxAge(newExpiryInSecond);
          }
          resp.addCookie(cookie);
-      }
-      else {
+      } else {
          cookie = new Cookie(name, newValue);
          if (newExpiryInSecond != null) {
             cookie.setMaxAge(newExpiryInSecond);
