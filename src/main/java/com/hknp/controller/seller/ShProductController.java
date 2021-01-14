@@ -19,7 +19,7 @@ public class ShProductController extends HttpServlet {
    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
       HttpSession session = req.getSession();
       Long id = (Long) session.getAttribute("id");
-      Long totalRows = SellerDAO.getInstance().getById(id).getProductEntities().stream().count();
+      Long totalRows = Long.valueOf(SellerDAO.getInstance().getById(id).getProductEntities().size());
 
       String page = req.getParameter("page");
 
