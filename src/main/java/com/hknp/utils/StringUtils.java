@@ -33,7 +33,7 @@ public class StringUtils {
     */
    public static BigDecimal toBigDecimal(String str) {
       BigDecimal result;
-      str = removeNonDigit(str);
+      //str = removeNonDigit(str);
 
       try {
          result = new BigDecimal(str);

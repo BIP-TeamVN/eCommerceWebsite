@@ -84,7 +84,7 @@
                   </div>
                   <div class="col-md-6 form-group">
                      <div class="form-group">
-                        <label for="product-origin" class="form-control-label">Xuất xứ</label>
+                        <label for="product-origin" class="form-control-label">Nơi sản xuất</label>
                         <a tabindex="-1" href="javascript:void(0)" class="badge badge-secondary"
                            data-toggle="popover" data-placement="right"
                            data-content="Quốc gia sản xuất">?</a>
@@ -102,7 +102,7 @@
                   <label for="product-desc" class="form-control-label">Mô tả</label>
                   <div>
                      <textarea class="form-control" id="product-desc" name="product-desc"
-                               placeholder="VD: nghe, gọi" rows="3">${productEntity.getProductDesc()}</textarea>
+                               placeholder="VD: nghe, gọi" rows="3">${productEntity.productDesc}</textarea>
                   </div>
                   <small class="error-input text-danger">Vui lòng nhập mô tả</small>
                </div>
@@ -140,20 +140,12 @@
                <!--liệt kê loại sản phẩm và số lượng -->
                <div id="list-types">
                   <div class="row">
-                     <div class="col-md-6">
+                     <div class="col">
                         <div class="form-group">
                            <label class="form-control-label">Loại sản phẩm</label>
                            <a tabindex="-1" href="javascript:void(0)" class="badge badge-secondary"
                               data-toggle="popover" data-placement="right"
                               data-content="Loại sản phẩm">?</a>
-                        </div>
-                     </div>
-                     <div class="col-md-6">
-                        <div class="form-group">
-                           <label class="form-control-label">Số lượng</label>
-                           <a tabindex="-1" href="javascript:void(0)" class="badge badge-secondary"
-                              data-toggle="popover" data-placement="right"
-                              data-content="Số lượng của loại sản phẩm">?</a>
                         </div>
                      </div>
                   </div>

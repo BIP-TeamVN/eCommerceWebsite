@@ -47,12 +47,12 @@ VALUES
 	(10006, '20191104', 8500000),
 	(10007, '20200301', 6800000);
   
-INSERT INTO `BRAND` (`BRAND_NAME`, `BRAND_ORIGIN`)
+/* INSERT INTO `BRAND` (`BRAND_NAME`, `BRAND_ORIGIN`)
 VALUES 
 	('MSI', 'Trung Quốc'),
     ('Apple', 'Mỹ'),
     ('Kim biên', 'Việt Nam'),
-    ('No brand', 'no origin');
+    ('No brand', 'no origin'); 
 
 INSERT INTO `SELLER` (`USER_ID`,`STORE_NAME`,`STORE_LINK`,`BUSINESS_LICENSE_ID`,`BANK_ACCOUNT_ID`)
 VALUES 
@@ -82,7 +82,7 @@ INSERT INTO `REPLY_COMMENT` (`RATE_COMMENT_ID`, `COMMENT`, `NO_OF_LIKE`, `NO_OF_
 VALUES 
 	(1, 'thiệt không bạn', 1, 2, 3),
     (1, 'Vậy hả', 1, 2, 4),
-    (2, 'Haha', 2, 4, 5);
+    (2, 'Haha', 2, 4, 5); */
     
 INSERT INTO `DISCOUNT` (`DISCOUNT_CODE`, `DISCOUNT_VALUE`, `DISCOUNT_MAX_VALUE`)
 VALUES 
