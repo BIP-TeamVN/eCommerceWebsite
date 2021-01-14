@@ -75,6 +75,7 @@ function checkInputs() {
   for (var i = 0; i < countType; i++) {
     type = document.getElementById('type-name-' + i);
     quantity = document.getElementById('quantity-' + i);
+    image = document.getElementById('img-upload-type-' + i);
 
     if (type.value.trim() === '') {
       setErrorFor(type, 'Vui lòng nhập loại sản phẩm');
@@ -85,6 +86,11 @@ function checkInputs() {
       setErrorFor(quantity, 'Vui lòng nhập loại sản phẩm');
     } else {
       setSuccessFor(quantity);
+    }
+    if (image.src === '') {
+      setErrorFor(image, 'Vui lòng Chọn ảnh của loại sản phẩm');
+    } else {
+      setSuccessFor(image);
     }
   }
 

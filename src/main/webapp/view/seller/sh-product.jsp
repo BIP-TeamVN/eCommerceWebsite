@@ -59,9 +59,9 @@
                   <th scope="col" class="text-center">Mã</th>
                   <th scope="col" class="text-center">Tên sản phẩm</th>
                   <th scope="col" class="text-center">Nhãn hiệu</th>
-                  <th scope="col" class="text-center">Nhà cung cấp</th>
+                  <th scope="col" class="text-center">Cửa hàng</th>
                   <th scope="col" class="text-center">Đánh giá</th>
-                  <th scope="col" class="text-center">Xuất xứ</th>
+                  <th scope="col" class="text-center">Nước sản xuất</th>
                   <th scope="col" class="text-center">Mô tả</th>
                   <th scope="col" class="text-center">Giá thị trường</th>
                   <th scope="col" class="text-center">Giá bán</th>
@@ -178,6 +178,7 @@
       data: {page: currentPage},
       cache: false,
       success: function (data, textStatus, jqXHR) {
+        console.log(data);
         let list = $.parseJSON(data);
         console.log(list);
         $('#tb-list').find('tr').remove();
