@@ -14,14 +14,14 @@
 
 <body>
 <!--Left side nav-->
-<jsp:include page="./sh-side-nav.jsp">
+<jsp:include page="sh--side-nav.jsp">
    <jsp:param name="selectedIndex" value="6"/>
 </jsp:include>
 
 <!-- Main content -->
 <div class="main-content" id="panel">
    <!--Top navigation-->
-   <%@include file="../../common/sh-top-nav.jsp" %>
+   <%@include file="./sh--top-nav.jsp" %>
 
    <!-- Page content -->
    <div class="container-fluid">

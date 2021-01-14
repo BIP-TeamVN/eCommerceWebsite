@@ -8,14 +8,14 @@
 
 <body>
 <!--Left side nav-->
-<jsp:include page="./dh-side-nav.jsp">
+<jsp:include page="dh--side-nav.jsp">
    <jsp:param name="selectedIndex" value="2"/>
 </jsp:include>
 
 <!-- Main content -->
 <div class="main-content" id="panel">
    <!--Top navigation-->
-   <%@include file="../../common/ad-top-nav.jsp" %>
+   <%@include file="./dh--top-nav.jsp" %>
 
    <!-- Page content -->
    <div class="container-fluid">

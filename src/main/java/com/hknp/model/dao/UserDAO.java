@@ -6,6 +6,7 @@ import com.hknp.model.entity.UserEntity;
 import com.hknp.utils.Base64Utils;
 import com.hknp.utils.EntityUtils;
 import com.hknp.utils.HashUtils;
+import com.hknp.utils.StringUtils;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
@@ -122,10 +123,17 @@ public class UserDAO implements IRetrieveEntity<UserEntity, Long>, IModifySingle
       long id = 0L;
       try {
          password = HashUtils.getMd5(Base64Utils.encodeFromString(password));
-         String query = "SELECT u FROM UserEntity AS u WHERE u.userName = '" + username + "' or u.phoneNumber = '" + username + "' or u.email = '" + username + "'";
-         UserEntity userEntity = entityMgr.createQuery(query, UserEntity.class).getSingleResult();
-         if (userEntity.getPassword().equals(password))
-            id = userEntity.getUserId();
+
+         String strQuery = "SELECT u.userId FROM UserEntity AS u " +
+                 "WHERE u.userName = :usernamePara or u.phoneNumber = :usernamePara or u.email = :usernamePara " +
+                 "and u.password = :passwordHash";
+
+         Query query = entityMgr.createQuery(strQuery);
+         query.setParameter("usernamePara", username);
+         query.setParameter("passwordHash", password);
+         query.setMaxResults(1);
+
+         id = (Long) query.getSingleResult();
       } catch (Exception exception) {
          exception.printStackTrace();
       }
