@@ -14,7 +14,7 @@
 
 <!-- Main content -->
 <div class="main-content" id="panel">
-   <%@include file="../../common/ad-top-nav.jsp" %>
+   <%@include file="./ad--top-nav.jsp" %>
 
    <!-- Header -->
    <!-- Header -->
