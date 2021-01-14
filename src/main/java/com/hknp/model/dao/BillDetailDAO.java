@@ -108,6 +108,29 @@ public class BillDetailDAO implements IRetrieveEntity<BillDetailEntity, Long>, I
       return result;
    }
 
+   public ArrayList<BillDetailEntity> gets(Integer firstResult, Integer maxResults, Long billId) {
+      EntityManager entityMgr = EntityUtils.getEntityManager();
+
+      String query = "SELECT u FROM BillDetailEntity u where u.billEntity.id ="+ billId;
+      TypedQuery<BillDetailEntity> typedQuery = entityMgr.createQuery(query, BillDetailEntity.class);
+
+      if (firstResult != null) {
+         typedQuery.setFirstResult(firstResult);
+      }
+      if (maxResults != null) {
+         typedQuery.setMaxResults(maxResults);
+      }
+
+      ArrayList<BillDetailEntity> result = null;
+      try {
+         result = new ArrayList<>(typedQuery.getResultList());
+      } catch (Exception exception) {
+         exception.printStackTrace();
+      } finally {
+         entityMgr.close();
+      }
+      return result;
+   }
    @Override
    public BillDetailEntity getById(Long id) {
       EntityManager entityMgr = EntityUtils.getEntityManager();
