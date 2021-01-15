@@ -20,7 +20,7 @@ public class AdDashboardController extends HttpServlet {
       Long id = (Long) session.getAttribute("id");
       if (id != null) {
          UserEntity user = UserDAO.getInstance().getById(id);
-         req.setAttribute("fullName", user.getFullName());
+         req.setAttribute("id", id);
       }
       ServletUtils.forward(req, resp, "/view/admin/ad-dashboard.jsp");
    }

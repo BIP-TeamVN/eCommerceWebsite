@@ -1,5 +1,15 @@
+<%@ page import="com.hknp.model.entity.UserEntity" %>
+<%@ page import="com.hknp.model.dao.UserDAO" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8" %>
-<!-- Top nav -->
+
+<%
+   HttpSession sessionHttp = request.getSession(true);
+   Long id = (Long) sessionHttp.getAttribute("id");
+   UserEntity user = UserDAO.getInstance().getById(id);
+   String image = user.getImageSrc();
+   String fullName = user.getFullName();
+%>
+<!-- Topnav -->
 <nav class="navbar navbar-top navbar-expand navbar-dark bg-primary border-bottom">
    <div class="container-fluid">
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -207,17 +217,14 @@
                   aria-expanded="false">
                   <div class="media align-items-center">
                   <span class="avatar avatar-sm rounded-circle">
-                    <img alt="Image placeholder" src="../../assets/img/theme/team-4.jpg">
+                    <img alt="Image placeholder" src="<%=image%>">
                   </span>
                      <div class="media-body  ml-2  d-none d-lg-block">
-                        <span class="mb-0 text-sm  font-weight-bold">${fullName}</span>
+                        <span class="mb-0 text-sm  font-weight-bold"><%=fullName%></span>
                      </div>
                   </div>
                </a>
                <div class="dropdown-menu  dropdown-menu-right ">
-                  <!-- <div class="dropdown-header noti-title">
-                    <h6 class="text-overflow m-0">Welcome!</h6>
-                  </div> -->
                   <a href="#!" class="dropdown-item">
                      <i class="ni ni-single-02"></i>
                      <span>Tài khoản của tôi</span>
@@ -234,7 +241,7 @@
                      <i class="ni ni-support-16"></i>
                      <span>Hỗ trợ</span>
                   </a>
-                  <a href="#!" class="dropdown-item">
+                  <a href="#!" class="dropdown-item" data-toggle="modal" data-target="#modal-change-password">
                      <i class="fa fa-key"></i>
                      <span>Đổi mật khẩu</span>
                   </a>
@@ -249,3 +256,97 @@
       </div>
    </div>
 </nav>
+
+<!-- Modal -->
+<div class="modal fade bd-example-modal-lg" id="modal-change-password" tabindex="-1" role="dialog"
+     aria-labelledby="exampleModalLabel" aria-hidden="true">
+   <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+      <div class="modal-content">
+         <div class="modal-header p-3">
+            <h5 class="display-3 mx-3 my-2 text-uppercase">Thay đổi mật khẩu</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+               <span aria-hidden="true">&times;</span>
+            </button>
+         </div>
+         <div class="modal-body p-3">
+            <div class="row">
+               <div class="col mx-3">
+                  <form id="change-password-form" method="POST" enctype="multipart/form-data">
+                     <!--Mật khẩu hiện tại-->
+                     <div class="row">
+                        <div class="col-md-12">
+                           <div class="form-group">
+                              <label for="password-current" class="form-control-label">Mật khẩu hiện tại</label>
+                              <div>
+                                 <input class="form-control" placeholder="Mật khẩu" type="password" id="password-current" name="password" value="">
+                              </div>
+                              <small class="error-input text-danger">Vui lòng nhập mật khẩu cũ</small>
+                           </div>
+                        </div>
+                     </div>
+                     <!--Mật khẩu mới-->
+                     <div class="row">
+                        <div class="col-md-12">
+                           <div class="form-group">
+                              <label for="password" class="form-control-label">Mật khẩu mới</label>
+                              <a tabindex="-1" href="javascript:void(0)" class="badge badge-secondary"
+                                 data-toggle="popover" data-placement="right"
+                                 data-content="Trường bắt buộc - Tối đa 32 ký tự">?</a>
+                              <div>
+                                 <input class="form-control" placeholder="Mật khẩu" type="password" id="password" name="password-new" maxlength="32">
+                              </div>
+                              <small class="error-input text-danger">Vui lòng nhập mật khẩu mới</small>
+                           </div>
+                        </div>
+                     </div>
+                     <!--Nhập lại mật khẩu-->
+                     <div class="row">
+                        <div class="col-md-12">
+                           <div class="form-group">
+                              <label for="password-re" class="form-control-label">Xác nhận mật khẩu</label>
+                              <a tabindex="-1" href="javascript:void(0)" class="badge badge-secondary"
+                                 data-toggle="popover" data-placement="right"
+                                 data-content="Trường bắt buộc - Tối đa 32 ký tự">?</a>
+                              <div>
+                                 <input class="form-control" placeholder="Mật khẩu" type="password" id="password-re" name="password-re" maxlength="32">
+                              </div>
+                              <small class="error-input text-danger">Vui lòng nhập mật khẩu mới</small>
+                           </div>
+                        </div>
+                     </div>
+                  </form>
+               </div>
+            </div>
+         </div>
+         <div class="modal-footer p-3 text-uppercase">
+            <button class="btn btn-secondary pl-6 pr-6" type="button" id="btn-cancel" data-dismiss="modal">Hủy</button>
+            <button class="btn btn-primary pl-6 pr-6" type="submit" form="change-password-form">Lưu</button>
+         </div>
+      </div>
+   </div>
+</div>
+<!-- Modal add successful -->
+<div class="modal fade" id="successful-modal" tabindex="-1" role="dialog" aria-labelledby="conform-modal-lb"
+     aria-hidden="true">
+   <div class="modal-dialog" role="document">
+      <div class="modal-content">
+         <div class="modal-header">
+            <h5 class="modal-title" id="successful-modal-lb">Thông báo</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+               <span aria-hidden="true">&times;</span>
+            </button>
+         </div>
+         <div class="modal-body">
+            Thay đổi mật khẩu thành công !
+         </div>
+         <div class="modal-footer">
+            <a href="/admin" class="btn btn-primary px-4">OK</a>
+         </div>
+      </div>
+   </div>
+</div>
+
+<%@ include file="../../common/import-js.jsp" %>
+<script src="../../assets/js/validate/validate-change-password.js"></script>
+
+
