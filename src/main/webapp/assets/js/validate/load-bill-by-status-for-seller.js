@@ -5,6 +5,7 @@
 
 $(document).ready(function () {
   const apiUrl = "/api/deliverybill";
+  let status = $('#status').val();
 
   $('#status').change(function () {
 
@@ -29,7 +30,9 @@ $(document).ready(function () {
             '<td>' + item.fullAddress + '</td>' +
             '<td>' + item.total + '</td>' +
             '<td class="td-actions text-center">' +
-            '<button class="btn btn-primary pl-2 pr-1" onclick="GetBill(' + item.id + ')">Nhận đơn</button>'
+            '<a href="/delivery/detailbill?id=' + item.id +'" class="btn btn-primary px-2 py-1" data-toggle="tooltip" data-placement="top" title="Chi Tiết Đơn Hàng">' +
+            '<i class="fa fa-edit"></i>' +
+            '</a>' +
           '</td>' +
           '</tr>';
           console.log(html);
@@ -38,6 +41,5 @@ $(document).ready(function () {
       },
       cache: false
     });
-    alert($('#status').val());
   });
 });

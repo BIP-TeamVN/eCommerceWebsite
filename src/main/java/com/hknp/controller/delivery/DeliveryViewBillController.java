@@ -66,7 +66,12 @@ public class DeliveryViewBillController extends HttpServlet {
 
       req.setAttribute("totalPage", id);
       req.setAttribute("currentPage", id);
-      ServletUtils.forward(req, resp, "/view/delivery/dh-viewdetailbill.jsp");
+      if(bill.getStatus() == 1){
+         ServletUtils.forward(req, resp, "/view/seller/sh-bill-waiting-accept.jsp");
+      }
+      else {
+         ServletUtils.forward(req, resp, "/view/seller/sh-bill-detail.jsp");
+      }
    }
 
    @Override

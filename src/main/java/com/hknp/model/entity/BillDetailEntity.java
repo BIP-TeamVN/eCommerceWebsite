@@ -63,6 +63,8 @@ public class BillDetailEntity implements Serializable {
       return "{" +
               "\"id\":\"" + productTypeEntity.getProductEntity().getProductId() + "\"," +
               "\"productName\":\"" + productTypeEntity.getProductEntity().getProductName() + "\"," +
+              "\"productImage\":\"" + productTypeEntity.getProductEntity().getImage0() + "\"," +
+              "\"productTypeName\":\"" + productTypeEntity.getProductTypeName() + "\"," +
               "\"quantity\":\"" + quantity + "\"," +
               "\"price\":\"" + productTypeEntity.getProductEntity().getPriceOrder() + "\"," +
               "\"Amount\":\"" + getAmount() + "\"" +

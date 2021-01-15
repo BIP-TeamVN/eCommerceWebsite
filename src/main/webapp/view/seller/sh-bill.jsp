@@ -63,6 +63,7 @@
                <th scope="col" class="text-center">Số điện thoại</th>
                <th scope="col" class="text-center">Địa chỉ</th>
                <th scope="col" class="text-center">Tổng giá trị</th>
+               <th scope="col" class="text-center">Chi tiết</th>
             </tr>
             </thead>
             <tbody class="list" id="tb-list">
@@ -86,7 +87,7 @@
       method: 'GET',
       data: {
         page: '1',
-        status: '2',
+        status: $('#status').val(),
       },
       success: function (data, textStatus, jqXHR) {
         let list = $.parseJSON(data);
@@ -101,7 +102,9 @@
             '<td>' + item.fullAddress + '</td>' +
             '<td>' + item.total + '</td>' +
             '<td class="td-actions text-center">' +
-            '<button class="btn btn-primary pl-2 pr-1" onclick="GetBill('+ item.id +')">Nhận đơn</button>'
+            '<a href="/delivery/detailbill?id=' + item.id +'" class="btn btn-primary px-2 py-1" data-toggle="tooltip" data-placement="top" title="Chi Tiết Đơn Hàng">' +
+            '<i class="fa fa-info-circle"></i>' +
+            '</a>' +
           '</td>' +
           '</tr>';
           console.log(html);

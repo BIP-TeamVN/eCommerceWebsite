@@ -35,13 +35,14 @@
                   <button type="button" data-toggle="modal" data-target="#modal-add-employee"
                           href="#" class="btn btn-secondary text-uppercase">Thêm nhân viên mới
                   </button>
-                  <!-- From add employee -->
-                  <%@ include file="../../common/form-add-employee.jsp" %>
                </div>
             </div>
          </div>
       </div>
    </div>
+
+   <!-- From add employee -->
+   <%@ include file="../../common/form-add-employee.jsp" %>
 
    <!-- Page content -->
    <div class="container-fluid mt--6">
