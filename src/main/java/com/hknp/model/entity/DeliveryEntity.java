@@ -20,7 +20,7 @@ public class DeliveryEntity implements Serializable {
    @Column(name = "SALARY", columnDefinition = "DECIMAL(19, 2) NULL")
    BigDecimal salary;
 
-   @OneToOne(fetch = FetchType.EAGER)
+   @OneToOne(fetch = FetchType.LAZY)
    @PrimaryKeyJoinColumn(name = "USER_ID")
    UserEntity userEntity;
 
