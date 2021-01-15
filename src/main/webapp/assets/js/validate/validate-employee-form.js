@@ -1,4 +1,4 @@
-const FORM_ID = 'product-form';
+const FORM_ID = 'employee-form';
 
 let lastName = document.getElementById('last-name');
 let firstName = document.getElementById('first-name');

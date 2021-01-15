@@ -55,6 +55,18 @@
                <div class="card-header border-0">
                   <h2 class="mb-0 text-center text-uppercase display-4">Danh sách nhân viên</h2>
                </div>
+
+               <!--Loading-->
+               <div id="loading" class="d-none">
+                  <p class="text-dark text-center">Đang load dữ liệu</p>
+                  <div class="dots-loading">
+                     <div></div>
+                     <div></div>
+                     <div></div>
+                     <div></div>
+                  </div>
+               </div>
+
                <!-- Light table -->
                <div class="table-responsive">
                   <table class="table align-items-center table-flush">
@@ -63,7 +75,7 @@
                         <th scope="col" class="text-center">Ảnh</th>
                         <th scope="col" class="text-center">Mã</th>
                         <th scope="col" class="text-center">Họ và tên</th>
-                        <th scope="col" class="text-center">GT</th>
+                        <th scope="col" class="text-center">Phái</th>
                         <th scope="col" class="text-center">Ngày sinh</th>
                         <th scope="col" class="text-center">Số điện thoại</th>
                         <th scope="col" class="text-center">Email</th>
@@ -72,34 +84,11 @@
                         <th scope="col" class="text-center">Tùy chọn</th>
                      </tr>
                      </thead>
-
                      <tbody class="list" id="tb-list">
-                     <tr>
-                        <td>
-                           <a href="#" class="media align-items-center">
-                              <img class="m-auto avatar avatar-sm rounded-circle"
-                                   src="../../assets/img/default-image-female.png" alt="avatar_image">
-                           </a>
-                        </td>
-                        <td><b>10005</b></td>
-                        <td>Nguyễn Thị Thu Cúc</td>
-                        <td>Nữ</td>
-                        <td>02/10/1994</td>
-                        <td><a href="tel:0914846315">0914846315</a></td>
-                        <td><a href="mailto:cuntt@hotmail.com">cuntt@hotmail.com</a></td>
-                        <td>7500000.00</td>
-                        <td>31/10/2019</td>
-                        <td class="td-actions text-center"><a href="/admin/employee/edit?id=10005"
-                                                              class="btn btn-primary px-2 py-1" data-toggle="tooltip"
-                                                              data-placement="top"
-                                                              title="Chỉnh sửa thông tin"><i class="fa fa-edit"></i></a><a
-                                href="#"
-                                class="btn btn-success px-2 py-1" data-toggle="tooltip" data-placement="top"
-                                title="Làm việc lại"><i class="fa fa-lock-open"></i></a></td>
-                     </tr>
                      </tbody>
                   </table>
                </div>
+
                <!-- Card footer -->
                <div class="card-footer py-3">
                   <!-- Pagination -->
@@ -204,11 +193,16 @@
   function reloadPage() {
     updatePagination();
 
+
     $.ajax({
       url: '/api/employees',
       method: 'GET',
       data: {page: currentPage},
       cache: false,
+      beforeSend: function(){
+        $('#loading').removeClass('d-none');
+        $('div.table-responsive').addClass('d-none');
+      },
       success: function (data, textStatus, jqXHR) {
         let list = $.parseJSON(data);
         console.log(list);
@@ -244,6 +238,9 @@
             '</tr>';
           $('#tb-list').append(html);
         });
+
+        $('#loading').addClass('d-none');
+        $('div.table-responsive').removeClass('d-none');
       }
     });
   }
