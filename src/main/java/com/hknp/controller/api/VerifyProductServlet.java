@@ -22,12 +22,28 @@ public class VerifyProductServlet extends HttpServlet {
    protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
       resp.setContentType("text/html; charset=UTF-8");
       Map<String,Object> parameterMap = ServletUtils.getParametersMap(req);
+      if (isAuthentication(req)) {
+         String idPara = (String) parameterMap.get("id");
+         String statusPara = (String) parameterMap.get("status");
+         Long id = StringUtils.toLong(idPara);
+         Integer status = StringUtils.toInt(statusPara);
+         if (ProductDAO.getInstance().updateStatus(id, status)) {
+            ServletUtils.printWrite(resp, "true");
+         } else {
+            ServletUtils.printWrite(resp, "false\nKhông cập nhập thành công");
+         }
+      } else {
+         ServletUtils.printWrite(resp, "false\nAuthentication");
+      }
+   }
 
-      String idPara = (String) parameterMap.get("id");
-      String statusPara = (String) parameterMap.get("status");
-      Long id = StringUtils.toLong(idPara);
-      Integer status = StringUtils.toInt(statusPara);
-      ProductDAO.getInstance().updateStatus(id, status);
+   @Override
+   protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+      resp.setContentType("text/html; charset=UTF-8");
+      if (isAuthentication(req)) {
+         String idPara = req.getParameter("id");
+         ServletUtils.printWrite(resp, (ProductDAO.getInstance().getStatusById(StringUtils.toLong(idPara))).toString());
+      }
    }
 
    public boolean isAuthentication(HttpServletRequest req) {

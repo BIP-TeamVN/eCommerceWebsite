@@ -106,39 +106,14 @@
                      </div>
 
                      <!--Button-->
-                     <div class="row mt-4">
-                        <div class="col-md-6 text-md-right text-center">
-                           <button type="submit" class="btn btn-primary px-6">XÁC NHẬN</button>
-                        </div>
-                        <div class="col-md-6 text-md-left text-center">
-                           <button type="button" data-toggle="modal" data-target="#conform-modal" class="btn btn-secondary px-6">TỪ CHỐI</button>
-                        </div>
-                     </div>
+                     <div id="div-button"></div>
+
                   </form>
                </div>
             </div>
-            <!-- Modal conform close -->
-            <div class="modal fade" id="conform-modal" tabindex="-1" role="dialog" aria-labelledby="conform-modal-lb" aria-hidden="true">
-               <div class="modal-dialog" role="document">
-                  <div class="modal-content">
-                     <div class="modal-header">
-                        <h5 class="modal-title" id="conform-modal-lb">Cảnh báo</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                           <span aria-hidden="true">&times;</span>
-                        </button>
-                     </div>
-                     <div class="modal-body">
-                        Bạn có muốn từ chối sản phẩm này không ?
-                     </div>
-                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary px-3" data-dismiss="modal">KHÔNG</button>
-                        <a href="/employee/product" class="btn btn-primary px-4">CÓ</a>
-                     </div>
-                  </div>
-               </div>
-            </div>
 
-            <!-- Modal update successful -->
+
+            <!-- Modal successful -->
             <div class="modal fade" id="successful-modal" tabindex="-1" role="dialog" aria-labelledby="conform-modal-lb" aria-hidden="true">
                <div class="modal-dialog" role="document">
                   <div class="modal-content">
@@ -148,11 +123,11 @@
                            <span aria-hidden="true">&times;</span>
                         </button>
                      </div>
-                     <div class="modal-body">
+                     <div class="modal-body" id="div-notify">
                         Xác nhận sản phẩm thành công !
                      </div>
                      <div class="modal-footer">
-                        <a href="/employee/product" class="btn btn-primary px-4">OK</a>
+                        <button type="button" class="btn btn-secondary px-3" data-dismiss="modal">OK</button>
                      </div>
                   </div>
                </div>
@@ -183,23 +158,134 @@
   }
 </script>
 <script>
-   $('#product-detail-form').submit(function (e) {
-     e.preventDefault();
-     console.log(id);
-     let para = JSON.stringify({
-            'id': id.toString(),
-            'status': '1'});
+   function showButton() {
      $.ajax({
        url: '/api/product/verify',
-       method: 'PUT',
-       data: para,
+       method: 'GET',
+       data: {'id': id},
        cache: false,
        success: function (data) {
-         e.preventDefault();
-         $('#successful-modal').modal('show');
+         let html = '';
+         if (data.toString() === "0"){
+            html =
+              '<div class="row mt-4">'+
+                 '<div class="col-md-6 text-md-right text-center">'+
+                     '<button type="button" class="btn btn-primary px-6" onclick="verifyProduct()">XÁC NHẬN</button>'+
+                 '</div>'+
+                 '<div class="col-md-6 text-md-left text-center">'+
+                     '<button type="button" class="btn btn-secondary px-6" onclick="rejectProduct()">TỪ CHỐI</button>'+
+                 '</div>'+
+              '</div>';
+         }else if (data.toString() === "1") {
+            html =
+              '<div class="row mt-4">'+
+                 '<div class="col-md-6 text-center">'+
+                     '<button type="button" class="btn btn-primary px-6" onclick="lockProduct()">KHÓA</button>'+
+                 '</div>'+
+              '</div>';
+         } else {
+            html =
+              '<div class="row mt-4">'+
+                 '<div class="col-md-6 text-md-right text-center">'+
+                     '<button type="button" class="btn btn-primary px-6" onclick="verifyProduct()">XÁC NHẬN</button>'+
+                 '</div>'+
+                 '<div class="col-md-6 text-md-left text-center">'+
+                     '<button type="button" class="btn btn-secondary px-6" onclick="lockProduct()">KHÓA</button>'+
+                 '</div>'+
+              '</div>';
+         }
+         $('#div-button').html(html);
+       },
+       error: function (jqXHR, textStatus, errorThrown) {
+         alert("Lỗi: " + errorThrown);
        }
      });
-   });
+   }
+</script>
+<script>
+  function verifyProduct() {
+    console.log(id);
+    let para = JSON.stringify({
+      'id': id.toString(),
+      'status': '1'});
+    $.ajax({
+      url: '/api/product/verify',
+      method: 'PUT',
+      data: para,
+      cache: false,
+      success: function (data) {
+        let result = data.toString().split('\n');
+        if (result[0] === 'true') {
+          $('#div-notify').html('Xác nhận sản phẩm thành công');
+          $('#successful-modal').modal('show');
+          $('#status-' + id).html('<i class="fa fa-lock-open"></i>');
+          $('#status-' + id).attr('class', 'btn btn-success px-2 py-1 mt-2');
+          $('#status-' + id).attr('title', 'Đã xác nhận');
+        } else {
+          alert("Lỗi: " + result[1]);
+        }
+      },
+      error: function (jqXHR, textStatus, errorThrown) {
+        alert("Lỗi: " + errorThrown);
+      }
+    });
+  };
+
+  function rejectProduct() {
+    console.log(id);
+    let para = JSON.stringify({
+      'id': id.toString(),
+      'status': '2'});
+    $.ajax({
+      url: '/api/product/verify',
+      method: 'PUT',
+      data: para,
+      cache: false,
+      success: function (data) {
+        let result = data.toString().split('\n');
+        if (result[0] === 'true') {
+          $('#div-notify').html('Đã từ chối sản phẩm');
+          $('#successful-modal').modal('show');
+          $('#status-' + id).html('<i class="fa fa-lock"></i>');
+          $('#status-' + id).attr('class', 'btn btn-warning px-2 py-1 mt-2');
+          $('#status-' + id).attr('title', 'Đã từ chối');
+        } else {
+          alert("Lỗi: " + result[1]);
+        }
+      },
+      error: function (jqXHR, textStatus, errorThrown) {
+        alert("Lỗi: " + errorThrown);
+      }
+    });
+  };
+
+  function lockProduct() {
+    console.log(id);
+    let para = JSON.stringify({
+      'id': id.toString(),
+      'status': '0'});
+    $.ajax({
+      url: '/api/product/verify',
+      method: 'PUT',
+      data: para,
+      cache: false,
+      success: function (data) {
+        let result = data.toString().split('\n');
+        if (result[0] === 'true') {
+          $('#div-notify').html('Đã khóa sản phẩm');
+          $('#successful-modal').modal('show');
+          $('#status-' + id).html('<i class="fa fa-lock"></i>');
+          $('#status-' + id).attr('class', 'btn btn-danger px-2 py-1 mt-2');
+          $('#status-' + id).attr('title', 'Chưa xác nhận');
+        } else {
+          alert("Lỗi: " + result[1]);
+        }
+      },
+      error: function (jqXHR, textStatus, errorThrown) {
+        alert("Lỗi: " + errorThrown);
+      }
+    });
+  };
 </script>
 
 

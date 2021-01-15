@@ -51,7 +51,6 @@
                   <th scope="col" class="text-center">Cửa hàng</th>
                   <th scope="col" class="text-center">Đánh giá</th>
                   <th scope="col" class="text-center">Nước sản xuất</th>
-                  <th scope="col" class="text-center">Mô tả</th>
                   <th scope="col" class="text-center">Giá thị trường</th>
                   <th scope="col" class="text-center">Giá bán</th>
                   <th scope="col" class="text-center">Tùy chọn</th>
@@ -186,7 +185,6 @@
             '<td>' + item.seller + '</td>' +
             '<td>' + item.productRate + '</td>' +
             '<td>' + item.productOrigin + '</td>' +
-            '<td>' + item.productDesc + '</td>' +
             '<td>' + item.priceOrigin + '</td>' +
             '<td>' + item.priceOrder + '</td>' +
             '<td class="td-actions text-center">' +
@@ -194,12 +192,15 @@
             '<i class="fa fa-edit"></i>' +
             '</button>' +
             (item.status === "0" ?
-              '<a href="#" class="btn btn-danger px-2 py-1" data-toggle="tooltip" data-placement="top" title="Chưa xác nhận">' +
+              '<label class="btn btn-danger px-2 py-1 mt-2" title="Chưa xác nhận" id="status-' + item.id + '">' +
               '<i class="fa fa-lock"></i>' +
-              '</a>' :
-              '<a href="#" class="btn btn-success px-2 py-1" data-toggle="tooltip" data-placement="top" title="Đã xác nhận">' +
+              '</label>' : (item.status === "1" ?
+              '<label class="btn btn-success px-2 py-1 mt-2" title="Đã xác nhận" id="status-' + item.id + '">' +
               '<i class="fa fa-lock-open"></i>' +
-              '</a>') +
+              '</label>' :
+              '<label class="btn btn-warning px-2 py-1 mt-2" title="Đã từ chối" id="status-' + item.id + '">' +
+              '<i class="fa fa-lock"></i>' +
+              '</label>')) +
             '</td>' +
             '</tr>';
           $('#tb-list').append(html);
@@ -239,6 +240,7 @@
          imagesPara = list.images.split('@$3,');
          $('#categories').html('<b>Ngành hàng: </b>' + list.categories);
          addType();
+         showButton();
        }
      });
    }

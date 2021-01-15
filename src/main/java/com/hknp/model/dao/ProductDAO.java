@@ -193,4 +193,14 @@ public class ProductDAO implements IRetrieveEntity<ProductEntity, Long>, IModify
       tran.commit();
       return result > 0;
    }
+
+   public Integer getStatusById (Long productId) {
+      EntityManager entityMgr = EntityUtils.getEntityManager();
+
+      String queryStr = "select p.status from ProductEntity as p where p.productId = :productIdPara";
+      Query query = entityMgr.createQuery(queryStr);
+      query.setParameter("productIdPara", productId);
+
+      return (Integer) query.getSingleResult();
+   }
 }
