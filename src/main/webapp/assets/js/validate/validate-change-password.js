@@ -29,13 +29,13 @@ function checkInputs() {
   } else {
     setSuccessFor(rePassword);
   }
-  var number = newPasswordValue.localeCompare(rePasswordValue);
-
-  if (number != 0) {
-    setErrorFor(rePassword, 'Mật khẩu mới và mật khẩu xác nhận không giống nhau!!!');
-  } else {
-    setSuccessFor(rePassword);
-  }
+  // var number = newPasswordValue.localeCompare(rePasswordValue);
+  //
+  // if (number != 0) {
+  //   setErrorFor(rePassword, 'Mật khẩu mới và mật khẩu xác nhận không giống nhau!!!');
+  // } else {
+  //   setSuccessFor(rePassword);
+  // }
 }
 
 function setErrorFor(input, message) {
@@ -66,7 +66,7 @@ $('#change-password-form').submit(function (e) {
   e.preventDefault();
   checkInputs();
 
-  // if (isValidate) {
+  // if (isValidateChange) {
   //   $.ajax({
   //     url: '/api/',
   //     method: 'POST',
