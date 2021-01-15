@@ -62,7 +62,7 @@ public class BillViewDetailServlet extends HttpServlet {
                result += "false\nError while get bill";
             }
          }
-         else if(status == 4){
+         else {
             BillEntity updateBill = BillDAO.getInstance().getById(StringUtils.toLong(billIdid));
             updateBill.setStatus(status);
             Boolean updateResult = BillDAO.getInstance().update(updateBill);
@@ -73,7 +73,6 @@ public class BillViewDetailServlet extends HttpServlet {
                result += "false\nError while confirm bill";
             }
          }
-
       } catch (Exception e) {
          result += "false\n" + e.getMessage();
       }

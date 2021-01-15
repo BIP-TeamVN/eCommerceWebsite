@@ -4,7 +4,7 @@ const rePassword = document.getElementById('retype-password');
 
 let isValidatePassword = true;
 
-function setErrorFor(input, message) {
+function setErrorForPassword(input, message) {
   if (isValidatePassword) {
     input.focus();
   }
@@ -19,7 +19,7 @@ function setErrorFor(input, message) {
   small.setAttribute("style", "display: inline;");
 }
 
-function setSuccessFor(input) {
+function setSuccessForPassword(input) {
   input.parentElement.className = 'has-success';
   input.className = 'form-control is-valid';
 
@@ -28,7 +28,7 @@ function setSuccessFor(input) {
   small.setAttribute("style", "display: none;");
 }
 
-function checkInputs() {
+function checkInputPassword() {
   const passwordValue = password.value.trim();
   const newPasswordValue = newPassword.value.trim();
   const rePasswordValue = rePassword.value.trim();
@@ -36,28 +36,33 @@ function checkInputs() {
   isValidatePassword = true;
 
   if (passwordValue === '') {
-    setErrorFor(password, 'Vui lòng nhập mật khẩu cũ');
+    setErrorForPassword(password, 'Vui lòng nhập mật khẩu cũ');
   } else {
-    setSuccessFor(password);
+    setSuccessForPassword(password);
   }
 
   if (newPasswordValue === '') {
-    setErrorFor(newPassword, 'Vui lòng nhập mật khẩu mới');
+    setErrorForPassword(newPassword, 'Vui lòng nhập mật khẩu mới');
   } else {
-    setSuccessFor(newPassword);
+    setSuccessForPassword(newPassword);
   }
 
   if (rePasswordValue === '') {
-    setErrorFor(rePassword, 'Vui lòng nhập mật khẩu mới');
+    setErrorForPassword(rePassword, 'Vui lòng nhập mật khẩu mới');
   } else {
-    setSuccessFor(rePassword);
+    setSuccessForPassword(rePassword);
+  }
+  if (newPasswordValue === rePasswordValue) {
+    setErrorForPassword(rePassword, 'Mật khẩu xác nhận không khớp');
+  } else {
+    setSuccessForPassword(rePassword);
   }
 }
 
 $('#change-password-form').submit(function (e) {
   e.preventDefault();
-  checkInputs();
-
+  checkInputPassword();
+  e.preventDefault();
   // if (isValidatePassword) {
   //   $.ajax({
   //     url: '/api/',

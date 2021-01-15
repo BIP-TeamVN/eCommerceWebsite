@@ -110,6 +110,7 @@ public class BillEntity implements Serializable {
               "\"id\":\"" + billId + "\"," +
               "\"fullName\":\"" + addressEntity.getFullName() + "\"," +
               "\"phone\":\"" + addressEntity.phoneNumber + "\"," +
+              "\"status\":\"" + status + "\"," +
               "\"fullAddress\":\"" + addressEntity.getStreet() +", " +
               addressEntity.getCommuneEntity().getCommuneFullName() + ", " +
               addressEntity.getDistrictEntity().getDistrictFullName() + ", " +
