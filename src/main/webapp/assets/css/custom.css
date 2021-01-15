@@ -32,7 +32,7 @@ img {
 
 .list > tr > td {
     text-align: center;
-    padding: 0.5rem;
+    padding: 0.5rem !important;
 }
 
 .avatar {
@@ -241,16 +241,14 @@ img {
 }
 
 .circle-loading {
-    font-size: 62.5%;
     width: 10rem;
     height: 10rem;
-    border-radius: 5rem;
+    border-radius: 15rem;
     position: relative;
     margin: 0 auto;
 }
 
 .circle-loading:before {
-    font-size: 62.5%;
     content: "";
     position: absolute;
     top: 25%;
@@ -267,5 +265,30 @@ img {
 @keyframes circleLoading {
     to {
         transform: rotate(360deg);
+    }
+}
+
+.circle-loading2 {
+    display: inline-flex;
+    animation: loading2 1s infinite;
+}
+
+.circle-loading2 > div {
+    width: 30px;
+    height: 30px;
+    border: 2px solid #5e72e4;
+    border-radius: 50%;
+    margin: 0 5px;
+}
+
+@keyframes loading2 {
+    50% {
+        transform: rotate(200deg);
+    }
+    75% {
+        transform: rotate(160deg);
+    }
+    100% {
+        transform: rotate(180deg);
     }
 }

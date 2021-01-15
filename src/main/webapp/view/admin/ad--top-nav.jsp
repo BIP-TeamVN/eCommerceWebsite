@@ -257,13 +257,12 @@
    </div>
 </nav>
 
-<!-- Modal -->
-<div class="modal fade bd-example-modal-lg" id="modal-change-password" tabindex="-1" role="dialog"
-     aria-labelledby="exampleModalLabel" aria-hidden="true">
+<!-- Modal modal-change-password-->
+<div class="modal fade bd-example-modal-lg" id="modal-change-password" tabindex="-1" role="dialog" aria-labelledby="modal-change-password" aria-hidden="true">
    <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
       <div class="modal-content">
          <div class="modal-header p-3">
-            <h5 class="display-3 mx-3 my-2 text-uppercase">Thay đổi mật khẩu</h5>
+            <h5 class="display-4 mx-3 my-2 text-uppercase">Thay đổi mật khẩu</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                <span aria-hidden="true">&times;</span>
             </button>
@@ -276,11 +275,11 @@
                      <div class="row">
                         <div class="col-md-12">
                            <div class="form-group">
-                              <label for="password-current" class="form-control-label">Mật khẩu hiện tại</label>
+                              <label for="current-password" class="form-control-label">Mật khẩu hiện tại</label>
                               <div>
-                                 <input class="form-control" placeholder="Mật khẩu" type="password" id="password-current" name="password" value="">
+                                 <input class="form-control" placeholder="************" type="password" id="current-password" name="current-password">
                               </div>
-                              <small class="error-input text-danger">Vui lòng nhập mật khẩu cũ</small>
+                              <small class="error-input text-danger"></small>
                            </div>
                         </div>
                      </div>
@@ -288,12 +287,11 @@
                      <div class="row">
                         <div class="col-md-12">
                            <div class="form-group">
-                              <label for="password" class="form-control-label">Mật khẩu mới</label>
+                              <label for="new-password" class="form-control-label">Mật khẩu mới</label>
                               <a tabindex="-1" href="javascript:void(0)" class="badge badge-secondary"
-                                 data-toggle="popover" data-placement="right"
-                                 data-content="Trường bắt buộc - Tối đa 32 ký tự">?</a>
+                                 data-toggle="popover" data-placement="right" data-content="Tối đa 16 ký tự">?</a>
                               <div>
-                                 <input class="form-control" placeholder="Mật khẩu" type="password" id="password" name="password-new" maxlength="32">
+                                 <input class="form-control" placeholder="************" type="password" id="new-password" name="new-password" maxlength="16">
                               </div>
                               <small class="error-input text-danger">Vui lòng nhập mật khẩu mới</small>
                            </div>
@@ -303,12 +301,11 @@
                      <div class="row">
                         <div class="col-md-12">
                            <div class="form-group">
-                              <label for="password-re" class="form-control-label">Xác nhận mật khẩu</label>
+                              <label for="retype-password" class="form-control-label">Xác nhận mật khẩu</label>
                               <a tabindex="-1" href="javascript:void(0)" class="badge badge-secondary"
-                                 data-toggle="popover" data-placement="right"
-                                 data-content="Trường bắt buộc - Tối đa 32 ký tự">?</a>
+                                 data-toggle="popover" data-placement="right" data-content="Tối đa 16 ký tự">?</a>
                               <div>
-                                 <input class="form-control" placeholder="Mật khẩu" type="password" id="password-re" name="password-re" maxlength="32">
+                                 <input class="form-control" placeholder="************" type="password" id="retype-password" name="retype-password" maxlength="16">
                               </div>
                               <small class="error-input text-danger">Vui lòng nhập mật khẩu mới</small>
                            </div>
@@ -325,8 +322,9 @@
       </div>
    </div>
 </div>
-<!-- Modal add successful -->
-<div class="modal fade" id="successful-modal" tabindex="-1" role="dialog" aria-labelledby="conform-modal-lb"
+
+<!-- Modal changed-password-successful-modal -->
+<div class="modal fade" id="changed-password-successful-modal" tabindex="-1" role="dialog" aria-labelledby="conform-modal-lb"
      aria-hidden="true">
    <div class="modal-dialog" role="document">
       <div class="modal-content">
@@ -340,7 +338,7 @@
             Thay đổi mật khẩu thành công !
          </div>
          <div class="modal-footer">
-            <a href="/admin" class="btn btn-primary px-4">OK</a>
+            <button class="btn btn-secondary pl-6 pr-6" type="button" data-dismiss="modal">OK</button>
          </div>
       </div>
    </div>

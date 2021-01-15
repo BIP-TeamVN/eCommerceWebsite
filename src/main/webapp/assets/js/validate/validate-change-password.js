@@ -1,49 +1,15 @@
-const password = document.getElementById('password');
-const newPassword = document.getElementById('password-new');
-const rePassword = document.getElementById('password-re');
+const password = document.getElementById('current-password');
+const newPassword = document.getElementById('new-password');
+const rePassword = document.getElementById('retype-password');
 
-let isValidateChange = true;
-
-function checkInputs() {
-
-
-  const passwordValue = password.value.trim();
-  const newPasswordValue = newPassword.value.trim();
-  const rePasswordValue = rePassword.value.trim();
-
-  isValidateChange = true;
-
-  if (passwordValue === '') {
-    setErrorFor(password, 'Vui lòng nhập mật khẩu cũ');
-  } else {
-    setSuccessFor(password);
-  }
-
-  if (newPasswordValue === '') {
-    setErrorFor(newPassword, 'Vui lòng nhập mật khẩu mới');
-  } else {
-    setSuccessFor(newPassword);
-  }
-  if (rePasswordValue === '') {
-    setErrorFor(rePassword, 'Vui lòng nhập mật khẩu mới');
-  } else {
-    setSuccessFor(rePassword);
-  }
-  var number = newPasswordValue.localeCompare(rePasswordValue);
-
-  if (number != 0) {
-    setErrorFor(rePassword, 'Mật khẩu mới và mật khẩu xác nhận không giống nhau!!!');
-  } else {
-    setSuccessFor(rePassword);
-  }
-}
+let isValidatePassword = true;
 
 function setErrorFor(input, message) {
-  if (isValidateChange) {
+  if (isValidatePassword) {
     input.focus();
   }
 
-  isValidateChange = false;
+  isValidatePassword = false;
 
   input.parentElement.className = 'has-danger';
   input.className = 'form-control is-invalid';
@@ -62,11 +28,37 @@ function setSuccessFor(input) {
   small.setAttribute("style", "display: none;");
 }
 
+function checkInputs() {
+  const passwordValue = password.value.trim();
+  const newPasswordValue = newPassword.value.trim();
+  const rePasswordValue = rePassword.value.trim();
+
+  isValidatePassword = true;
+
+  if (passwordValue === '') {
+    setErrorFor(password, 'Vui lòng nhập mật khẩu cũ');
+  } else {
+    setSuccessFor(password);
+  }
+
+  if (newPasswordValue === '') {
+    setErrorFor(newPassword, 'Vui lòng nhập mật khẩu mới');
+  } else {
+    setSuccessFor(newPassword);
+  }
+
+  if (rePasswordValue === '') {
+    setErrorFor(rePassword, 'Vui lòng nhập mật khẩu mới');
+  } else {
+    setSuccessFor(rePassword);
+  }
+}
+
 $('#change-password-form').submit(function (e) {
   e.preventDefault();
   checkInputs();
 
-  // if (isValidate) {
+  // if (isValidatePassword) {
   //   $.ajax({
   //     url: '/api/',
   //     method: 'POST',
@@ -81,7 +73,7 @@ $('#change-password-form').submit(function (e) {
   //       if (result[0] === 'true') {
   //         $('#successful-modal').modal('show');
   //         $('#successful-modal').on('hidden.bs.modal', function () {
-  //           window.location.href = window.location.origin +  '/admin';
+  //           window.location.href = window.location.origin +  '/admin/brand';
   //         });
   //       } else {
   //         alert("Lỗi: " + result[1]);
