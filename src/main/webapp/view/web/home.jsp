@@ -75,22 +75,34 @@
                            <div class="carousel-item active">
                               <div class="row">
                                  <div class="col-md-2 col-sm-4 col-xs-12 clearfix d-inline-block d-md-block">
-                                    <div class="circle-loading"></div>
+                                    <div class="mt-3 mb-5 text-center">
+                                       <div class="circle-loading2"><div></div><div></div></div>
+                                    </div>
                                  </div>
                                  <div class="col-md-2 col-sm-4 col-xs-12 clearfix d-inline-block d-md-block">
-                                    <div class="circle-loading"></div>
+                                    <div class="mt-3 mb-5 text-center">
+                                       <div class="circle-loading2"><div></div><div></div></div>
+                                    </div>
                                  </div>
                                  <div class="col-md-2 col-sm-4 col-xs-12 clearfix d-inline-block d-md-block">
-                                    <div class="circle-loading"></div>
+                                    <div class="mt-3 mb-5 text-center">
+                                       <div class="circle-loading2"><div></div><div></div></div>
+                                    </div>
                                  </div>
                                  <div class="col-md-2 col-sm-4 col-xs-12 clearfix d-inline-block d-md-block">
-                                    <div class="circle-loading"></div>
+                                    <div class="mt-3 mb-5 text-center">
+                                       <div class="circle-loading2"><div></div><div></div></div>
+                                    </div>
                                  </div>
                                  <div class="col-md-2 col-sm-4 col-xs-12 clearfix d-inline-block d-md-block">
-                                    <div class="circle-loading"></div>
+                                    <div class="mt-3 mb-5 text-center">
+                                       <div class="circle-loading2"><div></div><div></div></div>
+                                    </div>
                                  </div>
                                  <div class="col-md-2 col-sm-4 col-xs-12 clearfix d-inline-block d-md-block">
-                                    <div class="circle-loading"></div>
+                                    <div class="mt-3 mb-5 text-center">
+                                       <div class="circle-loading2"><div></div><div></div></div>
+                                    </div>
                                  </div>
                               </div>
                            </div>
@@ -241,7 +253,7 @@
           let slides = '<div class="carousel-item' + (i == 0 ? ' active' : '') + '"><div class="row">';
           for (let j = 0; j < listCategory[i].length; j++) {
             slides += '<div class="col-md-2 col-sm-4 col-xs-12 clearfix d-inline-block d-md-block">'
-              + '<a class="card product-category-item" href="./category?id=' + listCategory[i][j].id + '">'
+              + '<a class="card product-category-item" href="/category?id=' + listCategory[i][j].id + '">'
               + '<img class="card-img-top" src="' + listCategory[i][j].image + '" alt="category_logo">'
               + '<div class="card-body text-center p-0 m-auto">'
               + '<h5 class="card-title m-auto py-1">' + listCategory[i][j].name + '</h5>'
