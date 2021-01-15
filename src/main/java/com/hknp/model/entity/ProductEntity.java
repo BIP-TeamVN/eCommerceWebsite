@@ -56,16 +56,16 @@ public class ProductEntity implements Serializable {
    String image4;
 
    @Column(name = "STATUS")
-   Boolean status;
+   Integer status;
 
-   @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+   @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
    @JoinColumn(name = "PRODUCT_ID")
    List<RateCommentEntity> rateCommentEntities;
 
-   @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+   @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
    @JoinColumn(name = "PRODUCT_ID")
    Set<ProductTypeEntity> productTypeEntities;
-   @ManyToMany(fetch = FetchType.EAGER)
+   @ManyToMany(fetch = FetchType.LAZY)
    @JoinTable(name = "CATEGORIES_FOR_PRODUCTS",
            joinColumns = {@JoinColumn(name = "PRODUCT_ID", nullable = false, updatable = false)},
            inverseJoinColumns = {@JoinColumn(name = "PRODUCT_CATEGORY_ID", nullable = false, updatable = false)})
@@ -74,11 +74,11 @@ public class ProductEntity implements Serializable {
    public ProductEntity() {
    }
 
-   public Boolean getStatus() {
+   public Integer getStatus() {
       return status;
    }
 
-   public void setStatus(Boolean status) {
+   public void setStatus(Integer status) {
       this.status = status;
    }
 
@@ -239,13 +239,6 @@ public class ProductEntity implements Serializable {
    }
 
    public String toJson() {
-      String desc = "";
-      if (productDesc.length() > 30) {
-         desc = getProductDesc().substring(0, 30) + "...";
-      }
-      else {
-         desc = getProductDesc();
-      }
       return "{" +
               "\"id\":\"" + productId + "\"," +
               "\"productName\":\"" + productName + "\"," +
@@ -253,14 +246,9 @@ public class ProductEntity implements Serializable {
               "\"seller\":\"" + sellerEntity.getStoreName() + "\"," +
               "\"productRate\":\"" + productRate + "\"," +
               "\"productOrigin\":\"" + productOrigin + "\"," +
-              "\"productDesc\":\"" + desc + "\"," +
               "\"priceOrigin\":\"" + priceOrigin + "\"," +
               "\"priceOrder\":\"" + priceOrder + "\"," +
               "\"image0\":\"" + getImage0() + "\"," +
-              "\"image1\":\"" + getImage1() + "\"," +
-              "\"image2\":\"" + getImage2() + "\"," +
-              "\"image3\":\"" + getImage3() + "\"," +
-              "\"image4\":\"" + getImage4() + "\"," +
               "\"status\":\"" + status + "\"" +
               "}";
    }

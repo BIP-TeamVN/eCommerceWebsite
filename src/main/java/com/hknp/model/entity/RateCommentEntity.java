@@ -24,15 +24,15 @@ public class RateCommentEntity implements Serializable {
    @Column(name = "NO_OF_DISLIKE")
    Integer noOfDislike;
 
-   @OneToOne(fetch = FetchType.EAGER)
+   @OneToOne(fetch = FetchType.LAZY)
    @PrimaryKeyJoinColumn(name = "USER_ID")
    UserEntity userEntity;
 
-   @ManyToOne(fetch = FetchType.EAGER)
+   @ManyToOne(fetch = FetchType.LAZY)
    @JoinColumn(name = "PRODUCT_ID")
    ProductEntity productEntity;
 
-   @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+   @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
    @JoinColumn(name = "RATE_COMMENT_ID")
    List<ReplyCommentEntity> replyCommentEntities;
 

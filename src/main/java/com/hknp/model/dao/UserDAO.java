@@ -125,7 +125,7 @@ public class UserDAO implements IRetrieveEntity<UserEntity, Long>, IModifySingle
          password = HashUtils.getMd5(Base64Utils.encodeFromString(password));
 
          String strQuery = "SELECT u.userId FROM UserEntity AS u " +
-                 "WHERE u.userName = :usernamePara or u.phoneNumber = :usernamePara or u.email = :usernamePara " +
+                 "WHERE (u.userName = :usernamePara or u.phoneNumber = :usernamePara or u.email = :usernamePara) " +
                  "and u.password = :passwordHash " +
                  "and u.status = true";
 

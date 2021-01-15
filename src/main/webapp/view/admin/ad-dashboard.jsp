@@ -1,4 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8" %>
+<%@ page import="javax.servlet.http.HttpServletRequest" %>
 <html>
 <head>
    <%@ include file="../../common/meta-info.jsp" %>
@@ -7,6 +8,7 @@
 </head>
 
 <body>
+
 <!--Left side nav-->
 <jsp:include page="./ad--side-nav.jsp">
    <jsp:param name="selectedIndex" value="0"/>

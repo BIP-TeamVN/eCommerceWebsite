@@ -20,7 +20,7 @@ public class ProductCategoryEntity implements Serializable {
    @Column(name = "IMAGE", columnDefinition = "LONGTEXT DEFAULT NULL")
    String image;
 
-   @ManyToMany(fetch = FetchType.EAGER, mappedBy = "productCategoryEntities")
+   @ManyToMany(fetch = FetchType.LAZY, mappedBy = "productCategoryEntities")
    Set<ProductEntity> productEntities;
 
    public ProductCategoryEntity() {

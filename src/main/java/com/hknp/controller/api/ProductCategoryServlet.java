@@ -45,20 +45,10 @@ public class ProductCategoryServlet extends HttpServlet {
    }
    @Override
    protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-      if (isAuthentication(req)) {
+      if (req.getMethod().equals("GET")) {
+         doGet(req, resp);
+      } else if (isAuthenticationAdmin(req)) {
          switch (req.getMethod()) {
-            case "GET":
-               doGet(req, resp);
-               break;
-            default:
-               ServletUtils.printWrite(resp, "Method not found");
-         }
-      }
-      if (isAuthenticationAdmin(req)) {
-         switch (req.getMethod()) {
-            case "GET":
-               doGet(req, resp);
-               break;
             case "POST":
                doPost(req, resp);
                break;
@@ -78,18 +68,28 @@ public class ProductCategoryServlet extends HttpServlet {
    }
    @Override
    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-      String pagePara = req.getParameter("page");
-      Integer page = StringUtils.toInt(pagePara);
-      if (page <= 0) {
-         page = 1;
+      String type = req.getParameter("type");
+      if (type != null && type.equals("all")) {
+         List<String> listJsonStr = new ArrayList<>();
+         for (ProductCategoryEntity productCategory : ProductCategoryDAO.getInstance().gets()) {
+            listJsonStr.add(productCategory.toJson());
+         }
+         ServletUtils.printWrite(resp, "[" + String.join(", ", listJsonStr) + "]");
       }
-      ArrayList<ProductCategoryEntity> listProductCategory = ProductCategoryDAO.getInstance().gets((page - 1) * 10, 10);
-      List<String> listJsonStr = new ArrayList<>();
+      else {
+         String pagePara = req.getParameter("page");
+         Integer page = StringUtils.toInt(pagePara);
+         if (page <= 0) {
+            page = 1;
+         }
+         ArrayList<ProductCategoryEntity> listProductCategory = ProductCategoryDAO.getInstance().gets((page - 1) * 10, 10);
+         List<String> listJsonStr = new ArrayList<>();
 
-      for (ProductCategoryEntity productCategory : listProductCategory) {
-         listJsonStr.add(productCategory.toJson());
+         for (ProductCategoryEntity productCategory : listProductCategory) {
+            listJsonStr.add(productCategory.toJson());
+         }
+         ServletUtils.printWrite(resp, "[" + String.join(", ", listJsonStr) + "]");
       }
-      ServletUtils.printWrite(resp, "[" + String.join(", ", listJsonStr) + "]");
    }
 
    @Override
