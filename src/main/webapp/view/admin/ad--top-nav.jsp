@@ -345,6 +345,6 @@
 </div>
 
 <%@ include file="../../common/import-js.jsp" %>
-<script src="../../assets/js/validate/validate-change-password.js"></script>
+<%--<script src="../../assets/js/validate/validate-change-password.js"></script>--%>
 
 
