@@ -11,7 +11,7 @@ public class ReplyCommentEntity implements Serializable {
    @Column(name = "SUB_COMMENT_ID")
    Long subCommentId;
 
-   @ManyToOne(fetch = FetchType.EAGER)
+   @ManyToOne(fetch = FetchType.LAZY)
    @JoinColumn(name = "RATE_COMMENT_ID")
    RateCommentEntity rateCommentEntity;
 
@@ -24,7 +24,7 @@ public class ReplyCommentEntity implements Serializable {
    @Column(name = "NO_OF_DISLIKE")
    Integer noOfDislike;
 
-   @OneToOne(fetch = FetchType.EAGER)
+   @OneToOne(fetch = FetchType.LAZY)
    @PrimaryKeyJoinColumn(name = "USER_ID")
    UserEntity userEntity;
 

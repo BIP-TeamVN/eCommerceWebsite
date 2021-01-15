@@ -33,11 +33,11 @@ public class SellerEntity implements Serializable {
    @Column(name = "BANK_ACCOUNT_ID")
    Long bankAccountId;
 
-   @OneToOne(fetch = FetchType.EAGER)
+   @OneToOne(fetch = FetchType.LAZY)
    @PrimaryKeyJoinColumn(name = "USER_ID")
    UserEntity userEntity;
 
-   @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+   @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
    @JoinColumn(name = "SELLER_ID")
    Set<ProductEntity> productEntities;
 

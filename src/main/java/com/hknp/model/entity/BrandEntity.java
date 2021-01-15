@@ -23,7 +23,7 @@ public class BrandEntity implements Serializable {
    @Column(name = "IMAGE", columnDefinition = "LONGTEXT DEFAULT NULL")
    String image;
 
-   @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+   @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
    @JoinColumn(name = "BRAND_ID")
    List<ProductEntity> productEntities;
 

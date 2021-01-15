@@ -17,11 +17,11 @@ public class CustomerEntity implements Serializable {
    @Column(name = "REGISTER_DATE", columnDefinition = "DATE NULL")
    Date registerDate;
 
-   @OneToOne(fetch = FetchType.EAGER)
+   @OneToOne(fetch = FetchType.LAZY)
    @PrimaryKeyJoinColumn(name = "USER_ID")
    UserEntity userEntity;
 
-   @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+   @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
    @JoinColumn(name = "CUSTOMER_ID")
    List<BillEntity> billEntities;
 

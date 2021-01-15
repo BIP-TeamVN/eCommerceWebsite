@@ -51,7 +51,7 @@ public class UserEntity implements Serializable {
    @Column(name = "STATUS", columnDefinition = "TINYINT(1) DEFAULT '1'")
    Boolean status;
 
-   @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+   @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
    @JoinColumn(name = "USER_ID")
    List<AddressEntity> addressEntities;
 
