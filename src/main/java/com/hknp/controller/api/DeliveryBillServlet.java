@@ -27,7 +27,9 @@ public class DeliveryBillServlet extends HttpServlet {
       String pagePara = req.getParameter("page");
       HttpSession session = req.getSession();
       Long id = (Long) session.getAttribute("id");
-      Integer status = 3;
+
+      String status =(String) req.getParameter("status");
+      Integer stt = Integer.parseInt(status);
 
       Integer page = StringUtils.toInt(pagePara);
       if (page <= 0) {
@@ -38,10 +40,10 @@ public class DeliveryBillServlet extends HttpServlet {
       List<String> listJsonStr = new ArrayList<>();
 
       if (UserDAO.getInstance().getById(id).getUserType().equals(Cons.User.USER_TYPE_DELIVERY)) {
-         listBill = BillDAO.getInstance().gets((page - 1) * 10, 10, status);
+         listBill = BillDAO.getInstance().gets((page - 1) * 10, 10, stt);
       }
-      else {
-         listBill = BillDAO.getInstance().gets((page - 1) * 10, 10);
+      else if(UserDAO.getInstance().getById(id).getUserType().equals(Cons.User.USER_TYPE_SELLER)){
+         listBill = BillDAO.getInstance().getsForSeller((page - 1) * 10, 10, id, stt);
       }
 
       for (BillEntity bill : listBill) {

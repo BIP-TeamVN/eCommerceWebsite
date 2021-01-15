@@ -51,6 +51,7 @@
                   <th scope="col" class="text-center">Tên khách hàng</th>
                   <th scope="col" class="text-center">Số điện thoại</th>
                   <th scope="col" class="text-center">Địa chỉ</th>
+                  <th scope="col" class="text-center">Tổng giá trị</th>
                </tr>
                </thead>
                <tbody class="list" id="tb-list">
@@ -74,6 +75,7 @@
          method: 'GET',
          data: {
             page: '1',
+           status: '2',
          },
          success: function (data, textStatus, jqXHR) {
             let list = $.parseJSON(data);
@@ -81,21 +83,14 @@
 
             $.each(list, function (index, item) {
                let html =
-                       '<tr>' +
+                       '<tr id="hay'+item.id+'">' +
                        '<td>' + item.id + '</td>' +
                        '<td>' + item.fullName + '</td>' +
                        '<td>' + item.phone + '</td>' +
                        '<td>' + item.fullAddress + '</td>' +
+                       '<td>' + item.total + '</td>' +
                        '<td class="td-actions text-center">' +
-                       '<a href="/delivery/detailbill?id=' + item.id +'" class="btn btn-primary px-2 py-1" data-toggle="tooltip" data-placement="top" title="Xem chi tiết đơn hàng">' +
-                       '<i class="fa fa-edit"></i>' +
-                       '</a>' + (item.status === "true" ?
-                       '<a href="#" class="btn btn-danger px-2 py-1" data-toggle="tooltip" data-placement="top" title="Thôi việc">' +
-                       '<i class="fa fa-lock"></i>' +
-                       '</a>' :
-                       '<a href="#" class="btn btn-success px-2 py-1" data-toggle="tooltip" data-placement="top" title="Làm việc lại">' +
-                       '<i class="fa fa-lock-open"></i>' +
-                       '</a>') +
+                       '<button class="btn btn-primary pl-2 pr-1" onclick="GetBill('+ item.id +')">Nhận đơn</button>'
                        '</td>' +
                        '</tr>';
                console.log(html);
@@ -105,6 +100,25 @@
          cache: false
       });
    });
+</script>
+<script>
+   function GetBill(billId){
+    let paras = JSON.stringify({
+      'id': billId.toString(),
+      'status': 3
+    })
+     $.ajax({
+       url: "/api/bill/view/detail",
+       method: 'PUT',
+       async: false,
+       cache: false,
+       data: paras,
+       success: function (){
+         $("#hay" + billId).remove();
+       }
+     })
+     alert("Nhận đơn thành công!");
+   }
 </script>
 </body>
 </html>
