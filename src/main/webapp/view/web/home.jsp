@@ -15,7 +15,6 @@
 
    <!-- Page content -->
    <div class="container">
-      <!--Top carousel-->
       <div class="row mt-5 mb-5 justify-content-center">
          <div class="col">
             <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
@@ -57,243 +56,49 @@
                <div class="card-body mt-4 py-0">
                   <div id="category-list" class="row justify-content-center">
                      <!--Carousel Wrapper-->
-                     <div id="multi-item-example" class="col carousel slide carousel-multi-item" data-ride="carousel">
+                     <div id="category-item-indicator" class="col carousel slide carousel-multi-item"
+                          data-ride="carousel">
                         <!--Controls-->
                         <div>
-                           <a class="carousel-button carousel-button-prev" href="#multi-item-example" data-slide="prev">
+                           <a class="carousel-button carousel-button-prev" href="#category-item-indicator"
+                              data-slide="prev">
                               <em class="fa fa-chevron-left"></em>
                            </a>
-                           <a class="carousel-button carousel-button-next" href="#multi-item-example" data-slide="next">
+                           <a class="carousel-button carousel-button-next" href="#category-item-indicator"
+                              data-slide="next">
                               <em class="fa fa-chevron-right"></em>
                            </a>
                         </div>
 
                         <!--Slides-->
-                        <div class="carousel-inner" role="listbox">
-                           <!--First slide-->
-                           <div class="carousel-item">
-                              <div class="row">
-                                 <div class="col-md-2 col-sm-4 col-xs-12 clearfix d-inline-block d-md-block">
-                                    <a class="card" href="./category?id=1">
-                                       <img class="card-img-top"
-                                            src="https://cf.shopee.vn/file/75ea42f9eca124e9cb3cde744c060e4d_tn"
-                                            alt="category_logo">
-                                       <div class="card-body text-center p-0 m-auto">
-                                          <h5 class="card-title m-auto py-1">Thời trang nữ</h5>
-                                       </div>
-                                    </a>
-                                 </div>
-
-                                 <div class="col-md-2 col-sm-4 col-xs-12 clearfix d-inline-block d-md-block">
-                                    <a class="card" href="javascipt:void(0)">
-                                       <img class="card-img-top"
-                                            src="https://mdbootstrap.com/img/Photos/Horizontal/City/4-col/img%20(60).jpg"
-                                            alt="category_logo">
-                                       <div class="card-body text-center p-0 m-auto">
-                                          <h5 class="card-title m-auto py-1"> Tên chuyên mục</h5>
-                                       </div>
-                                    </a>
-                                 </div>
-
-                                 <div class="col-md-2 col-sm-4 col-xs-12 clearfix d-inline-block d-md-block">
-                                    <a class="card" href="javascipt:void(0)">
-                                       <img class="card-img-top"
-                                            src="https://mdbootstrap.com/img/Photos/Horizontal/City/4-col/img%20(60).jpg"
-                                            alt="category_logo">
-                                       <div class="card-body text-center p-0 m-auto">
-                                          <h5 class="card-title m-auto py-1"> Tên chuyên mục</h5>
-                                       </div>
-                                    </a>
-                                 </div>
-
-                                 <div class="col-md-2 col-sm-4 col-xs-12 clearfix d-inline-block d-md-block">
-                                    <a class="card" href="javascipt:void(0)">
-                                       <img class="card-img-top"
-                                            src="https://mdbootstrap.com/img/Photos/Horizontal/City/4-col/img%20(60).jpg"
-                                            alt="category_logo">
-                                       <div class="card-body text-center p-0 m-auto">
-                                          <h5 class="card-title m-auto py-1"> Tên chuyên mục</h5>
-                                       </div>
-                                    </a>
-                                 </div>
-
-                                 <div class="col-md-2 col-sm-4 col-xs-12 clearfix d-inline-block d-md-block">
-                                    <a class="card" href="javascipt:void(0)">
-                                       <img class="card-img-top"
-                                            src="https://mdbootstrap.com/img/Photos/Horizontal/City/4-col/img%20(60).jpg"
-                                            alt="category_logo">
-                                       <div class="card-body text-center p-0 m-auto">
-                                          <h5 class="card-title m-auto py-1"> Tên chuyên mục</h5>
-                                       </div>
-                                    </a>
-                                 </div>
-
-                                 <div class="col-md-2 col-sm-4 col-xs-12 clearfix d-inline-block d-md-block">
-                                    <a class="card" href="javascipt:void(0)">
-                                       <img class="card-img-top"
-                                            src="https://mdbootstrap.com/img/Photos/Horizontal/City/4-col/img%20(60).jpg"
-                                            alt="category_logo">
-                                       <div class="card-body text-center p-0 m-auto">
-                                          <h5 class="card-title m-auto py-1"> Tên chuyên mục</h5>
-                                       </div>
-                                    </a>
-                                 </div>
-                              </div>
-
-                           </div>
-                           <!--/.First slide-->
-
-                           <!--Second slide-->
+                        <div id="category-list--slides" class="carousel-inner" role="listbox">
                            <div class="carousel-item active">
                               <div class="row">
                                  <div class="col-md-2 col-sm-4 col-xs-12 clearfix d-inline-block d-md-block">
-                                    <a class="card" href="javascipt:void(0)">
-                                       <img class="card-img-top" src="https://mdbootstrap.com/img/Photos/Horizontal/City/4-col/img%20(60).jpg" alt="category_logo">
-                                       <div class="card-body text-center p-0 m-auto"><h5 class="card-title m-auto py-1">Tên chuyên mục</h5></div>
-                                    </a>
+                                    <div class="circle-loading"></div>
                                  </div>
-
                                  <div class="col-md-2 col-sm-4 col-xs-12 clearfix d-inline-block d-md-block">
-                                    <a class="card" href="javascipt:void(0)">
-                                       <img class="card-img-top"
-                                            src="https://mdbootstrap.com/img/Photos/Horizontal/City/4-col/img%20(60).jpg"
-                                            alt="category_logo">
-                                       <div class="card-body text-center p-0 m-auto">
-                                          <h5 class="card-title m-auto py-1"> Tên chuyên mục</h5>
-                                       </div>
-                                    </a>
+                                    <div class="circle-loading"></div>
                                  </div>
-
                                  <div class="col-md-2 col-sm-4 col-xs-12 clearfix d-inline-block d-md-block">
-                                    <a class="card" href="javascipt:void(0)">
-                                       <img class="card-img-top"
-                                            src="https://mdbootstrap.com/img/Photos/Horizontal/City/4-col/img%20(60).jpg"
-                                            alt="category_logo">
-                                       <div class="card-body text-center p-0 m-auto">
-                                          <h5 class="card-title m-auto py-1"> Tên chuyên mục</h5>
-                                       </div>
-                                    </a>
+                                    <div class="circle-loading"></div>
                                  </div>
-
                                  <div class="col-md-2 col-sm-4 col-xs-12 clearfix d-inline-block d-md-block">
-                                    <a class="card" href="javascipt:void(0)">
-                                       <img class="card-img-top"
-                                            src="https://mdbootstrap.com/img/Photos/Horizontal/City/4-col/img%20(60).jpg"
-                                            alt="category_logo">
-                                       <div class="card-body text-center p-0 m-auto">
-                                          <h5 class="card-title m-auto py-1"> Tên chuyên mục</h5>
-                                       </div>
-                                    </a>
+                                    <div class="circle-loading"></div>
                                  </div>
-
                                  <div class="col-md-2 col-sm-4 col-xs-12 clearfix d-inline-block d-md-block">
-                                    <a class="card" href="javascipt:void(0)">
-                                       <img class="card-img-top"
-                                            src="https://mdbootstrap.com/img/Photos/Horizontal/City/4-col/img%20(60).jpg"
-                                            alt="category_logo">
-                                       <div class="card-body text-center p-0 m-auto">
-                                          <h5 class="card-title m-auto py-1"> Tên chuyên mục</h5>
-                                       </div>
-                                    </a>
+                                    <div class="circle-loading"></div>
                                  </div>
-
                                  <div class="col-md-2 col-sm-4 col-xs-12 clearfix d-inline-block d-md-block">
-                                    <a class="card" href="javascipt:void(0)">
-                                       <img class="card-img-top"
-                                            src="https://mdbootstrap.com/img/Photos/Horizontal/City/4-col/img%20(60).jpg"
-                                            alt="category_logo">
-                                       <div class="card-body text-center p-0 m-auto">
-                                          <h5 class="card-title m-auto py-1"> Tên chuyên mục</h5>
-                                       </div>
-                                    </a>
+                                    <div class="circle-loading"></div>
                                  </div>
                               </div>
-
                            </div>
-                           <!--/.Second slide-->
-
-                           <!--Third slide-->
-                           <div class="carousel-item">
-                              <div class="row">
-
-                                 <div class="col-md-2 col-sm-4 col-xs-12 clearfix d-inline-block d-md-block">
-                                    <a class="card" href="javascipt:void(0)">
-                                       <img class="card-img-top"
-                                            src="https://mdbootstrap.com/img/Photos/Horizontal/City/4-col/img%20(60).jpg"
-                                            alt="category_logo">
-                                       <div class="card-body text-center p-0 m-auto">
-                                          <h5 class="card-title m-auto py-1"> Tên chuyên mục</h5>
-                                       </div>
-                                    </a>
-                                 </div>
-
-                                 <div class="col-md-2 col-sm-4 col-xs-12 clearfix d-inline-block d-md-block">
-                                    <a class="card" href="javascipt:void(0)">
-                                       <img class="card-img-top"
-                                            src="https://mdbootstrap.com/img/Photos/Horizontal/City/4-col/img%20(60).jpg"
-                                            alt="category_logo">
-                                       <div class="card-body text-center p-0 m-auto">
-                                          <h5 class="card-title m-auto py-1"> Tên chuyên mục</h5>
-                                       </div>
-                                    </a>
-                                 </div>
-
-                                 <div class="col-md-2 col-sm-4 col-xs-12 clearfix d-inline-block d-md-block">
-                                    <a class="card" href="javascript:void(0)">
-                                       <img class="card-img-top"
-                                            src="https://mdbootstrap.com/img/Photos/Horizontal/City/4-col/img%20(60).jpg"
-                                            alt="category_logo">
-                                       <div class="card-body text-center p-0 m-auto">
-                                          <h5 class="card-title m-auto py-1"> Tên chuyên mục</h5>
-                                       </div>
-                                    </a>
-                                 </div>
-
-                                 <div class="col-md-2 col-sm-4 col-xs-12 clearfix d-inline-block d-md-block">
-                                    <a class="card" href="javascipt:void(0)">
-                                       <img class="card-img-top"
-                                            src="https://mdbootstrap.com/img/Photos/Horizontal/City/4-col/img%20(60).jpg"
-                                            alt="category_logo">
-                                       <div class="card-body text-center p-0 m-auto">
-                                          <h5 class="card-title m-auto py-1"> Tên chuyên mục</h5>
-                                       </div>
-                                    </a>
-                                 </div>
-
-                                 <div class="col-md-2 col-sm-4 col-xs-12 clearfix d-inline-block d-md-block">
-                                    <a class="card" href="javascipt:void(0)">
-                                       <img class="card-img-top"
-                                            src="https://mdbootstrap.com/img/Photos/Horizontal/City/4-col/img%20(60).jpg"
-                                            alt="category_logo">
-                                       <div class="card-body text-center p-0 m-auto">
-                                          <h5 class="card-title m-auto py-1"> Tên chuyên mục</h5>
-                                       </div>
-                                    </a>
-                                 </div>
-
-                                 <div class="col-md-2 col-sm-4 col-xs-12 clearfix d-inline-block d-md-block">
-                                    <a class="card" href="javascipt:void(0)">
-                                       <img class="card-img-top"
-                                            src="https://mdbootstrap.com/img/Photos/Horizontal/City/4-col/img%20(60).jpg"
-                                            alt="category_logo">
-                                       <div class="card-body text-center p-0 m-auto">
-                                          <h5 class="card-title m-auto py-1"> Tên chuyên mục</h5>
-                                       </div>
-                                    </a>
-                                 </div>
-                              </div>
-
-                           </div>
-                           <!--/.Third slide-->
-
                         </div>
                         <!--/.Slides-->
 
                         <!--Indicators-->
-                        <ol class="carousel-indicators mb-1" style="position: static;">
-                           <li data-target="#multi-item-example" data-slide-to="0" class="bg-primary active"></li>
-                           <li data-target="#multi-item-example" data-slide-to="1" class="bg-primary"></li>
-                           <li data-target="#multi-item-example" data-slide-to="2" class="bg-primary"></li>
+                        <ol id="category-list--ol" class="carousel-indicators mb-1" style="position: static;">
                         </ol>
                         <!--/.Indicators-->
                      </div>
@@ -324,7 +129,7 @@
                         <a class="btn-icon-clipboard p-2" href="javascript:void(0)">
                            <div>
                               <img src="../unknown-brand.svg" class="rounded avatar" alt="...">
-                              <h4 class="ml-3 my-auto">MSI</span>
+                              <h4 class="ml-3 my-auto">MSI</h4>
                            </div>
                         </a>
                      </div>
@@ -338,54 +143,50 @@
       <div class="row mt-0 justify-content-center">
          <div class="col">
             <div class="card">
+               <!--Product Title-->
                <div class="card-header bg-transparent">
                   <h3 class="mb-0 text-uppercase">Sản phẩm mới</h3>
                </div>
+               <!--Product main content-->
                <div class="card-body">
                   <div class="row" id="product-list">
                      <div class="col-lg-3 col-md-6">
-                        <a class="btn-icon-clipboard p-2" href="javascript:void(0)">
+                        <a class="product-item" href="javascript:void(0)">
                            <!--Product image-->
                            <div class="row">
                               <div class="col text-center">
-                                 <img src="../no-image-product.svg" class="rounded product-image" alt="...">
+                                 <img src="https://cdn.pixabay.com/photo/2018/03/30/15/11/deer-3275594_960_720.jpg"
+                                      class="rounded product-item__img" alt="...">
                               </div>
                            </div>
                            <!--Product name-->
                            <div class="row">
-                              <div class="col text-justify">
-                                 <h4 class="product-title mx-2 mt-2">Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                                    Qui,
-                                    adipisci!</h4>
+                              <div class="col">
+                                 <p class="product-item__name">Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                                    Eligendi, voluptas incidunt! Nulla tenetur consequatur nostrum dignissimos
+                                    temporibus iure assumenda iste quia, quam voluptates totam. Libero laboriosam ipsa
+                                    voluptates voluptatem ad!</p>
                               </div>
                            </div>
-                           <!--Product desc-->
-                           <!-- <div class="row">
-                             <div class="col m-2 text-justify">
-                               <p class="product-desc">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Obcaecati
-                                 praesentium maiores amet harum fuga. Iste temporibus veniam fugiat repudiandae veritatis!</p>
-                             </div>
-                           </div> -->
                            <!--Price and add to card-->
                            <div class="row mr-0">
                               <!--Price-->
                               <div class="col-8 p-0 text-left">
                                  <!--Order price-->
-                                 <span class="pl-4 pr--4 price order-price">200000</span>
+                                 <span class="product-item__price product-item__price--order">160000</span>
                                  <!--Origin price-->
-                                 <span class="price origin-price">
-                          <s>200000</s>
-                        </span>
+                                 <span class="product-item__price product-item__price--origin">200000</span>
                               </div>
                               <!--Add to card button-->
                               <div class="col-4 p-0 text-right">
-                                 <button type="button" onclick="addToCart('000000000')" class="btn btn-primary">
-                                    <i class="fa fa-cart-plus text-white"></i>
+                                 <button type="button" onclick="addToCart('000000000')" class="btn btn-primary"
+                                         data-toggle="tooltip" data-placement="top" title="Thêm vào giỏ hàng">
+                                    <em class="fa fa-cart-plus text-white" style="font-size: 1.2rem;"></em>
                                  </button>
                               </div>
                            </div>
                            <!--Deal Percent-->
-                           <span class="badge badge-pill badge-danger price-percent">46%</span>
+                           <span class="product-item__price-percent">10%</span>
                         </a>
                      </div>
                   </div>
@@ -403,8 +204,9 @@
       </div>
 
       <!--Scroll to top button-->
-      <a href="#" class="float">
-         <i class="fa fa-plus my-float"></i>
+      <button onclick="scrollToTop()" class="btn btn-icon-only btn-primary btn-circle btn-float">
+         <em class="fa fa-arrow-up"></em>
+      </button>
 
       <!-- Footer -->
       <%@ include file="../../common/footer.jsp" %>
@@ -414,13 +216,62 @@
 <!--Javascript-->
 <%@ include file="../../common/import-js.jsp" %>
 <script>
-   function loadProductCategory() {}
-   function loadBrand() {}
-   function loadProduct() { }
-   function addToCart(productId) { alert(productId); }
+  function loadProductCategory() {
+    let listCategory = [];
+    $.ajax({
+      url: '/api/product-categories',
+      method: 'GET',
+      data: {type: 'all'},
+      cache: false,
+      success: function (data, textStatus, jqXHR) {
+        let list = $.parseJSON(data);
+        console.log(list);
+        for (let i = 0; i < list.length; i += 6) {
+          let j = i;
+          let sub = [];
+          while (j < list.length && j < i + 6) {
+            sub.push(list[j]);
+            j++;
+          }
+          listCategory.push(sub);
+        }
+        $('#category-list--slides').find('div').remove();
+        $('#category-list--ol').find('li').remove();
+        for (let i = 0; i < listCategory.length; i++) {
+          let slides = '<div class="carousel-item' + (i == 0 ? ' active' : '') + '"><div class="row">';
+          for (let j = 0; j < listCategory[i].length; j++) {
+            slides += '<div class="col-md-2 col-sm-4 col-xs-12 clearfix d-inline-block d-md-block">'
+              + '<a class="card product-category-item" href="./category?id=' + listCategory[i][j].id + '">'
+              + '<img class="card-img-top" src="' + listCategory[i][j].image + '" alt="category_logo">'
+              + '<div class="card-body text-center p-0 m-auto">'
+              + '<h5 class="card-title m-auto py-1">' + listCategory[i][j].name + '</h5>'
+              + '</div>'
+              + '</a>'
+              + '</div>';
+          }
+          slides += '</div></div>';
+          $('#category-list--slides').append(slides);
+          $('#category-list--ol').append('<li data-target="#category-item-indicator" data-slide-to="' + i + '" class="bg-primary"></li>');
+        }
+      }
+    });
+  }
 
-   function scrollToTop() { window.scrollTo({ top: 0, left: 0, behavior: 'smooth' }); }
+  function loadBrand() {
+  }
 
+  function loadProduct() {
+  }
+
+  function addToCart(productId) {
+    alert(productId);
+  }
+
+  loadProductCategory();
+
+  function scrollToTop() {
+    window.scrollTo({top: 0, left: 0, behavior: 'smooth'});
+  }
 </script>
 </body>
 </html>

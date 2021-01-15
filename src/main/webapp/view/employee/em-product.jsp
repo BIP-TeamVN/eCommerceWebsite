@@ -8,14 +8,14 @@
 
 <body>
 <!--Left side nav-->
-<jsp:include page="sh--side-nav.jsp">
+<jsp:include page="em--side-nav.jsp">
    <jsp:param name="selectedIndex" value="6"/>
 </jsp:include>
 
 <!-- Main content -->
 <div class="main-content" id="panel">
    <!--Top navigation-->
-   <%@include file="./sh--top-nav.jsp" %>
+   <%@include file="../../common/em-top-nav.jsp" %>
 
    <!-- Page content -->
    <div class="container-fluid">
@@ -35,14 +35,6 @@
       <div class="row">
          <div class="col-md-10 ml-auto mr-auto">
             <h2 class="display-3 text-center text-uppercase my-5">Danh sách Sản phẩm</h2>
-         </div>
-      </div>
-
-      <!--Button thêm-->
-      <div class="row">
-         <div class="col ml-auto mr-auto text-right">
-               <a href="${javax.servlet.ServletRequest.getServerName()}/seller/product/add" class="text-uppercase btn btn-primary pl-4 pr-4 mb-4">Thêm sản phẩm</a>
-            </a>
          </div>
       </div>
 
@@ -180,6 +172,7 @@
         console.log(list);
         $('#tb-list').find('tr').remove();
         $.each(list, function (index, item) {
+          console.log(item.status);
           let html =
             '<tr>' +
             '<td>' +
@@ -197,9 +190,9 @@
             '<td>' + item.priceOrigin + '</td>' +
             '<td>' + item.priceOrder + '</td>' +
             '<td class="td-actions text-center">' +
-            '<a href="/seller/product/edit?id=' + item.id + '" class="btn btn-primary px-2 py-1" data-toggle="tooltip" data-placement="top" title="Chỉnh sửa thông tin sản phẩm">' +
+            '<button class="btn btn-primary px-2 py-1" onclick="showProductDetail('+ item.id +')">' +
             '<i class="fa fa-edit"></i>' +
-            '</a>' +
+            '</button>' +
             (item.status === "0" ?
               '<a href="#" class="btn btn-danger px-2 py-1" data-toggle="tooltip" data-placement="top" title="Chưa xác nhận">' +
               '<i class="fa fa-lock"></i>' +
@@ -215,6 +208,47 @@
     });
   }
 </script>
+<script>
+  let id;
+   function showProductDetail(idPara) {
+     id = idPara;
+     console.log(id);
+     $.ajax({
+       url: '/employee/product/detail',
+       method: 'GET',
+       data: {'id': id},
+       cache: false,
+       success: function (data) {
+         let list = JSON.parse(data)[0];
+         $('#modal-product-detail').modal('show');
+         $('#id').html('<b>Mã:</b> ' + list.id);
+         $('#product-name').html('<b>Tên sản phẩm:</b> ' + list.productName);
+         $('#brand').html('<b>Nhãn hiệu:</b> ' + list.brand);
+         $('#product-origin').html('<b>Nơi sản xuất:</b> ' + list.productOrigin);
+         $('#product-desc').html('<b>Mô tả:</b> <br>' + list.productDesc);
+         $('#price-order').html('<b>Nơi sản xuất:</b> ' + list.priceOrder);
+         $('#price-origin').html('<b>Nơi sản xuất:</b> ' + list.priceOrigin);
+         setImage("img-upload-0", list.image0);
+         setImage("img-upload-1", list.image1);
+         setImage("img-upload-2", list.image2);
+         setImage("img-upload-3", list.image3);
+         setImage("img-upload-4", list.image4);
+         countPara = list.countType;
+         typesPara = list.types.split('@$3,');
+         quantitiesPara = list.quantities.split('@$3,');
+         imagesPara = list.images.split('@$3,');
+         $('#categories').html('<b>Ngành hàng: </b>' + list.categories);
+         addType();
+       }
+     });
+   }
+</script>
+<script>
+  function setImage(id, src) {
+      $('#' + id).attr('src',src);
+  }
+</script>
+<%@ include file="./em-product-detail.jsp" %>
 </body>
 </html>
 

@@ -189,7 +189,6 @@ $('#' + FORM_ID).submit(function (e) {
         let result = data.toString().split('\n');
         console.log("'" + result[0] + "'");
         if (result[0] === 'true') {
-          console.log("cmm");
           $('#successful-modal').modal('show');
         } else {
           alert("Lỗi: " + result[1]);

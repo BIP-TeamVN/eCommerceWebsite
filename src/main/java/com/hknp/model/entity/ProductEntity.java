@@ -56,7 +56,7 @@ public class ProductEntity implements Serializable {
    String image4;
 
    @Column(name = "STATUS")
-   Boolean status;
+   Integer status;
 
    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
    @JoinColumn(name = "PRODUCT_ID")
@@ -74,11 +74,11 @@ public class ProductEntity implements Serializable {
    public ProductEntity() {
    }
 
-   public Boolean getStatus() {
+   public Integer getStatus() {
       return status;
    }
 
-   public void setStatus(Boolean status) {
+   public void setStatus(Integer status) {
       this.status = status;
    }
 

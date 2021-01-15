@@ -381,7 +381,7 @@
       '<div class="row" id="div-type-' + countType + '">' +
       '<div class="col-md-8">' +
       '<div class="form-group">' +
-      '<label for="quantity-' + countType + '" class="form-control-label">Số lượng</label>' +
+      '<label for="quantity-' + countType + '" class="form-control-label">Tên loại</label>' +
       '<div>' +
       '<input class="form-control" type="text" id="type-name-' + countType + '" name="type-name-' + countType +  '"' +
       'maxlength="30" placeholder="VD: Xanh">' +

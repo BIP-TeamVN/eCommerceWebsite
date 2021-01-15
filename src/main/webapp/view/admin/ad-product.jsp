@@ -191,7 +191,7 @@
                        '<a href="/admin/employee/edit?id=' + item.id +'" class="btn btn-primary px-2 py-1" data-toggle="tooltip" data-placement="top" title="Chỉnh sửa thông tin">' +
                        '<i class="fa fa-edit"></i>' +
                        '</a>' +
-                       (item.status === "true" ?
+                       (item.status === "0" ?
                                '<a href="#" class="btn btn-danger px-2 py-1" data-toggle="tooltip" data-placement="top" title="Chưa xác nhận">' +
                                '<i class="fa fa-lock"></i>' +
                                '</a>' :
