@@ -23,6 +23,9 @@ public class Cons {
 
    public static class Product {
       public static final String DEFAULT_PRODUCT_IMAGE = "../../assets/img/no-image-product.svg";
+      public static final Integer PRODUCT_STATUS_CREATE = 0;//Chưa xác nhận
+      public static final Integer PRODUCT_STATUS_ACCESS = 1;//xác nhận
+      public static final Integer PRODUCT_STATUS_REJECT = 2;//Từ chối
    }
 
    public static class ProductCategory {

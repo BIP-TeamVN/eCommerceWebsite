@@ -8,6 +8,7 @@ import com.hknp.model.entity.UserEntity;
 import com.hknp.utils.Base64Utils;
 import com.hknp.utils.EntityUtils;
 import com.hknp.utils.HashUtils;
+import org.hibernate.SessionFactory;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
@@ -175,5 +176,21 @@ public class ProductDAO implements IRetrieveEntity<ProductEntity, Long>, IModify
       query.setParameter("sellerIdPara", sellerId);
 
       return (Long) query.getSingleResult();
+   }
+
+   public Boolean updateStatus (Long productId, Integer status) {
+      EntityManager entityMgr = EntityUtils.getEntityManager();
+      EntityTransaction tran = entityMgr.getTransaction();
+      tran.begin();
+
+      String queryStr = "update ProductEntity as p set p.status = :statusPara where p.productId = :productIdPara";
+      Query query = entityMgr.createQuery(queryStr);
+      query.setParameter("productIdPara", productId);
+      query.setParameter("statusPara", status);
+
+      Integer result = query.executeUpdate();
+
+      tran.commit();
+      return result > 0;
    }
 }
