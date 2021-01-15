@@ -8,14 +8,14 @@
 
 <body>
 <!--Left side nav-->
-<jsp:include page="dh--side-nav.jsp">
+<jsp:include page="sh--side-nav.jsp">
    <jsp:param name="selectedIndex" value="2"/>
 </jsp:include>
 
 <!-- Main content -->
 <div class="main-content" id="panel">
    <!--Top navigation-->
-   <%@include file="./dh--top-nav.jsp" %>
+   <%@include file="./sh--top-nav.jsp" %>
 
    <!-- Page content -->
    <div class="container-fluid">
@@ -38,57 +38,58 @@
          </div>
       </div>
 
-         <!-- From add product-category -->
-         <div class="row">
-            <div class="col-md-6">
-               <div class="form-group">
-                  <label for="total" class="form-control-label">Tổng giá trị đơn hàng</label>
-                  <div>
-                     <input class="form-control" type="text" id="total"
-                            name="total" maxlength="40" value="${total}">
-                  </div>
-               </div>
-            </div>
-            <div class="col-md-6">
-               <div class="form-group">
-                  <label for="discount" class="form-control-label">Giảm giá</label>
-                  <input class="form-control" type="text" id="discount" name="discount" maxlength=10 value="${discount}">
-               </div>
-            </div>
-         </div>
-         <%@ include file="../../common/form-add-seller.jsp" %>
-      </div>
-
-      <!-- Table -->
+      <!-- From add product-category -->
       <div class="row">
-         <div class="col m-auto table-responsive">
-            <table class="table">
-               <thead>
-               <tr>
-                  <th scope="col" class="text-center">Mã sản phẩm</th>
-                  <th scope="col" class="text-center">Ảnh sản phẩm</th>
-                  <th scope="col" class="text-center">Tên sản phẩm</th>
-                  <th scope="col" class="text-center">Màu sắc - Size</th>
-                  <th scope="col" class="text-center">Số lượng</th>
-                  <th scope="col" class="text-center">Giá tiền/ 1 sản phẩm</th>
-                  <th scope="col" class="text-center">Thành tiền</th>
-               </tr>
-               </thead>
-               <form id="getbill">
-                  <tbody class="list" id="tb-list">
-                  </tbody>
-               </form>
-            </table>
+         <div class="col-md-6">
+            <div class="form-group">
+               <label for="total" class="form-control-label">Tổng giá trị đơn hàng</label>
+               <div>
+                  <input class="form-control" type="text" id="total"
+                         name="total" maxlength="40" value="${total}">
+               </div>
+            </div>
+         </div>
+         <div class="col-md-6">
+            <div class="form-group">
+               <label for="discount" class="form-control-label">Giảm giá</label>
+               <input class="form-control" type="text" id="discount" name="discount" maxlength=10 value="${discount}">
+            </div>
          </div>
       </div>
-      <div class="modal-footer p-3 text-uppercase">
-         <button class="btn btn-secondary pl-6 pr-6" type="button" id="btn-cancel" data-dismiss="modal">Trở về</button>
-         <button class="btn btn-primary pl-6 pr-6" type="submit" form="getbill">Nhận đơn</button>
-      </div>
-
-      <!-- Footer -->
-      <%@ include file="../../common/footer.jsp" %>
+      <%@ include file="../../common/form-add-seller.jsp" %>
    </div>
+
+   <!-- Table -->
+   <div class="row">
+      <div class="col m-auto table-responsive">
+         <table class="table">
+            <thead>
+            <tr>
+               <th scope="col" class="text-center">Mã sản phẩm</th>
+               <th scope="col" class="text-center">Ảnh sản phẩm</th>
+               <th scope="col" class="text-center">Tên sản phẩm</th>
+               <th scope="col" class="text-center">Màu sắc - Size</th>
+               <th scope="col" class="text-center">Số lượng</th>
+               <th scope="col" class="text-center">Giá tiền/ 1 sản phẩm</th>
+               <th scope="col" class="text-center">Thành tiền</th>
+            </tr>
+            </thead>
+            <form id="getbill">
+               <tbody class="list" id="tb-list">
+               </tbody>
+            </form>
+         </table>
+      </div>
+   </div>
+   <div class="modal-footer p-3 text-uppercase">
+      <button class="btn btn-secondary pl-6 pr-6" type="button" id="btn-cancel" data-dismiss="modal" onclick="Back()">Trở về</button>
+      <button class="btn btn-primary pl-2 pr-1" type="button" data-dismiss="modal" onclick="Accept(${totalPage})">Duyệt Đơn</button>
+      <button class="btn btn-primary pl-2 pr-1" type="button" data-dismiss="modal" onclick="Reject(${totalPage})">Không Duyệt</button>
+   </div>
+
+   <!-- Footer -->
+   <%@ include file="../../common/footer.jsp" %>
+</div>
 </div>
 
 <!--Javascript-->
@@ -194,6 +195,41 @@
         });
       }
     });
+  }
+</script>
+<script>
+  function Back(){
+    window.history.back();
+  }
+  function Accept(billId){
+    let paras = JSON.stringify({
+      'id': billId.toString(),
+      'status': 2
+    })
+    $.ajax({
+      url: "/api/bill/view/detail",
+      method: 'PUT',
+      async: false,
+      cache: false,
+      data: paras,
+    })
+    alert('Đã duyệt đơn hàng mã số ' + ${totalPage}+ ' thành công');
+    window.history.back();
+  }
+  function Reject(billId){
+    let paras = JSON.stringify({
+      'id': billId.toString(),
+      'status': 0
+    })
+    $.ajax({
+      url: "/api/bill/view/detail",
+      method: 'PUT',
+      async: false,
+      cache: false,
+      data: paras,
+    })
+    alert('Hủy đơn hàng mã số ' + ${totalPage}+ ' thành công');
+    window.history.back();
   }
 </script>
 </body>

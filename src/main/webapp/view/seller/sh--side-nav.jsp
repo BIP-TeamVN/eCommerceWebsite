@@ -46,7 +46,7 @@
                </li>
                <li class="nav-item">
                   <a class="nav-link <%=isActive[2] ? "active" : ""%>" href="<%=isActive[2] ? "javascript:void(0)" : "/seller/bills"%>">
-                     <i class="fa fa-comment-dots text-blue"></i>
+                     <i class="fa fa-file-invoice text-green"></i>
                      <span class="nav-link-text">Đơn hàng</span>
                   </a>
                </li>
