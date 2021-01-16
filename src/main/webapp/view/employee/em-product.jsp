@@ -38,6 +38,8 @@
          </div>
       </div>
 
+      <%@ include file="/common/product-filter.jsp" %>
+
       <!-- Table -->
       <div class="row">
          <div class="col m-auto table-responsive">
@@ -51,7 +53,7 @@
                   <th scope="col" class="text-center">Cửa hàng</th>
                   <th scope="col" class="text-center">Đánh giá</th>
                   <th scope="col" class="text-center">Nước sản xuất</th>
-                  <th scope="col" class="text-center">Giá thị trường</th>
+                  <th scope="col" class="text-center">Ngày tạo</th>
                   <th scope="col" class="text-center">Giá bán</th>
                   <th scope="col" class="text-center">Tùy chọn</th>
                </tr>
@@ -137,6 +139,8 @@
   }
 
   function updatePagination() {
+    console.log(totalPage);
+    console.log(currentPage);
     $('#page-pagination').find('li').remove();
 
     $('#page-pagination').append(currentPage > 2 ? firstPageButton : '');
@@ -163,7 +167,10 @@
     $.ajax({
       url: '/api/product',
       method: 'GET',
-      data: {page: currentPage},
+      data: {
+        'page': currentPage,
+        'status': $('#status').val()
+      },
       cache: false,
       success: function (data, textStatus, jqXHR) {
         console.log(data);
@@ -185,7 +192,7 @@
             '<td>' + item.seller + '</td>' +
             '<td>' + item.productRate + '</td>' +
             '<td>' + item.productOrigin + '</td>' +
-            '<td>' + item.priceOrigin + '</td>' +
+            '<td>' + item.createDate + '</td>' +
             '<td>' + item.priceOrder + '</td>' +
             '<td class="td-actions text-center">' +
             '<button class="btn btn-primary px-2 py-1" onclick="showProductDetail('+ item.id +')">' +
@@ -199,7 +206,7 @@
               '<i class="fa fa-lock-open"></i>' +
               '</label>' :
               '<label class="btn btn-warning px-2 py-1 mt-2" title="Đã từ chối" id="status-' + item.id + '">' +
-              '<i class="fa fa-lock"></i>' +
+              '<i class="fa fa-exclamation-triangle"></i>' +
               '</label>')) +
             '</td>' +
             '</tr>';

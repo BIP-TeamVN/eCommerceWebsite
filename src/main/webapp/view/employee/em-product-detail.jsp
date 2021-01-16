@@ -246,7 +246,7 @@
         if (result[0] === 'true') {
           $('#div-notify').html('Đã từ chối sản phẩm');
           $('#successful-modal').modal('show');
-          $('#status-' + id).html('<i class="fa fa-lock"></i>');
+          $('#status-' + id).html('<i class="fa fa-exclamation-triangle"></i>');
           $('#status-' + id).attr('class', 'btn btn-warning px-2 py-1 mt-2');
           $('#status-' + id).attr('title', 'Đã từ chối');
         } else {
