@@ -225,7 +225,7 @@
                   </div>
                </a>
                <div class="dropdown-menu  dropdown-menu-right ">
-                  <a href="#!" class="dropdown-item">
+                  <a href="/admin/information/edit" class="dropdown-item">
                      <i class="ni ni-single-02"></i>
                      <span>Tài khoản của tôi</span>
                   </a>
@@ -344,7 +344,7 @@
    </div>
 </div>
 
-<%@ include file="../../common/import-js.jsp" %>
+<%@ include file="../../common/import-js.jsp"%>
 <script src="../../assets/js/validate/validate-change-password.js"></script>
 
 

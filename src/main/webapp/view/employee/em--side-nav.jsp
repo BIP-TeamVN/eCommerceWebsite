@@ -33,7 +33,7 @@
             <!-- Nav items -->
             <ul class="navbar-nav">
                <li class="nav-item">
-                  <a class="nav-link <%=isActive[0] ? "active" : ""%>" href="<%=isActive[0] ? "javascript:void(0)" : "/admin"%>">
+                  <a class="nav-link <%=isActive[0] ? "active" : ""%>" href="<%=isActive[0] ? "javascript:void(0)" : "/employee"%>">
                      <i class="ni ni-tv-2 text-primary"></i>
                      <span class="nav-link-text">Dashboard</span>
                   </a>
@@ -75,7 +75,7 @@
                   </a>
                </li>
                <li class="nav-item">
-                  <a class="nav-link <%=isActive[7] ? "active" : ""%>" href="<%=isActive[7] ? "javascript:void(0)" : "/admin/brand"%>">
+                  <a class="nav-link <%=isActive[7] ? "active" : ""%>" href="<%=isActive[7] ? "javascript:void(0)" : "/employee/brand"%>">
                      <i class="fa fa-copyright text-default"></i>
                      <span class="nav-link-text">Nhãn hiệu</span>
                   </a>
