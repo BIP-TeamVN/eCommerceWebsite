@@ -38,14 +38,16 @@
          </div>
       </div>
 
-      <div class="col-md-2 form-group">
+      <div class="col-md-3 form-group">
          <label for="status" class="form-control-label">Trạng thái</label>
          <div>
             <select class="form-control" id="status" name="status" required>
-               <option value="1">Đợi duyệt</option>
+               <option value="0">Đợi duyệt</option>
                <option value="2">Đã duyệt</option>
-               <option value="3">Đang giao</option>
-               <option value="4">Đã giao xong</option>
+               <option value="4">Đang đợi shipper nhận hàng</option>
+               <option value="5">Đang giao</option>
+               <option value="6">Đã giao xong</option>
+               <option value="7">Giao thất bại</option>
             </select>
          </div>
 
@@ -114,25 +116,6 @@
       cache: false
     });
   });
-</script>
-<script>
-  function GetBill(billId){
-    let paras = JSON.stringify({
-      'id': billId.toString(),
-      'status': 3
-    })
-    $.ajax({
-      url: "/api/bill/view/detail",
-      method: 'PUT',
-      async: false,
-      cache: false,
-      data: paras,
-      success: function (){
-        $("#hay" + billId).remove();
-      }
-    })
-    alert("Nhận đơn thành công!");
-  }
 </script>
 <script src="../../assets/js/validate/load-bill-by-status-for-seller.js"></script>
 </body>

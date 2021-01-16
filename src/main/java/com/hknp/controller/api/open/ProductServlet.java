@@ -34,7 +34,7 @@ public class ProductServlet extends HttpServlet {
       List<String> listJsonStr = new ArrayList<>();
 
       if (UserDAO.getInstance().getById(id).getUserType().equals(Cons.User.USER_TYPE_SELLER)) {
-         listProduct = ProductDAO.getInstance().gets((page - 1) * 10, 10, id);
+         listProduct = ProductDAO.getInstance().gets((page - 1) * 10, 10, id, 1);
       }
       else {
          listProduct = ProductDAO.getInstance().gets((page - 1) * 10, 10);

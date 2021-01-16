@@ -4,19 +4,17 @@
 <%@ page import="java.time.Duration" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8" %>
 <%
-   ;
    String minDob = DateTimeUtils.dateToString(Date.from(Instant.now().minus(Duration.ofDays(36520))), "yyyy-MM-dd");
    String defaultDob = DateTimeUtils.dateToString(Date.from(Instant.now().minus(Duration.ofDays(3652))), "yyyy-MM-dd");
    String today = DateTimeUtils.dateToString(Date.from(Instant.now()), "yyyy-MM-dd");
 %>
 
 <!-- Modal -->
-<div class="modal fade bd-example-modal-lg" id="modal-add-employee" tabindex="-1" role="dialog"
-     aria-labelledby="exampleModalLabel" aria-hidden="true">
-   <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+<div id="modal-add-employee" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+   <div class="modal-dialog modal-lg modal-dialog-scrollable modal-dialog-centered" role="document">
       <div class="modal-content">
          <div class="modal-header p-3">
-            <h5 class="display-3 mx-3 my-2 text-uppercase">Thêm nhân viên mới</h5>
+            <h2 class="mx-3 my-2 text-center text-uppercase display-4">Thêm nhân viên mới</h2>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                <span aria-hidden="true">&times;</span>
             </button>
@@ -199,6 +197,7 @@
       </div>
    </div>
 </div>
+
 <!-- Modal add successful -->
 <div class="modal fade" id="successful-modal" tabindex="-1" role="dialog" aria-labelledby="conform-modal-lb" aria-hidden="true">
    <div class="modal-dialog" role="document">
@@ -218,6 +217,7 @@
       </div>
    </div>
 </div>
+
 <%@ include file="import-js.jsp" %>
 <script src="../../assets/js/dynamic-admin-unit-drop-down.js"></script>
 <script src="../../assets/js/validate/validate-employee-form.js"></script>

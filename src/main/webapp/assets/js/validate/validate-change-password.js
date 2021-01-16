@@ -1,5 +1,3 @@
-const FORM_ID = 'change-password-form';
-
 const password = document.getElementById('current-password');
 const newPassword = document.getElementById('new-password');
 const rePassword = document.getElementById('retype-password');
@@ -63,7 +61,7 @@ function checkInputPassword() {
   }
 }
 
-$('#' + FORM_ID).submit(function (e) {
+$('#change-password-form').submit(function (e) {
   e.preventDefault();
   checkInputPassword();
 

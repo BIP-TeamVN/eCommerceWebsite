@@ -101,21 +101,35 @@ public class ProductDAO implements IRetrieveEntity<ProductEntity, Long>, IModify
 
    @Override
    public ArrayList<ProductEntity> gets(Integer firstResult, Integer maxResults) {
+      return gets(firstResult, maxResults, 3);
+   }
+
+   public ArrayList<ProductEntity> gets(Integer firstResult, Integer maxResults, Integer status) {
       EntityManager entityMgr = EntityUtils.getEntityManager();
 
-      String query = "SELECT u FROM ProductEntity u";
-      TypedQuery<ProductEntity> typedQuery = entityMgr.createQuery(query, ProductEntity.class);
+      Query query;
+      String queryStr;
+      if (status != 3) {
+         queryStr = "SELECT u FROM ProductEntity u where u.status = :statusPara";
+
+         query = entityMgr.createQuery(queryStr, ProductEntity.class);
+         query.setParameter("statusPara", status);
+      } else {
+         queryStr = "SELECT u FROM ProductEntity u";
+
+         query = entityMgr.createQuery(queryStr, ProductEntity.class);
+      }
 
       if (firstResult != null) {
-         typedQuery.setFirstResult(firstResult);
+         query.setFirstResult(firstResult);
       }
       if (maxResults != null) {
-         typedQuery.setMaxResults(maxResults);
+         query.setMaxResults(maxResults);
       }
 
       ArrayList<ProductEntity> result = null;
       try {
-         result = new ArrayList<>(typedQuery.getResultList());
+         result = new ArrayList<>(query.getResultList());
       } catch (Exception exception) {
          exception.printStackTrace();
       } finally {
@@ -124,22 +138,34 @@ public class ProductDAO implements IRetrieveEntity<ProductEntity, Long>, IModify
       return result;
    }
 
-   public ArrayList<ProductEntity> gets(Integer firstResult, Integer maxResults, Long sellerId) {
+   public ArrayList<ProductEntity> gets(Integer firstResult, Integer maxResults, Long sellerId, Integer status) {
       EntityManager entityMgr = EntityUtils.getEntityManager();
 
-      String query = "SELECT u FROM ProductEntity u where u.sellerEntity.userId = " + sellerId;
-      TypedQuery<ProductEntity> typedQuery = entityMgr.createQuery(query, ProductEntity.class);
+      Query query;
+      String queryStr;
+      if (status != 3) {
+         queryStr = "SELECT u FROM ProductEntity u where u.sellerEntity.userId = :sellerIdPara and u.status = :statusPara";
+
+         query = entityMgr.createQuery(queryStr, ProductEntity.class);
+         query.setParameter("statusPara", status);
+      } else {
+         queryStr = "SELECT u FROM ProductEntity u where u.sellerEntity.userId = :sellerIdPara";
+
+         query = entityMgr.createQuery(queryStr, ProductEntity.class);
+      }
+      query.setParameter("sellerIdPara", sellerId);
+
 
       if (firstResult != null) {
-         typedQuery.setFirstResult(firstResult);
+         query.setFirstResult(firstResult);
       }
       if (maxResults != null) {
-         typedQuery.setMaxResults(maxResults);
+         query.setMaxResults(maxResults);
       }
 
       ArrayList<ProductEntity> result = null;
       try {
-         result = new ArrayList<>(typedQuery.getResultList());
+         result = new ArrayList<>(query.getResultList());
       } catch (Exception exception) {
          exception.printStackTrace();
       } finally {
@@ -168,11 +194,36 @@ public class ProductDAO implements IRetrieveEntity<ProductEntity, Long>, IModify
    @Override
    public Long count() {return EntityUtils.count(ProductEntity.class.getName());}
 
-   public Long count(Long sellerId) {
+   public Long count(Integer status) {
       EntityManager entityMgr = EntityUtils.getEntityManager();
 
-      String queryStr = "select count(*) from ProductEntity p where p.sellerEntity.userId = :sellerIdPara";
-      Query query = entityMgr.createQuery(queryStr);
+      String queryStr;
+      Query query;
+      if (status != 3) {
+         queryStr = "select count(*) from ProductEntity p where p.status = :statusPara";
+         query = entityMgr.createQuery(queryStr);
+         query.setParameter("statusPara", status);
+      } else {
+         queryStr = "select count(*) from ProductEntity p";
+         query = entityMgr.createQuery(queryStr);
+      }
+
+      return (Long) query.getSingleResult();
+   }
+
+   public Long count(Long sellerId, Integer status) {
+      EntityManager entityMgr = EntityUtils.getEntityManager();
+
+      String queryStr;
+      Query query;
+      if (status != 3) {
+         queryStr = "select count(*) from ProductEntity p where p.sellerEntity.userId = :sellerIdPara and p.status = :statusPara";
+         query = entityMgr.createQuery(queryStr);
+         query.setParameter("statusPara", status);
+      } else {
+         queryStr = "select count(*) from ProductEntity p where p.sellerEntity.userId = :sellerIdPara";
+         query = entityMgr.createQuery(queryStr);
+      }
       query.setParameter("sellerIdPara", sellerId);
 
       return (Long) query.getSingleResult();
@@ -202,5 +253,45 @@ public class ProductDAO implements IRetrieveEntity<ProductEntity, Long>, IModify
       query.setParameter("productIdPara", productId);
 
       return (Integer) query.getSingleResult();
+   }
+
+   public ArrayList<ProductEntity> searchProduct(String keyWord) {
+      EntityManager entityMgr = EntityUtils.getEntityManager();
+      QueryBuilderqueryBuilder
+
+/*
+      Query query;
+      String queryStr;
+      if (status != 3) {
+         queryStr = "SELECT u FROM ProductEntity u where u.sellerEntity.userId = :sellerIdPara and u.status = :statusPara";
+
+         query = entityMgr.createQuery(queryStr, ProductEntity.class);
+         query.setParameter("statusPara", status);
+      } else {
+         queryStr = "SELECT u FROM ProductEntity u where u.sellerEntity.userId = :sellerIdPara";
+
+         query = entityMgr.createQuery(queryStr, ProductEntity.class);
+      }
+      query.setParameter("sellerIdPara", sellerId);
+
+
+      if (firstResult != null) {
+         query.setFirstResult(firstResult);
+      }
+      if (maxResults != null) {
+         query.setMaxResults(maxResults);
+      }
+
+      ArrayList<ProductEntity> result = null;
+      try {
+         result = new ArrayList<>(query.getResultList());
+      } catch (Exception exception) {
+         exception.printStackTrace();
+      } finally {
+         entityMgr.close();
+      }
+      return result;
+
+ */
    }
 }

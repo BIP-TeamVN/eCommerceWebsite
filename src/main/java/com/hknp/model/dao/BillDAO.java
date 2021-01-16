@@ -135,22 +135,25 @@ public class BillDAO implements IRetrieveEntity<BillEntity, Long>, IModifySingle
       return result;
    }
 
-   public ArrayList<BillEntity> getsForDelivery(Integer firstResult, Integer maxResults, Long deliveryId) {
+   public ArrayList<BillEntity> getsForDelivery(Integer firstResult, Integer maxResults, Long deliveryId, Integer status) {
       EntityManager entityMgr = EntityUtils.getEntityManager();
 
-      String query = "SELECT u FROM BillEntity u where u.status = 3 and u.deliveryEntity.id =" + deliveryId ;
-      TypedQuery<BillEntity> typedQuery = entityMgr.createQuery(query, BillEntity.class);
+      String strQuery = "SELECT u FROM BillEntity u where u.status =: status and u.deliveryEntity.id =: deliveryId "  ;
+
+      Query query = entityMgr.createQuery(strQuery);
+      query.setParameter("deliveryId", deliveryId);
+      query.setParameter("status", status);
 
       if (firstResult != null) {
-         typedQuery.setFirstResult(firstResult);
+         query.setFirstResult(firstResult);
       }
       if (maxResults != null) {
-         typedQuery.setMaxResults(maxResults);
+         query.setMaxResults(maxResults);
       }
 
       ArrayList<BillEntity> result = null;
       try {
-         result = new ArrayList<>(typedQuery.getResultList());
+         result = new ArrayList<>(query.getResultList());
       } catch (Exception exception) {
          exception.printStackTrace();
       } finally {
