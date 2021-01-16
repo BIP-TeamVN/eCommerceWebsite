@@ -38,6 +38,8 @@
          </div>
       </div>
 
+      <%@ include file="/common/product-filter.jsp" %>
+
       <!--Button thêm-->
       <div class="row">
          <div class="col ml-auto mr-auto text-right">
@@ -59,7 +61,7 @@
                   <th scope="col" class="text-center">Cửa hàng</th>
                   <th scope="col" class="text-center">Đánh giá</th>
                   <th scope="col" class="text-center">Nước sản xuất</th>
-                  <th scope="col" class="text-center">Giá thị trường</th>
+                  <th scope="col" class="text-center">Ngày tạo</th>
                   <th scope="col" class="text-center">Giá bán</th>
                   <th scope="col" class="text-center">Tùy chọn</th>
                </tr>
@@ -171,7 +173,10 @@
     $.ajax({
       url: '/api/product',
       method: 'GET',
-      data: {page: currentPage},
+      data: {
+        'page': currentPage,
+        'status': $('#status').val()
+      },
       cache: false,
       success: function (data, textStatus, jqXHR) {
         console.log(data);
@@ -179,6 +184,7 @@
         console.log(list);
         $('#tb-list').find('tr').remove();
         $.each(list, function (index, item) {
+          console.log(item.status);
           let html =
             '<tr>' +
             '<td>' +
@@ -192,7 +198,7 @@
             '<td>' + item.seller + '</td>' +
             '<td>' + item.productRate + '</td>' +
             '<td>' + item.productOrigin + '</td>' +
-            '<td>' + item.priceOrigin + '</td>' +
+            '<td>' + item.createDate + '</td>' +
             '<td>' + item.priceOrder + '</td>' +
             '<td class="td-actions text-center">' +
             '<a href="/seller/product/edit?id=' + item.id + '" class="btn btn-primary px-2 py-1" data-toggle="tooltip" data-placement="top" title="Chỉnh sửa thông tin sản phẩm">' +
@@ -202,12 +208,12 @@
               '<label class="btn btn-danger px-2 py-1 mt-2" title="Chưa xác nhận" id="status-' + item.id + '">' +
               '<i class="fa fa-lock"></i>' +
               '</label>' : (item.status === "1" ?
-              '<label class="btn btn-success px-2 py-1 mt-2" title="Đã xác nhận" id="status-' + item.id + '">' +
-              '<i class="fa fa-lock-open"></i>' +
-              '</label>' :
-              '<label class="btn btn-warning px-2 py-1 mt-2" title="Đã từ chối" id="status-' + item.id + '">' +
-              '<i class="fa fa-lock"></i>' +
-              '</label>')) +
+                '<label class="btn btn-success px-2 py-1 mt-2" title="Đã xác nhận" id="status-' + item.id + '">' +
+                '<i class="fa fa-lock-open"></i>' +
+                '</label>' :
+                '<label class="btn btn-warning px-2 py-1 mt-2" title="Đã từ chối" id="status-' + item.id + '">' +
+                '<i class="fa fa-exclamation-triangle"></i>' +
+                '</label>')) +
             '</td>' +
             '</tr>';
           $('#tb-list').append(html);

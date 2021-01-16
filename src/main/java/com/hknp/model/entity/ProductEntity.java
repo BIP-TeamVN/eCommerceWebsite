@@ -1,8 +1,11 @@
 package com.hknp.model.entity;
 
+import com.hknp.utils.DateTimeUtils;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
@@ -39,6 +42,9 @@ public class ProductEntity implements Serializable {
 
    @Column(name = "PRICE_ORDER")
    BigDecimal priceOrder;
+
+   @Column(name = "PRODUCT_CREATE_DATE")
+   Date productCreateDate;
 
    @Column(name = "IMAGE_0")
    String image0;
@@ -80,6 +86,14 @@ public class ProductEntity implements Serializable {
 
    public void setStatus(Integer status) {
       this.status = status;
+   }
+
+   public Date getProductCreateDate() {
+      return productCreateDate;
+   }
+
+   public void setProductCreateDate(Date productCreateDate) {
+      this.productCreateDate = productCreateDate;
    }
 
    public String getImage0() {
@@ -246,7 +260,7 @@ public class ProductEntity implements Serializable {
               "\"seller\":\"" + sellerEntity.getStoreName() + "\"," +
               "\"productRate\":\"" + productRate + "\"," +
               "\"productOrigin\":\"" + productOrigin + "\"," +
-              "\"priceOrigin\":\"" + priceOrigin + "\"," +
+              "\"createDate\":\"" + DateTimeUtils.dateToString(productCreateDate, "dd/MM/yyyy") + "\"," +
               "\"priceOrder\":\"" + priceOrder + "\"," +
               "\"image0\":\"" + getImage0() + "\"," +
               "\"status\":\"" + status + "\"" +

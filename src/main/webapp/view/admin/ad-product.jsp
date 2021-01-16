@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8" %>
 <html>
 <head>
@@ -38,6 +39,8 @@
          </div>
       </div>
 
+      <%@ include file="/common/product-filter.jsp" %>
+
       <!-- Table -->
       <div class="row">
          <div class="col m-auto table-responsive">
@@ -51,7 +54,7 @@
                   <th scope="col" class="text-center">Nhà cung cấp</th>
                   <th scope="col" class="text-center">Đánh giá</th>
                   <th scope="col" class="text-center">Xuất xứ</th>
-                  <th scope="col" class="text-center">Giá thị trường</th>
+                  <th scope="col" class="text-center">Ngày tạo</th>
                   <th scope="col" class="text-center">Giá bán</th>
                   <th scope="col" class="text-center">Tùy chọn</th>
                </tr>
@@ -163,7 +166,10 @@
       $.ajax({
          url: '/api/product',
          method: 'GET',
-         data: { page: currentPage },
+         data: {
+           'page': currentPage,
+           'status': $('#status').val()
+         },
          cache: false,
          success: function (data, textStatus, jqXHR) {
             let list = $.parseJSON(data);
@@ -174,7 +180,7 @@
                        '<tr>' +
                        '<td>' +
                        '<a href="#" class="media align-items-center">' +
-                       '<img class="m-auto avatar rounded-circle" src="' + item.image + '" alt="product_image" >' +
+                       '<img class="m-auto avatar rounded-circle" src="' + item.image0 + '" alt="product_image" >' +
                        '</a>' +
                        '</td>' +
                        '<td>' + item.id + '</td>' +
@@ -183,7 +189,7 @@
                        '<td>' + item.seller + '</td>' +
                        '<td>' + item.productRate + '</td>' +
                        '<td>' + item.productOrigin + '</td>' +
-                       '<td>' + item.priceOrigin + '</td>' +
+                       '<td>' + item.createDate + '</td>' +
                        '<td>' + item.priceOrder + '</td>' +
                        '<td class="td-actions text-center">' +
                        (item.status === "0" ?
@@ -194,7 +200,7 @@
                         '<i class="fa fa-lock-open"></i>' +
                         '</label>' :
                         '<label class="btn btn-warning px-2 py-1 mt-2" title="Đã từ chối" id="status-' + item.id + '">' +
-                        '<i class="fa fa-lock"></i>' +
+                        '<i class="fa fa-exclamation-triangle"></i>' +
                         '</label>')) +
                        '</td>' +
                        '</tr>';
