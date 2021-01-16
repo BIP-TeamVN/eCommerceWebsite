@@ -15,7 +15,7 @@
 <!-- Main content -->
 <div class="main-content" id="panel">
    <!--Top navigation-->
-   <%@include file="../../common/em-top-nav.jsp" %>
+   <%@include file="em-top-nav.jsp" %>
 
    <!-- Page content -->
    <div class="container-fluid">

@@ -1,3 +1,5 @@
+const FORM_ID = 'change-password-form';
+
 const password = document.getElementById('current-password');
 const newPassword = document.getElementById('new-password');
 const rePassword = document.getElementById('retype-password');
@@ -46,53 +48,58 @@ function checkInputPassword() {
   } else {
     setSuccessForPassword(newPassword);
   }
-
+  var flag = 0;
   if (rePasswordValue === '') {
+    flag = 1 ;
     setErrorForPassword(rePassword, 'Vui lòng nhập mật khẩu mới');
   } else {
     setSuccessForPassword(rePassword);
   }
-  if (newPasswordValue === rePasswordValue) {
-    setErrorForPassword(rePassword, 'Mật khẩu xác nhận không khớp');
+
+  if (rePasswordValue != newPasswordValue && flag == 1) {
+    setErrorForPassword(rePassword, 'Mật khẩu xác nhận phải trùng với mật khẩu mới');
   } else {
     setSuccessForPassword(rePassword);
   }
 }
 
-$('#change-password-form').submit(function (e) {
+$('#' + FORM_ID).submit(function (e) {
   e.preventDefault();
   checkInputPassword();
-  e.preventDefault();
-  // if (isValidatePassword) {
-  //   $.ajax({
-  //     url: '/api/',
-  //     method: 'POST',
-  //     async: false,
-  //     data: {
-  //       'brandName': brandName.value.trim(),
-  //       'brandOrigin': brandOrigin.value.trim(),
-  //       'imageBase64': $('#img-upload').attr('src')
-  //     },
-  //     success: function (data, textStatus, jqXHR) {
-  //       let result = data.toString().split('\n');
-  //       if (result[0] === 'true') {
-  //         $('#successful-modal').modal('show');
-  //         $('#successful-modal').on('hidden.bs.modal', function () {
-  //           window.location.href = window.location.origin +  '/admin/brand';
-  //         });
-  //       } else {
-  //         alert("Lỗi: " + result[1]);
-  //         e.preventDefault();
-  //       }
-  //     },
-  //     error: function (jqXHR, textStatus, errorThrown) {
-  //       alert("Lỗi: " + errorThrown);
-  //       e.preventDefault();
-  //     }
-  //   });
-  // }
+
+
+  let paras = JSON.stringify({
+    'current-password': password.value.trim(),
+    'new-password': newPassword.value.trim()
+  });
+
+  if (isValidatePassword) {
+    $.ajax({
+      url: '/change-password',
+      method: 'PUT',
+      async: false,
+      cache: false,
+      data: paras,
+      success: function (data, textStatus, jqXHR) {
+        let result = data.toString().split('\n');
+        if (result[0] === 'true') {
+          $('#changed-password-successful-modal').modal('show');
+          $('#changed-password-successful-modal').on('hidden.bs.modal', function () {
+            window.location.href = window.location.origin +  '/admin/employee';
+          });
+        } else {
+          alert("Lỗi: " + result[1]);
+          e.preventDefault();
+        }
+      },
+      error: function (jqXHR, textStatus, errorThrown) {
+        alert("Lỗi javascript: " + errorThrown);
+        e.preventDefault();
+      }
+    });
+  }
 });
 
-$('#btn-cancel').click(function () {
+$('#btn-cancel-password').click(function () {
   $('#change-password-form').trigger("reset");
 });

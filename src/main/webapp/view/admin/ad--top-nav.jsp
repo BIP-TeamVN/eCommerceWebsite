@@ -270,7 +270,7 @@
          <div class="modal-body p-3">
             <div class="row">
                <div class="col mx-3">
-                  <form id="change-password-form" method="POST" enctype="multipart/form-data">
+                  <form id="change-password-form">
                      <!--Mật khẩu hiện tại-->
                      <div class="row">
                         <div class="col-md-12">
@@ -316,7 +316,7 @@
             </div>
          </div>
          <div class="modal-footer p-3 text-uppercase">
-            <button class="btn btn-secondary pl-6 pr-6" type="button" id="btn-cancel" data-dismiss="modal">Hủy</button>
+            <button class="btn btn-secondary pl-6 pr-6" type="button" id="btn-cancel-password" data-dismiss="modal">Hủy</button>
             <button class="btn btn-primary pl-6 pr-6" type="submit" form="change-password-form">Lưu</button>
          </div>
       </div>
@@ -345,6 +345,6 @@
 </div>
 
 <%@ include file="../../common/import-js.jsp" %>
-<%--<script src="../../assets/js/validate/validate-change-password.js"></script>--%>
+<script src="../../assets/js/validate/validate-change-password.js"></script>
 
 
