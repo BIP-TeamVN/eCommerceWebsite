@@ -7,14 +7,29 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8" %>
 <div class="row mb-3">
-   <div class="col-md-10 ml-auto mr-auto">
-      <label for="status" class="form-control-label d-inline-block">Trạng thái</label>
+   <div class="col-md-6">
+      <form class="navbar-search navbar-search-light form-inline mr-sm-3 d-inline-block" id="navbar-search-main">
+         <div class="form-group mb-0">
+            <div class="input-group input-group-alternative input-group-merge">
+               <div class="input-group-prepend">
+                  <span class="input-group-text"><i class="fas fa-search"></i></span>
+               </div>
+               <input class="form-control" placeholder="Tìm kiếm" type="text">
+            </div>
+         </div>
+         <button type="button" class="close" data-action="search-close" data-target="#navbar-search-main"
+                 aria-label="Close">
+            <span aria-hidden="true">×</span>
+         </button>
+      </form>
+   </div>
+   <div class="col-md-6 text-right">
       <div class="d-inline-block ml-2">
          <select class="form-control" id="status" name="status" required onchange="changeStatus()">
-            <option selected value="0">Chưa xác nhận</option>
+            <option value="0">Chưa xác nhận</option>
             <option value="1">Đã xác nhận</option>
             <option value="2">Đã từ chối</option>
-            <option value="3">Tất cả</option>
+            <option selected value="3">Tất cả</option>
          </select>
       </div>
    </div>
