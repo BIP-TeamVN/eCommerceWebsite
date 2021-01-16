@@ -254,4 +254,44 @@ public class ProductDAO implements IRetrieveEntity<ProductEntity, Long>, IModify
 
       return (Integer) query.getSingleResult();
    }
+
+   public ArrayList<ProductEntity> searchProduct(String keyWord) {
+      EntityManager entityMgr = EntityUtils.getEntityManager();
+      QueryBuilderqueryBuilder
+
+/*
+      Query query;
+      String queryStr;
+      if (status != 3) {
+         queryStr = "SELECT u FROM ProductEntity u where u.sellerEntity.userId = :sellerIdPara and u.status = :statusPara";
+
+         query = entityMgr.createQuery(queryStr, ProductEntity.class);
+         query.setParameter("statusPara", status);
+      } else {
+         queryStr = "SELECT u FROM ProductEntity u where u.sellerEntity.userId = :sellerIdPara";
+
+         query = entityMgr.createQuery(queryStr, ProductEntity.class);
+      }
+      query.setParameter("sellerIdPara", sellerId);
+
+
+      if (firstResult != null) {
+         query.setFirstResult(firstResult);
+      }
+      if (maxResults != null) {
+         query.setMaxResults(maxResults);
+      }
+
+      ArrayList<ProductEntity> result = null;
+      try {
+         result = new ArrayList<>(query.getResultList());
+      } catch (Exception exception) {
+         exception.printStackTrace();
+      } finally {
+         entityMgr.close();
+      }
+      return result;
+
+ */
+   }
 }
