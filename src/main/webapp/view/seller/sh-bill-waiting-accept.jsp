@@ -219,7 +219,7 @@
   function Reject(billId){
     let paras = JSON.stringify({
       'id': billId.toString(),
-      'status': 0
+      'status': 3
     })
     $.ajax({
       url: "/api/bill/view/detail",

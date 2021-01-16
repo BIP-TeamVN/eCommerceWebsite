@@ -37,11 +37,13 @@ public class Cons {
    }
 
    public static class Bill {
-      public static final Integer BILL_STATUS_CREATE = 0;      // mới tạo
-      public static final Integer BILL_STATUS_CANCEL = 1;      // hủy
-      public static final Integer BILL_STATUS_VERIFIED = 2;    // shop đã xác nhận
-      public static final Integer BILL_STATUS_SHIPPING = 3;    // shipper đang giao
-      public static final Integer BILL_STATUS_DONE = 4;        // giao xong
-      public static final Integer BILL_STATUS_FAILED = 5;      // giao không được
+      public static final Integer BILL_STATUS_CREATE = 0;      // đợi duyệt
+      public static final Integer BILL_STATUS_CANCEL = 1;      // Khách hàng hủy
+      public static final Integer BILL_STATUS_VERIFIED = 2;    // shop đã duyệt
+      public static final Integer BILL_STATUS_REJECT = 3;      // shop từ chối
+      public static final Integer BILL_STATUS_SHIPPING = 4;    // shipper đã nhận đơn - nhận đơn và chưa đi lấy hàng
+      public static final Integer BILL_STATUS_TAKED = 5;       // shipper đã nhận hàng - nhận được hàng từ shop
+      public static final Integer BILL_STATUS_DONE = 6;        // giao xong - đã gia cho khách
+      public static final Integer BILL_STATUS_FAILED = 7;      // giao không được
    }
 }

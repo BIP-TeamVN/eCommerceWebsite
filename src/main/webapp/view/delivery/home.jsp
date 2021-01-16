@@ -105,7 +105,7 @@
    function GetBill(billId){
     let paras = JSON.stringify({
       'id': billId.toString(),
-      'status': 3
+      'status': 4
     })
      $.ajax({
        url: "/api/bill/view/detail",

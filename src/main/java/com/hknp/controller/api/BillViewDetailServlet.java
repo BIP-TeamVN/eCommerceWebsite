@@ -50,7 +50,7 @@ public class BillViewDetailServlet extends HttpServlet {
       try {
          String billIdid = (String) parameterMap.get("id");
          Integer status = (Integer) parameterMap.get("status");
-         if(status == 3){
+         if(status == 4){
             BillEntity updateBill = BillDAO.getInstance().getById(StringUtils.toLong(billIdid));
             updateBill.setDeliveryEntity(DeliveryDAO.getInstance().getById(deliveryId));
             updateBill.setStatus(status);

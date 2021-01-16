@@ -12,11 +12,11 @@ public class BillDetailEntity implements Serializable {
    @Column(name = "BILL_DETAIL_ID")
    Long billDetailId;
 
-   @ManyToOne(fetch = FetchType.LAZY)
+   @ManyToOne(fetch = FetchType.EAGER)
    @JoinColumn(name = "BILL_ID")
    BillEntity billEntity;
 
-   @ManyToOne(fetch = FetchType.LAZY)
+   @ManyToOne(fetch = FetchType.EAGER)
    @JoinColumn(name = "PRODUCT_TYPE_ID")
    ProductTypeEntity productTypeEntity;
 
