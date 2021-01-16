@@ -441,6 +441,6 @@
         });
     });
 </script>
-<script src="../../assets/js/validate/validate-sellerr-edit-form.js"></script>
+<script src="../../assets/js/validate/validate-seller-edit-form.js"></script>
 </body>
 </html>

@@ -1,5 +1,3 @@
-const FORM_ID = 'change-password-form';
-
 const password = document.getElementById('current-password');
 const newPassword = document.getElementById('new-password');
 const rePassword = document.getElementById('retype-password');
@@ -63,7 +61,7 @@ function checkInputPassword() {
   }
 }
 
-$('#' + FORM_ID).submit(function (e) {
+$('#change-password-form').submit(function (e) {
   e.preventDefault();
   checkInputPassword();
 
@@ -83,9 +81,10 @@ $('#' + FORM_ID).submit(function (e) {
       success: function (data, textStatus, jqXHR) {
         let result = data.toString().split('\n');
         if (result[0] === 'true') {
+          $('#modal-change-password').modal('hide');
           $('#changed-password-successful-modal').modal('show');
           $('#changed-password-successful-modal').on('hidden.bs.modal', function () {
-            window.location.href = window.location.origin +  '/admin/employee';
+            window.location.href = window.location.origin +  '/admin';
           });
         } else {
           alert("Lỗi: " + result[1]);
