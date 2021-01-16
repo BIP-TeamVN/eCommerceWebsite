@@ -45,15 +45,27 @@
                   </a>
                </li>
                <li class="nav-item">
-                  <a class="nav-link <%=isActive[2] ? "active" : ""%>" href="<%=isActive[2] ? "javascript:void(0)" : "/delivery"%>">
-                     <i class="fa fa-users text-danger"></i>
+                  <a class="nav-link <%=isActive[2] ? "active" : ""%>" href="<%=isActive[2] ? "javascript:void(0)" : "/delivery"%>?type=2">
+                     <i class="fa fa-list-alt text-danger"></i>
                      <span class="nav-link-text">Danh Sách đơn hàng</span>
                   </a>
                </li>
                <li class="nav-item">
-                  <a class="nav-link <%=isActive[3] ? "active" : ""%>" href="<%=isActive[3] ? "javascript:void(0)" : "/delivery/billdelivering"%>">
-                     <i class="fa fa-box text-default"></i>
-                     <span class="nav-link-text">Đơn đang giao</span>
+                  <a class="nav-link <%=isActive[3] ? "active" : ""%>" href="<%=isActive[3] ? "javascript:void(0)" : "/delivery"%>?type=4">
+                     <i class="fa fa-people-carry text-default"></i>
+                     <span class="nav-link-text">Danh sách đơn cần lấy hàng</span>
+                  </a>
+               </li>
+               <li class="nav-item">
+                  <a class="nav-link <%=isActive[4] ? "active" : ""%>" href="<%=isActive[4] ? "javascript:void(0)" : "/delivery"%>?type=5">
+                     <i class="fa fa-motorcycle text-green"></i>
+                     <span class="nav-link-text">Danh sách đơn hàng cần giao</span>
+                  </a>
+               </li>
+               <li class="nav-item">
+                  <a class="nav-link <%=isActive[5] ? "active" : ""%>" href="<%=isActive[5] ? "javascript:void(0)" : "/delivery"%>?type=6">
+                     <i class="fa fa-clipboard-check text-orange"></i>
+                     <span class="nav-link-text">Danh sách đơn đã giao</span>
                   </a>
                </li>
             </ul>

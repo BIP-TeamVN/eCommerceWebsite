@@ -27,6 +27,8 @@ public class DeliveryBillDeliveringServlet extends HttpServlet {
       String pagePara = req.getParameter("page");
       HttpSession session = req.getSession();
       Long id = (Long) session.getAttribute("id");
+      String type = req.getParameter("type");
+      Integer Type = StringUtils.toInt(type);
 
       Integer page = StringUtils.toInt(pagePara);
       if (page <= 0) {
@@ -35,8 +37,14 @@ public class DeliveryBillDeliveringServlet extends HttpServlet {
 
       List<BillEntity> listBill = new ArrayList<>();
       List<String> listJsonStr = new ArrayList<>();
+      if(Type == 2){
+         listBill = BillDAO.getInstance().gets((page - 1) * 10, 10, Type);
+      }
+      else {
+         listBill = BillDAO.getInstance().getsForDelivery((page - 1) * 10, 10, id, Type);
+      }
 
-      listBill = BillDAO.getInstance().getsForDelivery((page - 1) * 10, 10, id);
+
 
       for (BillEntity bill : listBill) {
          listJsonStr.add(bill.toJson());
