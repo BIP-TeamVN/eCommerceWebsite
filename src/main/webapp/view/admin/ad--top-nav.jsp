@@ -9,12 +9,12 @@
    String image = user.getImageSrc();
    String fullName = user.getFullName();
 %>
-<!-- Topnav -->
+<!-- Top nav -->
 <nav class="navbar navbar-top navbar-expand navbar-dark bg-primary border-bottom">
    <div class="container-fluid">
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
          <!-- Search form -->
-         <form class="navbar-search navbar-search-light form-inline mr-sm-3" id="navbar-search-main">
+         <form class="navbar-search navbar-search-light form-inline my-auto mr-sm-3" id="navbar-search-main">
             <div class="form-group mb-0">
                <div class="input-group input-group-alternative input-group-merge">
                   <div class="input-group-prepend">

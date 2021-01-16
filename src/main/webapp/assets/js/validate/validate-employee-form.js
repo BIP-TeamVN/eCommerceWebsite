@@ -211,7 +211,7 @@ $('#' + FORM_ID).submit(function (e) {
           $('#modal-add-employee').modal('hide');
           $('#successful-modal').modal('show');
           $('#successful-modal').on('hidden.bs.modal', function () {
-            window.location.href = window.location.origin + '/admin/employee';
+            window.location.href = window.location.origin + '/admin/employee?page=99999999999999999';
           });
         } else {
           alert("Lỗi: " + result[1]);

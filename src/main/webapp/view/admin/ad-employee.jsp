@@ -90,7 +90,7 @@
                </div>
 
                <!-- Card footer -->
-               <div class="card-footer py-3">
+               <div class="card-footer py-2">
                   <!-- Pagination -->
                   <nav aria-label="...">
                      <ul id="page-pagination" class="pagination justify-content-center mt-3">
