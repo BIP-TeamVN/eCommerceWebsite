@@ -1,4 +1,4 @@
-const FORM_ID = 'product-form';
+const FORM_ID = 'employee-form';
 
 let lastName = document.getElementById('last-name');
 let firstName = document.getElementById('first-name');
@@ -137,9 +137,9 @@ function isEmail(email) {
 function encodeImgToBase64(element) {
   let img = element.files[0];
   let imgReader = new FileReader();
-  imgReader.onloadend = function() {
-    $('#img-upload').attr('class','mb-2 rounded avatar-img');
-    $('#img-upload').attr('src',imgReader.result);
+  imgReader.onloadend = function () {
+    $('#img-upload').attr('class', 'mb-2 rounded avatar-img');
+    $('#img-upload').attr('src', imgReader.result);
   }
   imgReader.readAsDataURL(img);
 }
@@ -208,15 +208,17 @@ $('#' + FORM_ID).submit(function (e) {
       success: function (data, textStatus, jqXHR) {
         let result = data.toString().split('\n');
         if (result[0] === 'true') {
-          notify();
+          $('#modal-add-employee').modal('hide');
+          $('#successful-modal').modal('show');
+          $('#successful-modal').on('hidden.bs.modal', function () {
+            window.location.href = window.location.origin + '/admin/employee';
+          });
         } else {
           alert("Lỗi: " + result[1]);
-          e.preventDefault();
         }
       },
       error: function (jqXHR, textStatus, errorThrown) {
         alert("Lỗi: " + errorThrown);
-        e.preventDefault();
       }
     });
   }

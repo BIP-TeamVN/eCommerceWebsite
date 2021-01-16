@@ -118,7 +118,7 @@
                         <div class="col-md-6 form-group">
                            <label for="salary" class="form-control-label">Mức lương</label>
                            <div>
-                              <input class="form-control" type="number" id="salary" name="salary" maxlength="20">
+                              <input class="form-control" type="number" id="salary" name="salary" min="1000" maxlength="20">
                            </div>
                            <small class="error-input text-danger">...</small>
                         </div>
@@ -200,8 +200,7 @@
    </div>
 </div>
 <!-- Modal add successful -->
-<div class="modal fade" id="successful-modal" tabindex="-1" role="dialog" aria-labelledby="conform-modal-lb"
-     aria-hidden="true">
+<div class="modal fade" id="successful-modal" tabindex="-1" role="dialog" aria-labelledby="conform-modal-lb" aria-hidden="true">
    <div class="modal-dialog" role="document">
       <div class="modal-content">
          <div class="modal-header">
@@ -214,7 +213,7 @@
             Thêm nhân viên thành công !
          </div>
          <div class="modal-footer">
-            <a href="/admin/employee" class="btn btn-primary px-4">OK</a>
+            <button class="btn btn-primary px-4" type="button" data-dismiss="modal">OK</button>
          </div>
       </div>
    </div>
