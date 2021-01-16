@@ -33,7 +33,7 @@
                </div>
                <div class="col-lg-6 col-5 text-right">
                   <button type="button" data-toggle="modal" data-target="#modal-add-employee"
-                          href="#" class="btn btn-secondary text-uppercase">Thêm nhân viên mới
+                          class="btn btn-secondary text-uppercase">Thêm nhân viên mới
                   </button>
                </div>
             </div>
@@ -90,7 +90,7 @@
                </div>
 
                <!-- Card footer -->
-               <div class="card-footer py-3">
+               <div class="card-footer py-2">
                   <!-- Pagination -->
                   <nav aria-label="...">
                      <ul id="page-pagination" class="pagination justify-content-center mt-3">

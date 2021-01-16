@@ -4,7 +4,6 @@
 <%@ page import="java.time.Duration" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8" %>
 <%
-   ;
    String minDob = DateTimeUtils.dateToString(Date.from(Instant.now().minus(Duration.ofDays(36520))), "yyyy-MM-dd");
    String defaultDob = DateTimeUtils.dateToString(Date.from(Instant.now().minus(Duration.ofDays(3652))), "yyyy-MM-dd");
    String today = DateTimeUtils.dateToString(Date.from(Instant.now()), "yyyy-MM-dd");
@@ -16,7 +15,7 @@
    <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
       <div class="modal-content">
          <div class="modal-header p-3">
-            <h5 class="display-3 mx-3 my-2 text-uppercase">Thêm nhân viên mới</h5>
+            <h2 class="mx-3 my-2 text-center text-uppercase display-4">Thêm nhân viên mới</h2>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                <span aria-hidden="true">&times;</span>
             </button>
@@ -118,7 +117,7 @@
                         <div class="col-md-6 form-group">
                            <label for="salary" class="form-control-label">Mức lương</label>
                            <div>
-                              <input class="form-control" type="number" id="salary" name="salary" maxlength="20">
+                              <input class="form-control" type="number" id="salary" name="salary" min="1000" maxlength="20">
                            </div>
                            <small class="error-input text-danger">...</small>
                         </div>
@@ -199,9 +198,9 @@
       </div>
    </div>
 </div>
+
 <!-- Modal add successful -->
-<div class="modal fade" id="successful-modal" tabindex="-1" role="dialog" aria-labelledby="conform-modal-lb"
-     aria-hidden="true">
+<div class="modal fade" id="successful-modal" tabindex="-1" role="dialog" aria-labelledby="conform-modal-lb" aria-hidden="true">
    <div class="modal-dialog" role="document">
       <div class="modal-content">
          <div class="modal-header">
@@ -214,11 +213,12 @@
             Thêm nhân viên thành công !
          </div>
          <div class="modal-footer">
-            <a href="/admin/employee" class="btn btn-primary px-4">OK</a>
+            <button class="btn btn-primary px-4" type="button" data-dismiss="modal">OK</button>
          </div>
       </div>
    </div>
 </div>
+
 <%@ include file="import-js.jsp" %>
 <script src="../../assets/js/dynamic-admin-unit-drop-down.js"></script>
 <script src="../../assets/js/validate/validate-employee-form.js"></script>

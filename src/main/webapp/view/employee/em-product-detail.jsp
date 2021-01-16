@@ -10,7 +10,7 @@
 <!-- Modal -->
 <div div class="modal fade bd-example-modal-lg"  id="modal-product-detail" tabindex="-1" role="dialog"
      aria-labelledby="exampleModalLabel" aria-hidden="true">
-   <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+   <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable" role="document">
       <div class="modal-content">
          <div class="modal-header p-3">
             <h5 class="display-3 mx-3 my-2 text-uppercase">Xác nhận sản phẩm</h5>
@@ -221,6 +221,9 @@
           $('#status-' + id).html('<i class="fa fa-lock-open"></i>');
           $('#status-' + id).attr('class', 'btn btn-success px-2 py-1 mt-2');
           $('#status-' + id).attr('title', 'Đã xác nhận');
+          if ($('#status').val() != '3') {
+            $('#status--' + id).remove();
+          }
         } else {
           alert("Lỗi: " + result[1]);
         }
@@ -246,9 +249,12 @@
         if (result[0] === 'true') {
           $('#div-notify').html('Đã từ chối sản phẩm');
           $('#successful-modal').modal('show');
-          $('#status-' + id).html('<i class="fa fa-lock"></i>');
+          $('#status-' + id).html('<i class="fa fa-exclamation-triangle"></i>');
           $('#status-' + id).attr('class', 'btn btn-warning px-2 py-1 mt-2');
           $('#status-' + id).attr('title', 'Đã từ chối');
+          if ($('#status').val() != '3') {
+            $('#status--' + id).remove();
+          }
         } else {
           alert("Lỗi: " + result[1]);
         }
@@ -277,6 +283,9 @@
           $('#status-' + id).html('<i class="fa fa-lock"></i>');
           $('#status-' + id).attr('class', 'btn btn-danger px-2 py-1 mt-2');
           $('#status-' + id).attr('title', 'Chưa xác nhận');
+          if ($('#status').val() != '3') {
+            $('#status--' + id).remove();
+          }
         } else {
           alert("Lỗi: " + result[1]);
         }

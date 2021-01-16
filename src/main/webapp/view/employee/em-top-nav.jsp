@@ -1,10 +1,4 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: namtr
-  Date: 1/14/2021
-  Time: 10:09 AM
-  To change this template use File | Settings | File Templates.
---%>
+
 <%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8" %>
 <!-- Topnav -->
 <nav class="navbar navbar-top navbar-expand navbar-dark bg-primary border-bottom">
@@ -17,7 +11,7 @@
                   <div class="input-group-prepend">
                      <span class="input-group-text"><i class="fas fa-search"></i></span>
                   </div>
-                  <input class="form-control" placeholder="Tìm kiếm" type="text">
+                  <input class="form-control" placeholder="Tìm kiếm sản phẩm" type="text">
                </div>
             </div>
             <button type="button" class="close" data-action="search-close" data-target="#navbar-search-main"

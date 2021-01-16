@@ -219,15 +219,12 @@ $('#' + FORM_ID).submit(function (e) {
           $('#successful-modal').on('hidden.bs.modal', function () {
             window.location.href = window.location.origin +  '/admin/employee';
           });
-          //window.location.href = window.location.origin +  '/admin/employee';
         } else {
           alert("Lỗi: " + result[1]);
-          e.preventDefault();
         }
       },
       error: function (jqXHR, textStatus, errorThrown) {
         alert("Lỗi javascript: " + errorThrown);
-        e.preventDefault();
       }
     });
   }
