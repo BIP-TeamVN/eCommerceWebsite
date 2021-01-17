@@ -110,12 +110,21 @@ public class ProductDAO implements IRetrieveEntity<ProductEntity, Long>, IModify
       Query query;
       String queryStr;
       if (status != 3) {
-         queryStr = "SELECT u FROM ProductEntity u where u.status = :statusPara and u.productName like :keywordPara";
+         queryStr = "SELECT u FROM ProductEntity u " +
+                 "where u.status = :statusPara " +
+                 "and (u.productName like :keywordPara " +
+                 "or u.sellerEntity.storeName like :keywordPara " +
+                 "or u.productOrigin like :keywordPara " +
+                 "or u.brandEntity.brandName like :keywordPara)";
 
          query = entityMgr.createQuery(queryStr, ProductEntity.class);
          query.setParameter("statusPara", status);
       } else {
-         queryStr = "select u from ProductEntity u where u.productName like :keywordPara or u.sellerEntity.storeName like :keywordPara or u.productOrigin like :keywordPara or u.brandEntity.brandName like :keywordPara";
+         queryStr = "select u from ProductEntity u " +
+                 "where u.productName like :keywordPara " +
+                 "or u.sellerEntity.storeName like :keywordPara " +
+                 "or u.productOrigin like :keywordPara " +
+                 "or u.brandEntity.brandName like :keywordPara";
 
          query = entityMgr.createQuery(queryStr, ProductEntity.class);
       }
@@ -145,12 +154,23 @@ public class ProductDAO implements IRetrieveEntity<ProductEntity, Long>, IModify
       Query query;
       String queryStr;
       if (status != 3) {
-         queryStr = "SELECT u FROM ProductEntity u where u.sellerEntity.userId = :sellerIdPara and u.status = :statusPara and u.productName like :keywordPara";
+         queryStr = "SELECT u FROM ProductEntity u " +
+                 "where u.sellerEntity.userId = :sellerIdPara " +
+                 "and u.status = :statusPara " +
+                 "and (u.productName like :keywordPara " +
+                 "or u.sellerEntity.storeName like :keywordPara " +
+                 "or u.productOrigin like :keywordPara " +
+                 "or u.brandEntity.brandName like :keywordPara)";
 
          query = entityMgr.createQuery(queryStr, ProductEntity.class);
          query.setParameter("statusPara", status);
       } else {
-         queryStr = "SELECT u FROM ProductEntity u where u.sellerEntity.userId = :sellerIdPara and u.productName like :keywordPara";
+         queryStr = "SELECT u FROM ProductEntity u " +
+                 "where u.sellerEntity.userId = :sellerIdPara " +
+                 "and (u.productName like :keywordPara " +
+                 "or u.sellerEntity.storeName like :keywordPara " +
+                 "or u.productOrigin like :keywordPara " +
+                 "or u.brandEntity.brandName like :keywordPara)";
 
          query = entityMgr.createQuery(queryStr, ProductEntity.class);
       }
@@ -201,11 +221,20 @@ public class ProductDAO implements IRetrieveEntity<ProductEntity, Long>, IModify
       String queryStr;
       Query query;
       if (status != 3) {
-         queryStr = "select count(*) from ProductEntity p where p.status = :statusPara and p.productName like :keywordPara";
+         queryStr = "select count(*) from ProductEntity p " +
+                 "where p.status = :statusPara " +
+                 "and (p.productName like :keywordPara " +
+                 "or p.sellerEntity.storeName like :keywordPara " +
+                 "or p.productOrigin like :keywordPara " +
+                 "or p.brandEntity.brandName like :keywordPara)";
          query = entityMgr.createQuery(queryStr);
          query.setParameter("statusPara", status);
       } else {
-         queryStr = "select count(*) from ProductEntity p where p.productName like :keywordPara";
+         queryStr = "select count(*) from ProductEntity p " +
+                 "where p.productName like :keywordPara " +
+                 "or p.sellerEntity.storeName like :keywordPara " +
+                 "or p.productOrigin like :keywordPara " +
+                 "or p.brandEntity.brandName like :keywordPara";
          query = entityMgr.createQuery(queryStr);
       }
       query.setParameter("keywordPara", "%" + keyword + "%");
@@ -219,11 +248,22 @@ public class ProductDAO implements IRetrieveEntity<ProductEntity, Long>, IModify
       String queryStr;
       Query query;
       if (status != 3) {
-         queryStr = "select count(*) from ProductEntity p where p.sellerEntity.userId = :sellerIdPara and p.status = :statusPara and p.productName like :keywordPara";
+         queryStr = "select count(*) from ProductEntity p " +
+                 "where p.sellerEntity.userId = :sellerIdPara " +
+                 "and p.status = :statusPara " +
+                 "and (p.productName like :keywordPara " +
+                 "or p.sellerEntity.storeName like :keywordPara " +
+                 "or p.productOrigin like :keywordPara " +
+                 "or p.brandEntity.brandName like :keywordPara)";
          query = entityMgr.createQuery(queryStr);
          query.setParameter("statusPara", status);
       } else {
-         queryStr = "select count(*) from ProductEntity p where p.sellerEntity.userId = :sellerIdPara and p.productName like :keywordPara";
+         queryStr = "select count(*) from ProductEntity p " +
+                 "where p.sellerEntity.userId = :sellerIdPara " +
+                 "and (p.productName like :keywordPara " +
+                 "or p.sellerEntity.storeName like :keywordPara " +
+                 "or p.productOrigin like :keywordPara " +
+                 "or p.brandEntity.brandName like :keywordPara)";
          query = entityMgr.createQuery(queryStr);
       }
       query.setParameter("sellerIdPara", sellerId);

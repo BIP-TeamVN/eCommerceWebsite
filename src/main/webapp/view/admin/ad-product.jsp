@@ -234,10 +234,10 @@
             '</td>' +
             '</tr>';
           $('#tb-list').append(html);
-
-          $('#loading').addClass('d-none');
-          $('div.table-responsive').removeClass('d-none');
         });
+
+        $('#loading').addClass('d-none');
+        $('div.table-responsive').removeClass('d-none');
       }
     });
   }
