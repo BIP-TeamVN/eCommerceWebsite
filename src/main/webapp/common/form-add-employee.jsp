@@ -10,9 +10,8 @@
 %>
 
 <!-- Modal -->
-<div class="modal fade bd-example-modal-lg" id="modal-add-employee" tabindex="-1" role="dialog"
-     aria-labelledby="exampleModalLabel" aria-hidden="true">
-   <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+<div id="modal-add-employee" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+   <div class="modal-dialog modal-lg modal-dialog-scrollable modal-dialog-centered" role="document">
       <div class="modal-content">
          <div class="modal-header p-3">
             <h2 class="mx-3 my-2 text-center text-uppercase display-4">Thêm nhân viên mới</h2>

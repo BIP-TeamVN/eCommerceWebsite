@@ -20,11 +20,10 @@
                   <div class="input-group-prepend">
                      <span class="input-group-text"><i class="fas fa-search"></i></span>
                   </div>
-                  <input class="form-control" placeholder="Tìm kiếm sản phẩm" type="text">
+                  <input class="form-control" placeholder="Tìm kiếm" type="text" id="search-keyword">
                </div>
             </div>
-            <button type="button" class="close" data-action="search-close" data-target="#navbar-search-main"
-                    aria-label="Close">
+            <button class="close" data-action="search-close" aria-label="Close" onclick="changeStatus()">
                <span aria-hidden="true">×</span>
             </button>
          </form>
@@ -225,7 +224,7 @@
                   </div>
                </a>
                <div class="dropdown-menu  dropdown-menu-right ">
-                  <a href="#!" class="dropdown-item">
+                  <a href="/admin/information/edit" class="dropdown-item">
                      <i class="ni ni-single-02"></i>
                      <span>Tài khoản của tôi</span>
                   </a>
@@ -344,7 +343,7 @@
    </div>
 </div>
 
-<%@ include file="../../common/import-js.jsp" %>
+<%@ include file="../../common/import-js.jsp"%>
 <script src="../../assets/js/validate/validate-change-password.js"></script>
 
 

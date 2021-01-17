@@ -101,24 +101,34 @@ public class ProductDAO implements IRetrieveEntity<ProductEntity, Long>, IModify
 
    @Override
    public ArrayList<ProductEntity> gets(Integer firstResult, Integer maxResults) {
-      return gets(firstResult, maxResults, 3);
+      return gets(firstResult, maxResults, 3, "");
    }
 
-   public ArrayList<ProductEntity> gets(Integer firstResult, Integer maxResults, Integer status) {
+   public ArrayList<ProductEntity> gets(Integer firstResult, Integer maxResults, Integer status, String keyword) {
       EntityManager entityMgr = EntityUtils.getEntityManager();
 
       Query query;
       String queryStr;
       if (status != 3) {
-         queryStr = "SELECT u FROM ProductEntity u where u.status = :statusPara";
+         queryStr = "SELECT u FROM ProductEntity u " +
+                 "where u.status = :statusPara " +
+                 "and (u.productName like :keywordPara " +
+                 "or u.sellerEntity.storeName like :keywordPara " +
+                 "or u.productOrigin like :keywordPara " +
+                 "or u.brandEntity.brandName like :keywordPara)";
 
          query = entityMgr.createQuery(queryStr, ProductEntity.class);
          query.setParameter("statusPara", status);
       } else {
-         queryStr = "SELECT u FROM ProductEntity u";
+         queryStr = "select u from ProductEntity u " +
+                 "where u.productName like :keywordPara " +
+                 "or u.sellerEntity.storeName like :keywordPara " +
+                 "or u.productOrigin like :keywordPara " +
+                 "or u.brandEntity.brandName like :keywordPara";
 
          query = entityMgr.createQuery(queryStr, ProductEntity.class);
       }
+      query.setParameter("keywordPara", "%" + keyword + "%");
 
       if (firstResult != null) {
          query.setFirstResult(firstResult);
@@ -138,23 +148,34 @@ public class ProductDAO implements IRetrieveEntity<ProductEntity, Long>, IModify
       return result;
    }
 
-   public ArrayList<ProductEntity> gets(Integer firstResult, Integer maxResults, Long sellerId, Integer status) {
+   public ArrayList<ProductEntity> gets(Integer firstResult, Integer maxResults, Long sellerId, Integer status, String keyword) {
       EntityManager entityMgr = EntityUtils.getEntityManager();
 
       Query query;
       String queryStr;
       if (status != 3) {
-         queryStr = "SELECT u FROM ProductEntity u where u.sellerEntity.userId = :sellerIdPara and u.status = :statusPara";
+         queryStr = "SELECT u FROM ProductEntity u " +
+                 "where u.sellerEntity.userId = :sellerIdPara " +
+                 "and u.status = :statusPara " +
+                 "and (u.productName like :keywordPara " +
+                 "or u.sellerEntity.storeName like :keywordPara " +
+                 "or u.productOrigin like :keywordPara " +
+                 "or u.brandEntity.brandName like :keywordPara)";
 
          query = entityMgr.createQuery(queryStr, ProductEntity.class);
          query.setParameter("statusPara", status);
       } else {
-         queryStr = "SELECT u FROM ProductEntity u where u.sellerEntity.userId = :sellerIdPara";
+         queryStr = "SELECT u FROM ProductEntity u " +
+                 "where u.sellerEntity.userId = :sellerIdPara " +
+                 "and (u.productName like :keywordPara " +
+                 "or u.sellerEntity.storeName like :keywordPara " +
+                 "or u.productOrigin like :keywordPara " +
+                 "or u.brandEntity.brandName like :keywordPara)";
 
          query = entityMgr.createQuery(queryStr, ProductEntity.class);
       }
       query.setParameter("sellerIdPara", sellerId);
-
+      query.setParameter("keywordPara", "%" + keyword + "%");
 
       if (firstResult != null) {
          query.setFirstResult(firstResult);
@@ -194,37 +215,59 @@ public class ProductDAO implements IRetrieveEntity<ProductEntity, Long>, IModify
    @Override
    public Long count() {return EntityUtils.count(ProductEntity.class.getName());}
 
-   public Long count(Integer status) {
+   public Long count(Integer status, String keyword) {
       EntityManager entityMgr = EntityUtils.getEntityManager();
 
       String queryStr;
       Query query;
       if (status != 3) {
-         queryStr = "select count(*) from ProductEntity p where p.status = :statusPara";
+         queryStr = "select count(*) from ProductEntity p " +
+                 "where p.status = :statusPara " +
+                 "and (p.productName like :keywordPara " +
+                 "or p.sellerEntity.storeName like :keywordPara " +
+                 "or p.productOrigin like :keywordPara " +
+                 "or p.brandEntity.brandName like :keywordPara)";
          query = entityMgr.createQuery(queryStr);
          query.setParameter("statusPara", status);
       } else {
-         queryStr = "select count(*) from ProductEntity p";
+         queryStr = "select count(*) from ProductEntity p " +
+                 "where p.productName like :keywordPara " +
+                 "or p.sellerEntity.storeName like :keywordPara " +
+                 "or p.productOrigin like :keywordPara " +
+                 "or p.brandEntity.brandName like :keywordPara";
          query = entityMgr.createQuery(queryStr);
       }
+      query.setParameter("keywordPara", "%" + keyword + "%");
 
       return (Long) query.getSingleResult();
    }
 
-   public Long count(Long sellerId, Integer status) {
+   public Long count(Long sellerId, Integer status, String keyword) {
       EntityManager entityMgr = EntityUtils.getEntityManager();
 
       String queryStr;
       Query query;
       if (status != 3) {
-         queryStr = "select count(*) from ProductEntity p where p.sellerEntity.userId = :sellerIdPara and p.status = :statusPara";
+         queryStr = "select count(*) from ProductEntity p " +
+                 "where p.sellerEntity.userId = :sellerIdPara " +
+                 "and p.status = :statusPara " +
+                 "and (p.productName like :keywordPara " +
+                 "or p.sellerEntity.storeName like :keywordPara " +
+                 "or p.productOrigin like :keywordPara " +
+                 "or p.brandEntity.brandName like :keywordPara)";
          query = entityMgr.createQuery(queryStr);
          query.setParameter("statusPara", status);
       } else {
-         queryStr = "select count(*) from ProductEntity p where p.sellerEntity.userId = :sellerIdPara";
+         queryStr = "select count(*) from ProductEntity p " +
+                 "where p.sellerEntity.userId = :sellerIdPara " +
+                 "and (p.productName like :keywordPara " +
+                 "or p.sellerEntity.storeName like :keywordPara " +
+                 "or p.productOrigin like :keywordPara " +
+                 "or p.brandEntity.brandName like :keywordPara)";
          query = entityMgr.createQuery(queryStr);
       }
       query.setParameter("sellerIdPara", sellerId);
+      query.setParameter("keywordPara", "%" + keyword + "%");
 
       return (Long) query.getSingleResult();
    }
@@ -253,5 +296,29 @@ public class ProductDAO implements IRetrieveEntity<ProductEntity, Long>, IModify
       query.setParameter("productIdPara", productId);
 
       return (Integer) query.getSingleResult();
+   }
+
+   public ArrayList<ProductEntity> searchProduct(Integer firstResult, Integer maxResults, String keyword) {
+      EntityManager entityMgr = EntityUtils.getEntityManager();
+
+      String queryStr = "select u from ProductEntity u where u.productName like :keywordPara";
+      Query query = entityMgr.createQuery(queryStr, ProductEntity.class);
+      query.setParameter("keywordPara", "%" + keyword + "%");
+
+      if (firstResult != null) {
+         query.setFirstResult(firstResult);
+      }
+      if (maxResults != null) {
+         query.setMaxResults(maxResults);
+      }
+      ArrayList<ProductEntity> result = null;
+      try {
+         result = new ArrayList<>(query.getResultList());
+      } catch (Exception exception) {
+         exception.printStackTrace();
+      } finally {
+         entityMgr.close();
+      }
+      return result;
    }
 }

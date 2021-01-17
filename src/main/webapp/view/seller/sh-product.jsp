@@ -74,9 +74,9 @@
                         <th scope="col" class="text-center">Mã</th>
                         <th scope="col" class="text-center">Tên sản phẩm</th>
                         <th scope="col" class="text-center">Nhãn hiệu</th>
-                        <th scope="col" class="text-center">Nhà cung cấp</th>
+                        <th scope="col" class="text-center">Cửa hàng</th>
                         <th scope="col" class="text-center">Đánh giá</th>
-                        <th scope="col" class="text-center">Xuất xứ</th>
+                        <th scope="col" class="text-center">Nước sản xuất</th>
                         <th scope="col" class="text-center">Ngày tạo</th>
                         <th scope="col" class="text-center">Giá bán</th>
                         <th scope="col" class="text-center">Tùy chọn</th>
@@ -191,14 +191,20 @@
   function reloadPage() {
     updatePagination();
 
+
     $.ajax({
       url: '/api/product',
       method: 'GET',
       data: {
         'page': currentPage,
-        'status': $('#status').val()
+        'status': $('#status').val(),
+        'keyword': $('#search-keyword').val()
       },
       cache: false,
+      beforeSend: function(){
+        $('#loading').removeClass('d-none');
+        $('div.table-responsive').addClass('d-none');
+      },
       success: function (data, textStatus, jqXHR) {
         console.log(data);
         let list = $.parseJSON(data);
@@ -239,6 +245,9 @@
             '</tr>';
           $('#tb-list').append(html);
         });
+
+        $('#loading').addClass('d-none');
+        $('div.table-responsive').removeClass('d-none');
       }
     });
   }

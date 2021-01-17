@@ -191,7 +191,8 @@
       method: 'GET',
       data: {
         'page': currentPage,
-        'status': $('#status').val()
+        'status': $('#status').val(),
+        'keyword': $('#search-keyword').val()
       },
       cache: false,
       beforeSend: function(){

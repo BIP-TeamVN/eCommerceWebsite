@@ -192,7 +192,8 @@
       method: 'GET',
       data: {
         'page': currentPage,
-        'status': $('#status').val()
+        'status': $('#status').val(),
+        'keyword': $('#search-keyword').val()
       },
       cache: false,
       beforeSend: function(){
@@ -233,10 +234,10 @@
             '</td>' +
             '</tr>';
           $('#tb-list').append(html);
-
-          $('#loading').addClass('d-none');
-          $('div.table-responsive').removeClass('d-none');
         });
+
+        $('#loading').addClass('d-none');
+        $('div.table-responsive').removeClass('d-none');
       }
     });
   }

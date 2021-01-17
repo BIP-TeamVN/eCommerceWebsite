@@ -294,7 +294,7 @@
 </div>
 <%@ include file="../common/import-js.jsp" %>
 <script src="../assets/js/dynamic-admin-unit-drop-down.js"></script>
-<script src="../assets/js/validate/validate-product-add-form.js"></script>
+<script src="/assets/js/validate/validate-product-add-form.js"></script>
 <script>
   let countType = 1;
 
@@ -358,8 +358,8 @@
     cache: false
   });
 </script>
-<link rel="stylesheet" href="../assets/vendor/slim-select/dist/slimselect.min.css" type="text/css">
-<script src="../assets/vendor/slim-select/dist/slimselect.js"></script>
+<link rel="stylesheet" href="/assets/vendor/slim-select/dist/slimselect.min.css" type="text/css">
+<script src="/assets/vendor/slim-select/dist/slimselect.js"></script>
 <script>
   new SlimSelect({
     select: '#categories'

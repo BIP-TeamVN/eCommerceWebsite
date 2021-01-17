@@ -18,36 +18,34 @@ import java.io.IOException;
 
 @WebServlet(urlPatterns = {"/api/count-product-count"})
 public class CountProductServlet extends HttpServlet {
-   public boolean isAuthentication(HttpServletRequest req) {
-      HttpSession session = req.getSession(false);
-      Long id = (Long) session.getAttribute("id");
-
-      if (id != null) {
-         String userType = UserDAO.getInstance().getUserType(id);
-         return userType.equals(Cons.User.USER_TYPE_ADMIN) || userType.equals(Cons.User.USER_TYPE_EMPLOYEE) || userType.equals(Cons.User.USER_TYPE_SELLER);
-      }
-
-      return false;
-   }
-
    @Override
    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-      if (isAuthentication(req)) {
-         Long totalRows = ProductDAO.getInstance().count(StringUtils.toInt(req.getParameter("status")));
-
-         String page = req.getParameter("page");
-
-         Long currentPage = StringUtils.toLong(page);
-         Long totalPage = (totalRows / 10) + ((totalRows % 10 == 0) ? 0 : 1);
-
-         if (currentPage > totalPage) {
-            currentPage = totalPage;
-         }
-         if (currentPage < 1) {
-            currentPage = 1L;
-         }
-
-         ServletUtils.printWrite(resp, totalPage + "," + currentPage);
+      HttpSession session = req.getSession();
+      Long id = (Long) session.getAttribute("id");
+      String keyword = req.getParameter("keyword").trim();
+      if (keyword == null) {
+         keyword = "";
       }
+      Integer status = StringUtils.toInt(req.getParameter("status"));
+      Long totalRows;
+      if (UserDAO.getInstance().getUserType(id).equals(Cons.User.USER_TYPE_SELLER)) {
+         totalRows = ProductDAO.getInstance().count(id, status, keyword);
+      } else {
+         totalRows = ProductDAO.getInstance().count(status, keyword);
+      }
+
+      String page = req.getParameter("page");
+
+      Long currentPage = StringUtils.toLong(page);
+      Long totalPage = (totalRows / 10) + ((totalRows % 10 == 0) ? 0 : 1);
+
+      if (currentPage > totalPage) {
+         currentPage = totalPage;
+      }
+      if (currentPage < 1) {
+         currentPage = 1L;
+      }
+
+      ServletUtils.printWrite(resp, totalPage + "," + currentPage);
    }
 }

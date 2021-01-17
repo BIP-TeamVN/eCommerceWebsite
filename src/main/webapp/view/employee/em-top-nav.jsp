@@ -1,4 +1,3 @@
-
 <%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8" %>
 <!-- Topnav -->
 <nav class="navbar navbar-top navbar-expand navbar-dark bg-primary border-bottom">
@@ -11,11 +10,10 @@
                   <div class="input-group-prepend">
                      <span class="input-group-text"><i class="fas fa-search"></i></span>
                   </div>
-                  <input class="form-control" placeholder="Tìm kiếm sản phẩm" type="text">
+                  <input class="form-control" placeholder="Tìm kiếm" type="text" id="search-keyword">
                </div>
             </div>
-            <button type="button" class="close" data-action="search-close" data-target="#navbar-search-main"
-                    aria-label="Close">
+            <button class="close" data-action="search-close" aria-label="Close" onclick="changeStatus()">
                <span aria-hidden="true">×</span>
             </button>
          </form>
