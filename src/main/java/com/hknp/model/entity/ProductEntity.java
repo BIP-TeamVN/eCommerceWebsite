@@ -1,5 +1,6 @@
 package com.hknp.model.entity;
 
+import com.hknp.model.dao.ProductDAO;
 import com.hknp.utils.DateTimeUtils;
 
 import javax.persistence.*;
@@ -253,6 +254,8 @@ public class ProductEntity implements Serializable {
    }
 
    public String toJson() {
+      Long countSold = ProductDAO.getInstance().getCountProductSold(this.productId);
+      Long countStock = ProductDAO.getInstance().getCountProductInStock(this.productId);
       return "{" +
               "\"id\":\"" + productId + "\"," +
               "\"productName\":\"" + productName + "\"," +
@@ -263,6 +266,7 @@ public class ProductEntity implements Serializable {
               "\"createDate\":\"" + DateTimeUtils.dateToString(productCreateDate, "dd/MM/yyyy") + "\"," +
               "\"priceOrder\":\"" + priceOrder + "\"," +
               "\"image0\":\"" + getImage0() + "\"," +
+              "\"number\":\"" + countSold + " - " + countStock + "\"," +
               "\"status\":\"" + status + "\"" +
               "}";
    }

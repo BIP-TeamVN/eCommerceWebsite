@@ -138,7 +138,8 @@ public class BillDAO implements IRetrieveEntity<BillEntity, Long>, IModifySingle
    public ArrayList<BillEntity> getsForDelivery(Integer firstResult, Integer maxResults, Long deliveryId, Integer status) {
       EntityManager entityMgr = EntityUtils.getEntityManager();
 
-      String strQuery = "SELECT u FROM BillEntity u where u.status =: status and u.deliveryEntity.id =: deliveryId "  ;
+      String strQuery = "SELECT u FROM BillEntity u where u.status = :status " +
+              "and u.deliveryEntity.id = :deliveryId "  ;
 
       Query query = entityMgr.createQuery(strQuery);
       query.setParameter("deliveryId", deliveryId);

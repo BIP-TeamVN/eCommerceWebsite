@@ -32,7 +32,10 @@
                   </nav>
                </div>
                <div class="col-lg-6 col-5 text-right">
-                  <a href="${javax.servlet.ServletRequest.getServerName()}/seller/product/add" class="text-uppercase btn btn-secondary pl-4 pr-4 mb-4">Thêm sản phẩm</a>
+                  <div class="col ml-auto mr-auto text-right">
+                     <a href="${javax.servlet.ServletRequest.getServerName()}/seller/product/add" class="btn btn-secondary text-uppercase">Thêm sản phẩm</a>
+                     </a>
+                  </div>
                </div>
             </div>
          </div>
@@ -48,8 +51,7 @@
             <div class="card">
                <!-- Card header -->
                <div class="card-header border-0">
-                  <h2 class="mb-0 text-center text-uppercase display-4">Danh sách nhân viên</h2>
-                  <%@ include file="/common/product-filter.jsp" %>
+                  <h2 class="mb-0 text-center text-uppercase display-4">Danh sách Sản phẩm</h2>
                </div>
 
                <!--Loading-->
@@ -77,6 +79,7 @@
                         <th scope="col" class="text-center">Nước sản xuất</th>
                         <th scope="col" class="text-center">Ngày tạo</th>
                         <th scope="col" class="text-center">Giá bán</th>
+                        <th scope="col" class="text-center">Đã bán/Trong kho</th>
                         <th scope="col" class="text-center">Tùy chọn</th>
                      </tr>
                      </thead>
@@ -86,7 +89,7 @@
                </div>
 
                <!-- Card footer -->
-               <div class="card-footer py-2">
+               <div class="card-footer py-3">
                   <!-- Pagination -->
                   <nav aria-label="...">
                      <ul id="page-pagination" class="pagination justify-content-center mt-3">
@@ -195,7 +198,8 @@
       method: 'GET',
       data: {
         'page': currentPage,
-        'status': $('#status').val()
+        'status': $('#status').val(),
+        'keyword': $('#search-keyword').val()
       },
       cache: false,
       beforeSend: function(){
@@ -224,6 +228,7 @@
             '<td>' + item.productOrigin + '</td>' +
             '<td>' + item.createDate + '</td>' +
             '<td>' + item.priceOrder + '</td>' +
+            '<td>' + item.number + '</td>' +
             '<td class="td-actions text-center">' +
             '<a href="/seller/product/edit?id=' + item.id + '" class="btn btn-primary px-2 py-1" data-toggle="tooltip" data-placement="top" title="Chỉnh sửa thông tin sản phẩm">' +
             '<i class="fa fa-edit"></i>' +

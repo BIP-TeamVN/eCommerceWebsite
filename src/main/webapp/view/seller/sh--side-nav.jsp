@@ -33,9 +33,9 @@
             <!-- Nav items -->
             <ul class="navbar-nav">
                <li class="nav-item">
-                  <a class="nav-link <%=isActive[0] ? "active" : ""%>" href="<%=isActive[0] ? "javascript:void(0)" : "/admin/delivery"%>">
+                  <a class="nav-link <%=isActive[0] ? "active" : ""%>" href="<%=isActive[0] ? "javascript:void(0)" : "/seller"%>">
                      <i class="fa fa-user-ninja text-yellow"></i>
-                     <span class="nav-link-text">Giao hàng</span>
+                     <span class="nav-link-text">Ngành hàng</span>
                   </a>
                </li>
                <li class="nav-item">
