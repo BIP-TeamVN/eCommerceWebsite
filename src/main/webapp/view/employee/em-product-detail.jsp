@@ -204,7 +204,7 @@
 </script>
 <script>
   function verifyProduct() {
-    console.log(id);
+    //console.log(id);
     let para = JSON.stringify({
       'id': id.toString(),
       'status': '1'});
@@ -221,7 +221,7 @@
           $('#status-' + id).html('<i class="fa fa-lock-open"></i>');
           $('#status-' + id).attr('class', 'btn btn-success px-2 py-1 mt-2');
           $('#status-' + id).attr('title', 'Đã xác nhận');
-          if ($('#status').val() != '3') {
+          if ($('#filter-status').val() != '3') {
             $('#status--' + id).remove();
           }
         } else {
@@ -235,7 +235,7 @@
   };
 
   function rejectProduct() {
-    console.log(id);
+    //console.log(id);
     let para = JSON.stringify({
       'id': id.toString(),
       'status': '2'});
@@ -252,7 +252,7 @@
           $('#status-' + id).html('<i class="fa fa-exclamation-triangle"></i>');
           $('#status-' + id).attr('class', 'btn btn-warning px-2 py-1 mt-2');
           $('#status-' + id).attr('title', 'Đã từ chối');
-          if ($('#status').val() != '3') {
+          if ($('#filter-status').val() != '3') {
             $('#status--' + id).remove();
           }
         } else {
@@ -266,7 +266,7 @@
   };
 
   function lockProduct() {
-    console.log(id);
+    //console.log(id);
     let para = JSON.stringify({
       'id': id.toString(),
       'status': '0'});
@@ -283,7 +283,7 @@
           $('#status-' + id).html('<i class="fa fa-lock"></i>');
           $('#status-' + id).attr('class', 'btn btn-danger px-2 py-1 mt-2');
           $('#status-' + id).attr('title', 'Chưa xác nhận');
-          if ($('#status').val() != '3') {
+          if ($('#filter-status').val() != '3') {
             $('#status--' + id).remove();
           }
         } else {

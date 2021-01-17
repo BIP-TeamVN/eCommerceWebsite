@@ -26,6 +26,8 @@ public class ProductServlet extends HttpServlet {
       Long id = (Long) session.getAttribute("id");
       Integer status = StringUtils.toInt(req.getParameter("status"));
       String keyword = req.getParameter("keyword").trim();
+      String columnName = req.getParameter("columnName");
+      String typeSort = req.getParameter("typeSort");
       if (keyword == null) {
          keyword = "";
       }
@@ -38,10 +40,10 @@ public class ProductServlet extends HttpServlet {
       List<String> listJsonStr = new ArrayList<>();
 
       if (UserDAO.getInstance().getById(id).getUserType().equals(Cons.User.USER_TYPE_SELLER)) {
-         listProduct = ProductDAO.getInstance().gets((page - 1) * 10, 10, id, status, keyword, "", "");
+         listProduct = ProductDAO.getInstance().gets((page - 1) * 10, 10, id, status, keyword, columnName, typeSort);
       }
       else {
-         listProduct = ProductDAO.getInstance().gets((page - 1) * 10, 10, status, keyword, "", "");
+         listProduct = ProductDAO.getInstance().gets((page - 1) * 10, 10, status, keyword, columnName, typeSort);
       }
 
       for (ProductEntity product : listProduct) {

@@ -31,7 +31,6 @@
                      </ol>
                   </nav>
                </div>
-               <%@ include file="/common/product-filter.jsp" %>
             </div>
          </div>
       </div>
@@ -40,13 +39,102 @@
    <!-- Page content -->
    <div class="container-fluid mt--6">
 
-      <!--List product card-->
+      <!--List employee card-->
       <div class="row">
          <div class="col">
             <div class="card">
                <!-- Card header -->
                <div class="card-header border-0">
                   <h2 class="mb-0 text-center text-uppercase display-4">Danh sách Sản phẩm</h2>
+                  <div class="position-absolute row" style="right: 2rem; top: 1.5rem;">
+                     <div class="col-3 text-right">
+                        <label class="custom-toggle">
+                           <input type="checkbox" id="chk-show-filter">
+                           <span class="custom-toggle-slider rounded-circle"></span>
+                        </label>
+                     </div>
+                     <div class="col-9 text-right">
+                        <p class="m-0 font-weight-bold">Lọc và tìm kiếm</p>
+                     </div>
+                  </div>
+               </div>
+
+               <!--Filter-->
+               <div id="tb-filter" class="card-header border-0 d-none pt-0">
+                  <div class="container m-0">
+                     <div class="row">
+                        <div class="col">
+                           <div class="line-text"><span>Tìm kiếm và tùy chọn hiển thị</span></div>
+                        </div>
+                     </div>
+
+                     <div class="row m-0">
+                        <div class="col pl-0">
+                           <form class="m-auto w-100 navbar-search navbar-search-light form-inline" id="tb-search">
+                              <div class="form-group w-100 mb-0">
+                                 <div style="border: 1px solid #EFF1F3;"
+                                      class="w-100 input-group input-group-alternative input-group-merge">
+                                    <div class="input-group-prepend">
+                                       <span class="input-group-text"><em class="fas fa-search"></em></span>
+                                    </div>
+                                    <input class="form-control" id="tb-input-search" placeholder="Tìm kiếm" type="text">
+                                 </div>
+                              </div>
+                              <button class="close" data-action="search-close" data-target="#tb-search"
+                                      aria-label="Close" onclick="search()">
+                                 <span aria-hidden="true">×</span>
+                              </button>
+                           </form>
+                        </div>
+
+                        <div class="col">
+                           <div class="row">
+                              <div class="col p-0">
+                                 <div class="form-group m-1">
+                                    <label for="sort-by-column" class="floating-label">Sắp xếp theo</label>
+                                    <select class="form-control input-border" id="sort-by-column" onchange="search()">
+                                       <option value="productId" selected>Mã</option>
+                                       <option value="productName">Tên sản phẩm</option>
+                                       <option value="brandEntity.brandName">Nhãn hiệu</option>
+                                       <option value="sellerEntity.storeName">Cửa hàng</option>
+                                       <option value="productRate">Đánh giá</option>
+                                       <option value="productOrigin">Xuất xứ</option>
+                                       <option value="productCreateDate">Ngày tạo</option>
+                                       <option value="priceOrder">Giá bán</option>
+                                    </select>
+                                 </div>
+                              </div>
+
+                              <div class="col p-0">
+                                 <div class="form-group m-1">
+                                    <label for="sort-type" class="floating-label">Kiểu sắp xếp</label>
+                                    <select class="form-control input-border" id="sort-type" onchange="search()">
+                                       <option value="ASC" selected>Tăng dần</option>
+                                       <option value="DESC">Giảm dần</option>
+                                    </select>
+                                 </div>
+                              </div>
+
+                              <div class="col p-0">
+                                 <div class="form-group m-1">
+                                    <label for="filter-status" class="floating-label">Trạng thái</label>
+                                    <select class="form-control input-border" id="filter-status" onchange="search()">
+                                       <option selected value="3">Tất cả trạng thái</option>
+                                       <option value="0">Chưa xác nhận</option>
+                                       <option value="1">Đã xác nhận</option>
+                                       <option value="2">Đã từ chối</option>
+                                    </select>
+                                 </div>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                     <div class="row my-4">
+                        <div class="col">
+                           <div class="line-text"></div>
+                        </div>
+                     </div>
+                  </div>
                </div>
 
                <!--Loading-->
@@ -120,6 +208,14 @@
 <!--Javascript-->
 <%@ include file="../../common/import-js.jsp" %>
 <script>
+  $('#chk-show-filter').change(function () {
+    if ($(this).is(':checked')) {
+      $('#tb-filter').removeClass('d-none');
+    } else {
+      $('#tb-filter').addClass('d-none');
+    }
+  });
+
   let firstPageButton = '<li class="page-item"><button type="button" class="page-link" onclick="goFirst()"><i class="fa fa-angle-double-left"></i><span class="sr-only">Trang đầu tiên</span></button></li>';
   let prevPageButton = '<li class="page-item"><button type="button" class="page-link" onclick="goPrev()"><i class="fa fa-angle-left"></i><span class="sr-only">Trang trước</span></button></li>';
   let nextPageButton = '<li class="page-item"><button type="button" class="page-link" onclick="goNext()"><i class="fa fa-angle-right"></i><span class="sr-only">Trang sau</span></button></li>';
@@ -192,8 +288,10 @@
       method: 'GET',
       data: {
         'page': currentPage,
-        'status': $('#status').val(),
-        'keyword': $('#search-keyword').val()
+        'status': $('#filter-status').val(),
+        'keyword': $('#tb-input-search').val(),
+        'columnName': $('#sort-by-column').val(),
+        'typeSort': $('#sort-type').val()
       },
       cache: false,
       beforeSend: function(){
@@ -201,12 +299,12 @@
         $('div.table-responsive').addClass('d-none');
       },
       success: function (data, textStatus, jqXHR) {
-        console.log(data);
+        //console.log(data);
         let list = $.parseJSON(data);
-        console.log(list);
+        //console.log(list);
         $('#tb-list').find('tr').remove();
         $.each(list, function (index, item) {
-          console.log(item.status);
+          //console.log(item.status);
           let html =
             '<tr id="status--' + item.id + '">' +
             '<td>' +
@@ -252,7 +350,7 @@
   let id;
   function showProductDetail(idPara) {
     id = idPara;
-    console.log(id);
+    //console.log(id);
     $.ajax({
       url: '/employee/product/detail',
       method: 'GET',
@@ -287,6 +385,27 @@
 <script>
   function setImage(id, src) {
     $('#' + id).attr('src',src);
+  }
+</script>
+<script>
+  function search(){
+    $.ajax({
+      url: '/api/count-product-count',
+      method: 'GET',
+      data: {
+        'page': currentPage,
+        'status': $('#filter-status').val(),
+        'keyword': $('#tb-input-search').val()
+      },
+      cache: false,
+      async: false,
+      success: function (data) {
+        let result = data.toString().split(",");
+        totalPage = parseInt(result[0]);
+        currentPage = parseInt(result[1]);
+        reloadPage();
+      }
+    });
   }
 </script>
 <%@ include file="./em-product-detail.jsp" %>
