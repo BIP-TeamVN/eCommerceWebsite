@@ -16,7 +16,7 @@
 <!-- Main content -->
 <div class="main-content" id="panel">
    <!--Top navigation-->
-   <%@include file="./em-top-nav.jsp" %>
+   <%@include file="em--top-nav.jsp" %>
 
    <!--Header and breadcrumb-->
    <div class="header bg-primary pb-6">
