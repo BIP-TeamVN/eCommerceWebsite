@@ -221,12 +221,10 @@ $('#' + FORM_ID).submit(function (e) {
           });
         } else {
           alert("Lỗi: " + result[1]);
-          e.preventDefault();
         }
       },
       error: function (jqXHR, textStatus, errorThrown) {
         alert("Lỗi javascript: " + errorThrown);
-        e.preventDefault();
       }
     });
   }

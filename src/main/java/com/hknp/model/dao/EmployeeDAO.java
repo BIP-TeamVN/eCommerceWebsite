@@ -8,8 +8,10 @@ import com.hknp.utils.EntityUtils;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import java.util.ArrayList;
+import java.util.Queue;
 
 public class EmployeeDAO implements IRetrieveEntity<EmployeeEntity, Long>, IModifySingleEntityAutoIncrement<EmployeeEntity, Long> {
    private static EmployeeDAO instance = null;
@@ -90,10 +92,33 @@ public class EmployeeDAO implements IRetrieveEntity<EmployeeEntity, Long>, IModi
 
    @Override
    public ArrayList<EmployeeEntity> gets(Integer firstResult, Integer maxResults) {
-      EntityManager entityMgr = EntityUtils.getEntityManager();
+      return gets(firstResult, maxResults, null, null,null);
+   }
 
+   public ArrayList<EmployeeEntity> gets(Integer firstResult, Integer maxResults, String searchKeyword, Integer status, String sortColumnName) {
+      EntityManager entityMgr = EntityUtils.getEntityManager();
       String query = "SELECT u FROM EmployeeEntity u";
-      TypedQuery<EmployeeEntity> typedQuery = entityMgr.createQuery(query, EmployeeEntity.class);
+
+      if (searchKeyword != null && status != null) {
+         query += " where CONCAT(u.userEntity.lastName, ' ', u.userEntity.firstName) like :keywordPara and u.userEntity.status = :statusPara";
+      } else if (searchKeyword == null && status != null) {
+         query += " where u.userEntity.status :statusPara";
+      } else if (searchKeyword != null && status == null) {
+         query += " where CONCAT(u.userEntity.lastName, ' ', u.userEntity.firstName) like :keywordPara";
+      }
+
+      if (sortColumnName != null && !sortColumnName.isEmpty()) {
+         query += " order by u." + sortColumnName;
+      }
+
+      TypedQuery typedQuery = entityMgr.createQuery(query, EmployeeEntity.class);
+
+      if (searchKeyword != null) {
+         typedQuery.setParameter("keywordPara", "%" + searchKeyword + "%");
+      }
+      if (status != null) {
+         typedQuery.setParameter("statusPara", status);
+      }
 
       if (firstResult != null) {
          typedQuery.setFirstResult(firstResult);

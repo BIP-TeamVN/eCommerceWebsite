@@ -21,7 +21,7 @@
 
 <!-- Main content -->
 <div class="main-content" id="panel">
-   <%@include file="em-top-nav.jsp" %>
+   <%@include file="em--top-nav.jsp" %>
 
    <!-- Header -->
    <!-- Header -->

@@ -1,11 +1,11 @@
+const FORM_ID = 'product-category-form';
+
 const name = document.getElementById('name');
-
-
 
 let isValidate = true;
 
 function checkInputs() {
-  // trim to remove the whitespaces
+
   const nameValue = name.value.trim();
 
   isValidate = true;
@@ -15,6 +15,7 @@ function checkInputs() {
   } else {
     setSuccessFor(name);
   }
+
 }
 
 function setErrorFor(input, message) {
@@ -51,7 +52,7 @@ function encodeImgToBase64(element) {
   imgReader.readAsDataURL(img);
 }
 
-$('#product-category-form').submit(function (e) {
+$('#' + FORM_ID).submit(function (e) {
   e.preventDefault();
   checkInputs();
 
@@ -67,9 +68,10 @@ $('#product-category-form').submit(function (e) {
       success: function (data, textStatus, jqXHR) {
         let result = data.toString().split('\n');
         if (result[0] === 'true') {
+          $('#modal-add-product-category').modal('hide');
           $('#successful-modal').modal('show');
           $('#successful-modal').on('hidden.bs.modal', function () {
-            window.location.href = window.location.origin +  '/admin/category';
+            window.location.href = window.location.origin +  '/admin/category?page=99999999999999999';
           });
         } else {
           alert("Lỗi: " + result[1]);

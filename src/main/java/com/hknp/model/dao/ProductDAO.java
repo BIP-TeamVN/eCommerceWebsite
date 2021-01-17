@@ -101,10 +101,10 @@ public class ProductDAO implements IRetrieveEntity<ProductEntity, Long>, IModify
 
    @Override
    public ArrayList<ProductEntity> gets(Integer firstResult, Integer maxResults) {
-      return gets(firstResult, maxResults, 3, "");
+      return gets(firstResult, maxResults, 3, "", "", "");
    }
 
-   public ArrayList<ProductEntity> gets(Integer firstResult, Integer maxResults, Integer status, String keyword) {
+   public ArrayList<ProductEntity> gets(Integer firstResult, Integer maxResults, Integer status, String keyword, String columnName, String typeSort) {
       EntityManager entityMgr = EntityUtils.getEntityManager();
 
       Query query;
@@ -115,7 +115,7 @@ public class ProductDAO implements IRetrieveEntity<ProductEntity, Long>, IModify
                  "and (u.productName like :keywordPara " +
                  "or u.sellerEntity.storeName like :keywordPara " +
                  "or u.productOrigin like :keywordPara " +
-                 "or u.brandEntity.brandName like :keywordPara)";
+                 "or u.brandEntity.brandName like :keywordPara)" + sortColumn(columnName, typeSort);
 
          query = entityMgr.createQuery(queryStr, ProductEntity.class);
          query.setParameter("statusPara", status);
@@ -124,7 +124,7 @@ public class ProductDAO implements IRetrieveEntity<ProductEntity, Long>, IModify
                  "where u.productName like :keywordPara " +
                  "or u.sellerEntity.storeName like :keywordPara " +
                  "or u.productOrigin like :keywordPara " +
-                 "or u.brandEntity.brandName like :keywordPara";
+                 "or u.brandEntity.brandName like :keywordPara" + sortColumn(columnName, typeSort);
 
          query = entityMgr.createQuery(queryStr, ProductEntity.class);
       }
@@ -148,7 +148,15 @@ public class ProductDAO implements IRetrieveEntity<ProductEntity, Long>, IModify
       return result;
    }
 
-   public ArrayList<ProductEntity> gets(Integer firstResult, Integer maxResults, Long sellerId, Integer status, String keyword) {
+   public String sortColumn (String columnName, String typeSort) {
+      String result = "";
+      if (!columnName.equals("")){
+         result = " ORDER BY u." + columnName +" " + typeSort;
+      }
+      return result;
+   }
+
+   public ArrayList<ProductEntity> gets(Integer firstResult, Integer maxResults, Long sellerId, Integer status, String keyword, String columnName, String typeSort) {
       EntityManager entityMgr = EntityUtils.getEntityManager();
 
       Query query;
@@ -160,7 +168,7 @@ public class ProductDAO implements IRetrieveEntity<ProductEntity, Long>, IModify
                  "and (u.productName like :keywordPara " +
                  "or u.sellerEntity.storeName like :keywordPara " +
                  "or u.productOrigin like :keywordPara " +
-                 "or u.brandEntity.brandName like :keywordPara)";
+                 "or u.brandEntity.brandName like :keywordPara)" + sortColumn(columnName, typeSort);
 
          query = entityMgr.createQuery(queryStr, ProductEntity.class);
          query.setParameter("statusPara", status);
@@ -170,7 +178,7 @@ public class ProductDAO implements IRetrieveEntity<ProductEntity, Long>, IModify
                  "and (u.productName like :keywordPara " +
                  "or u.sellerEntity.storeName like :keywordPara " +
                  "or u.productOrigin like :keywordPara " +
-                 "or u.brandEntity.brandName like :keywordPara)";
+                 "or u.brandEntity.brandName like :keywordPara)" + sortColumn(columnName, typeSort);
 
          query = entityMgr.createQuery(queryStr, ProductEntity.class);
       }
@@ -298,27 +306,31 @@ public class ProductDAO implements IRetrieveEntity<ProductEntity, Long>, IModify
       return (Integer) query.getSingleResult();
    }
 
-   public ArrayList<ProductEntity> searchProduct(Integer firstResult, Integer maxResults, String keyword) {
+   public Long getCountProductSold (Long productId) {
       EntityManager entityMgr = EntityUtils.getEntityManager();
 
-      String queryStr = "select u from ProductEntity u where u.productName like :keywordPara";
-      Query query = entityMgr.createQuery(queryStr, ProductEntity.class);
-      query.setParameter("keywordPara", "%" + keyword + "%");
+      String queryStr = "SELECT SUM(bd.quantity) " +
+              "FROM BillDetailEntity bd INNER JOIN ProductTypeEntity pt " +
+              "ON bd.productTypeEntity.productTypeId = pt.productTypeId " +
+              "WHERE pt.productEntity.productId = :productIdPara";
+      Query query = entityMgr.createQuery(queryStr);
+      query.setParameter("productIdPara", productId);
 
-      if (firstResult != null) {
-         query.setFirstResult(firstResult);
-      }
-      if (maxResults != null) {
-         query.setMaxResults(maxResults);
-      }
-      ArrayList<ProductEntity> result = null;
-      try {
-         result = new ArrayList<>(query.getResultList());
-      } catch (Exception exception) {
-         exception.printStackTrace();
-      } finally {
-         entityMgr.close();
-      }
-      return result;
+      Long result = (Long) query.getSingleResult();
+      return result == null ? 0 : result;
+   }
+
+   public Long getCountProductInStock(Long productId) {
+      EntityManager entityMgr = EntityUtils.getEntityManager();
+
+      String queryStr = "SELECT SUM(pt.quantity) " +
+              "FROM ProductEntity bd INNER JOIN ProductTypeEntity pt " +
+              "ON bd.productId = pt.productEntity.productId " +
+              "WHERE bd.productId = :productIdPara";
+      Query query = entityMgr.createQuery(queryStr);
+      query.setParameter("productIdPara", productId);
+
+      Long result = (Long) query.getSingleResult();
+      return result == null ? 0 : result;
    }
 }
