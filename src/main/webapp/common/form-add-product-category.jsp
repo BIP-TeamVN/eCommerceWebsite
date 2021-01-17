@@ -1,9 +1,8 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8" %>
 
 <!-- Modal -->
-<div class="modal fade bd-example-modal-lg" id="modal-add-product-category" tabindex="-1" role="dialog"
-     aria-labelledby="exampleModalLabel" aria-hidden="true">
-   <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+<div id="modal-add-product-category" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+   <div class="modal-dialog modal-lg modal-dialog-scrollable modal-dialog-centered" role="document">
       <div class="modal-content">
          <div class="modal-header p-3">
             <h5 class="display-3 mx-3 my-2 text-uppercase">Thêm ngành hàng mới</h5>
@@ -52,9 +51,9 @@
       </div>
    </div>
 </div>
+
 <!-- Modal add successful -->
-<div class="modal fade" id="successful-modal" tabindex="-1" role="dialog" aria-labelledby="conform-modal-lb"
-     aria-hidden="true">
+<div class="modal fade" id="successful-modal" tabindex="-1" role="dialog" aria-labelledby="conform-modal-lb" aria-hidden="true">
    <div class="modal-dialog" role="document">
       <div class="modal-content">
          <div class="modal-header">
@@ -67,11 +66,13 @@
             Thêm ngành hàng thành công !
          </div>
          <div class="modal-footer">
-            <a href="/admin/category" class="btn btn-primary px-4">OK</a>
+            <button class="btn btn-primary px-4" type="button" data-dismiss="modal">OK</button>
          </div>
       </div>
    </div>
 </div>
+
 <%@ include file="import-js.jsp" %>
+
 <script src="../../assets/js/dynamic-admin-unit-drop-down.js"></script>
 <script src="../../assets/js/validate/validate-product-category-form.js"></script>
