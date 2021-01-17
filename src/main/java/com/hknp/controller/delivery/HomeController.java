@@ -27,8 +27,8 @@ public class HomeController extends HttpServlet {
       if (currentPage < 1) {
          currentPage = 1L;
       }
-      req.setAttribute("totalPage", totalPage);
       req.setAttribute("currentPage", currentPage);
+      req.setAttribute("totalPage", totalPage);
 
       String type = req.getParameter("type");
       Integer Type = StringUtils.toInt(type);

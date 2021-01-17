@@ -37,7 +37,6 @@
    </div>
 
    <!-- From add employee -->
-   <%@ include file="../../common/form-add-employee.jsp" %>
 
    <!-- Page content -->
    <div class="container-fluid mt--6">
@@ -190,7 +189,7 @@
       url: apiUrl,
       method: 'GET',
       data: {
-        page: '1',
+        page: currentPage,
         status: '2',
       },
       success: function (data, textStatus, jqXHR) {

@@ -48,7 +48,7 @@
             <div class="card">
                <!-- Card header -->
                <div class="card-header border-0">
-                  <h2 class="mb-0 text-center text-uppercase display-4" id="title">Danh sách đơn hàng đang giao</h2>
+                  <h2 class="mb-0 text-center text-uppercase display-4" id="title">Danh sách đơn hàng</h2>
                </div>
 
                <!--Loading-->
@@ -122,6 +122,7 @@
 
   let totalPage = ${totalPage};
   let currentPage = ${currentPage};
+  let type_bill = ${type};
 
   reloadPage();
 
@@ -179,23 +180,22 @@
     $('#page-pagination').append(currentPage < totalPage - 1 ? lastPageButton : '');
   }
 
-
-  let type = <%=request.getParameter("type")%>;
-  if(type == 4)
+  console.log(type_bill);
+  if(type_bill === 4)
   {
-    $('#title').html("Danh sách đơn hàng đang đợi nhận hàng");
+    $('#title').html('Danh sách đơn hàng đang đợi nhận hàng');
   }
-  else if(type == 5)
+  else if(type_bill === 5)
   {
-    $('#title').html("Danh sách đơn hàng đang giao");
+    $('#title').html('Danh sách đơn hàng đang giao');
   }
-  else if(type == 6)
+  else if(type_bill === 6)
   {
-    $('#title').html("Danh sách đơn hàng đã giao xong");
+    $('#title').html('Danh sách đơn hàng đã giao xong');
   }
-  else if(type == 2)
+  else if(type_bill === 2)
   {
-    $('#title').html("Danh sách đơn hàng");
+    $('#title').html('Danh sách đơn hàng');
   }
 
 
@@ -206,12 +206,13 @@
 
     const apiUrl = "/api/deliverybilldelivering";
 
+    console.log(type_bill);
     $.ajax({
       url: apiUrl,
       method: 'GET',
       data: {
-        page: '1',
-        type: ${type},
+        page: currentPage,
+        type: type_bill,
       },
       success: function (data, textStatus, jqXHR) {
         let list = $.parseJSON(data);
