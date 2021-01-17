@@ -15,6 +15,7 @@
 
    <!-- Page content -->
    <div class="container">
+      <!--Carousel Banner-->
       <div class="row mt-5 mb-5 justify-content-center">
          <div class="col">
             <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
@@ -131,12 +132,52 @@
                         <h3 class="mb-0 text-uppercase">Nhãn hiệu</h3>
                      </div>
                      <div class="col text-right">
-                        <a href="javascript:void(0)" class="btn btn-sm btn-primary">Xem tất cả</a>
+                        <button href="javascript:void(0)" class="btn btn-sm btn-primary" data-toggle="modal"
+                                data-target="#modal-all-brands">Xem tất cả</button>
                      </div>
                   </div>
                </div>
                <div class="card-body">
                   <div class="row" id="brand-list">
+                     <div class="col-lg-3 col-md-6">
+                        <a class="btn-icon-clipboard p-2" href="javascript:void(0)">
+                           <div>
+                              <img src="../unknown-brand.svg" class="rounded avatar" alt="...">
+                              <h4 class="ml-3 my-auto">MSI</h4>
+                           </div>
+                        </a>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+
+      <!-- Modal view all brand -->
+      <div id="modal-all-brands" class="modal fade" tabindex="-1" role="dialog"  aria-labelledby="exampleModalLabel" aria-hidden="true">
+         <div class="modal-dialog modal-xl modal-dialog-scrollable modal-dialog-centered" role="document">
+            <div class="modal-content">
+               <div class="modal-header p-3">
+                  <h2 class="mx-3 my-2 text-center text-uppercase display-4 w-100">Tất cả nhãn hiệu</h2>
+                  <button type="button" class="close position-absolute" style="top: 1rem; right: 1rem;" data-dismiss="modal" aria-label="Close">
+                     <span aria-hidden="true">&times;</span>
+                  </button>
+               </div>
+               <div class="modal-body p-3">
+                  <div class="row">
+                     <div class="col">
+                        <div class="form-group mt--3">
+                           <div class="input-group border border-primary input-group-alternative mb-4">
+                              <div class="input-group-prepend">
+                                 <span class="input-group-text"><em class="fa fa-search"></em></span>
+                              </div>
+                              <input class="form-control form-control-alternative" id="search-brand" name="search-brand"
+                                     placeholder="Tìm kiếm nhãn hiệu" type="text"/>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="row">
                      <div class="col-lg-3 col-md-6">
                         <a class="btn-icon-clipboard p-2" href="javascript:void(0)">
                            <div>

@@ -16,7 +16,7 @@
                   <form id="brand-form" method="POST" enctype="multipart/form-data">
                      <!--Tên thương hiệu-->
                      <div class="row">
-                        <div class="col-md-10">
+                        <div class="col-md-12">
                            <div class="form-group">
                               <label for="brandName" class="form-control-label">Tên thương hiệu</label>
                               <a tabindex="-1" href="javascript:void(0)" class="badge badge-secondary"
@@ -32,7 +32,7 @@
                      </div>
                      <!--Xuất xứ-->
                      <div class="row">
-                        <div class="col-md-10">
+                        <div class="col-md-12">
                            <div class="form-group">
                               <label for="brandOrigin" class="form-control-label">Xuất xứ</label>
                               <a tabindex="-1" href="javascript:void(0)" class="badge badge-secondary"
@@ -67,6 +67,8 @@
       </div>
    </div>
 </div>
+
+<!-- Modal add successful -->
 <div class="modal fade" id="successful-modal" tabindex="-1" role="dialog" aria-labelledby="conform-modal-lb" aria-hidden="true">
    <div class="modal-dialog" role="document">
       <div class="modal-content">
@@ -85,6 +87,8 @@
       </div>
    </div>
 </div>
+
 <%@ include file="import-js.jsp" %>
+
 <script src="../../assets/js/dynamic-admin-unit-drop-down.js"></script>
 <script src="../../assets/js/validate/validate-brand-form.js"></script>
