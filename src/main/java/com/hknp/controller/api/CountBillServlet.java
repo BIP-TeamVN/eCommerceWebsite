@@ -1,10 +1,14 @@
-package com.hknp.controller.seller;
+package com.hknp.controller.api;
 
 import com.hknp.model.dao.BillDAO;
+import com.hknp.model.dao.CustomerDAO;
 import com.hknp.model.dao.ProductDAO;
+import com.hknp.model.dao.UserDAO;
+import com.hknp.model.entity.Cons;
+import com.hknp.model.entity.CustomerEntity;
+import com.hknp.utils.ServletUtils;
 import com.hknp.utils.StringUtils;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -13,13 +17,20 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
-@WebServlet(urlPatterns = {"/seller/bills"})
-public class ShBillController extends HttpServlet {
+@WebServlet(urlPatterns = {"/api/count-bill-count"})
+public class CountBillServlet extends HttpServlet {
    @Override
    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
       HttpSession session = req.getSession();
-      Long sellerId = (Long) session.getAttribute("id");
-      Long totalRows = BillDAO.getInstance().count(sellerId, 0);
+      Long id = (Long) session.getAttribute("id");
+      Integer status = StringUtils.toInt(req.getParameter("status"));
+      Long totalRows;
+      if (UserDAO.getInstance().getUserType(id).equals(Cons.User.USER_TYPE_SELLER)) {
+         totalRows = BillDAO.getInstance().count(id, status);
+      } else {
+         totalRows = BillDAO.getInstance().countForShipper(id, status);
+      }
+
       String page = req.getParameter("page");
 
       Long currentPage = StringUtils.toLong(page);
@@ -32,14 +43,6 @@ public class ShBillController extends HttpServlet {
          currentPage = 1L;
       }
 
-      req.setAttribute("totalPage", totalPage);
-      req.setAttribute("currentPage", currentPage);
-      RequestDispatcher reqDispatcher = req.getRequestDispatcher("/view/seller/sh-bill.jsp");
-      reqDispatcher.forward(req, resp);
-   }
-
-   @Override
-   protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-      doGet(req, resp);
+      ServletUtils.printWrite(resp, totalPage + "," + currentPage);
    }
 }

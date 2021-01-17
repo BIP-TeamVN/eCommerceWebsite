@@ -262,6 +262,7 @@
       data: paras,
       success: function (){
         $("#hay" + billId).remove();
+        reloadPage();
       }
     })
     alert("Nhận đơn thành công!");
@@ -279,6 +280,7 @@
       data: paras,
       success: function (){
         $("#hay" + billId).remove();
+        reloadPage();
       }
     })
     alert("Xác nhận đã giao thành công!");
@@ -296,6 +298,7 @@
       data: paras,
       success: function (){
         $("#hay" + billId).remove();
+        reloadPage();
       }
     })
     alert("Xác nhận giao thất bại!");
@@ -313,6 +316,7 @@
       data: paras,
       success: function (){
         $("#hay" + billId).remove();
+        reloadPage();
       }
     })
     alert("Nhận hàng thành công!");

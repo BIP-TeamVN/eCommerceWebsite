@@ -19,4 +19,22 @@
    </div>
 </div>
 <script>
+  function changeStatus(){
+    $.ajax({
+      url: '/api/count-bill-count',
+      method: 'GET',
+      data: {
+        'page': currentPage,
+        'status': $('#status').val()
+      },
+      cache: false,
+      async: false,
+      success: function (data) {
+        let result = data.toString().split(",");
+        totalPage = parseInt(result[0]);
+        currentPage = parseInt(result[1]);
+        reloadPage();
+      }
+    });
+  }
 </script>

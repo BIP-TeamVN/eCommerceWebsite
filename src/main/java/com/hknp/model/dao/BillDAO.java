@@ -200,4 +200,45 @@ public class BillDAO implements IRetrieveEntity<BillEntity, Long>, IModifySingle
 
    @Override
    public Long count() {return EntityUtils.count(BillEntity.class.getName());}
+
+   public Long count(Long sellerId, Integer status){
+      EntityManager entityMgr = EntityUtils.getEntityManager();
+
+      String queryStr;
+      Query query;
+      queryStr = "SELECT distinct u.billEntity FROM BillDetailEntity AS u " +
+              "WHERE u.productTypeEntity.productEntity.sellerEntity.userId = :sellerId " +
+              "and u.billEntity.status = :status";
+      query = entityMgr.createQuery(queryStr);
+      query.setParameter("sellerId", sellerId);
+      query.setParameter("status", status);
+      ArrayList<BillEntity> result = null;
+      result = new ArrayList<>(query.getResultList());
+      return (Long) result.stream().count();
+   }
+
+   public Long countForShipper(Long deliveryId, Integer status){
+      EntityManager entityMgr = EntityUtils.getEntityManager();
+
+      String queryStr;
+      Query query;
+      queryStr = "SELECT count(b.billId) from  BillEntity b " +
+              "WHERE b.deliveryEntity.userId = :deliveryId " +
+              "and b.status = :status";
+      query = entityMgr.createQuery(queryStr);
+      query.setParameter("deliveryId", deliveryId);
+      query.setParameter("status", status);
+      return (Long) query.getSingleResult();
+   }
+
+   public Long count(Integer status){
+      EntityManager entityMgr = EntityUtils.getEntityManager();
+
+      String queryStr;
+      Query query;
+      queryStr = "SELECT count(*) from  BillEntity b WHERE b.status = :status";
+      query = entityMgr.createQuery(queryStr);
+      query.setParameter("status", status);
+      return (Long) query.getSingleResult();
+   }
 }

@@ -214,14 +214,12 @@
             '</td>' +
             '</tr>';
           $('#tb-list').append(html);
-
-          $('#loading').addClass('d-none');
-          $('div.table-responsive').removeClass('d-none');
         });
+        $('#loading').addClass('d-none');
+        $('div.table-responsive').removeClass('d-none');
       }
     });
   }
 </script>
-<script src="../../assets/js/validate/load-bill-by-status-for-seller.js"></script>
 </body>
 </html>
