@@ -62,7 +62,7 @@
                         </label>
                      </div>
                      <div class="col-9 text-right">
-                        <p class="m-0">Lọc và tìm kiếm</p>
+                        <p class="m-0 font-weight-bold">Lọc và tìm kiếm</p>
                      </div>
                   </div>
                </div>
