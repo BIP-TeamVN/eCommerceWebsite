@@ -79,6 +79,7 @@
                         <th scope="col" class="text-center">Nước sản xuất</th>
                         <th scope="col" class="text-center">Ngày tạo</th>
                         <th scope="col" class="text-center">Giá bán</th>
+                        <th scope="col" class="text-center">Đã bán/Trong kho</th>
                         <th scope="col" class="text-center">Tùy chọn</th>
                      </tr>
                      </thead>
@@ -227,6 +228,7 @@
             '<td>' + item.productOrigin + '</td>' +
             '<td>' + item.createDate + '</td>' +
             '<td>' + item.priceOrder + '</td>' +
+            '<td>' + item.number + '</td>' +
             '<td class="td-actions text-center">' +
             '<a href="/seller/product/edit?id=' + item.id + '" class="btn btn-primary px-2 py-1" data-toggle="tooltip" data-placement="top" title="Chỉnh sửa thông tin sản phẩm">' +
             '<i class="fa fa-edit"></i>' +

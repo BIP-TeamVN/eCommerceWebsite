@@ -74,6 +74,7 @@
                         <th scope="col" class="text-center">Xuất xứ</th>
                         <th scope="col" class="text-center">Ngày tạo</th>
                         <th scope="col" class="text-center">Giá bán</th>
+                        <th scope="col" class="text-center">Đã bán - Trong kho</th>
                         <th scope="col" class="text-center">Tùy chọn</th>
                      </tr>
                      </thead>
@@ -220,6 +221,7 @@
             '<td>' + item.productOrigin + '</td>' +
             '<td>' + item.createDate + '</td>' +
             '<td>' + item.priceOrder + '</td>' +
+            '<td>' + item.number + '</td>' +
             '<td class="td-actions text-center">' +
             (item.status === "0" ?
               '<label class="btn btn-danger px-2 py-1 mt-2" title="Chưa xác nhận" id="status-' + item.id + '">' +

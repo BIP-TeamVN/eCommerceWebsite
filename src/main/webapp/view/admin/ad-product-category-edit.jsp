@@ -19,81 +19,97 @@
     <!--Top navigation-->
     <%@include file="./ad--top-nav.jsp" %>
 
+
+    <!--Header and breadcrumb-->
+    <div class="header bg-primary pb-6">
+        <div class="container-fluid">
+            <div class="header-body">
+                <div class="row align-items-center py-4">
+                    <div class="col-lg-6 col-7">
+                        <nav aria-label="breadcrumb" class="d-none d-md-inline-block">
+                            <ol class="breadcrumb breadcrumb-links breadcrumb-dark">
+                                <li class="breadcrumb-item"><a href="/admin"><i class="fa fa-home mr-2"></i>Trang chủ</a></li>
+                                <li class="breadcrumb-item"><a href="/admin/category">Ngành hàng</a></li>
+                                <li class="breadcrumb-item active" aria-current="page">Sửa thông tin</li>
+                            </ol>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Page content -->
-    <div class="container-fluid">
-        <!-- Breadcrumb -->
-        <div class="row mt-4">
-            <div class="col-md-10 ml-auto mr-auto">
-                <nav aria-label="breadcrumb" role="navigation">
-                    <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="/admin"><i class="fa fa-home mr-2"></i>Trang chủ</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Ngành hàng</li>
-                    </ol>
-                </nav>
-            </div>
-        </div>
-
-        <!--Title-->
+    <div class="container-fluid mt--6">
+        <!--List category card-->
         <div class="row">
-            <div class="col-md-10 ml-auto mr-auto">
-                <h2 class="display-3 text-center text-uppercase my-5">Chỉnh sửa thông tin ngành hàng</h2>
-            </div>
-        </div>
-
-        <!-- form edit -->
-        <div class="row">
-            <div class="col-md-10 ml-auto mr-auto">
-                <form id="product-category-edit-form" >
-
-                    <!--Mã-->
-                    <div class="form-group">
-                        <label for="id" class="form-control-label">Mã</label>
-                        <div>
-                            <input class="form-control" type="text" id="id" name="id" readonly
-                                  value="${productCategoryEdit.getProductCategoryId()}">
-                        </div>
+            <div class="col">
+                <div class="card">
+                    <!-- Card header -->
+                    <div class="card-header border-0">
+                        <h2 class="mb-0 text-center text-uppercase display-4">Chỉnh sửa thông tin nhân viên</h2>
                     </div>
 
-                    <!--Tên ngành hàng-->
-                    <div class="row">
-                        <div class="col">
-                            <div class="form-group">
-                                <label for="name" class="form-control-label">Tên ngành hàng</label>
-                                <a tabindex="-1" href="javascript:void(0)" class="badge badge-secondary" data-toggle="popover" data-placement="right" data-content="Trường bắt buộc - Tối đa 100 ký tự">?</a>
-                                <div>
-                                    <input class="form-control" type="text" placeholder="VD: Tên ngành hàng ..." id="name" name="name" maxlength="100"
-                                           value="${productCategoryEdit.getProductCategoryName()}">
+                    <!-- form edit -->
+                    <form id="product-category-edit-form" class="px-5">
+                        <!--Mã-->
+                        <div class="form-group">
+                            <label for="id" class="form-control-label">Mã</label>
+                            <div>
+                                <input class="form-control" type="text" id="id" name="id" readonly
+                                       value="${productCategoryEdit.getProductCategoryId()}">
+                            </div>
+                        </div>
+
+                        <!--Tên ngành hàng-->
+                        <div class="row">
+                            <div class="col">
+                                <div class="form-group">
+                                    <label for="name" class="form-control-label">Tên ngành hàng</label>
+                                    <a tabindex="-1" href="javascript:void(0)" class="badge badge-secondary" data-toggle="popover" data-placement="right" data-content="Trường bắt buộc - Tối đa 100 ký tự">?</a>
+                                    <div>
+                                        <input class="form-control" type="text" placeholder="VD: Tên ngành hàng ..." id="name" name="name" maxlength="100"
+                                               value="${productCategoryEdit.getProductCategoryName()}">
+                                    </div>
+                                    <small class="error-input text-danger">Vui lòng nhập tên ngành hàng</small>
                                 </div>
-                                <small class="error-input text-danger">Vui lòng nhập tên ngành hàng</small>
+                            </div>
+                        </div>
+                        <!--Ảnh-->
+                        <div class="form-group">
+                            <label for="up-image" class="form-control-label d-inline-block w-100">Ảnh</label>
+                            <img id="img-upload" class="mb-2 rounded avatar-img" src="${productCategoryEdit.getImageSrc()}"/>
+                            <div class="custom-file">
+                                <label class="custom-file-label custom-file-img-label" for="up-image">Select file</label>
+                                <input type="file" class="custom-file-input" id="up-image" name="up-image" accept="image/*"
+                                       onchange="encodeImgToBase64(this)">
+                            </div>
+                        </div>
+                    </form>
+
+                    <!-- Card footer -->
+                    <div class="card-footer py-4">
+                        <div class="row">
+                            <div class="col-md-6 text-md-right text-center mb-sm-3">
+                                <button type="submit" form="product-category-edit-form" class="btn btn-primary px-6">
+                                    LƯU
+                                </button>
+                            </div>
+                            <div class="col-md-6 text-md-left text-center">
+                                <button type="button" data-toggle="modal" data-target="#conform-modal"
+                                        class="btn btn-secondary px-6">
+                                    HỦY
+                                </button>
                             </div>
                         </div>
                     </div>
-                    <!--Ảnh-->
-                    <div class="form-group">
-                        <label for="up-image" class="form-control-label d-inline-block w-100">Ảnh</label>
-                        <img id="img-upload" class="mb-2 rounded avatar-img" src="${productCategoryEdit.getImageSrc()}"/>
-                        <div class="custom-file">
-                            <label class="custom-file-label custom-file-img-label" for="up-image">Select file</label>
-                            <input type="file" class="custom-file-input" id="up-image" name="up-image" accept="image/*"
-                                   onchange="encodeImgToBase64(this)">
-                        </div>
-                    </div>
-
-                    <!--Button-->
-                    <div class="row mt-6">
-                        <div class="col-md-6 text-md-right text-center">
-                            <button type="submit" class="btn btn-primary pl-6 pr-6">LƯU</button>
-                        </div>
-                        <div class="col-md-6 text-md-left text-center">
-                            <a href="/admin/category" data-toggle="modal" data-target="#conform-modal" class="btn btn-secondary pl-6 pr-6">HỦY</a>
-                        </div>
-                    </div>
-                </form>
+                </div>
             </div>
         </div>
 
-        <!-- Modal conform -->
-        <div class="modal fade" id="conform-modal" tabindex="-1" role="dialog" aria-labelledby="conform-modal-lb" aria-hidden="true">
+        <!-- Modal conform close -->
+        <div class="modal fade" id="conform-modal" tabindex="-1" role="dialog" aria-labelledby="conform-modal-lb"
+             aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -115,7 +131,8 @@
         </div>
 
         <!-- Modal update successful -->
-        <div class="modal fade" id="successful-modal" tabindex="-1" role="dialog" aria-labelledby="conform-modal-lb" aria-hidden="true">
+        <div class="modal fade" id="successful-modal" tabindex="-1" role="dialog" aria-labelledby="conform-modal-lb"
+             aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -133,6 +150,7 @@
                 </div>
             </div>
         </div>
+
         <!-- Footer -->
         <%@ include file="../../common/footer.jsp" %>
     </div>

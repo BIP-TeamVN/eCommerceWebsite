@@ -1,3 +1,5 @@
+const FORM_ID = 'brand-form';
+
 const brandName = document.getElementById('brandName');
 const brandOrigin = document.getElementById('brandOrigin');
 
@@ -57,7 +59,7 @@ function encodeImgToBase64(element) {
   imgReader.readAsDataURL(img);
 }
 
-$('#brand-form').submit(function (e) {
+$('#' + FORM_ID).submit(function (e) {
   e.preventDefault();
   checkInputs();
 
@@ -74,9 +76,10 @@ $('#brand-form').submit(function (e) {
       success: function (data, textStatus, jqXHR) {
         let result = data.toString().split('\n');
         if (result[0] === 'true') {
+          $('#modal-add-brand').modal('hide');
           $('#successful-modal').modal('show');
           $('#successful-modal').on('hidden.bs.modal', function () {
-            window.location.href = window.location.origin +  '/admin/brand';
+            window.location.href = window.location.origin +  '/admin/brand?page=99999999999999999';
           });
         } else {
           alert("Lỗi: " + result[1]);
