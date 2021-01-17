@@ -61,10 +61,16 @@ public class EmployeeServlet extends HttpServlet {
    @Override
    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
       String pagePara = req.getParameter("page");
+      String searchKeyword = req.getParameter("search-key-word");
+      String sortColumn = req.getParameter("sort-column");
+      String sortType = req.getParameter("sort-type");
+
       Integer page = StringUtils.toInt(pagePara);
       if (page <= 0) {
          page = 1;
       }
+
+
 
       ArrayList<EmployeeEntity> listEmployee = EmployeeDAO.getInstance().gets((page - 1) * 10, 10);
       List<String> listJsonStr = new ArrayList<>();

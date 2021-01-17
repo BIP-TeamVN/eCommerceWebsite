@@ -19,6 +19,8 @@ public class AdEmployeeController extends HttpServlet {
       Long totalRows = EmployeeDAO.getInstance().count();
       String page = req.getParameter("page");
 
+      EmployeeDAO.getInstance().gets(0,10,"K",null,"userEntity.lastName");
+
       Long currentPage = StringUtils.toLong(page);
       Long totalPage = (totalRows / 10) + ((totalRows % 10 == 0) ? 0 : 1);
 
