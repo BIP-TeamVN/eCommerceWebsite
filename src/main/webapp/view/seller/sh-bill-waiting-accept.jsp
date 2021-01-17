@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8" %>
 <html>
 <head>
@@ -8,7 +9,7 @@
 
 <body>
 <!--Left side nav-->
-<jsp:include page="sh--side-nav.jsp">
+<jsp:include page="./sh--side-nav.jsp">
    <jsp:param name="selectedIndex" value="2"/>
 </jsp:include>
 
@@ -17,89 +18,96 @@
    <!--Top navigation-->
    <%@include file="./sh--top-nav.jsp" %>
 
-   <!-- Page content -->
-   <div class="container-fluid">
-      <!-- Breadcrumb -->
-      <div class="row mt-4">
-         <div class="col-md-10 ml-auto mr-auto">
-            <nav aria-label="breadcrumb" role="navigation">
-               <ol class="breadcrumb">
-                  <li class="breadcrumb-item"><a href="/delivery"><i class="fa fa-home mr-2"></i>Trang chủ</a></li>
-                  <li class="breadcrumb-item active" aria-current="page">Giao hàng</li>
-               </ol>
-            </nav>
-         </div>
-      </div>
-
-      <!--Title-->
-      <div class="row">
-         <div class="col-md-10 ml-auto mr-auto">
-            <h2 class="display-3 text-center text-uppercase my-5">Chi tiết đơn hàng</h2>
-         </div>
-      </div>
-
-      <!-- From add product-category -->
-      <div class="row">
-         <div class="col-md-6">
-            <div class="form-group">
-               <label for="total" class="form-control-label">Tổng giá trị đơn hàng</label>
-               <div>
-                  <input class="form-control" type="text" id="total"
-                         name="total" maxlength="40" value="${total}">
+   <!--Header and breadcrumb-->
+   <div class="header bg-primary pb-6">
+      <div class="container-fluid">
+         <div class="header-body">
+            <div class="row align-items-center py-4">
+               <div class="col-lg-6 col-7">
+                  <nav aria-label="breadcrumb" class="d-none d-md-inline-block">
+                     <ol class="breadcrumb breadcrumb-links breadcrumb-dark">
+                        <li class="breadcrumb-item"><a href="/delivery"><i class="fa fa-home mr-2"></i>Trang chủ</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Giao hàng</li>
+                     </ol>
+                  </nav>
                </div>
             </div>
          </div>
-         <div class="col-md-6">
-            <div class="form-group">
-               <label for="discount" class="form-control-label">Giảm giá</label>
-               <input class="form-control" type="text" id="discount" name="discount" maxlength=10 value="${discount}">
+      </div>
+   </div>
+
+   <!-- Page content -->
+   <div class="container-fluid mt--6">
+
+      <!--List employee card-->
+      <div class="row">
+         <div class="col">
+            <div class="card">
+               <!-- Card header -->
+               <div class="card-header border-0">
+                  <h2 class="mb-0 text-center text-uppercase display-4">Chi tiết đơn hàng</h2>
+               </div>
+
+               <!--Loading-->
+               <div id="loading" class="d-none">
+                  <p class="text-dark text-center">Đang load dữ liệu</p>
+                  <div class="dots-loading">
+                     <div></div>
+                     <div></div>
+                     <div></div>
+                     <div></div>
+                  </div>
+               </div>
+
+               <!-- Light table -->
+               <div class="table-responsive">
+                  <table class="table align-items-center table-flush">
+                     <thead class="thead-light">
+                     <tr>
+                        <th scope="col" class="text-center">Mã sản phẩm</th>
+                        <th scope="col" class="text-center">Ảnh sản phẩm</th>
+                        <th scope="col" class="text-center">Tên sản phẩm</th>
+                        <th scope="col" class="text-center">Màu sắc - Size</th>
+                        <th scope="col" class="text-center">Số lượng</th>
+                        <th scope="col" class="text-center">Giá tiền/ 1 sản phẩm</th>
+                        <th scope="col" class="text-center">Thành tiền</th>
+                     </tr>
+                     </thead>
+                     <tbody class="list" id="tb-list">
+                     </tbody>
+                  </table>
+               </div>
+
+               <!-- Card footer -->
+               <div class="card-footer py-4">
+                  <div class="row">
+                     <div class="col-md-6 text-md-right text-center mb-sm-3">
+                        <label class="form-control-label">Tổng giá trị đơn hàng: ${total}</label>
+                     </div>
+                     <div class="col-md-6 text-md-left text-center">
+                        <label class="form-control-label">Giảm giá: ${discount}</label>
+                     </div>
+                  </div>
+                  <div class="col">
+                     <div class="modal-footer p-3 text-uppercase">
+                        <button class="btn btn-secondary pl-6 pr-6" type="button" id="btn-cancel" data-dismiss="modal" onclick="Back()">Trở về</button>
+                        <button class="btn btn-primary pl-2 pr-1" type="button" data-dismiss="modal" onclick="Accept(${billId})">Duyệt Đơn</button>
+                        <button class="btn btn-primary pl-2 pr-1" type="button" data-dismiss="modal" onclick="Reject(${billId})">Không Duyệt</button>
+                     </div>
+                  </div>
+               </div>
             </div>
          </div>
       </div>
-      <%@ include file="../../common/form-add-seller.jsp" %>
-   </div>
 
-   <!-- Table -->
-   <div class="row">
-      <div class="col m-auto table-responsive">
-         <table class="table">
-            <thead>
-            <tr>
-               <th scope="col" class="text-center">Mã sản phẩm</th>
-               <th scope="col" class="text-center">Ảnh sản phẩm</th>
-               <th scope="col" class="text-center">Tên sản phẩm</th>
-               <th scope="col" class="text-center">Màu sắc - Size</th>
-               <th scope="col" class="text-center">Số lượng</th>
-               <th scope="col" class="text-center">Giá tiền/ 1 sản phẩm</th>
-               <th scope="col" class="text-center">Thành tiền</th>
-            </tr>
-            </thead>
-            <form id="getbill">
-               <tbody class="list" id="tb-list">
-               </tbody>
-            </form>
-         </table>
-      </div>
+      <!-- Footer -->
+      <%@ include file="../../common/footer.jsp" %>
    </div>
-   <div class="modal-footer p-3 text-uppercase">
-      <button class="btn btn-secondary pl-6 pr-6" type="button" id="btn-cancel" data-dismiss="modal" onclick="Back()">Trở về</button>
-      <button class="btn btn-primary pl-2 pr-1" type="button" data-dismiss="modal" onclick="Accept(${totalPage})">Duyệt Đơn</button>
-      <button class="btn btn-primary pl-2 pr-1" type="button" data-dismiss="modal" onclick="Reject(${totalPage})">Không Duyệt</button>
-   </div>
-
-   <!-- Footer -->
-   <%@ include file="../../common/footer.jsp" %>
-</div>
 </div>
 
 <!--Javascript-->
 <%@ include file="../../common/import-js.jsp" %>
-
 <script>
-  function getbill(){
-    alert("Nhận đơn thành công");
-    $('#tb-list').trigger("reset");
-  }
   let firstPageButton = '<li class="page-item"><button type="button" class="page-link" onclick="goFirst()"><i class="fa fa-angle-double-left"></i><span class="sr-only">Trang đầu tiên</span></button></li>';
   let prevPageButton = '<li class="page-item"><button type="button" class="page-link" onclick="goPrev()"><i class="fa fa-angle-left"></i><span class="sr-only">Trang trước</span></button></li>';
   let nextPageButton = '<li class="page-item"><button type="button" class="page-link" onclick="goNext()"><i class="fa fa-angle-right"></i><span class="sr-only">Trang sau</span></button></li>';
@@ -107,32 +115,33 @@
 
   let totalPage = ${totalPage};
   let currentPage = ${currentPage};
+  let billId = ${billId};
 
   reloadPage();
 
   function goFirst() {
-    if(currentPage > 1) {
+    if (currentPage > 1) {
       currentPage = 1;
       reloadPage();
     }
   }
 
   function goPrev() {
-    if(currentPage > 1) {
+    if (currentPage > 1) {
       currentPage = currentPage - 1;
       reloadPage();
     }
   }
 
   function goNext() {
-    if(currentPage < totalPage) {
+    if (currentPage < totalPage) {
       currentPage = currentPage + 1;
       reloadPage();
     }
   }
 
   function goLast() {
-    if(currentPage < totalPage) {
+    if (currentPage < totalPage) {
       currentPage = totalPage;
       reloadPage();
     }
@@ -167,10 +176,11 @@
   function reloadPage() {
     updatePagination();
 
+
     $.ajax({
       url: '/api/bill/view/detail',
       method: 'GET',
-      data: { id: totalPage },
+      data: { id: billId },
       cache: false,
       success: function (data, textStatus, jqXHR) {
         let list = $.parseJSON(data);
@@ -196,8 +206,12 @@
       }
     });
   }
-</script>
-<script>
+
+  function getbill(){
+    alert("Nhận đơn thành công");
+    $('#tb-list').trigger("reset");
+  }
+
   function Back(){
     window.history.back();
   }
@@ -213,7 +227,7 @@
       cache: false,
       data: paras,
     })
-    alert('Đã duyệt đơn hàng mã số ' + ${totalPage}+ ' thành công');
+    alert('Đã duyệt đơn hàng mã số ' + ${billId}+ ' thành công');
     window.history.back();
   }
   function Reject(billId){
@@ -228,7 +242,7 @@
       cache: false,
       data: paras,
     })
-    alert('Hủy đơn hàng mã số ' + ${totalPage}+ ' thành công');
+    alert('Hủy đơn hàng mã số ' + ${billId}+ ' thành công');
     window.history.back();
   }
 </script>
