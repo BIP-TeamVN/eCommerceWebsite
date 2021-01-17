@@ -19,6 +19,9 @@ public class ProductServlet extends HttpServlet {
    @Override
    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
       String pagePara = req.getParameter("page");
+
+      ProductDAO.getInstance().gets(0, 10, 3, "", "priceOrder", "ASC");
+
       HttpSession session = req.getSession();
       Long id = (Long) session.getAttribute("id");
       Integer status = StringUtils.toInt(req.getParameter("status"));
@@ -35,10 +38,10 @@ public class ProductServlet extends HttpServlet {
       List<String> listJsonStr = new ArrayList<>();
 
       if (UserDAO.getInstance().getById(id).getUserType().equals(Cons.User.USER_TYPE_SELLER)) {
-         listProduct = ProductDAO.getInstance().gets((page - 1) * 10, 10, id, status, keyword);
+         listProduct = ProductDAO.getInstance().gets((page - 1) * 10, 10, id, status, keyword, "", "");
       }
       else {
-         listProduct = ProductDAO.getInstance().gets((page - 1) * 10, 10, status, keyword);
+         listProduct = ProductDAO.getInstance().gets((page - 1) * 10, 10, status, keyword, "", "");
       }
 
       for (ProductEntity product : listProduct) {
