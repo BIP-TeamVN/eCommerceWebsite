@@ -1,9 +1,6 @@
 package com.hknp.controller.delivery;
 
-import com.hknp.model.dao.BillDAO;
-import com.hknp.model.dao.BillDetailDAO;
-import com.hknp.model.dao.EmployeeDAO;
-import com.hknp.model.dao.SellerDAO;
+import com.hknp.model.dao.*;
 import com.hknp.model.entity.BillDetailEntity;
 import com.hknp.model.entity.BillEntity;
 import com.hknp.utils.ServletUtils;
@@ -23,11 +20,14 @@ import java.util.List;
 public class DeliveryViewBillController extends HttpServlet {
    @Override
    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-      Long totalRows = 9L;
+      Long totalRows = BillDAO.getInstance().count();
+
+      String page = req.getParameter("page");
+
       String id = req.getParameter("id");
       Long billId = StringUtils.toLong(id);
 
-      Long currentPage = StringUtils.toLong(id);
+      Long currentPage = StringUtils.toLong(page);
       Long totalPage = (totalRows / 10) + ((totalRows % 10 == 0) ? 0 : 1);
 
       if (currentPage > totalPage) {
@@ -64,8 +64,11 @@ public class DeliveryViewBillController extends HttpServlet {
       req.setAttribute("total", total);
       req.setAttribute("discount", discount);
 
-      req.setAttribute("totalPage", id);
-      req.setAttribute("currentPage", id);
+      req.setAttribute("totalPage", totalPage);
+      req.setAttribute("currentPage", currentPage);
+
+      req.setAttribute("billId", id);
+
       if(bill.getStatus() == 0){
          ServletUtils.forward(req, resp, "/view/seller/sh-bill-waiting-accept.jsp");
       }

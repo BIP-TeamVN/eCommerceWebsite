@@ -53,19 +53,19 @@
                <li class="nav-item">
                   <a class="nav-link <%=isActive[3] ? "active" : ""%>" href="<%=isActive[3] ? "javascript:void(0)" : "/delivery"%>?type=4">
                      <i class="fa fa-people-carry text-default"></i>
-                     <span class="nav-link-text">Danh sách đơn cần lấy hàng</span>
+                     <span class="nav-link-text">Đơn chưa nhận hàng</span>
                   </a>
                </li>
                <li class="nav-item">
                   <a class="nav-link <%=isActive[4] ? "active" : ""%>" href="<%=isActive[4] ? "javascript:void(0)" : "/delivery"%>?type=5">
                      <i class="fa fa-motorcycle text-green"></i>
-                     <span class="nav-link-text">Danh sách đơn hàng cần giao</span>
+                     <span class="nav-link-text">Đơn đang giao</span>
                   </a>
                </li>
                <li class="nav-item">
                   <a class="nav-link <%=isActive[5] ? "active" : ""%>" href="<%=isActive[5] ? "javascript:void(0)" : "/delivery"%>?type=6">
                      <i class="fa fa-clipboard-check text-orange"></i>
-                     <span class="nav-link-text">Danh sách đơn đã giao</span>
+                     <span class="nav-link-text">Đơn đã giao</span>
                   </a>
                </li>
             </ul>

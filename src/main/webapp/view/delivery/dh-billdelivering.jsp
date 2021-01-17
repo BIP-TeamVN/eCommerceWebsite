@@ -1,14 +1,15 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8" %>
 <html>
 <head>
    <%@ include file="../../common/meta-info.jsp" %>
-   <title>eCommerce Website - Seller</title>
+   <title>eCommerce Website - Admin</title>
    <%@ include file="../../common/link-css.jsp" %>
 </head>
 
 <body>
 <!--Left side nav-->
-<jsp:include page="dh--side-nav.jsp">
+<jsp:include page="./dh--side-nav.jsp">
    <jsp:param name="selectedIndex" value="${nav}"/>
 </jsp:include>
 
@@ -17,74 +18,192 @@
    <!--Top navigation-->
    <%@include file="./dh--top-nav.jsp" %>
 
+   <!--Header and breadcrumb-->
+   <div class="header bg-primary pb-6">
+      <div class="container-fluid">
+         <div class="header-body">
+            <div class="row align-items-center py-4">
+               <div class="col-lg-6 col-7">
+                  <nav aria-label="breadcrumb" class="d-none d-md-inline-block">
+                     <ol class="breadcrumb breadcrumb-links breadcrumb-dark">
+                        <li class="breadcrumb-item"><a href="/admin"><i class="fa fa-home mr-2"></i>Trang chủ</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Danh sách đơn hàng</li>
+                     </ol>
+                  </nav>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+
+   <!-- From add employee -->
+   <%@ include file="../../common/form-add-employee.jsp" %>
+
    <!-- Page content -->
-   <div class="container-fluid">
-      <!-- Breadcrumb -->
-      <div class="row mt-4">
-         <div class="col-md-10 ml-auto mr-auto">
-            <nav aria-label="breadcrumb" role="navigation">
-               <ol class="breadcrumb">
-                  <li class="breadcrumb-item"><a href="/admin"><i class="fa fa-home mr-2"></i>Trang chủ</a></li>
-                  <li class="breadcrumb-item active" aria-current="page">Danh sách đơn hàng</li>
-               </ol>
-            </nav>
-         </div>
-      </div>
+   <div class="container-fluid mt--6">
 
-      <!--Title-->
+      <!--List employee card-->
       <div class="row">
-         <div class="col-md-10 ml-auto mr-auto">
-            <h2 class="display-3 text-center text-uppercase my-5" id="title">Danh sách đơn hàng đang giao của bạn</h2>
+         <div class="col">
+            <div class="card">
+               <!-- Card header -->
+               <div class="card-header border-0">
+                  <h2 class="mb-0 text-center text-uppercase display-4" id="title">Danh sách đơn hàng đang giao</h2>
+               </div>
+
+               <!--Loading-->
+               <div id="loading" class="d-none">
+                  <p class="text-dark text-center">Đang load dữ liệu</p>
+                  <div class="dots-loading">
+                     <div></div>
+                     <div></div>
+                     <div></div>
+                     <div></div>
+                  </div>
+               </div>
+
+               <!-- Light table -->
+               <div class="table-responsive">
+                  <table class="table align-items-center table-flush">
+                     <thead class="thead-light">
+                     <tr>
+                        <th scope="col" class="text-center">Mã đơn hàng</th>
+                        <th scope="col" class="text-center">Tên khách hàng</th>
+                        <th scope="col" class="text-center">Số điện thoại</th>
+                        <th scope="col" class="text-center">Địa chỉ</th>
+                     </tr>
+                     </thead>
+                     <tbody class="list" id="tb-list">
+                     </tbody>
+                  </table>
+               </div>
+
+               <!-- Card footer -->
+               <div class="card-footer py-2">
+                  <!-- Pagination -->
+                  <nav aria-label="...">
+                     <ul id="page-pagination" class="pagination justify-content-center mt-3">
+                        <li class="page-item">
+                           <button type="button" class="page-link" onclick="goPrev()">
+                              <i class="fa fa-angle-left"></i>
+                              <span class="sr-only">Trang trước</span>
+                           </button>
+                        </li>
+                        <li class="page-item"><a class="page-link" href="#">1</a></li>
+                        <li class="page-item active">
+                           <a class="page-link" href="#">2</a>
+                        </li>
+                        <li class="page-item"><a class="page-link" href="#">3</a></li>
+                        <li class="page-item">
+                           <button type="button" class="page-link" onclick="goNext()">
+                              <i class="fa fa-angle-right"></i>
+                              <span class="sr-only">Trang sau</span>
+                           </button>
+                        </li>
+                     </ul>
+                  </nav>
+               </div>
+            </div>
          </div>
       </div>
 
-      <!-- From add product-category -->
-      <%@ include file="../../common/form-add-product-category.jsp" %>
+      <!-- Footer -->
+      <%@ include file="../../common/footer.jsp" %>
    </div>
-   <!-- Table -->
-   <div class="row">
-      <div class="col ml--3 table-responsive">
-         <table class="table">
-            <thead>
-            <tr>
-               <th scope="col" class="text-center">Mã đơn hàng</th>
-               <th scope="col" class="text-center">Tên khách hàng</th>
-               <th scope="col" class="text-center">Số điện thoại</th>
-               <th scope="col" class="text-center">Địa chỉ</th>
-            </tr>
-            </thead>
-            <tbody class="list" id="tb-list">
-            </tbody>
-         </table>
-      </div>
-   </div>
-   <!-- Footer -->
-   <%@ include file="../../common/footer.jsp" %>
-</div>
 </div>
 
 <!--Javascript-->
 <%@ include file="../../common/import-js.jsp" %>
 <script>
+  let firstPageButton = '<li class="page-item"><button type="button" class="page-link" onclick="goFirst()"><i class="fa fa-angle-double-left"></i><span class="sr-only">Trang đầu tiên</span></button></li>';
+  let prevPageButton = '<li class="page-item"><button type="button" class="page-link" onclick="goPrev()"><i class="fa fa-angle-left"></i><span class="sr-only">Trang trước</span></button></li>';
+  let nextPageButton = '<li class="page-item"><button type="button" class="page-link" onclick="goNext()"><i class="fa fa-angle-right"></i><span class="sr-only">Trang sau</span></button></li>';
+  let lastPageButton = '<li class="page-item"><button type="button" class="page-link" onclick="goLast()"><i class="fa fa-angle-double-right"></i><span class="sr-only">Trang cuối</span></button></li>';
+
+  let totalPage = ${totalPage};
+  let currentPage = ${currentPage};
+
+  reloadPage();
+
+  function goFirst() {
+    if (currentPage > 1) {
+      currentPage = 1;
+      reloadPage();
+    }
+  }
+
+  function goPrev() {
+    if (currentPage > 1) {
+      currentPage = currentPage - 1;
+      reloadPage();
+    }
+  }
+
+  function goNext() {
+    if (currentPage < totalPage) {
+      currentPage = currentPage + 1;
+      reloadPage();
+    }
+  }
+
+  function goLast() {
+    if (currentPage < totalPage) {
+      currentPage = totalPage;
+      reloadPage();
+    }
+  }
+
+  function goToPage(page) {
+    currentPage = page;
+    reloadPage();
+  }
+
+  function updatePagination() {
+    $('#page-pagination').find('li').remove();
+
+    $('#page-pagination').append(currentPage > 2 ? firstPageButton : '');
+    $('#page-pagination').append(currentPage > 1 ? prevPageButton : '');
+
+    let startIndex = currentPage - 3 > 1 ? currentPage - 3 : 1;
+    for (let i = startIndex; i < currentPage; i++) {
+      $('#page-pagination').append('<li class="page-item"><button type="button" class="page-link" onclick="goToPage(' + i + ')">' + i + '</but></li>');
+    }
+
+    $('#page-pagination').append('<li class="page-item active"><a class="page-link" href="javascript:void(0)">' + currentPage + '</a></li>');
+
+    for (let i = currentPage + 1; i < currentPage + 4 && i <= totalPage; i++) {
+      $('#page-pagination').append('<li class="page-item"><button type="button" class="page-link" onclick="goToPage(' + i + ')">' + i + '</but></li>');
+    }
+
+    $('#page-pagination').append(currentPage < totalPage ? nextPageButton : '');
+    $('#page-pagination').append(currentPage < totalPage - 1 ? lastPageButton : '');
+  }
+
+
   let type = <%=request.getParameter("type")%>;
   if(type == 4)
   {
-    $('#title').html("Danh sách đơn hàng của bạn đang đợi nhận hàng");
+    $('#title').html("Danh sách đơn hàng đang đợi nhận hàng");
   }
   else if(type == 5)
   {
-    $('#title').html("Danh sách đơn hàng đang giao của bạn");
+    $('#title').html("Danh sách đơn hàng đang giao");
   }
   else if(type == 6)
   {
-    $('#title').html("Danh sách đơn hàng đã giao xong của bạn");
+    $('#title').html("Danh sách đơn hàng đã giao xong");
   }
   else if(type == 2)
   {
     $('#title').html("Danh sách đơn hàng");
   }
 
-  $(document).ready(function () {
+
+
+  function reloadPage() {
+    updatePagination();
+
+
     const apiUrl = "/api/deliverybilldelivering";
 
     $.ajax({
@@ -97,7 +216,7 @@
       success: function (data, textStatus, jqXHR) {
         let list = $.parseJSON(data);
         console.log(list);
-
+        $('#tb-list').find('tr').remove();
         $.each(list, function (index, item) {
           let html =
             '<tr id="hay'+item.id+'">' +
@@ -107,12 +226,12 @@
             '<td>' + item.fullAddress + '</td>' +
             '<td class="td-actions text-center">' +
             (item.status === "5" ?
-            '<button class="btn btn-primary pl-2 pr-2" onclick="DoneBill('+ item.id +')">Giao Thành công' +
+              '<button class="btn btn-primary pl-2 pr-2" onclick="DoneBill('+ item.id +')">Giao Thành công' +
               '</button>' +
               '<button class="btn btn-primary pl-2 pr-2" onclick="FailBill('+ item.id +')">Giao thất bại' +
               '</button>' : (item.status === "2" ?
-              '<button class="btn btn-primary pl-2 pr-2" onclick="GetBill('+ item.id +')">Nhận đơn' +
-              '</button>' : (item.status === "4" ?
+                '<button class="btn btn-primary pl-2 pr-2" onclick="GetBill('+ item.id +')">Nhận đơn' +
+                '</button>' : (item.status === "4" ?
                   '<button class="btn btn-primary pl-2 pr-2" onclick="RecieveBill('+ item.id +')">Nhận hàng' +
                   '</button>'   :
                   '<label class="btn btn-danger px-2 py-1 mt-2" title="Đã giao" id="status-' + item.id + '">' +
@@ -122,14 +241,30 @@
             '</tr>';
           console.log(html);
           $('#tb-list').append(html);
-          //alert(item.status);
         });
       },
       cache: false
     });
-  });
+  }
 </script>
 <script>
+  function GetBill(billId){
+    let paras = JSON.stringify({
+      'id': billId.toString(),
+      'status': 4
+    })
+    $.ajax({
+      url: "/api/bill/view/detail",
+      method: 'PUT',
+      async: false,
+      cache: false,
+      data: paras,
+      success: function (){
+        $("#hay" + billId).remove();
+      }
+    })
+    alert("Nhận đơn thành công!");
+  }
   function DoneBill(billId){
     let paras = JSON.stringify({
       'id': billId.toString(),

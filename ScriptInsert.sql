@@ -123,6 +123,19 @@ VALUES
     (1, 1, 2),							
 	(2, 2, 3),
     (2, 1, 4);
+
+INSERT INTO `BILL`(`CUSTOMER_ID`, `ADDRESS_ID`, `DISCOUNT_ID`)
+VALUES
+    (10008, 18, 1),							
+	(10008, 19, 2),
+    (10009, 20, 1);
+    
+INSERT INTO `BILL_DETAIL` (`BILL_ID`, `PRODUCT_TYPE_ID`, `QUANTITY`)
+VALUES
+    (23, 3, 5),							
+	(24, 2, 1),
+    (25, 1, 5),
+    (26, 3, 5);
     
 
 INSERT INTO `CATEGORIES_FOR_PRODUCTS` (`PRODUCT_ID`, `PRODUCT_CATEGORY_ID`)

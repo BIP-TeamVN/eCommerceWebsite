@@ -32,7 +32,10 @@
                   </nav>
                </div>
                <div class="col-lg-6 col-5 text-right">
-                  <a href="${javax.servlet.ServletRequest.getServerName()}/seller/product/add" class="text-uppercase btn btn-secondary pl-4 pr-4 mb-4">Thêm sản phẩm</a>
+                  <div class="col ml-auto mr-auto text-right">
+                     <a href="${javax.servlet.ServletRequest.getServerName()}/seller/product/add" class="btn btn-secondary text-uppercase">Thêm sản phẩm</a>
+                     </a>
+                  </div>
                </div>
             </div>
          </div>
@@ -48,8 +51,7 @@
             <div class="card">
                <!-- Card header -->
                <div class="card-header border-0">
-                  <h2 class="mb-0 text-center text-uppercase display-4">Danh sách nhân viên</h2>
-                  <%@ include file="/common/product-filter.jsp" %>
+                  <h2 class="mb-0 text-center text-uppercase display-4">Danh sách Sản phẩm</h2>
                </div>
 
                <!--Loading-->
@@ -87,7 +89,7 @@
                </div>
 
                <!-- Card footer -->
-               <div class="card-footer py-2">
+               <div class="card-footer py-3">
                   <!-- Pagination -->
                   <nav aria-label="...">
                      <ul id="page-pagination" class="pagination justify-content-center mt-3">
