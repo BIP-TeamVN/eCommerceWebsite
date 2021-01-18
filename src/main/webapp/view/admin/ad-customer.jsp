@@ -92,7 +92,7 @@
                                     <label for="sort-by-column" class="floating-label">Sắp xếp theo</label>
                                     <select class="form-control input-border" id="sort-by-column" onchange="search()">
                                        <option value="userId" selected>Mã</option>
-                                       <option value="userEntity.firstName, u.userEntity.lastName">Họ và tên</option>
+                                       <option value="userEntity.firstName">Họ và tên</option>
                                        <option value="userEntity.gender">Giới tính</option>
                                        <option value="userEntity.dateOfBirth">Ngày sinh</option>
                                        <option value="userEntity.phoneNumber">Số điện thoại</option>
@@ -323,7 +323,7 @@
 <script>
   function search(){
     $.ajax({
-      url: '/api/count-product-count',
+      url: '/api/count-customer-count',
       method: 'GET',
       data: {
         'page': currentPage,

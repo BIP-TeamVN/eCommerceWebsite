@@ -88,8 +88,8 @@
                                     <input class="form-control" id="tb-input-search" placeholder="Tìm kiếm" type="text">
                                  </div>
                               </div>
-                              <button type="button" class="close" data-action="search-close" data-target="#tb-search"
-                                      aria-label="Close">
+                              <button class="close" data-action="search-close" data-target="#tb-search"
+                                      aria-label="Close" onclick="search()">
                                  <span aria-hidden="true">×</span>
                               </button>
                            </form>
@@ -100,15 +100,15 @@
                               <div class="col p-0">
                                  <div class="form-group m-1">
                                     <label for="sort-by-column" class="floating-label">Sắp xếp theo</label>
-                                    <select class="form-control input-border" id="sort-by-column">
-                                       <option value="0" selected>Mã</option>
-                                       <option value="1">Họ và tên</option>
-                                       <option value="2">Giới tính</option>
-                                       <option value="3">Ngày sinh</option>
-                                       <option value="4">Số điện thoại</option>
-                                       <option value="5">Email</option>
-                                       <option value="6">Lương</option>
-                                       <option value="7">Ngày bắt đầu</option>
+                                    <select class="form-control input-border" id="sort-by-column" onchange="search()">
+                                       <option value="userId" selected>Mã</option>
+                                       <option value="concat(u.userEntity.firstName , ' ', u.userEntity.lastName)">Họ và tên</option>
+                                       <option value="userEntity.gender">Giới tính</option>
+                                       <option value="userEntity.dateOfBirth">Ngày sinh</option>
+                                       <option value="userEntity.phoneNumber">Số điện thoại</option>
+                                       <option value="userEntity.email">Email</option>
+                                       <option value="EmployeeEntity.salary">Lương</option>
+                                       <option value="EmployeeEntity.startDate">Ngày bắt đầu</option>
                                     </select>
                                  </div>
                               </div>
@@ -116,7 +116,7 @@
                               <div class="col p-0">
                                  <div class="form-group m-1">
                                     <label for="sort-type" class="floating-label">Kiểu sắp xếp</label>
-                                    <select class="form-control input-border" id="sort-type">
+                                    <select class="form-control input-border" id="sort-type" onchange="search()">
                                        <option value="ASC" selected>Tăng dần</option>
                                        <option value="DESC">Giảm dần</option>
                                     </select>
@@ -126,7 +126,7 @@
                               <div class="col p-0">
                                  <div class="form-group m-1">
                                     <label for="filter-status" class="floating-label">Trạng thái</label>
-                                    <select class="form-control input-border" id="filter-status">
+                                    <select class="form-control input-border" id="filter-status" onchange="search()">
                                        <option value="2">Tất cả trạng thái</option>
                                        <option value="1">Đang làm việc</option>
                                        <option value="0">Đã nghĩ</option>
@@ -289,16 +289,18 @@
 
   function reloadPage() {
     updatePagination();
-
-    let searchKeyWord = $('#tb-input-search').val();
-    let sortColumn = $('#sort-by-column').val();
-    let sortType = $('#sort-type').val();
-
+    console.log("load");
 
     $.ajax({
       url: '/api/employees',
       method: 'GET',
-      data: {page: currentPage},
+      data: {
+        'page': currentPage,
+        'status': $('#filter-status').val(),
+        'keyword': $('#tb-input-search').val(),
+        'columnName': $('#sort-by-column').val(),
+        'typeSort': $('#sort-type').val()
+      },
       cache: false,
       beforeSend: function () {
         $('#loading').removeClass('d-none');
@@ -342,6 +344,29 @@
 
         $('#loading').addClass('d-none');
         $('div.table-responsive').removeClass('d-none');
+      }
+    });
+  }
+</script>
+
+<script>
+  function search(){
+    console.log("vo chua");
+    $.ajax({
+      url: '/api/search-employee',
+      method: 'GET',
+      data: {
+        'page': currentPage,
+        'status': $('#filter-status').val(),
+        'keyword': $('#tb-input-search').val()
+      },
+      cache: false,
+      async: false,
+      success: function (data) {
+        let result = data.toString().split(",");
+        totalPage = parseInt(result[0]);
+        currentPage = parseInt(result[1]);
+        reloadPage();
       }
     });
   }

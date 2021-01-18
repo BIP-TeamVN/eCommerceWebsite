@@ -92,50 +92,82 @@ public class EmployeeDAO implements IRetrieveEntity<EmployeeEntity, Long>, IModi
 
    @Override
    public ArrayList<EmployeeEntity> gets(Integer firstResult, Integer maxResults) {
-      return gets(firstResult, maxResults, null, null,null);
+      return gets(firstResult, maxResults, null, null,null, null);
    }
 
-   public ArrayList<EmployeeEntity> gets(Integer firstResult, Integer maxResults, String searchKeyword, Integer status, String sortColumnName) {
+   public ArrayList<EmployeeEntity> gets(Integer firstResult, Integer maxResults, String searchKeyword, Integer status, String sortColumnName, String typeSort) {
       EntityManager entityMgr = EntityUtils.getEntityManager();
-      String query = "SELECT u FROM EmployeeEntity u";
 
-      if (searchKeyword != null && status != null) {
-         query += " where CONCAT(u.userEntity.lastName, ' ', u.userEntity.firstName) like :keywordPara and u.userEntity.status = :statusPara";
-      } else if (searchKeyword == null && status != null) {
-         query += " where u.userEntity.status :statusPara";
-      } else if (searchKeyword != null && status == null) {
-         query += " where CONCAT(u.userEntity.lastName, ' ', u.userEntity.firstName) like :keywordPara";
+      Query query;
+      String queryStr;
+      Boolean temp;
+      if(status == 2)
+      {
+         queryStr = "SELECT u FROM EmployeeEntity  u " +
+                 "where concat(u.userEntity.firstName , ' ', u.userEntity.lastName) like :searchKeyword " +
+                 "or u.userEntity.phoneNumber like :searchKeyword " +
+                 "or  u.userEntity.email like :searchKeyword " +
+                 "or u.userEntity.gender like :searchKeyword " +
+                 "or u.salary like :searchKeyword "+ sortColumn(sortColumnName, typeSort);
+         query = entityMgr.createQuery(queryStr, EmployeeEntity.class);
       }
+      else {
+         if(status == 1){
+            temp = true;
+         }
+         else {
+            temp = false;
+         }
+         queryStr = "SELECT u FROM EmployeeEntity  u " +
+                 "where u.userEntity.status = :statusPara " +
+                 "and (concat(u.userEntity.firstName , ' ', u.userEntity.lastName) like :searchKeyword " +
+                 "or u.userEntity.phoneNumber like :searchKeyword " +
+                 "or  u.userEntity.email like :searchKeyword " +
+                 "or u.userEntity.gender like :searchKeyword " +
+                 "or u.salary like :searchKeyword) "+ sortColumn(sortColumnName, typeSort);
+         query = entityMgr.createQuery(queryStr, EmployeeEntity.class);
+         query.setParameter("statusPara", temp);
+      }
+      query.setParameter("searchKeyword", "%" + searchKeyword + "%");
 
-      if (sortColumnName != null && !sortColumnName.isEmpty()) {
-         query += " order by u." + sortColumnName;
+      if(firstResult != null){
+         query.setFirstResult(firstResult);
       }
-
-      TypedQuery typedQuery = entityMgr.createQuery(query, EmployeeEntity.class);
-
-      if (searchKeyword != null) {
-         typedQuery.setParameter("keywordPara", "%" + searchKeyword + "%");
-      }
-      if (status != null) {
-         typedQuery.setParameter("statusPara", status);
-      }
-
-      if (firstResult != null) {
-         typedQuery.setFirstResult(firstResult);
-      }
-      if (maxResults != null) {
-         typedQuery.setMaxResults(maxResults);
+      if(maxResults != null){
+         query.setMaxResults(maxResults);
       }
 
       ArrayList<EmployeeEntity> result = null;
       try {
-         result = new ArrayList<>(typedQuery.getResultList());
-      } catch (Exception exception) {
+         result = new ArrayList<>(query.getResultList());
+      } catch (Exception exception){
          exception.printStackTrace();
       } finally {
          entityMgr.close();
       }
       return result;
+   }
+
+   public String sortColumn (String columnName, String typeSort) {
+      String result = "";
+      if (!columnName.equals("")){
+         result = " ORDER BY u." + columnName +" " + typeSort;
+      }
+      return result;
+   }
+
+   public Long count(Integer status, String keyword) {
+      EntityManager entityMgr = EntityUtils.getEntityManager();
+
+      String queryStr;
+      Query query;
+      queryStr = "select count(*) from EmployeeEntity e " +
+                 "where concat(e.userEntity.firstName , ' ', e.userEntity.lastName) like :searchKeyword ";
+      query = entityMgr.createQuery(queryStr);
+
+      query.setParameter("searchKeyword", "%" + keyword + "%");
+
+      return (Long) query.getSingleResult();
    }
 
    @Override
