@@ -55,11 +55,11 @@
 ├── db
 │   ├── Database.sql                  (Script MYSQL create database)
 │   ├── ScriptInsert.sql              (Script MYSQL insert sample data)
-│   ├── vietnam-zone.xls              (Excel file contain Administrative units of Vietnam)
+│   ├── <a href="./db/vietnam-zone.xls" target="_blank">vietnam-zone.xls</a>              (Excel file contain Administrative units of Vietnam)
 ├── src
 │   ├── main
-│   │   ├── java
-│   │   │   ├── com.hknp.controller
+│   │   ├── <b>java</b>
+│   │   │   ├── <b>com.hknp.controller</b>
 │   │   │   │   └── api               (REST API)
 │   │   │   │   └── filter            (Servlet filter)
 │   │   │   │   └── common            (common controller for all user's page)
@@ -68,23 +68,23 @@
 │   │   │   │   └── employee          (controller for employee page)
 │   │   │   │   └── seller            (controller for seller page)
 │   │   │   │   └── web               (controller for guest & customer page)
-│   │   │   ├── com.hknp.interfaces
-│   │   │   ├── com.hknp.model
+│   │   │   ├── <b>com.hknp.interfaces</b>
+│   │   │   ├── <b>com.hknp.model</b>
 │   │   │   │   └── dao               (data access object with singleton pattern)
 │   │   │   │   └── enity             (Entity Bean class)
 │   │   │   │   └── domain
-│   │   │   ├── com.hknp.utils
-│   │   ├── webapp
-│   │   │   ├── WEB-INF
+│   │   │   ├── <b>com.hknp.utils</b>
+│   │   ├── <b>webapp</b>
+│   │   │   ├── <b>WEB-INF</b>
 │   │   │   │   └─── <a href="./src/main/webapp/WEB-INF/web.xml" target="_blank">web.xml</a>
-│   │   │   ├── assets
+│   │   │   ├── <b>assets</b>
 │   │   │   │   └── css               (argon css && custom css)
 │   │   │   │   └── fonts             (nucleo font)
 │   │   │   │   └── img               (images)
 │   │   │   │   └── js                (custom javascript)
 │   │   │   │   └── vendor            (front-end frameworks)
-│   │   │   ├── common                (common components for all jsp page)
-│   │   │   ├── view
+│   │   │   ├── <b>common</b>                (common components for all jsp page)
+│   │   │   ├── <b>view</b>
 │   │   │   │   └── admin             (contain admin pages)
 │   │   │   │   └── delivery          (contain delivery pages)
 │   │   │   │   └── employee          (contain employee pages)
