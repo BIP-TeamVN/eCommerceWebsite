@@ -1,4 +1,4 @@
-package com.hknp.controller.api;
+package com.hknp.controller.web;
 
 
 import com.hknp.model.dao.UserDAO;
