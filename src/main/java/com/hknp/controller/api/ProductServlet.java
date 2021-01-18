@@ -18,14 +18,14 @@ import java.util.*;
 public class ProductServlet extends HttpServlet {
    @Override
    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-      String pagePara = req.getParameter("page");                    //trang hiện tại
+      String pagePara = req.getParameter("page");
 
       HttpSession session = req.getSession();
-      Long id = (Long) session.getAttribute("id");                   //Id user
-      Integer status = StringUtils.toInt(req.getParameter("status"));//trạng thái sản phẩm tìm kiếm
-      String keyword = req.getParameter("keyword").trim();           //từ khóa cần tìm kiếm
-      String columnName = req.getParameter("columnName");            //tên cột cần sắp xếp thứ tự
-      String typeSort = req.getParameter("typeSort");                //kiêu sắp xếp
+      Long id = (Long) session.getAttribute("id");
+      Integer status = StringUtils.toInt(req.getParameter("status"));
+      String keyword = req.getParameter("keyword").trim();
+      String columnName = req.getParameter("columnName");
+      String typeSort = req.getParameter("typeSort");
       if (keyword == null) {
          keyword = "";
       }

@@ -58,11 +58,21 @@ public class DeliveryServlet extends HttpServlet {
    @Override
    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
       String pagePara = req.getParameter("page");
+
+      HttpSession session = req.getSession();
+      Long id = (Long) session.getAttribute("id") ;
+      Integer status = StringUtils.toInt(req.getParameter("status"));
+      String keyword = req.getParameter("keyword").trim();
+      String columnName = req.getParameter("columnName");
+      String typeSort = req.getParameter("typeSort");
+      if (keyword == null) {
+         keyword = "";
+      }
       Integer page = StringUtils.toInt(pagePara);
       if (page <= 0) {
          page = 1;
       }
-      ArrayList<DeliveryEntity> listDelivery = DeliveryDAO.getInstance().gets((page - 1) * 10, 10);
+      ArrayList<DeliveryEntity> listDelivery = DeliveryDAO.getInstance().gets((page - 1) * 10, 10, keyword, status, columnName, typeSort);
       List<String> listJsonStr = new ArrayList<>();
 
       for (DeliveryEntity delivery : listDelivery) {

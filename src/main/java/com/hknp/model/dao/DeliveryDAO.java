@@ -3,11 +3,13 @@ package com.hknp.model.dao;
 import com.hknp.interfaces.IModifySingleEntityAutoIncrement;
 import com.hknp.interfaces.IRetrieveEntity;
 import com.hknp.model.entity.DeliveryEntity;
+import com.hknp.model.entity.EmployeeEntity;
 import com.hknp.model.entity.UserEntity;
 import com.hknp.utils.EntityUtils;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import java.util.ArrayList;
 
@@ -117,6 +119,106 @@ public class DeliveryDAO implements IRetrieveEntity<DeliveryEntity, Long>, IModi
    public DeliveryEntity getById(Long id) {
       EntityManager entityMgr = EntityUtils.getEntityManager();
       return entityMgr.find(DeliveryEntity.class, id);
+   }
+
+
+   public ArrayList<DeliveryEntity> gets(Integer firstResult, Integer maxResults, String searchKeyword, Integer status, String sortColumnName, String typeSort) {
+      EntityManager entityMgr = EntityUtils.getEntityManager();
+
+      Query query;
+      String queryStr;
+      Boolean temp;
+      if(status == 2)
+      {
+         queryStr = "SELECT u FROM DeliveryEntity u " +
+                 "where concat(u.userEntity.firstName , ' ', u.userEntity.lastName) like :searchKeyword " +
+                 "or u.userEntity.phoneNumber like :searchKeyword " +
+                 "or  u.userEntity.email like :searchKeyword " +
+                 "or u.userEntity.gender like :searchKeyword " +
+                 "or u.salary like :searchKeyword "+ sortColumn(sortColumnName, typeSort);
+         query = entityMgr.createQuery(queryStr, DeliveryEntity.class);
+      }
+      else {
+         if(status == 1){
+            temp = true;
+         }
+         else {
+            temp = false;
+         }
+         queryStr = "SELECT u FROM DeliveryEntity  u " +
+                 "where u.userEntity.status = :statusPara " +
+                 "and (concat(u.userEntity.firstName , ' ', u.userEntity.lastName) like :searchKeyword " +
+                 "or u.userEntity.phoneNumber like :searchKeyword " +
+                 "or  u.userEntity.email like :searchKeyword " +
+                 "or u.userEntity.gender like :searchKeyword " +
+                 "or u.salary like :searchKeyword) "+ sortColumn(sortColumnName, typeSort);
+         query = entityMgr.createQuery(queryStr, DeliveryEntity.class);
+         query.setParameter("statusPara", temp);
+      }
+      query.setParameter("searchKeyword", "%" + searchKeyword + "%");
+
+      if(firstResult != null){
+         query.setFirstResult(firstResult);
+      }
+      if(maxResults != null){
+         query.setMaxResults(maxResults);
+      }
+
+      ArrayList<DeliveryEntity> result = null;
+      try {
+         result = new ArrayList<>(query.getResultList());
+      } catch (Exception exception){
+         exception.printStackTrace();
+      } finally {
+         entityMgr.close();
+      }
+      return result;
+   }
+
+   public String sortColumn (String columnName, String typeSort) {
+      String result = "";
+      if (!columnName.equals("")){
+         result = " ORDER BY u." + columnName +" " + typeSort;
+      }
+      return result;
+   }
+
+   public Long count(Integer status, String keyword) {
+      EntityManager entityMgr = EntityUtils.getEntityManager();
+
+      String queryStr;
+      Query query;
+      Boolean temp;
+      if(status == 2){
+         queryStr = String.format("SELECT count(*) FROM DeliveryEntity  u " +
+                 "where concat(u.userEntity.firstName , ' ', u.userEntity.lastName) like :searchKeyword " +
+                 "or u.userEntity.phoneNumber like :searchKeyword " +
+                 "or  u.userEntity.email like :searchKeyword " +
+                 "or u.userEntity.gender like :searchKeyword " +
+                 "or u.salary like :searchKeyword ");
+         query = entityMgr.createQuery(queryStr);
+         query.setParameter("searchKeyword", "%" + keyword + "%");
+      }
+      else {
+         if(status == 1){
+            temp = true;
+         }
+         else {
+            temp = false;
+         }
+         queryStr = String.format("SELECT count(*) FROM DeliveryEntity  u " +
+                 "where u.userEntity.status = :statusPara " +
+                 "and (concat(u.userEntity.firstName , ' ', u.userEntity.lastName) like :searchKeyword " +
+                 "or u.userEntity.phoneNumber like :searchKeyword " +
+                 "or  u.userEntity.email like :searchKeyword " +
+                 "or u.userEntity.gender like :searchKeyword " +
+                 "or u.salary like :searchKeyword) ");
+         query = entityMgr.createQuery(queryStr);
+         query.setParameter("statusPara", temp);
+         query.setParameter("searchKeyword", "%" + keyword + "%");
+      }
+
+      return (Long) query.getSingleResult();
    }
 
    @Override

@@ -2,6 +2,7 @@ package com.hknp.model.dao;
 
 import com.hknp.interfaces.IModifySingleEntityAutoIncrement;
 import com.hknp.interfaces.IRetrieveEntity;
+import com.hknp.model.entity.ProductCategoryEntity;
 import com.hknp.model.entity.ProductEntity;
 import com.hknp.model.entity.ProductTypeEntity;
 import com.hknp.model.entity.UserEntity;

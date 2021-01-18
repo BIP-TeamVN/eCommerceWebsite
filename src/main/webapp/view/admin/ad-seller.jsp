@@ -54,6 +54,93 @@
                <!-- Card header -->
                <div class="card-header border-0">
                   <h2 class="mb-0 text-center text-uppercase display-4">Danh sách cửa hàng</h2>
+                  <div class="position-absolute row" style="right: 2rem; top: 1.5rem;">
+                     <div class="col-3 text-right">
+                        <label class="custom-toggle">
+                           <input type="checkbox" id="chk-show-filter">
+                           <span class="custom-toggle-slider rounded-circle"></span>
+                        </label>
+                     </div>
+                     <div class="col-9 text-right">
+                        <p class="m-0 font-weight-bold">Lọc và tìm kiếm</p>
+                     </div>
+                  </div>
+               </div>
+
+               <!--Filter-->
+               <div id="tb-filter" class="card-header border-0 d-none pt-0">
+                  <div class="container m-0">
+                     <div class="row">
+                        <div class="col">
+                           <div class="line-text"><span>Tìm kiếm và tùy chọn hiển thị</span></div>
+                        </div>
+                     </div>
+
+                     <div class="row m-0">
+                        <div class="col pl-0">
+                           <form class="m-auto w-100 navbar-search navbar-search-light form-inline" id="tb-search">
+                              <div class="form-group w-100 mb-0">
+                                 <div style="border: 1px solid #EFF1F3;"
+                                      class="w-100 input-group input-group-alternative input-group-merge">
+                                    <div class="input-group-prepend">
+                                       <span class="input-group-text"><em class="fas fa-search"></em></span>
+                                    </div>
+                                    <input class="form-control" id="tb-input-search" placeholder="Tìm kiếm" type="text">
+                                 </div>
+                              </div>
+                              <button class="close" data-action="search-close" data-target="#tb-search"
+                                      aria-label="Close" onclick="search()">
+                                 <span aria-hidden="true">×</span>
+                              </button>
+                           </form>
+                        </div>
+
+                        <div class="col">
+                           <div class="row">
+                              <div class="col p-0">
+                                 <div class="form-group m-1">
+                                    <label for="sort-by-column" class="floating-label">Sắp xếp theo</label>
+                                    <select class="form-control input-border" id="sort-by-column" onchange="search()">
+                                       <option value="userId" selected>Mã</option>
+                                       <option value="userEntity.firstName, u.userEntity.lastName">Họ và tên</option>
+                                       <option value="userEntity.gender">Giới tính</option>
+                                       <option value="storeName">Tên cửa hàng</option>
+                                       <option value="storeLink">Link cửa hàng</option>
+                                       <option value="businessLicenseId">Giấy phép kinh doanh</option>
+                                       <option value="bankAccountId">Số tài khoản</option>
+                                    </select>
+                                 </div>
+                              </div>
+
+                              <div class="col p-0">
+                                 <div class="form-group m-1">
+                                    <label for="sort-type" class="floating-label">Kiểu sắp xếp</label>
+                                    <select class="form-control input-border" id="sort-type" onchange="search()">
+                                       <option value="ASC" selected>Tăng dần</option>
+                                       <option value="DESC">Giảm dần</option>
+                                    </select>
+                                 </div>
+                              </div>
+
+                              <div class="col p-0">
+                                 <div class="form-group m-1">
+                                    <label for="filter-status" class="floating-label">Trạng thái</label>
+                                    <select class="form-control input-border" id="filter-status" onchange="search()">
+                                       <option value="2">Tất cả trạng thái</option>
+                                       <option value="1">Đang hoạt động</option>
+                                       <option value="0">Đã nghĩ</option>
+                                    </select>
+                                 </div>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                     <div class="row my-4">
+                        <div class="col">
+                           <div class="line-text"></div>
+                        </div>
+                     </div>
+                  </div>
                </div>
 
                <!--Loading-->
@@ -124,6 +211,16 @@
 <!--Javascript-->
 <%@ include file="../../common/import-js.jsp" %>
 <script>
+
+
+  $('#chk-show-filter').change(function () {
+    if ($(this).is(':checked')) {
+      $('#tb-filter').removeClass('d-none');
+    } else {
+      $('#tb-filter').addClass('d-none');
+    }
+  });
+
   let firstPageButton = '<li class="page-item"><button type="button" class="page-link" onclick="goFirst()"><i class="fa fa-angle-double-left"></i><span class="sr-only">Trang đầu tiên</span></button></li>';
   let prevPageButton = '<li class="page-item"><button type="button" class="page-link" onclick="goPrev()"><i class="fa fa-angle-left"></i><span class="sr-only">Trang trước</span></button></li>';
   let nextPageButton = '<li class="page-item"><button type="button" class="page-link" onclick="goNext()"><i class="fa fa-angle-right"></i><span class="sr-only">Trang sau</span></button></li>';
@@ -195,7 +292,13 @@
     $.ajax({
       url: '/api/seller',
       method: 'GET',
-      data: { page: currentPage },
+      data: {
+        'page': currentPage,
+        'status': $('#filter-status').val(),
+        'keyword': $('#tb-input-search').val(),
+        'columnName': $('#sort-by-column').val(),
+        'typeSort': $('#sort-type').val()
+      },
       cache: false,
       success: function (data, textStatus, jqXHR) {
         let list = $.parseJSON(data);
@@ -230,6 +333,28 @@
             '</tr>';
           $('#tb-list').append(html);
         });
+      }
+    });
+  }
+</script>
+<script>
+  function search(){
+    console.log("vo chua");
+    $.ajax({
+      url: '/api/count-seller',
+      method: 'GET',
+      data: {
+        'page': currentPage,
+        'status': $('#filter-status').val(),
+        'keyword': $('#tb-input-search').val()
+      },
+      cache: false,
+      async: false,
+      success: function (data) {
+        let result = data.toString().split(",");
+        totalPage = parseInt(result[0]);
+        currentPage = parseInt(result[1]);
+        reloadPage();
       }
     });
   }

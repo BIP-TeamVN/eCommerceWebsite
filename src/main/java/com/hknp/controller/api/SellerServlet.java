@@ -77,11 +77,19 @@ public class SellerServlet extends HttpServlet {
    @Override
    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
       String pagePara = req.getParameter("page");
+
+      Integer status = StringUtils.toInt(req.getParameter("status"));
+      String keyword = req.getParameter("keyword").trim();
+      String columnName = req.getParameter("columnName");
+      String typeSort = req.getParameter("typeSort");
+      if (keyword == null) {
+         keyword = "";
+      }
       Integer page = StringUtils.toInt(pagePara);
       if (page <= 0) {
          page = 1;
       }
-      ArrayList<SellerEntity> listSeller = SellerDAO.getInstance().gets((page - 1) * 10, 10);
+      ArrayList<SellerEntity> listSeller = SellerDAO.getInstance().gets((page - 1) * 10, 10,keyword, status, columnName, typeSort);
       List<String> listJsonStr = new ArrayList<>();
 
       for (SellerEntity seller : listSeller) {
