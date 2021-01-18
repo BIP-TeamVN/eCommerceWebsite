@@ -2,7 +2,7 @@
 <html>
 <head>
    <%@ include file="../../common/meta-info.jsp" %>
-   <title>eCommerce Website</title>
+   <title>eCommerce Website - Sản phẩm</title>
    <%@ include file="../../common/link-css.jsp" %>
 </head>
 
@@ -316,25 +316,7 @@
   }
 
   function addToCart(productId) {
-    $.ajax({
-      url: '/api/carts',
-      method: 'POST',
-      async: false,
-      data: {
-        'product-type-id': productId
-      },
-      success: function (data, textStatus, jqXHR) {
-        let result = data.toString().split('\n');
-        if (result[0] === 'true') {
-          alert("Thêm thành công vào giỏ hàng");
-        } else {
-          alert("Lỗi: ");
-        }
-      },
-      error: function (jqXHR, textStatus, errorThrown) {
-        alert("Lỗi  xxxx: " + errorThrown);
-      }
-    });
+    alert(productId);
   }
 
   loadProductCategory();
