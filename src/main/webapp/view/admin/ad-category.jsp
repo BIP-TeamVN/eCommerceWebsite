@@ -282,6 +282,7 @@
       data: {page: currentPage},
       cache: false,
       data: {
+        'type': 'page',
         'page': currentPage,
         'keyword': $('#tb-input-search').val(),
         'columnName': $('#sort-by-column').val(),

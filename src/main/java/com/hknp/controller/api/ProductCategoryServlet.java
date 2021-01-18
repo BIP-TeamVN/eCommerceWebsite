@@ -70,29 +70,33 @@ public class ProductCategoryServlet extends HttpServlet {
    }
    @Override
    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-      String pagePara = req.getParameter("page");
-      Integer page = StringUtils.toInt(pagePara);
+      String type = req.getParameter("type");
 
-      String keyword = req.getParameter("keyword").trim();
-      String columnName = req.getParameter("columnName");
-      String typeSort = req.getParameter("typeSort");
-      if (keyword == null) {
-         keyword = "";
-      }
-
-      if (page <= 0) {
-         page = 1;
-      }
-
-      List<ProductCategoryEntity> listCategory = new ArrayList<>();
       List<String> listJsonStr = new ArrayList<>();
+      List<ProductCategoryEntity> listCategory = new ArrayList<>();
+      if (!type.equals("all")) {
+         String pagePara = req.getParameter("page");
+         Integer page = StringUtils.toInt(pagePara);
 
-      listCategory = ProductCategoryDAO.getInstance().gets((page - 1) * 10, 10, keyword, columnName, typeSort);
+         String keyword = req.getParameter("keyword").trim();
+         String columnName = req.getParameter("columnName");
+         String typeSort = req.getParameter("typeSort");
+         if (keyword == null) {
+            keyword = "";
+         }
 
-      for (ProductCategoryEntity ca: listCategory) {
+         if (page <= 0) {
+            page = 1;
+         }
+
+         listCategory = ProductCategoryDAO.getInstance().gets((page - 1) * 10, 10, keyword, columnName, typeSort);
+      } else {
+         listCategory = ProductCategoryDAO.getInstance().gets();
+      }
+
+      for (ProductCategoryEntity ca : listCategory) {
          listJsonStr.add(ca.toJson());
       }
-
       ServletUtils.printWrite(resp, "[" + String.join(", ", listJsonStr) + "]");
    }
 
