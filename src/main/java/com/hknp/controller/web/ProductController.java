@@ -21,7 +21,12 @@ public class ProductController extends HttpServlet {
       ProductEntity productEntity = ProductDAO.getInstance().getById(productId);
 
       if(productEntity != null){
-         /* Set attribute */
+         req.setAttribute("productId", productId);
+         req.setAttribute("brandId", productEntity.getBrandEntity().getBrandId());
+         req.setAttribute("brandName", productEntity.getBrandEntity().getBrandName());
+
+         req.setAttribute("productName", productEntity.getProductName());
+
          ServletUtils.forward(req, resp,"/view/web/product.jsp");
       }
       else {
