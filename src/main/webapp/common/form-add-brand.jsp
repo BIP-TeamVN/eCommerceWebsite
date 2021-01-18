@@ -79,7 +79,7 @@
             </button>
          </div>
          <div class="modal-body">
-            Thêm nhãn hiệu thành công !
+            Thêm thương hiệu thành công !
          </div>
          <div class="modal-footer">
             <button class="btn btn-primary px-4" type="button" data-dismiss="modal">OK</button>

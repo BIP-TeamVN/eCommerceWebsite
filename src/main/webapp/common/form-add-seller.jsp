@@ -15,7 +15,7 @@
    <div class="modal-dialog modal-lg modal-dialog-scrollable modal-dialog-centered" role="document">
       <div class="modal-content">
          <div class="modal-header p-3">
-            <h2 class="mx-3 my-2 text-center text-uppercase display-4">Thêm shop mới</h2>
+            <h2 class="mx-3 my-2 text-center text-uppercase display-4">Thêm cửa hàng mới</h2>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                <span aria-hidden="true">&times;</span>
             </button>
@@ -220,6 +220,25 @@
       </div>
    </div>
 </div>
+<!-- Modal add successful -->
+<div class="modal fade" id="successful-modal" tabindex="-1" role="dialog" aria-labelledby="conform-modal-lb" aria-hidden="true">
+   <div class="modal-dialog" role="document">
+      <div class="modal-content">
+         <div class="modal-header">
+            <h5 class="modal-title" id="successful-modal-lb">Thông báo</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+               <span aria-hidden="true">&times;</span>
+            </button>
+         </div>
+         <div class="modal-body">
+            Thêm cửa hàng thành công !
+         </div>
+         <div class="modal-footer">
+            <button class="btn btn-primary px-4" type="button" data-dismiss="modal">OK</button>
+         </div>
+      </div>
+   </div>
+</div>
 <%@ include file="import-js.jsp" %>
 <script src="../../assets/js/dynamic-admin-unit-drop-down.js"></script>
-<script src="../../assets/js/validate/validate-seller-form.js"></script>
+<script src="../../assets/js/validate/validate-sellerr-form.js"></script>

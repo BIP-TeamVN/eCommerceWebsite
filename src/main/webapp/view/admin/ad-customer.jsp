@@ -43,7 +43,7 @@
             <div class="card">
                <!-- Card header -->
                <div class="card-header border-0">
-                  <h2 class="mb-0 text-center text-uppercase display-4">Danh sách nhân viên</h2>
+                  <h2 class="mb-0 text-center text-uppercase display-4">Danh sách khách hàng</h2>
                   <div class="position-absolute row" style="right: 2rem; top: 1.5rem;">
                      <div class="col-3 text-right">
                         <label class="custom-toggle">
