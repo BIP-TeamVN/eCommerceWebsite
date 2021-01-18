@@ -1,9 +1,11 @@
 package com.hknp.controller.api;
 
 import com.hknp.model.dao.CustomerDAO;
+import com.hknp.model.dao.ProductDAO;
 import com.hknp.model.dao.UserDAO;
 import com.hknp.model.entity.Cons;
 import com.hknp.model.entity.CustomerEntity;
+import com.hknp.model.entity.ProductEntity;
 import com.hknp.model.entity.UserEntity;
 import com.hknp.utils.*;
 
@@ -65,12 +67,27 @@ public class CustomerServlet extends HttpServlet {
          page = 1;
       }
 
-      ArrayList<CustomerEntity> listCustomer = CustomerDAO.getInstance().gets((page - 1) * 10, 10);
+      String keyword = req.getParameter("keyword").trim();
+      String columnName = req.getParameter("columnName");
+      String typeSort = req.getParameter("typeSort");
+      if (keyword == null) {
+         keyword = "";
+      }
+
+      if (page <= 0) {
+         page = 1;
+      }
+
+      List<CustomerEntity> listCustomer = new ArrayList<>();
       List<String> listJsonStr = new ArrayList<>();
 
-      for (CustomerEntity customer : listCustomer) {
-         listJsonStr.add(customer.toJson());
+      listCustomer = CustomerDAO.getInstance().gets((page - 1) * 10, 10, keyword, columnName, typeSort);
+
+      for (CustomerEntity Cus: listCustomer) {
+         listJsonStr.add(Cus.toJson());
       }
+
+
       ServletUtils.printWrite(resp, "[" + String.join(", ", listJsonStr) + "]");
    }
 
