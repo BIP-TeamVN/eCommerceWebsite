@@ -71,6 +71,8 @@
                         <th scope="col" class="text-center">Tên khách hàng</th>
                         <th scope="col" class="text-center">Số điện thoại</th>
                         <th scope="col" class="text-center">Địa chỉ</th>
+                        <th scope="col" class="text-center">Tổng giá trị</th>
+                        <th scope="col" class="text-center">Tùy chọn</th>
                      </tr>
                      </thead>
                      <tbody class="list" id="tb-list">
@@ -225,17 +227,21 @@
             '<td>' + item.fullName + '</td>' +
             '<td>' + item.phone + '</td>' +
             '<td>' + item.fullAddress + '</td>' +
+            '<td>' + item.total + '</td>' +
             '<td class="td-actions text-center">' +
             (item.status === "5" ?
-              '<button class="btn btn-primary pl-2 pr-2" onclick="DoneBill('+ item.id +')">Giao Thành công' +
+              '<button class="btn btn-primary px-4 py-2" title="Đơn giao thành công" onclick="DoneBill('+ item.id +')">' +
+              '<i class="fa fa-check"></i>' +
               '</button>' +
-              '<button class="btn btn-primary pl-2 pr-2" onclick="FailBill('+ item.id +')">Giao thất bại' +
+              '<button class="btn btn-primary px-4 py-2" title="Đơn giao thất bại" onclick="FailBill('+ item.id +')">' +
+              '<i class="fa fa-window-close"></i>' +
               '</button>' : (item.status === "2" ?
-                '<button class="btn btn-primary pl-2 pr-2" onclick="GetBill('+ item.id +')">Nhận đơn' +
-                '</button>' : (item.status === "4" ?
-                  '<button class="btn btn-primary pl-2 pr-2" onclick="RecieveBill('+ item.id +')">Nhận hàng' +
+                '<button class="btn btn-primary px-4 py-2" title="Nhận đơn" onclick="GetBill('+ item.id +')">' +
+                '<i class="fa fa-plus-circle"></i>' : (item.status === "4" ?
+                  '<button class="btn btn-primary px-4 py-2" title="Nhận hàng" onclick="RecieveBill('+ item.id +')">' +
+                  '<i class="fa fa-cart-arrow-down"></i>' +
                   '</button>'   :
-                  '<label class="btn btn-danger px-2 py-1 mt-2" title="Đã giao" id="status-' + item.id + '">' +
+                  '<label class="btn btn-danger px-4 py-2 mt-4" title="Đã giao" id="status-' + item.id + '">' +
                   '<i class="fa fa-check-square"></i>' +
                   '</label>' ))) +
             '</td>' +

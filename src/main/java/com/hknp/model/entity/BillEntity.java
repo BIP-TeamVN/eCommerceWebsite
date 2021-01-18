@@ -3,6 +3,7 @@ package com.hknp.model.entity;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.sql.Date;
 import java.util.List;
 
 @Entity
@@ -36,7 +37,29 @@ public class BillEntity implements Serializable {
    @JoinColumn(name = "DELIVERY_ID")
    DeliveryEntity deliveryEntity;
 
+   @Column(name = "BILL_CREATE_DATE")
+   Date billCreateDate;
+
+   @Column(name = "BILL_DONE_DATE")
+   Date billDoneDate;
+
    public BillEntity() {
+   }
+
+   public Date getBillCreateDate() {
+      return billCreateDate;
+   }
+
+   public void setBillCreateDate(Date billCreateDate) {
+      this.billCreateDate = billCreateDate;
+   }
+
+   public Date getBillDoneDate() {
+      return billDoneDate;
+   }
+
+   public void setBillDoneDate(Date billDoneDate) {
+      this.billDoneDate = billDoneDate;
    }
 
    public Long getBillId() {
