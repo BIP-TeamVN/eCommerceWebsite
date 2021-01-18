@@ -273,7 +273,7 @@
     $.ajax({
       url: '/api/product-categories',
       method: 'GET',
-      data: {type: 'all'},
+      data: {'type': 'all'},
       cache: false,
       success: function (data, textStatus, jqXHR) {
         let list = $.parseJSON(data);

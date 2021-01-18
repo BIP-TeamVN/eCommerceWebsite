@@ -335,16 +335,35 @@ public class ProductDAO implements IRetrieveEntity<ProductEntity, Long>, IModify
       return result == null ? 0 : result;
    }
 
-   /*public ArrayList<ProductCategoryEntity> GetCategoryByProductId(Integer firstResult, Integer maxResults, Long productId){
-      EntityManager entiMgr = EntityUtils.getEntityManager();
-      String queryStr = "select u.productCategoryEntities from ProductEntity  u " +
-              "where  u.productId = :productId ";
-      Query query = entiMgr.createQuery(queryStr);
+   public ArrayList<ProductEntity> getProductBySellerId(Integer firstResult, Integer maxResults, Long sellerId) {
+      EntityManager entityMgr = EntityUtils.getEntityManager();
 
+      Query query;
+      String queryStr;
+
+      queryStr = "SELECT u FROM ProductEntity u " +
+              "where u.sellerEntity.userId = :sellerIdPara " +
+              "and u.status = 1";
+
+      query = entityMgr.createQuery(queryStr, ProductEntity.class);
+
+      query.setParameter("sellerIdPara", sellerId);
+
+      if (firstResult != null) {
+         query.setFirstResult(firstResult);
+      }
+      if (maxResults != null) {
+         query.setMaxResults(maxResults);
+      }
+
+      ArrayList<ProductEntity> result = null;
+      try {
+         result = new ArrayList<>(query.getResultList());
+      } catch (Exception exception) {
+         exception.printStackTrace();
+      } finally {
+         entityMgr.close();
+      }
+      return result;
    }
-
-   public ArrayList<ProductEntity> GetByCategory(){
-
-   }*/
-
 }
