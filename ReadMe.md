@@ -26,10 +26,12 @@
 
 ## Overview
 
-- Technical: JSP (Jakarta Server Pages) and Servlet
+- Technical: **JSP** (**J**akarta **S**erver **P**ages) and **Servlet**
 
-- Relational database management system : **MySQL 5.7**
-- Object-relational mapping : **Hibernate 5.4.10.Final**
+- Database:
+  - Relational database management system : **MySQL 5.7**
+  - Object-relational mapping : **Hibernate 5.4.10.Final**
+  - Administrative units of Vietnam in database get from [GENERAL STATISTICS OFFICE OF VIETNAM](https://www.gso.gov.vn/en/homepage/)
 
 - Front-end frameworks :
   - [**Bootstrap 4.5.3**](https://getbootstrap.com/docs/4.5/getting-started/introduction/) - Open source front end framework
@@ -41,6 +43,8 @@
 - Design pattern : **Model - View - Controller (MVC)**
 - Integrated development environment (IDE) : **IntelliJ IDEA 2020**
 
+
+
 <br>
 <br>
 
@@ -48,6 +52,10 @@
 
 <pre>
 <b>eCommerceWebsite</b>
+├── db
+│   ├── Database.sql                  (Script MYSQL create database)
+│   ├── ScriptInsert.sql              (Script MYSQL insert sample data)
+│   ├── vietnam-zone.xls              (Excel file contain Administrative units of Vietnam)
 ├── src
 │   ├── main
 │   │   ├── java
