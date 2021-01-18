@@ -1,9 +1,11 @@
 package com.hknp.controller.api;
 
 import com.hknp.model.dao.BrandDAO;
+import com.hknp.model.dao.ProductCategoryDAO;
 import com.hknp.model.dao.UserDAO;
 import com.hknp.model.entity.BrandEntity;
 import com.hknp.model.entity.Cons;
+import com.hknp.model.entity.ProductCategoryEntity;
 import com.hknp.utils.ServletUtils;
 import com.hknp.utils.StringUtils;
 
@@ -81,14 +83,25 @@ public class BrandServlet extends HttpServlet {
    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
       String pagePara = req.getParameter("page");
       Integer page = StringUtils.toInt(pagePara);
+
+      String keyword = req.getParameter("keyword").trim();
+      String columnName = req.getParameter("columnName");
+      String typeSort = req.getParameter("typeSort");
+      if (keyword == null) {
+         keyword = "";
+      }
+
       if (page <= 0) {
          page = 1;
       }
-      ArrayList<BrandEntity> listBrand = BrandDAO.getInstance().gets((page - 1) * 10, 10);
+
+      List<BrandEntity> listBrand = new ArrayList<>();
       List<String> listJsonStr = new ArrayList<>();
 
-      for (BrandEntity brand : listBrand) {
-         listJsonStr.add(brand.toJson());
+      listBrand = BrandDAO.getInstance().gets((page - 1) * 10, 10, keyword, columnName, typeSort);
+
+      for (BrandEntity br: listBrand) {
+         listJsonStr.add(br.toJson());
       }
 
       ServletUtils.printWrite(resp, "[" + String.join(", ", listJsonStr) + "]");
