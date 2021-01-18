@@ -267,6 +267,8 @@
    </div>
 </div>
 
+<!--Javascript-->
+<%@ include file="../../common/import-js.jsp" %>
 <script>
   function loadProductCategory() {
     let listCategory = [];

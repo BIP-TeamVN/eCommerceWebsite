@@ -1,4 +1,4 @@
-package com.hknp.controller.web;
+package com.hknp.controller.api;
 
 
 import com.hknp.model.dao.UserDAO;
@@ -6,7 +6,6 @@ import com.hknp.model.entity.UserEntity;
 import com.hknp.utils.Base64Utils;
 import com.hknp.utils.HashUtils;
 import com.hknp.utils.ServletUtils;
-import com.hknp.utils.StringUtils;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -18,7 +17,7 @@ import java.io.IOException;
 import java.util.Map;
 
 @WebServlet(urlPatterns = {"/change-password"})
-public class ChangPasswordController extends HttpServlet {
+public class ChangPasswordServlet extends HttpServlet {
 
    @Override
    protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -33,8 +32,8 @@ public class ChangPasswordController extends HttpServlet {
 
          UserEntity updateUser = UserDAO.getInstance().getById(id);
 
-         String currentPasswordMd5 =HashUtils.getMd5(Base64Utils.encodeFromString(currentPassword));
-         if(updateUser.getPassword().equals(currentPasswordMd5)){
+         String currentPasswordMd5 = HashUtils.getMd5(Base64Utils.encodeFromString(currentPassword));
+         if (updateUser.getPassword().equals(currentPasswordMd5)) {
             updateUser.setPassword(HashUtils.getMd5(Base64Utils.encodeFromString(newPassword)));
 
             Boolean updateResult = UserDAO.getInstance().update(updateUser);
@@ -46,7 +45,7 @@ public class ChangPasswordController extends HttpServlet {
                result += "false\nError while change password";
             }
 
-         }else {
+         } else {
             result += "false\nOld password is incorrect";
          }
 
