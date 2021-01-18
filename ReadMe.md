@@ -27,9 +27,19 @@
 ## Overview
 
 - Technical: JSP (Jakarta Server Pages) and Servlet
-- Relational database management system : **MySQL**
+
+- Relational database management system : **MySQL 5.7**
+- Object-relational mapping : **Hibernate 5.4.10.Final**
+
+- Front-end frameworks :
+  - [**Bootstrap 4.5.3**](https://getbootstrap.com/docs/4.5/getting-started/introduction/) - Open source front end framework
+  - [**jQuery 3.5.1**](https://jquery.com/) - Fast, small, and feature-rich JavaScript library
+  - [**AJAX**]() (**A**synchronous **J**avaScript **a**nd **X**ML) -  send and retrieve data from a server asynchronously without interfering with the display and behaviour of the existing page.
+  - [**Slim Select 2**](https://slimselectjs.com/) - Slim advanced select dropdown
+  - [**Argon dashboard**](https://www.creative-tim.com/product/argon-dashboard/) by [Creative Tim](https://www.creative-tim.com/)
+  
 - Design pattern : **Model - View - Controller (MVC)**
-- Integrated development environment (IDE) : **Jetbrains Intellij**
+- Integrated development environment (IDE) : **IntelliJ IDEA 2020**
 
 <br>
 <br>
@@ -42,26 +52,38 @@
 │   ├── main
 │   │   ├── java
 │   │   │   ├── com.hknp.controller
-│   │   │   │   └── admin
-│   │   │   │   └── delivery
-│   │   │   │   └── employee
-│   │   │   │   └── seller
-│   │   │   │   └── web
+│   │   │   │   └── api               (REST API)
+│   │   │   │   └── filter            (Servlet filter)
+│   │   │   │   └── common            (common controller for all user's page)
+│   │   │   │   └── admin             (controller for admin page)
+│   │   │   │   └── delivery          (controller for delivery page)
+│   │   │   │   └── employee          (controller for employee page)
+│   │   │   │   └── seller            (controller for seller page)
+│   │   │   │   └── web               (controller for guest & customer page)
 │   │   │   ├── com.hknp.interfaces
 │   │   │   ├── com.hknp.model
-│   │   │   │   └── dao
-│   │   │   │   └── enity
+│   │   │   │   └── dao               (data access object with singleton pattern)
+│   │   │   │   └── enity             (Entity Bean class)
+│   │   │   │   └── domain
+│   │   │   ├── com.hknp.utils
 │   │   ├── webapp
 │   │   │   ├── WEB-INF
-│   │   │   │   └─── <a href="./resource/tut-1/src/main/webapp/WEB-INF/web.xml" target="_blank">web.xml</a>
+│   │   │   │   └─── <a href="./src/main/webapp/WEB-INF/web.xml" target="_blank">web.xml</a>
+│   │   │   ├── assets
+│   │   │   │   └── css               (argon css && custom css)
+│   │   │   │   └── fonts             (nucleo font)
+│   │   │   │   └── img               (images)
+│   │   │   │   └── js                (custom javascript)
+│   │   │   │   └── vendor            (front-end frameworks)
+│   │   │   ├── common                (common components for all jsp page)
 │   │   │   ├── view
-│   │   │   │   └── admin
-│   │   │   │   └── delivery
-│   │   │   │   └── employee
-│   │   │   │   └── seller
-│   │   │   │   └── web
-│   │   │   ├── index.jsp (redirect to web/home.jsp)
-└── pom.xml
+│   │   │   │   └── admin             (contain admin pages)
+│   │   │   │   └── delivery          (contain delivery pages)
+│   │   │   │   └── employee          (contain employee pages)
+│   │   │   │   └── seller            (contain seller pages)
+│   │   │   │   └── web               (contain guest & customer pages)
+│   │   │   ├── index.jsp             (redirect to /home)
+└── <a href="./pom.xml" target="_blank">pom.xml</a>                           (Acronym for Project Object Model)
 </pre>
 
 <br>
@@ -69,7 +91,7 @@
 
 ## Project Team Member
 
-| Name                  | Role                |
+| Name                  | Role              |
 | ----------------------|-------------------|
 | **Hoang** Ho Huy      | Frontend + Test   |
 | **Khanh** Lam Quoc    | Frontend + Test   |
