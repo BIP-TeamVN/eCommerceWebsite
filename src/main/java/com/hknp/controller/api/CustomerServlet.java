@@ -63,9 +63,6 @@ public class CustomerServlet extends HttpServlet {
    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
       String pagePara = req.getParameter("page");
       Integer page = StringUtils.toInt(pagePara);
-      if (page <= 0) {
-         page = 1;
-      }
 
       String keyword = req.getParameter("keyword").trim();
       String columnName = req.getParameter("columnName");
@@ -86,7 +83,6 @@ public class CustomerServlet extends HttpServlet {
       for (CustomerEntity Cus: listCustomer) {
          listJsonStr.add(Cus.toJson());
       }
-
 
       ServletUtils.printWrite(resp, "[" + String.join(", ", listJsonStr) + "]");
    }

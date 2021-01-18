@@ -323,7 +323,7 @@
 <script>
   function search(){
     $.ajax({
-      url: '/api/count-product-count',
+      url: '/api/count-customer-count',
       method: 'GET',
       data: {
         'page': currentPage,

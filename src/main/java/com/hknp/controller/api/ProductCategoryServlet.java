@@ -1,8 +1,10 @@
 package com.hknp.controller.api;
 
+import com.hknp.model.dao.CustomerDAO;
 import com.hknp.model.dao.ProductCategoryDAO;
 import com.hknp.model.dao.UserDAO;
 import com.hknp.model.entity.Cons;
+import com.hknp.model.entity.CustomerEntity;
 import com.hknp.model.entity.ProductCategoryEntity;
 import com.hknp.utils.ServletUtils;
 import com.hknp.utils.StringUtils;
@@ -68,28 +70,30 @@ public class ProductCategoryServlet extends HttpServlet {
    }
    @Override
    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-      String type = req.getParameter("type");
-      if (type != null && type.equals("all")) {
-         List<String> listJsonStr = new ArrayList<>();
-         for (ProductCategoryEntity productCategory : ProductCategoryDAO.getInstance().gets()) {
-            listJsonStr.add(productCategory.toJson());
-         }
-         ServletUtils.printWrite(resp, "[" + String.join(", ", listJsonStr) + "]");
-      }
-      else {
-         String pagePara = req.getParameter("page");
-         Integer page = StringUtils.toInt(pagePara);
-         if (page <= 0) {
-            page = 1;
-         }
-         ArrayList<ProductCategoryEntity> listProductCategory = ProductCategoryDAO.getInstance().gets((page - 1) * 10, 10);
-         List<String> listJsonStr = new ArrayList<>();
+      String pagePara = req.getParameter("page");
+      Integer page = StringUtils.toInt(pagePara);
 
-         for (ProductCategoryEntity productCategory : listProductCategory) {
-            listJsonStr.add(productCategory.toJson());
-         }
-         ServletUtils.printWrite(resp, "[" + String.join(", ", listJsonStr) + "]");
+      String keyword = req.getParameter("keyword").trim();
+      String columnName = req.getParameter("columnName");
+      String typeSort = req.getParameter("typeSort");
+      if (keyword == null) {
+         keyword = "";
       }
+
+      if (page <= 0) {
+         page = 1;
+      }
+
+      List<ProductCategoryEntity> listCategory = new ArrayList<>();
+      List<String> listJsonStr = new ArrayList<>();
+
+      listCategory = ProductCategoryDAO.getInstance().gets((page - 1) * 10, 10, keyword, columnName, typeSort);
+
+      for (ProductCategoryEntity ca: listCategory) {
+         listJsonStr.add(ca.toJson());
+      }
+
+      ServletUtils.printWrite(resp, "[" + String.join(", ", listJsonStr) + "]");
    }
 
    @Override
