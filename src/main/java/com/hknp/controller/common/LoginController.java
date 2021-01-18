@@ -40,7 +40,7 @@ public class LoginController extends HttpServlet {
                ServletUtils.forward(req, resp, "/delivery");
                break;
             default:
-               ServletUtils.forward(req, resp, "/view/web/login.jsp");
+               ServletUtils.forward(req, resp, "/view/web/home.jsp");
                break;
          }
       }
