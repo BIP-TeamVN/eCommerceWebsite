@@ -2,7 +2,7 @@
 <html>
 <head>
    <%@ include file="../../common/meta-info.jsp" %>
-   <title>eCommerce Website</title>
+   <title>eCommerce Website - Sản phẩm</title>
    <%@ include file="../../common/link-css.jsp" %>
 </head>
 
