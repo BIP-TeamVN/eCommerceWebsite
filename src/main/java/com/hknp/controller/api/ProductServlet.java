@@ -34,8 +34,8 @@ public class ProductServlet extends HttpServlet {
          page = 1;
       }
 
-      List<ProductEntity> listProduct = new ArrayList<>();//
-      List<String> listJsonStr = new ArrayList<>();//
+      List<ProductEntity> listProduct = new ArrayList<>();
+      List<String> listJsonStr = new ArrayList<>();
 
       if (UserDAO.getInstance().getById(id).getUserType().equals(Cons.User.USER_TYPE_SELLER)) {
          listProduct = ProductDAO.getInstance().gets((page - 1) * 10, 10, id, status, keyword, columnName, typeSort);
@@ -45,7 +45,6 @@ public class ProductServlet extends HttpServlet {
       }
 
       for (ProductEntity product : listProduct) {
-         product.setProductDesc(product.getProductDesc().replace("\n", "<br>"));
          listJsonStr.add(product.toJson());
       }
 
