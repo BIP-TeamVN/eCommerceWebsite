@@ -1,4 +1,7 @@
+<%@ page import="com.hknp.model.entity.UserEntity" %>
+<%@ page import="com.hknp.model.dao.UserDAO" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8" %>
+
 <!--Top nav 1-->
 <nav class="py-1 navbar navbar-expand-lg navbar-dark bg-primary">
    <div class="container">
@@ -133,16 +136,16 @@
          </ul>
 
          <!--User login-->
-         <ul id="nav-user-login" class="navbar-nav align-items-center ml-auto ml-md-0">
+         <ul id="nav-user-login" hidden="true"  class="navbar-nav align-items-center ml-auto ml-md-0">
             <li class="nav-item dropdown">
                <a class="nav-link pr-0" href="#" role="button" data-toggle="dropdown" aria-haspopup="true"
                   aria-expanded="false">
                   <div class="media align-items-center">
                   <span class="avatar avatar-sm rounded-circle">
-                    <img alt="Image placeholder" src="../../assets/img/theme/team-4.jpg">
+                    <img id="image-customer" alt="Image placeholder" src="">
                   </span>
                      <div class="media-body ml-2 d-none d-lg-block">
-                        <span class="mb-0 text-sm font-weight-bold">John Snow</span>
+                        <span id="full-name-customer" class="mb-0 text-sm font-weight-bold"></span>
                      </div>
                   </div>
                </a>
@@ -167,7 +170,7 @@
                      <span>Hỗ trợ</span>
                   </a>
                   <div class="dropdown-divider"></div>
-                  <a href="#!" class="dropdown-item">
+                  <a href="${javax.servlet.ServletRequest.getServerName()}/logout" class="dropdown-item">
                      <i class="fa fa-sign-out-alt"></i>
                      <span>Đăng xuất</span>
                   </a>
@@ -176,9 +179,9 @@
          </ul>
 
          <!--User guest-->
-         <ul id="nav-user-guest" class="navbar-nav align-items-center ml-auto ml-md-0 mr-0">
+         <ul id="nav-user-guest" class="navbar-nav align-items-center ml-auto ml-md-0 mr-0" >
             <li><button data-toggle="modal" data-target="#modal-login" class="btn btn-secondary my-1 ml-1 mr-0">
-               Đăng nhập/ Tạo tài khoản
+               Đăng nhập/ Đăng kí
             </button></li>
          </ul>
       </div>
@@ -240,7 +243,7 @@
                                                    <div class="input-group-prepend">
                                                       <span class="input-group-text"><em class="fa fa-user-alt"></em></span>
                                                    </div>
-                                                   <input class="form-control" id="login-username" name="login-username" autofocus placeholder="Tên đăng nhập hoặc email" type="text" required>
+                                                   <input onclick="hiddenError()" class="form-control" id="login-username" name="login-username" autofocus placeholder="Tên đăng nhập hoặc email" type="text" required>
                                                 </div>
                                              </div>
                                              <div class="form-group">
@@ -248,10 +251,10 @@
                                                    <div class="input-group-prepend">
                                                       <span class="input-group-text"><em class="fa fa-key"></em></span>
                                                    </div>
-                                                   <input class="form-control" placeholder="Mật khẩu" type="password" name="login-password" id="login-password" required>
+                                                   <input onclick="hiddenError()" class="form-control" placeholder="Mật khẩu" type="password" name="login-password" id="login-password" required>
                                                 </div>
                                              </div>
-
+                                             <small id="login-error" class="error-input text-danger" style="display: none;">Mật khẩu hoặc tên đăng nhập không đúng</small>
                                              <div><a href="#" class="text-primary"><small>Quên mật khẩu ?</small></a></div>
 
                                              <div class="text-center">
@@ -375,7 +378,45 @@
 </div>
 
 <script>
+  const username = document.getElementById('login-username');
+  const password = document.getElementById('login-password');
+
+  function hiddenError(){
+    $('#login-error').attr('style',"display: none;")
+  }
+
+
   $(document).ready(function() {
     console.log('ready');
+  });
+
+  $('#form-login').submit(function (e){
+    e.preventDefault();
+    $.ajax({
+      url: '/login-customer',
+      method: 'POST',
+      async: false,
+      data: {
+        'username': username.value.trim(),
+        'password': password.value.trim()
+      },
+      success: function (data, textStatus, jqXHR) {
+        let result = data.toString().split('\n');
+        if (result[0] === 'true') {
+          $('#nav-user-login').attr('hidden', false);
+          $('#nav-user-guest').attr('hidden', true);
+          $('#modal-login').modal('hide');
+          $('#full-name-customer').html(result[1]);
+          $('#image-customer').attr('src',result[2]);
+        } else {
+          $('#login-error').attr('style',"display: inline;")
+          e.preventDefault();
+        }
+      },
+      error: function (jqXHR, textStatus, errorThrown) {
+        alert("Lỗi: " + errorThrown);
+        e.preventDefault();
+      }
+    });
   });
 </script>
