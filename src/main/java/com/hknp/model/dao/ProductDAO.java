@@ -342,7 +342,7 @@ public class ProductDAO implements IRetrieveEntity<ProductEntity, Long>, IModify
 
       queryStr = "SELECT u FROM ProductEntity u " +
               "where u.sellerEntity.userId = :sellerIdPara " +
-              "and u.status = 1";
+              "and u.status = 1 order by u.productCreateDate asc";
 
       query = entityMgr.createQuery(queryStr, ProductEntity.class);
 

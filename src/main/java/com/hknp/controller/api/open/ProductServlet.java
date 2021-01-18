@@ -20,11 +20,14 @@ import java.util.List;
 public class ProductServlet extends HttpServlet {
    @Override
    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+      String pagePara = req.getParameter("page");                    //trang hiện tại
 
-      String pagePara = req.getParameter("page");
-      HttpSession session = req.getSession();
-      Long id = (Long) session.getAttribute("id");
-
+      String keyword = req.getParameter("keyword").trim();           //từ khóa cần tìm kiếm
+      String columnName = req.getParameter("columnName");            //tên cột cần sắp xếp thứ tự
+      String typeSort = req.getParameter("typeSort");                //kiêu sắp xếp
+      if (keyword == null) {
+         keyword = "";
+      }
       Integer page = StringUtils.toInt(pagePara);
       if (page <= 0) {
          page = 1;
@@ -33,16 +36,12 @@ public class ProductServlet extends HttpServlet {
       List<ProductEntity> listProduct = new ArrayList<>();
       List<String> listJsonStr = new ArrayList<>();
 
-      if (UserDAO.getInstance().getById(id).getUserType().equals(Cons.User.USER_TYPE_SELLER)) {
-         listProduct = ProductDAO.getInstance().gets((page - 1) * 10, 10);
-      }
-      else {
-         listProduct = ProductDAO.getInstance().gets((page - 1) * 10, 10);
-      }
+      listProduct = ProductDAO.getInstance().gets((page - 1) * 10, 10, 1, keyword, columnName, typeSort);
 
       for (ProductEntity product : listProduct) {
          listJsonStr.add(product.toJson());
       }
+
       ServletUtils.printWrite(resp, "[" + String.join(", ", listJsonStr) + "]");
    }
 }
