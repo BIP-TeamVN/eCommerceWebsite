@@ -1,14 +1,11 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: quock
-  Date: 18/01/2021
-  Time: 09:28 AM
-  To change this template use File | Settings | File Templates.
---%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<html>
+<%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8" %>
+<html lang="vi">
 <head>
-   <title>Title</title>
+   <%@ include file="../../common/meta-info.jsp" %>
+   <title>eCommerce Website</title>
+   <%@ include file="../../common/link-css.jsp" %>
+   <!--Javascript-->
+   <%@ include file="../../common/import-js.jsp" %>
 </head>
 <body>
 
