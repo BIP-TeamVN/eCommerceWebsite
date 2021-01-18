@@ -3,11 +3,13 @@ package com.hknp.model.dao;
 import com.hknp.interfaces.IModifySingleEntityAutoIncrement;
 import com.hknp.interfaces.IRetrieveEntity;
 import com.hknp.model.entity.CustomerEntity;
+import com.hknp.model.entity.ProductEntity;
 import com.hknp.model.entity.UserEntity;
 import com.hknp.utils.EntityUtils;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import java.util.ArrayList;
 
@@ -121,4 +123,64 @@ public class CustomerDAO implements IRetrieveEntity<CustomerEntity, Long>, IModi
 
    @Override
    public Long count() {return EntityUtils.count(CustomerEntity.class.getName());}
+
+   public Long count(String keyword) {
+      EntityManager entityMgr = EntityUtils.getEntityManager();
+
+      String queryStr;
+      Query query;
+
+      queryStr = "select count(*) from CustomerEntity p " +
+              "where concat(p.userEntity.firstName, ' ', p.userEntity.lastName) like :keywordPara " +
+              "or p.userEntity.gender like :keywordPara " +
+              "or p.userEntity.phoneNumber like :keywordPara " +
+              "or p.userEntity.email like :keywordPara";
+      query = entityMgr.createQuery(queryStr);
+
+      query.setParameter("keywordPara", "%" + keyword + "%");
+
+      return (Long) query.getSingleResult();
+   }
+
+   public ArrayList<CustomerEntity> gets(Integer firstResult, Integer maxResults, String keyword, String columnName, String typeSort) {
+      EntityManager entityMgr = EntityUtils.getEntityManager();
+
+      Query query;
+      String queryStr;
+
+      queryStr = "select u from CustomerEntity u " +
+              "where concat(u.userEntity.firstName, ' ', u.userEntity.lastName) like :keywordPara " +
+              "or u.userEntity.gender like :keywordPara " +
+              "or u.userEntity.phoneNumber like :keywordPara " +
+              "or u.userEntity.email like :keywordPara" + sortColumn(columnName, typeSort);
+
+      query = entityMgr.createQuery(queryStr, CustomerEntity.class);
+
+      query.setParameter("keywordPara", "%" + keyword + "%");
+
+      if (firstResult != null) {
+         query.setFirstResult(firstResult);
+      }
+      if (maxResults != null) {
+         query.setMaxResults(maxResults);
+      }
+
+      ArrayList<CustomerEntity> result = null;
+      try {
+         result = new ArrayList<>(query.getResultList());
+      } catch (Exception exception) {
+         exception.printStackTrace();
+      } finally {
+         entityMgr.close();
+      }
+      return result;
+   }
+
+   public String sortColumn (String columnName, String typeSort) {
+      String result = "";
+      if (!columnName.equals("")){
+         result = " ORDER BY u." + columnName +" " + typeSort;
+      }
+      return result;
+   }
 }
