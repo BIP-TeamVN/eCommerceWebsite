@@ -373,3 +373,9 @@
       </div>
    </div>
 </div>
+
+<script>
+  $(document).ready(function() {
+    console.log('ready');
+  });
+</script>
