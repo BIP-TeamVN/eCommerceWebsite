@@ -18,16 +18,14 @@ import java.util.*;
 public class ProductServlet extends HttpServlet {
    @Override
    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-      String pagePara = req.getParameter("page");
+      String pagePara = req.getParameter("page");//
 
-      ProductDAO.getInstance().gets(0, 10, 3, "", "priceOrder", "ASC");
-
-      HttpSession session = req.getSession();
-      Long id = (Long) session.getAttribute("id");
-      Integer status = StringUtils.toInt(req.getParameter("status"));
-      String keyword = req.getParameter("keyword").trim();
-      String columnName = req.getParameter("columnName");
-      String typeSort = req.getParameter("typeSort");
+      HttpSession session = req.getSession();//
+      Long id = (Long) session.getAttribute("id");//
+      Integer status = StringUtils.toInt(req.getParameter("status"));//
+      String keyword = req.getParameter("keyword").trim();//
+      String columnName = req.getParameter("columnName");//
+      String typeSort = req.getParameter("typeSort");//
       if (keyword == null) {
          keyword = "";
       }
@@ -36,8 +34,8 @@ public class ProductServlet extends HttpServlet {
          page = 1;
       }
 
-      List<ProductEntity> listProduct = new ArrayList<>();
-      List<String> listJsonStr = new ArrayList<>();
+      List<ProductEntity> listProduct = new ArrayList<>();//
+      List<String> listJsonStr = new ArrayList<>();//
 
       if (UserDAO.getInstance().getById(id).getUserType().equals(Cons.User.USER_TYPE_SELLER)) {
          listProduct = ProductDAO.getInstance().gets((page - 1) * 10, 10, id, status, keyword, columnName, typeSort);
