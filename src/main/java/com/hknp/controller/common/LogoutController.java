@@ -1,5 +1,8 @@
 package com.hknp.controller.common;
 
+import com.hknp.model.dao.UserDAO;
+import com.hknp.model.entity.Cons;
+import com.hknp.model.entity.UserEntity;
 import com.hknp.utils.ServletUtils;
 
 import javax.servlet.ServletException;
@@ -19,10 +22,18 @@ public class LogoutController extends HttpServlet {
 
    @Override
    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+      String urlLogout ="";
       try {
          HttpSession session = req.getSession();
+         Long id = (Long) session.getAttribute("id");
+         String userType = UserDAO.getInstance().getUserType(id);
+         if (userType.equals(Cons.User.USER_TYPE_CUSTOMER) || userType.equals("")) {
+            urlLogout = "/home";
+         } else {
+            urlLogout = "/login";
+         }
          session.invalidate();
       } catch (Exception e) {}
-      ServletUtils.forward(req, resp, "/login");
+      ServletUtils.forward(req, resp, urlLogout);
    }
 }

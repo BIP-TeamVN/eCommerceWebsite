@@ -26,10 +26,12 @@
 
 ## Overview
 
-- Technical: JSP (Jakarta Server Pages) and Servlet
+- Technical: **JSP** (**J**akarta **S**erver **P**ages) and **Servlet**
 
-- Relational database management system : **MySQL 5.7**
-- Object-relational mapping : **Hibernate 5.4.10.Final**
+- Database:
+  - Relational database management system : **MySQL 5.7**
+  - Object-relational mapping : **Hibernate 5.4.10.Final**
+  - Administrative units of Vietnam in database get from [GENERAL STATISTICS OFFICE OF VIETNAM](https://www.gso.gov.vn/en/homepage/)
 
 - Front-end frameworks :
   - [**Bootstrap 4.5.3**](https://getbootstrap.com/docs/4.5/getting-started/introduction/) - Open source front end framework
@@ -41,6 +43,8 @@
 - Design pattern : **Model - View - Controller (MVC)**
 - Integrated development environment (IDE) : **IntelliJ IDEA 2020**
 
+
+
 <br>
 <br>
 
@@ -48,10 +52,14 @@
 
 <pre>
 <b>eCommerceWebsite</b>
+├── db
+│   ├── Database.sql                  (Script MYSQL create database)
+│   ├── ScriptInsert.sql              (Script MYSQL insert sample data)
+│   ├── <a href="./db/vietnam-zone.xls" target="_blank">vietnam-zone.xls</a>              (Excel file contain Administrative units of Vietnam)
 ├── src
 │   ├── main
-│   │   ├── java
-│   │   │   ├── com.hknp.controller
+│   │   ├── <b>java</b>
+│   │   │   ├── <b>com.hknp.controller</b>
 │   │   │   │   └── api               (REST API)
 │   │   │   │   └── filter            (Servlet filter)
 │   │   │   │   └── common            (common controller for all user's page)
@@ -60,23 +68,23 @@
 │   │   │   │   └── employee          (controller for employee page)
 │   │   │   │   └── seller            (controller for seller page)
 │   │   │   │   └── web               (controller for guest & customer page)
-│   │   │   ├── com.hknp.interfaces
-│   │   │   ├── com.hknp.model
+│   │   │   ├── <b>com.hknp.interfaces</b>
+│   │   │   ├── <b>com.hknp.model</b>
 │   │   │   │   └── dao               (data access object with singleton pattern)
 │   │   │   │   └── enity             (Entity Bean class)
 │   │   │   │   └── domain
-│   │   │   ├── com.hknp.utils
-│   │   ├── webapp
-│   │   │   ├── WEB-INF
+│   │   │   ├── <b>com.hknp.utils</b>
+│   │   ├── <b>webapp</b>
+│   │   │   ├── <b>WEB-INF</b>
 │   │   │   │   └─── <a href="./src/main/webapp/WEB-INF/web.xml" target="_blank">web.xml</a>
-│   │   │   ├── assets
+│   │   │   ├── <b>assets</b>
 │   │   │   │   └── css               (argon css && custom css)
 │   │   │   │   └── fonts             (nucleo font)
 │   │   │   │   └── img               (images)
 │   │   │   │   └── js                (custom javascript)
 │   │   │   │   └── vendor            (front-end frameworks)
-│   │   │   ├── common                (common components for all jsp page)
-│   │   │   ├── view
+│   │   │   ├── <b>common</b>                (common components for all jsp page)
+│   │   │   ├── <b>view</b>
 │   │   │   │   └── admin             (contain admin pages)
 │   │   │   │   └── delivery          (contain delivery pages)
 │   │   │   │   └── employee          (contain employee pages)
