@@ -161,11 +161,35 @@ public class EmployeeDAO implements IRetrieveEntity<EmployeeEntity, Long>, IModi
 
       String queryStr;
       Query query;
-      queryStr = "select count(*) from EmployeeEntity e " +
-                 "where concat(e.userEntity.firstName , ' ', e.userEntity.lastName) like :searchKeyword ";
-      query = entityMgr.createQuery(queryStr);
-
-      query.setParameter("searchKeyword", "%" + keyword + "%");
+      Boolean temp;
+      if(status == 2){
+         queryStr = String.format("SELECT count(*) FROM EmployeeEntity  u " +
+                 "where concat(u.userEntity.firstName , ' ', u.userEntity.lastName) like :searchKeyword " +
+                 "or u.userEntity.phoneNumber like :searchKeyword " +
+                 "or  u.userEntity.email like :searchKeyword " +
+                 "or u.userEntity.gender like :searchKeyword " +
+                 "or u.salary like :searchKeyword ");
+         query = entityMgr.createQuery(queryStr);
+         query.setParameter("searchKeyword", "%" + keyword + "%");
+      }
+      else {
+         if(status == 1){
+            temp = true;
+         }
+         else {
+            temp = false;
+         }
+         queryStr = String.format("SELECT count(*) FROM EmployeeEntity  u " +
+                 "where u.userEntity.status = :statusPara " +
+                 "and (concat(u.userEntity.firstName , ' ', u.userEntity.lastName) like :searchKeyword " +
+                 "or u.userEntity.phoneNumber like :searchKeyword " +
+                 "or  u.userEntity.email like :searchKeyword " +
+                 "or u.userEntity.gender like :searchKeyword " +
+                 "or u.salary like :searchKeyword) ");
+         query = entityMgr.createQuery(queryStr);
+         query.setParameter("statusPara", temp);
+         query.setParameter("searchKeyword", "%" + keyword + "%");
+      }
 
       return (Long) query.getSingleResult();
    }

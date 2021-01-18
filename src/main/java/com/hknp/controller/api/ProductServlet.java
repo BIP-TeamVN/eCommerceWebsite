@@ -18,14 +18,14 @@ import java.util.*;
 public class ProductServlet extends HttpServlet {
    @Override
    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-      String pagePara = req.getParameter("page");//
+      String pagePara = req.getParameter("page");
 
-      HttpSession session = req.getSession();//
-      Long id = (Long) session.getAttribute("id");//
-      Integer status = StringUtils.toInt(req.getParameter("status"));//
-      String keyword = req.getParameter("keyword").trim();//
-      String columnName = req.getParameter("columnName");//
-      String typeSort = req.getParameter("typeSort");//
+      HttpSession session = req.getSession();
+      Long id = (Long) session.getAttribute("id");
+      Integer status = StringUtils.toInt(req.getParameter("status"));
+      String keyword = req.getParameter("keyword").trim();
+      String columnName = req.getParameter("columnName");
+      String typeSort = req.getParameter("typeSort");
       if (keyword == null) {
          keyword = "";
       }

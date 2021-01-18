@@ -2,6 +2,7 @@ package com.hknp.model.dao;
 
 import com.hknp.interfaces.IModifySingleEntityAutoIncrement;
 import com.hknp.interfaces.IRetrieveEntity;
+import com.hknp.model.entity.ProductCategoryEntity;
 import com.hknp.model.entity.ProductEntity;
 import com.hknp.model.entity.ProductTypeEntity;
 import com.hknp.model.entity.UserEntity;
@@ -333,4 +334,17 @@ public class ProductDAO implements IRetrieveEntity<ProductEntity, Long>, IModify
       Long result = (Long) query.getSingleResult();
       return result == null ? 0 : result;
    }
+
+   /*public ArrayList<ProductCategoryEntity> GetCategoryByProductId(Integer firstResult, Integer maxResults, Long productId){
+      EntityManager entiMgr = EntityUtils.getEntityManager();
+      String queryStr = "select u.productCategoryEntities from ProductEntity  u " +
+              "where  u.productId = :productId ";
+      Query query = entiMgr.createQuery(queryStr);
+
+   }
+
+   public ArrayList<ProductEntity> GetByCategory(){
+
+   }*/
+
 }
