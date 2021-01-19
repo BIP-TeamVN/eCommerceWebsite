@@ -315,8 +315,30 @@
   function loadProduct() {
   }
 
-  function addToCart(productId) {
-    alert(productId);
+  function addToCart(productTypeId) {
+    $.ajax({
+      url: '/api/carts',
+      method: 'POST',
+      async: false,
+      data: {
+        'product-type-id': productTypeId
+      },
+      success: function (data, textStatus, jqXHR) {
+        let result = data.toString().split('\n');
+        if (result[0] === 'true') {
+          alert("Thêm sản phẩm thành công");
+        } else {
+          alert("Lỗi: " + result[1]);
+          e.preventDefault();
+        }
+      },
+      error: function (jqXHR, textStatus, errorThrown) {
+        alert("Lỗi: " + errorThrown);
+        e.preventDefault();
+      }
+    });
+
+
   }
 
   loadProductCategory();
