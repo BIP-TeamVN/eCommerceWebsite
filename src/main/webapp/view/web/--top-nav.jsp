@@ -1,5 +1,8 @@
-<%@ page import="com.hknp.model.entity.UserEntity" %>
-<%@ page import="com.hknp.model.dao.UserDAO" %>
+<%@ page import="com.hknp.utils.CookieUtils" %>
+<%@ page import="com.fasterxml.jackson.databind.ObjectMapper" %>
+<%@ page import="com.hknp.model.domain.CartItemDomain" %>
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="java.net.URLDecoder" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8" %>
 
 <!--Top nav 1-->
@@ -100,12 +103,12 @@
                   aria-expanded="false">
                   <em class="fa fa-shopping-cart mr-1"></em>
                   <span>Giỏ hàng</span>
-                  <span class="ml-1 badge badge-md badge-circle badge-floating badge-secondary border-white">1</span>
+                  <span id="quantity-cart" class="ml-1 badge badge-md badge-circle badge-floating badge-secondary border-white"></span>
                </a>
                <div class="dropdown-menu dropdown-menu-xl  dropdown-menu-right  py-0 overflow-hidden">
                   <!-- Dropdown header -->
                   <div class="px-3 py-3">
-                     <h6 class="text-sm text-muted m-0">Bạn có <strong class="text-primary">1</strong> sản phẩm trong giỏ
+                     <h6 class="text-sm text-muted m-0">Bạn có <strong id="quantity-cart1" class="text-primary"></strong> sản phẩm trong giỏ
                         hàng. </h6>
                   </div>
                   <!-- List group -->
@@ -582,5 +585,20 @@
           e.preventDefault();
         }
       });
+  });
+
+  $.ajax({
+    url: '/api/carts',
+    method: 'GET',
+    cache: false,
+    success: function (data, textStatus, jqXHR) {
+      let list = $.parseJSON(data);
+      let quantity = 0;
+      $.each(list, function (index, item){
+         quantity = quantity + 1;
+      });
+      $('#quantity-cart').append(quantity);
+      $('#quantity-cart1').append(quantity);
+    }
   });
 </script>
