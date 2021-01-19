@@ -28,7 +28,7 @@
                         <nav aria-label="breadcrumb" class="d-none d-md-inline-block">
                             <ol class="breadcrumb breadcrumb-links breadcrumb-dark">
                                 <li class="breadcrumb-item"><a href="/admin"><i class="fa fa-home mr-2"></i>Trang chủ</a></li>
-                                <li class="breadcrumb-item"><a href="/admin/brand">Nhãn hiệu</a></li>
+                                <li class="breadcrumb-item"><a href="/admin/brand">Thương hiệu</a></li>
                                 <li class="breadcrumb-item active" aria-current="page">Sửa thông tin</li>
                             </ol>
                         </nav>
@@ -46,7 +46,7 @@
                 <div class="card">
                     <!-- Card header -->
                     <div class="card-header border-0">
-                        <h2 class="mb-0 text-center text-uppercase display-4">Chỉnh sửa thông tin nhân viên</h2>
+                        <h2 class="mb-0 text-center text-uppercase display-4">Chỉnh sửa thông tin thương hiệu</h2>
                     </div>
 
                     <!-- form edit -->

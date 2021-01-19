@@ -102,13 +102,13 @@
                                     <label for="sort-by-column" class="floating-label">Sắp xếp theo</label>
                                     <select class="form-control input-border" id="sort-by-column" onchange="search()">
                                        <option value="userId" selected>Mã</option>
-                                       <option value="concat(u.userEntity.firstName , ' ', u.userEntity.lastName)">Họ và tên</option>
+                                       <option value="userEntity.firstName">Họ và tên</option>
                                        <option value="userEntity.gender">Giới tính</option>
                                        <option value="userEntity.dateOfBirth">Ngày sinh</option>
                                        <option value="userEntity.phoneNumber">Số điện thoại</option>
                                        <option value="userEntity.email">Email</option>
-                                       <option value="EmployeeEntity.salary">Lương</option>
-                                       <option value="EmployeeEntity.startDate">Ngày bắt đầu</option>
+                                       <option value="salary">Lương</option>
+                                       <option value="startDate">Ngày bắt đầu</option>
                                     </select>
                                  </div>
                               </div>
@@ -351,9 +351,8 @@
 
 <script>
   function search(){
-    console.log("vo chua");
     $.ajax({
-      url: '/api/search-employee',
+      url: '/api/count-employee',
       method: 'GET',
       data: {
         'page': currentPage,

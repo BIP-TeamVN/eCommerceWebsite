@@ -2,6 +2,7 @@ package com.hknp.model.dao;
 
 import com.hknp.interfaces.IModifySingleEntityAutoIncrement;
 import com.hknp.interfaces.IRetrieveEntity;
+import com.hknp.model.entity.ProductCategoryEntity;
 import com.hknp.model.entity.ProductEntity;
 import com.hknp.model.entity.ProductTypeEntity;
 import com.hknp.model.entity.UserEntity;
@@ -332,5 +333,37 @@ public class ProductDAO implements IRetrieveEntity<ProductEntity, Long>, IModify
 
       Long result = (Long) query.getSingleResult();
       return result == null ? 0 : result;
+   }
+
+   public ArrayList<ProductEntity> getProductBySellerId(Integer firstResult, Integer maxResults, Long sellerId) {
+      EntityManager entityMgr = EntityUtils.getEntityManager();
+
+      Query query;
+      String queryStr;
+
+      queryStr = "SELECT u FROM ProductEntity u " +
+              "where u.sellerEntity.userId = :sellerIdPara " +
+              "and u.status = 1 order by u.productCreateDate asc";
+
+      query = entityMgr.createQuery(queryStr, ProductEntity.class);
+
+      query.setParameter("sellerIdPara", sellerId);
+
+      if (firstResult != null) {
+         query.setFirstResult(firstResult);
+      }
+      if (maxResults != null) {
+         query.setMaxResults(maxResults);
+      }
+
+      ArrayList<ProductEntity> result = null;
+      try {
+         result = new ArrayList<>(query.getResultList());
+      } catch (Exception exception) {
+         exception.printStackTrace();
+      } finally {
+         entityMgr.close();
+      }
+      return result;
    }
 }

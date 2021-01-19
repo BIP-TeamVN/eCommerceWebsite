@@ -34,7 +34,6 @@ public class DeliveryBillDeliveringServlet extends HttpServlet {
       if (page <= 0) {
          page = 1;
       }
-//ngồi im
       List<BillEntity> listBill = new ArrayList<>();
       List<String> listJsonStr = new ArrayList<>();
       if(Type == 2){

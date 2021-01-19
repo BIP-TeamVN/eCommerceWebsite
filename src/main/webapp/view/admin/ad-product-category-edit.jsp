@@ -47,7 +47,7 @@
                 <div class="card">
                     <!-- Card header -->
                     <div class="card-header border-0">
-                        <h2 class="mb-0 text-center text-uppercase display-4">Chỉnh sửa thông tin nhân viên</h2>
+                        <h2 class="mb-0 text-center text-uppercase display-4">Chỉnh sửa thông tin ngành hàng</h2>
                     </div>
 
                     <!-- form edit -->

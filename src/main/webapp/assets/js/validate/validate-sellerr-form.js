@@ -242,8 +242,11 @@ $('#' + FORM_ID).submit(function (e) {
       success: function (data, textStatus, jqXHR) {
         let result = data.toString().split('\n');
         if (result[0] === 'true') {
-          $('#' + FORM_ID).trigger("reset");
-          alert("Thêm cửa hàng mới thành công !");
+          $('#modal-add-seller').modal('hide');
+          $('#successful-modal').modal('show');
+          $('#successful-modal').on('hidden.bs.modal', function () {
+            window.location.href = window.location.origin + '/admin/seller?page=99999999999999999';
+          });
         } else {
           alert("Lỗi: " + result[1]);
           e.preventDefault();

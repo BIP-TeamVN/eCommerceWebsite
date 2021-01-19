@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -65,6 +66,8 @@ public class BillViewDetailServlet extends HttpServlet {
          else {
             BillEntity updateBill = BillDAO.getInstance().getById(StringUtils.toLong(billIdid));
             updateBill.setStatus(status);
+            Date date= (Date) java.util.Calendar.getInstance().getTime();
+            updateBill.setBillCreateDate(date);
             Boolean updateResult = BillDAO.getInstance().update(updateBill);
 
             if (updateResult != false) {

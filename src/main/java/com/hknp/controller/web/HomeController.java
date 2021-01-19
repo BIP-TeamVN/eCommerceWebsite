@@ -1,5 +1,6 @@
 package com.hknp.controller.web;
 
+import com.hknp.model.dao.ProductDAO;
 import com.hknp.utils.ServletUtils;
 
 import javax.servlet.ServletException;
@@ -13,6 +14,7 @@ import java.io.IOException;
 public class HomeController extends HttpServlet {
    @Override
    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+      ProductDAO.getInstance().getProductBySellerId(0, 12, 10003L);
       ServletUtils.forward(req, resp,"/view/web/home.jsp");
    }
 

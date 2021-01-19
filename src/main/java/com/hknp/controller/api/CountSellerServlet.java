@@ -1,9 +1,6 @@
 package com.hknp.controller.api;
 
-import com.hknp.model.dao.CustomerDAO;
-import com.hknp.model.dao.EmployeeDAO;
-import com.hknp.model.dao.ProductDAO;
-import com.hknp.model.dao.UserDAO;
+import com.hknp.model.dao.*;
 import com.hknp.model.entity.Cons;
 import com.hknp.model.entity.CustomerEntity;
 import com.hknp.utils.ServletUtils;
@@ -17,8 +14,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
-@WebServlet(urlPatterns = {"/api/count-employee"})
-public class SearchEmployeeServlet extends HttpServlet {
+@WebServlet(urlPatterns = {"/api/count-seller"})
+public class CountSellerServlet extends HttpServlet {
    @Override
    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
       String keyword = req.getParameter("keyword").trim();
@@ -27,7 +24,7 @@ public class SearchEmployeeServlet extends HttpServlet {
       }
       Integer status = StringUtils.toInt(req.getParameter("status"));
       Long totalRows;
-      totalRows = EmployeeDAO.getInstance().count(status, keyword);
+      totalRows = SellerDAO.getInstance().count(status, keyword);
 
       String page = req.getParameter("page");
 

@@ -71,6 +71,7 @@
                         <th scope="col" class="text-center">Số điện thoại</th>
                         <th scope="col" class="text-center">Địa chỉ</th>
                         <th scope="col" class="text-center">Tổng giá trị</th>
+                        <th scope="col" class="text-center">Tùy chọn</th>
                      </tr>
                      </thead>
                      <tbody class="list" id="tb-list">
@@ -205,7 +206,9 @@
             '<td>' + item.fullAddress + '</td>' +
             '<td>' + item.total + '</td>' +
             '<td class="td-actions text-center">' +
-            '<button class="btn btn-primary pl-2 pr-1" onclick="GetBill('+ item.id +')">Nhận đơn</button>'
+            '<button class="btn btn-primary px-4 py-2" title="Nhận đơn" onclick="GetBill('+ item.id +')">' +
+            '<i class="fa fa-plus-circle"></i>' +
+            '</button>' +
           '</td>' +
           '</tr>';
           console.log(html);
@@ -230,6 +233,7 @@
       data: paras,
       success: function (){
         $("#hay" + billId).remove();
+        reloadPage();
       }
     })
     alert("Nhận đơn thành công!");

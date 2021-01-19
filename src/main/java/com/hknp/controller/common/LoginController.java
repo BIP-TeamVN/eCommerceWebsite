@@ -40,7 +40,12 @@ public class LoginController extends HttpServlet {
                ServletUtils.forward(req, resp, "/delivery");
                break;
             default:
-               ServletUtils.forward(req, resp, "/view/web/home.jsp");
+               session.invalidate();
+               String userName = req.getParameter("username");
+               String password = req.getParameter("password");
+               req.setAttribute("user", userName);
+               req.setAttribute("pass", password);
+               ServletUtils.forward(req, resp, "/login");
                break;
          }
       }
