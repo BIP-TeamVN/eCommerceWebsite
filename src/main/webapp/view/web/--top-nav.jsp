@@ -1,5 +1,8 @@
-<%@ page import="com.hknp.model.entity.UserEntity" %>
-<%@ page import="com.hknp.model.dao.UserDAO" %>
+<%@ page import="com.hknp.utils.CookieUtils" %>
+<%@ page import="com.fasterxml.jackson.databind.ObjectMapper" %>
+<%@ page import="com.hknp.model.domain.CartItemDomain" %>
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="java.net.URLDecoder" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8" %>
 
 <!--Top nav 1-->
@@ -38,7 +41,7 @@
          <!--Nav bar items-->
          <ul class="navbar-nav ml-lg-auto">
             <li class="nav-item">
-               <a class="nav-link nav-link-icon" href="#">
+               <a class="nav-link nav-link-icon" href="/login">
                   <em class="fa fa-store-alt"></em>
                   <span class="nav-link-inner--text ml-1">Kênh người bán</span>
                </a>
@@ -100,12 +103,12 @@
                   aria-expanded="false">
                   <em class="fa fa-shopping-cart mr-1"></em>
                   <span>Giỏ hàng</span>
-                  <span class="ml-1 badge badge-md badge-circle badge-floating badge-secondary border-white">1</span>
+                  <span id="quantity-cart" class="ml-1 badge badge-md badge-circle badge-floating badge-secondary border-white"></span>
                </a>
                <div class="dropdown-menu dropdown-menu-xl  dropdown-menu-right  py-0 overflow-hidden">
                   <!-- Dropdown header -->
                   <div class="px-3 py-3">
-                     <h6 class="text-sm text-muted m-0">Bạn có <strong class="text-primary">1</strong> sản phẩm trong giỏ
+                     <h6 class="text-sm text-muted m-0">Bạn có <strong id="quantity-cart1" class="text-primary"></strong> sản phẩm trong giỏ
                         hàng. </h6>
                   </div>
                   <!-- List group -->
@@ -310,15 +313,16 @@
                                              </div>
 
                                              <div class="form-group mb-3">
-                                                <div class="input-group input-group-merge input-group-alternative">
+                                                <div class="input-group input-group-merge input-group-alternative" style="display: flex;">
                                                    <div class="input-group-prepend">
-                                                      <span class="input-group-text"><em class="fa fa-envelope"></em></span>
+                                                      <span class="input-group-text"><em class="fas fa-envelope"></em></span>
                                                    </div>
-                                                   <input class="form-control" id="signup-email" name="signup-email" autofocus="" placeholder="Email" type="text" required="">
+                                                   <input onclick="hiddenErrorEmail()" class="form-control" id="signup-email" name="signup-email" autofocus="" placeholder="Email" type="text" required="">
                                                    <div class="input-group-append">
-                                                      <button class="ml-1 btn btn-outline-primary" type="button" id="btn-signup-send-code" style="width: 8rem;">Gửi mã</button>
+                                                      <button onclick="sendCode()" class="ml-1 btn btn-outline-primary" type="button" id="btn-signup-send-code" style="width: 8rem;">Gửi mã</button>
                                                    </div>
                                                 </div>
+                                                <small id="mail-error" class ="error-input text-danger">Email đã đươc sử dụng...</small>
                                              </div>
 
                                              <div class="form-group mb-3">
@@ -326,11 +330,12 @@
                                                    <div class="input-group-prepend">
                                                       <span class="input-group-text"><em class="fa fa-keyboard"></em></span>
                                                    </div>
-                                                   <input class="form-control" id="signup-verified-code" name="signup-verified-code" placeholder="Mã xác thực gửi tới email của bạn" type="text" required="">
+                                                   <input onclick="hiddenErrorCode()" class="form-control" id="signup-verified-code" name="signup-verified-code" placeholder="Mã xác thực gửi tới email của bạn" type="text" required="">
                                                    <div class="input-group-append">
-                                                      <button class="ml-1 btn btn-outline-primary" type="button" id="btn-signup-check-code" style="width: 8rem;">Kiểm tra</button>
+                                                      <button onclick="checkCode()" class="ml-1 btn btn-outline-primary" type="button" id="btn-signup-check-code" style="width: 8rem;">Kiểm tra</button>
                                                    </div>
                                                 </div>
+                                                <small id="code-error" class ="error-input text-danger">Mã xác nhận không chính xác</small>
                                              </div>
 
                                              <div class="form-group mb-3">
@@ -352,7 +357,7 @@
                                              </div>
 
                                              <div class="text-center">
-                                                <button type="submit" class="btn btn-primary my-4 px-5">Đăng ký</button>
+                                                <button id="sign-up" type="submit" class="btn btn-primary my-4 px-5">Đăng ký</button>
                                              </div>
                                           </form>
                                        </div>
@@ -378,22 +383,24 @@
 </div>
 
 <script>
-  const username = document.getElementById('login-username');
-  const password = document.getElementById('login-password');
-
-  function hiddenError(){
-    $('#login-error').attr('style',"display: none;")
-  }
-
-
   $(document).ready(function() {
     console.log('ready');
   });
 
+  <!--Sign in-->
+  const username = document.getElementById('login-username');
+  const password = document.getElementById('login-password');
+  const signPassword = document.getElementById('signup-password');
+  const rePassword = document.getElementById('signup-re-password');
+
+  function hiddenError(){
+    $('#login-error').attr('style',"display: none;");
+  }
+
   $('#form-login').submit(function (e){
     e.preventDefault();
     $.ajax({
-      url: '/login-customer',
+      url: '/api/login-customer',
       method: 'POST',
       async: false,
       data: {
@@ -418,5 +425,180 @@
         e.preventDefault();
       }
     });
+  });
+
+  <!--Sign up-->
+
+  const email = document.getElementById('signup-email');
+  const lastName = document.getElementById('login-last-name');
+  const firstName = document.getElementById('login-first-name');
+
+  let isValidate = true;
+
+  function checkInputs() {
+
+    let emailValue = email.value.trim();
+
+    isValidate = true;
+
+    if (emailValue === '') {
+      setErrorFor(email, 'Vui lòng nhập email');
+    } else if (!isEmail(emailValue)) {
+      setErrorFor(email, 'Email không đúng định dạng');
+    } else {
+      setSuccessFor(email);
+    }
+  }
+
+  function setErrorFor(input, message) {
+    if (isValidate) {
+      input.focus();
+    }
+
+    isValidate = false;
+
+    input.parentElement.className = 'has-danger';
+    input.className = 'form-control is-invalid';
+
+    let small = input.parentElement.parentElement.querySelector('small');
+    small.innerText = message;
+    small.setAttribute("style", "display: inline;");
+  }
+
+  function setSuccessFor(input) {
+    input.parentElement.className = 'has-success';
+    input.className = 'form-control is-valid';
+
+    let small = input.parentElement.parentElement.querySelector('small');
+    small.innerText = '';
+    small.setAttribute("style", "display: none;");
+  }
+
+  function isEmail(email) {
+    return /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(email);
+  }
+
+  function hiddenErrorEmail(){
+    $('#mail-error').attr('style',"display: none;");
+  }
+
+  function hiddenErrorCode(){
+    $('#code-error').attr('style',"display: none;");
+  }
+
+  function sendCode(){
+    checkInputs();
+
+    //Check email
+    $.ajax({
+      url: "/api/users/check-info",
+      method: "GET",
+      data: {
+        'type': "email",
+        'chk-value': email.value.trim()
+      },
+      async: false,   // wait until done this scope
+      success: function (data) {
+        console.log(data);
+        if (data.toString() === 'false') {
+          setErrorFor(email, "Email đã được sử dụng cho tài khoản khác");
+        }
+      },
+      cache: false
+    });
+
+    if (isValidate){
+
+      $.ajax({
+        url: 'api/register-account',
+        method: 'POST',
+        data: {
+          'signup-email': email.value.trim()
+        },
+        success: function (data, textStatus, jqXHR) {
+          let result = data.toString().split('\n');
+          if (result[0] === 'true') {
+            $('#mail-error').html("Đã gửi mã xác nhận");
+          } else {
+            $('#mail-error').attr('style',"display: inline;");
+          }
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+          alert("Lỗi  xxxx: " + errorThrown);
+        }
+      });
+    }
+
+  }
+
+  let code = document.getElementById("signup-verified-code");
+
+  function checkCode() {
+
+    let paras = JSON.stringify({
+      'signup-verified-code': code.value.trim()
+    });
+
+    $.ajax({
+      url: 'api/register-account',
+      method: 'PUT',
+      async: false,
+      cache: false,
+      data: paras,
+      success: function (data, textStatus, jqXHR) {
+        let result = data.toString().split('\n');
+        if (result[0] === 'true') {
+          $('#code-error').html("Mã xác nhận chính xác");
+        } else {
+          $('#code-error').attr('style', "display: inline;");
+        }
+      },
+      error: function (jqXHR, textStatus, errorThrown) {
+        alert("Lỗi javascript: " + errorThrown);
+      }
+    });
+  }
+
+  $('#form-signup').submit(function (e) {
+      $.ajax({
+        url: '/api/customers',
+        method: 'POST',
+        async: false,
+        data: {
+          'login-last-name': lastName.value.trim(),
+          'login-first-name': firstName.value.trim(),
+          'signup-email': email.value.trim(),
+          'signup-password': signPassword.value.trim(),
+          'signup-re-password': rePassword.value.trim()
+        },
+        success: function (data, textStatus, jqXHR) {
+          let result = data.toString().split('\n');
+          if (result[0] === 'true') {
+            alert("Tạo tài khoản thành công!")
+          } else {
+            alert("Lỗi: " + result[1]);
+            e.preventDefault();
+          }
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+          alert("Lỗi: " + errorThrown);
+          e.preventDefault();
+        }
+      });
+  });
+
+  $.ajax({
+    url: '/api/carts',
+    method: 'GET',
+    cache: false,
+    success: function (data, textStatus, jqXHR) {
+      let list = $.parseJSON(data);
+      let quantity = 0;
+      $.each(list, function (index, item){
+         quantity = quantity + 1;
+      });
+      $('#quantity-cart').append(quantity);
+      $('#quantity-cart1').append(quantity);
+    }
   });
 </script>

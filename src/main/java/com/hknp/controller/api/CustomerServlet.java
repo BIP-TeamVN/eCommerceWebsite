@@ -23,42 +23,6 @@ import java.util.Map;
 
 @WebServlet(urlPatterns = {"/api/customers"})
 public class CustomerServlet extends HttpServlet {
-
-   public boolean isAuthentication(HttpServletRequest req) {
-      HttpSession session = req.getSession(false);
-      Long id = (Long) session.getAttribute("id");
-
-      if (id != null) {
-         String userType = UserDAO.getInstance().getUserType(id);
-         return userType.equals(Cons.User.USER_TYPE_ADMIN) || userType.equals(Cons.User.USER_TYPE_EMPLOYEE);
-      }
-
-      return false;
-   }
-   @Override
-   protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-      if (isAuthentication(req)) {
-         switch (req.getMethod()) {
-            case "GET":
-               doGet(req, resp);
-               break;
-            case "POST":
-               doPost(req, resp);
-               break;
-            case "PUT":
-            case "PATCH":
-               doPut(req, resp);
-               break;
-            case "DELETE":
-               doDelete(req, resp);
-               break;
-            default:
-               ServletUtils.printWrite(resp, "Method not found");
-         }
-      } else {
-         ServletUtils.printWrite(resp, "Access denied");
-      }
-   }
    @Override
    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
       String pagePara = req.getParameter("page");
@@ -92,49 +56,37 @@ public class CustomerServlet extends HttpServlet {
       String result = "";
 
       try {
-         String lastName = req.getParameter("last-name");
-         String firstName = req.getParameter("first-name");
-         String gender = req.getParameter("gender");
-         String dateOfBirth = req.getParameter("dob");
-         String phoneNumber = req.getParameter("phone-number");
-         String email = req.getParameter("email");
-         String password = req.getParameter("password");
-         String passwordAgain = req.getParameter("password-again");
+         String lastName = req.getParameter("login-last-name");
+         String firstName = req.getParameter("login-first-name");
+         String email = req.getParameter("signup-email");
+         String password = req.getParameter("signup-password");
+         String passwordAgain = req.getParameter("signup-re-password");
 
-         if (passwordAgain.equals(password)) {
+         UserEntity newUser = new UserEntity();
 
-            UserEntity newUser = new UserEntity();
+         newUser.setFirstName(firstName);
+         newUser.setLastName(lastName);
+         newUser.setEmail(email);
 
-            newUser.setFirstName(firstName);
-            newUser.setLastName(lastName);
-            newUser.setGender(gender);
-            newUser.setDateOfBirth(DateTimeUtils.stringToDate(dateOfBirth, "dd/MM/yyyy"));
-            newUser.setPhoneNumber(phoneNumber);
-            newUser.setEmail(email);
-
-            newUser.setUserType(Cons.User.USER_TYPE_CUSTOMER);
-            newUser.setUserName(phoneNumber);
-            newUser.setPassword(password);
-            newUser.setPassword(HashUtils.getMd5(Base64Utils.encodeFromString(phoneNumber)));
-            newUser.setStatus(true);
+         newUser.setUserType(Cons.User.USER_TYPE_CUSTOMER);
+         newUser.setUserName(email);
+         newUser.setPassword(HashUtils.getMd5(Base64Utils.encodeFromString(password)));
+         newUser.setImage(Cons.User.DEFAULT_USER_IMAGE_MALE_SRC);
+         newUser.setStatus(true);
 
 
-            CustomerEntity newCustomer = new CustomerEntity();
-            newCustomer.setUserEntity(newUser);
-            newCustomer.setRegisterDate(DateTimeUtils.currentDate());
+         CustomerEntity newCustomer = new CustomerEntity();
+         newCustomer.setUserEntity(newUser);
+         newCustomer.setRegisterDate(DateTimeUtils.currentDate());
 
-            Long newUserId = CustomerDAO.getInstance().insert(newCustomer);
-            if (newUserId != 0) {
-               String otp = GenerateUtils.oneTimePassword(6);
-               String sVerify = "OTP: " + otp;
-               MailUtils.sendPlanText(email, "Xác thực tài khoản", sVerify);
-               otp = HashUtils.getMd5(otp);
-               CookieUtils.addCookie(resp, "otp", otp, 60 * 5);
-               result += "true\n" + newUserId.toString();
-            }
-         } else {
-            result += "false\nError while insert customer\n";
+         Long newUserId = CustomerDAO.getInstance().insert(newCustomer);
+         if(newUserId != 0){
+            result += "true\n" + newUserId.toString();
          }
+         else {
+            result += "false\n";
+         }
+
       } catch (Exception e) {
          result += "false\nError while insert customer\n" + e.getMessage();
       }

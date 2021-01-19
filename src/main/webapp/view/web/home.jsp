@@ -140,14 +140,6 @@
                </div>
                <div class="card-body">
                   <div class="row" id="brand-list">
-                     <div class="col-lg-3 col-md-6">
-                        <a class="btn-icon-clipboard p-2" href="javascript:void(0)">
-                           <div>
-                              <img src="../unknown-brand.svg" class="rounded avatar" alt="...">
-                              <h4 class="ml-3 my-auto">MSI</h4>
-                           </div>
-                        </a>
-                     </div>
                   </div>
                </div>
             </div>
@@ -173,21 +165,12 @@
                                  <span class="input-group-text"><em class="fa fa-search"></em></span>
                               </div>
                               <input class="form-control form-control-alternative" id="search-brand" name="search-brand"
-                                     placeholder="Tìm kiếm nhãn hiệu" type="text"/>
+                                     placeholder="Tìm kiếm nhãn hiệu" type="text" onchange="searchBrand()"/>
                            </div>
                         </div>
                      </div>
                   </div>
-                  <div class="row">
-                     <div class="col-lg-3 col-md-6">
-                        <a class="btn-icon-clipboard p-2" href="javascript:void(0)">
-                           <div>
-                              <img src="../unknown-brand.svg" class="rounded avatar" alt="...">
-                              <h4 class="ml-3 my-auto">MSI</h4>
-                           </div>
-                        </a>
-                     </div>
-                  </div>
+                  <div class="row" id="brand-list-search"></div>
                </div>
             </div>
          </div>
@@ -203,53 +186,13 @@
                </div>
                <!--Product main content-->
                <div class="card-body">
-                  <div class="row" id="product-list">
-                     <div class="col-lg-3 col-md-6">
-                        <a class="product-item" href="javascript:void(0)">
-                           <!--Product image-->
-                           <div class="row">
-                              <div class="col text-center">
-                                 <img src="https://cdn.pixabay.com/photo/2018/03/30/15/11/deer-3275594_960_720.jpg"
-                                      class="rounded product-item__img" alt="...">
-                              </div>
-                           </div>
-                           <!--Product name-->
-                           <div class="row">
-                              <div class="col">
-                                 <p class="product-item__name">Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                                    Eligendi, voluptas incidunt! Nulla tenetur consequatur nostrum dignissimos
-                                    temporibus iure assumenda iste quia, quam voluptates totam. Libero laboriosam ipsa
-                                    voluptates voluptatem ad!</p>
-                              </div>
-                           </div>
-                           <!--Price and add to card-->
-                           <div class="row mr-0">
-                              <!--Price-->
-                              <div class="col-8 p-0 text-left">
-                                 <!--Order price-->
-                                 <span class="product-item__price product-item__price--order">160000</span>
-                                 <!--Origin price-->
-                                 <span class="product-item__price product-item__price--origin">200000</span>
-                              </div>
-                              <!--Add to card button-->
-                              <div class="col-4 p-0 text-right">
-                                 <button type="button" onclick="addToCart('000000000')" class="btn btn-primary"
-                                         data-toggle="tooltip" data-placement="top" title="Thêm vào giỏ hàng">
-                                    <em class="fa fa-cart-plus text-white" style="font-size: 1.2rem;"></em>
-                                 </button>
-                              </div>
-                           </div>
-                           <!--Deal Percent-->
-                           <span class="product-item__price-percent">10%</span>
-                        </a>
-                     </div>
-                  </div>
+                  <div class="row" id="product-list"></div>
                </div>
                <!--View more product-->
                <div class="card-footer bg-transparent">
                   <div class="row text-center m-1">
                      <div class="col">
-                        <a class="btn btn-outline-primary" style="width: 35%;" href="javascipt:void(0)">Xem thêm</a>
+                        <a class="btn btn-outline-primary" style="width: 35%;" onclick="loadProduct()">Xem thêm</a>
                      </div>
                   </div>
                </div>
@@ -310,16 +253,160 @@
   }
 
   function loadBrand() {
+    $.ajax({
+      url: '/api/brands',
+      method: 'GET',
+      data: {
+        'page': 1,
+        'keyword': '',
+        'columnName': 'brandId',
+        'typeSort': 'asc'
+      },
+      cache: false,
+      success: function (data, textStatus, jqXHR) {
+        let list = $.parseJSON(data);
+        $('#tb-list').find('tr').remove();
+        $.each(list, function (index, item) {
+          let html = '<div class="col-lg-3 col-md-6">' +
+            '<a class="btn-icon-clipboard p-2" href="javascript:void(0)">' +
+            '<div>' +
+            '<img src="' + item.image + '" class="rounded avatar" alt="...">' +
+            '<h4 class="ml-3 my-auto">' + item.brandName + '</h4>' +
+            '</div>' +
+            '</a>' +
+            '</div>';
+          $('#brand-list').append(html);
+        });
+      }
+    });
   }
 
+  let page = 1;
   function loadProduct() {
+    $.ajax({
+      url: '/api/product-customer',
+      method: 'GET',
+      data: {
+        'page': page,
+        'keyword': '',
+        'columnName': 'productCreateDate',
+        'typeSort': 'asc'
+      },
+      cache: false,
+      success: function (data, textStatus, jqXHR) {
+        let list = $.parseJSON(data);
+        if (data != "[]") {
+          page += 1;
+        }
+        $('#tb-list').find('tr').remove();
+        $.each(list, function (index, item) {
+          let priceOrder = parseFloat(item.priceOrder);
+          let priceOrigin = parseFloat(item.priceOrigin);
+          let percentDiscount = (100*(priceOrigin-priceOrder)/priceOrigin).toFixed(0);
+          let html = '<div class="col-lg-3 col-md-6">' +
+            '<a class="product-item" href="/product?id=' + item.id + '">' +
+            '<!--Product image-->' +
+            '<div class="row">' +
+            '<div class="col text-center">' +
+            '<img src="' + item.image0 + '"' +
+            'class="rounded product-item__img" alt="...">' +
+            '</div>' +
+            '</div>' +
+            '<!--Product name-->' +
+            '<div class="row">' +
+            '<div class="col">' +
+            '<p class="product-item__name">' + item.productName + '</p>' +
+            '</div>' +
+            '</div>' +
+            '<!--Price and add to card-->' +
+            '<div class="row mr-0">' +
+            '<!--Price-->' +
+            '<div class="col-8 p-0 text-left">' +
+            '<!--Order price-->' +
+            '<span class="product-item__price product-item__price--order d-block">' + priceOrder.toFixed(0).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.') + '</span>' +
+            '<!--Origin price-->' +
+            '<span class="product-item__price product-item__price--origin">' + priceOrigin.toFixed(0).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.') + '</span>' +
+            '</div>' +
+            '<!--Add to card button-->' +
+            '<div class="col-4 p-0 text-right">' +
+            '<button type="button" onclick="addToCart(\'' + item.id + '\')" class="btn btn-primary" ' +
+            'data-toggle="tooltip" data-placement="top" title="Thêm vào giỏ hàng">' +
+            '<em class="fa fa-cart-plus text-white" style="font-size: 1.2rem;"></em>' +
+            '</button>' +
+            '</div>' +
+            '</div>' +
+            '<!--Deal Percent-->' +
+            '<span class="product-item__price-percent">' + percentDiscount + '%</span>' +
+            '</a>' +
+            '</div>';
+          $('#product-list').append(html);
+        });
+      }
+    });
   }
 
-  function addToCart(productId) {
-    alert(productId);
+  function addToCart(productTypeId) {
+    $.ajax({
+      url: '/api/carts',
+      method: 'POST',
+      async: false,
+      data: {
+        'product-type-id': productTypeId
+      },
+      success: function (data, textStatus, jqXHR) {
+        let result = data.toString().split('\n');
+        if (result[0] === 'true') {
+          alert("Thêm sản phẩm thành công");
+        } else {
+          alert("Lỗi: " + result[1]);
+          e.preventDefault();
+        }
+      },
+      error: function (jqXHR, textStatus, errorThrown) {
+        alert("Lỗi: " + errorThrown);
+        e.preventDefault();
+      }
+    });
+
+
   }
 
   loadProductCategory();
+  loadBrand();
+  loadProduct();
+</script>
+<script>
+   function searchBrand() {
+     $('#brand-list-search').find('div').remove();
+     $.ajax({
+       url: '/api/brands',
+       method: 'GET',
+       data: {
+         'page': 1,
+         'keyword': $('#search-brand').val(),
+         'columnName': 'brandId',
+         'typeSort': 'asc'
+       },
+       cache: false,
+       success: function (data, textStatus, jqXHR) {
+         let list = $.parseJSON(data);
+         $('#tb-list').find('tr').remove();
+         $.each(list, function (index, item) {
+           let html = '<div class="col-lg-3 col-md-6">' +
+             '<a class="btn-icon-clipboard p-2" href="javascript:void(0)">' +
+             '<div>' +
+             '<img src="' + item.image + '" class="rounded avatar" alt="...">' +
+             '<h4 class="ml-3 my-auto">' + item.brandName + '</h4>' +
+             '</div>' +
+             '</a>' +
+             '</div>';
+           $('#brand-list-search').append(html);
+         });
+       }
+     });
+   };
+
+
 </script>
 </body>
 </html>

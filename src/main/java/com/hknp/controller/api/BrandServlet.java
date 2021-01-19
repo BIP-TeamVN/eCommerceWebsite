@@ -30,7 +30,7 @@ public class BrandServlet extends HttpServlet {
 
       if (id != null) {
          String userType = UserDAO.getInstance().getUserType(id);
-         return userType.equals(Cons.User.USER_TYPE_SELLER);
+         return userType.equals(Cons.User.USER_TYPE_SELLER) || userType.equals(Cons.User.USER_TYPE_CUSTOMER);
       }
       return false;
    }
@@ -48,35 +48,27 @@ public class BrandServlet extends HttpServlet {
 
    @Override
    protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-      if (isAuthentication(req)) {
-         switch (req.getMethod()) {
-            case "GET":
-               doGet(req, resp);
-               break;
-            default:
-               ServletUtils.printWrite(resp, "Method not found");
+      if (req.getMethod().equals("GET")) {
+         doGet(req, resp);
+      }  else {
+         if (isAuthenticationAdmin(req)) {
+            switch (req.getMethod()) {
+               case "POST":
+                  doPost(req, resp);
+                  break;
+               case "PUT":
+               case "PATCH":
+                  doPut(req, resp);
+                  break;
+               case "DELETE":
+                  doDelete(req, resp);
+                  break;
+               default:
+                  ServletUtils.printWrite(resp, "Method not found");
+            }
+         } else {
+            ServletUtils.printWrite(resp, "Access denied");
          }
-      }
-      if (isAuthenticationAdmin(req)) {
-         switch (req.getMethod()) {
-            case "GET":
-               doGet(req, resp);
-               break;
-            case "POST":
-               doPost(req, resp);
-               break;
-            case "PUT":
-            case "PATCH":
-               doPut(req, resp);
-               break;
-            case "DELETE":
-               doDelete(req, resp);
-               break;
-            default:
-               ServletUtils.printWrite(resp, "Method not found");
-         }
-      } else {
-         ServletUtils.printWrite(resp, "Access denied");
       }
    }
    @Override

@@ -2,7 +2,9 @@ package com.hknp.controller.api;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
+import com.hknp.model.dao.BrandDAO;
 import com.hknp.model.domain.CartItemDomain;
+import com.hknp.model.entity.BrandEntity;
 import com.hknp.utils.CookieUtils;
 import com.hknp.utils.ServletUtils;
 
@@ -12,6 +14,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.net.URLDecoder;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,117 +29,141 @@ public class CartServlet extends HttpServlet {
    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
       String value = CookieUtils.getCookieValue(req, COOKIE_NAME);
+
       if (value.equals("")) {
          ServletUtils.printWrite(resp, "");
       } else {
-
-         Gson gson = new Gson();
-         value = gson.toJson(value);
-         ServletUtils.printWrite(resp, value);
+         String cookieValue = URLDecoder.decode(value , "utf-8");
+         ServletUtils.printWrite(resp, cookieValue);
       }
    }
 
    @Override
    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-      String id = req.getParameter("product-type-id");
-      String quantity = req.getParameter("quantity");
       String result = "";
+      try {
+         String id = req.getParameter("product-type-id");
 
-      String value = CookieUtils.getCookieValue(req, COOKIE_NAME);
+         String value = CookieUtils.getCookieValue(req, COOKIE_NAME);
 
-      ArrayList<CartItemDomain> listCartItemDomain = new ArrayList<>();
-      CartItemDomain cartItemDomain = new CartItemDomain();
-      Gson gson = new Gson();
-      if(value.equals("")) {
+         value= URLDecoder.decode(value , "utf-8");
 
-         cartItemDomain.setProductTypeId(id);
-         cartItemDomain.setQuantity(1);
+         ArrayList<CartItemDomain> listCartItemDomain = new ArrayList<>();
+         CartItemDomain cartItemDomain = new CartItemDomain();
+         Gson gson = new Gson();
+         if (value.equals("")) {
 
-         listCartItemDomain.add(cartItemDomain);
-         value = gson.toJson(listCartItemDomain);
+            cartItemDomain.setProductTypeId(id);
+            cartItemDomain.setQuantity(1);
 
+            listCartItemDomain.add(cartItemDomain);
+            String valueJson = gson.toJson(listCartItemDomain);
+            String encodeCookie = URLEncoder.encode(valueJson,"utf-8");
 
-         result += "true";
-         CookieUtils.updateCookie(req, resp, COOKIE_NAME, value, COOKIE_AGE);
-         ServletUtils.printWrite(resp, result);
-      } else {
+            CookieUtils.addCookie(resp, COOKIE_NAME, encodeCookie, COOKIE_AGE);
+            result += "true\n" + id;
+         } else {
+            final ObjectMapper objectMapper = new ObjectMapper();
+            CartItemDomain[] listCartItem = objectMapper.readValue(value, CartItemDomain[].class);
+
+            for (CartItemDomain cartItem : listCartItem) {
+               listCartItemDomain.add(cartItem);
+            }
+
+            int flag = 0;
+            for (int i = 0; i < listCartItem.length; i++) {
+               if (listCartItem[i].getProductTypeId().equals(id)) {
+                  result += "true\n" + listCartItem[i].getProductTypeId();
+                  flag = 1;
+                  Integer currentQuantity = listCartItem[i].getQuantity();
+                  listCartItem[i].setQuantity(currentQuantity + 1);
+                  break;
+               }
+            }
+            if (flag == 0) {
+               result += "true\n" + id;
+               cartItemDomain.setProductTypeId(id);
+               cartItemDomain.setQuantity(1);
+
+               listCartItemDomain.add(cartItemDomain);
+               value = gson.toJson(listCartItemDomain);
+            } else {
+               value = gson.toJson(listCartItem);
+            }
+            String encodeCookie = URLEncoder.encode(value,"utf-8");
+            CookieUtils.updateCookie(req, resp, COOKIE_NAME, encodeCookie, COOKIE_AGE);
+         }
+
+      } catch (Exception e) {
+         result = "false";
+      }
+      ServletUtils.printWrite(resp, result);
+   }
+
+   @Override
+   protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+      String result="";
+      try {
+         String id = req.getParameter("product-type-id");
+         String quantity = req.getParameter("quantity");
+
+         String value = CookieUtils.getCookieValue(req, COOKIE_NAME);
+         value= URLDecoder.decode(value , "utf-8");
+
+         final ObjectMapper objectMapper = new ObjectMapper();
+         CartItemDomain[] listCartItem = objectMapper.readValue(value, CartItemDomain[].class);
+
+         for (int i = 0; i < listCartItem.length; i++) {
+            if (listCartItem[i].getProductTypeId().equals(id)) {
+               result += "true\n" + listCartItem[i].getProductTypeId();
+               Integer num = Integer.parseInt(quantity);
+               if (num > 0) {
+                  listCartItem[i].setQuantity(num);
+                  break;
+               }
+            }
+         }
+         Gson gson = new Gson();
+         value = gson.toJson(listCartItem);
+         String encodeCookie = URLEncoder.encode(value,"utf-8");
+         CookieUtils.updateCookie(req, resp, COOKIE_NAME, encodeCookie, COOKIE_AGE);
+      } catch (Exception e) {
+         result += "false\n" + e.getMessage();
+      }
+      ServletUtils.printWrite(resp, result);
+   }
+
+   @Override
+   protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+      String result="";
+      try {
+         String id = req.getParameter("product-type-id");
+
+         String value = CookieUtils.getCookieValue(req, COOKIE_NAME);
+         value= URLDecoder.decode(value , "utf-8");
+         ArrayList<CartItemDomain> listCartItemDomain = new ArrayList<>();
+
          final ObjectMapper objectMapper = new ObjectMapper();
          CartItemDomain[] listCartItem = objectMapper.readValue(value, CartItemDomain[].class);
 
          for (CartItemDomain cartItem : listCartItem) {
             listCartItemDomain.add(cartItem);
          }
-
-         int flag = 0;
-         for (int i = 0; i < listCartItem.length; i++) {
-            if (listCartItem[i].getProductTypeId().equals(id)) {
-               flag = 1;
-               Integer currentQuantity = listCartItem[i].getQuantity();
-               listCartItem[i].setQuantity(currentQuantity + 1);
+         for (int i = 0; i < listCartItemDomain.size(); i++) {
+            if(listCartItem[i].getProductTypeId().equals(id)){
+               result += "true\n" + listCartItemDomain.get(i).getProductTypeId();
+               listCartItemDomain.remove(i);
                break;
             }
          }
-         if (flag == 0) {
-            cartItemDomain.setProductTypeId(id);
-            cartItemDomain.setQuantity(1);
+         Gson gson = new Gson();
+         value = gson.toJson(listCartItemDomain);
+         String encodeCookie = URLEncoder.encode(value,"utf-8");
+         CookieUtils.updateCookie(req, resp, COOKIE_NAME, encodeCookie, COOKIE_AGE);
 
-            listCartItemDomain.add(cartItemDomain);
-            value = gson.toJson(listCartItemDomain);
-         } else {
-            value = gson.toJson(listCartItem);
-         }
-
-         result += "true";
-         CookieUtils.updateCookie(req, resp, COOKIE_NAME, value, COOKIE_AGE);
-         ServletUtils.printWrite(resp, result);
+      } catch (Exception e) {
+         result += "false\n" + e.getMessage();
       }
-   }
-
-   @Override
-   protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-      String id = req.getParameter("product-type-id");
-      String quantity = req.getParameter("quantity");
-
-      String value = CookieUtils.getCookieValue(req, COOKIE_NAME);
-
-      final ObjectMapper objectMapper = new ObjectMapper();
-      CartItemDomain[] listCartItem = objectMapper.readValue(value, CartItemDomain[].class);
-
-      for (int i = 0; i < listCartItem.length; i++) {
-         if (listCartItem[i].getProductTypeId().equals(id)) {
-            Integer num = Integer.parseInt(quantity);
-            if (num > 0) {
-               listCartItem[i].setQuantity(num);
-               break;
-            }
-         }
-      }
-      Gson gson = new Gson();
-      value = gson.toJson(listCartItem);
-      CookieUtils.updateCookie(req, resp, COOKIE_NAME, value, COOKIE_AGE);
-   }
-
-   @Override
-   protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-      String id = req.getParameter("product-type-id");
-
-      String value = CookieUtils.getCookieValue(req, COOKIE_NAME);
-      ArrayList<CartItemDomain> listCartItemDomain = new ArrayList<>();
-
-      final ObjectMapper objectMapper = new ObjectMapper();
-      CartItemDomain[] listCartItem = objectMapper.readValue(value, CartItemDomain[].class);
-
-      for (CartItemDomain cartItem : listCartItem) {
-         listCartItemDomain.add(cartItem);
-      }
-      for (int i = 0; i < listCartItemDomain.size(); i++) {
-         if(listCartItem[i].getProductTypeId().equals(id)){
-            listCartItemDomain.remove(i);
-            break;
-         }
-      }
-      Gson gson = new Gson();
-      value = gson.toJson(listCartItemDomain);
-      CookieUtils.updateCookie(req, resp, COOKIE_NAME, value, COOKIE_AGE);
+      ServletUtils.printWrite(resp, result);
    }
 }

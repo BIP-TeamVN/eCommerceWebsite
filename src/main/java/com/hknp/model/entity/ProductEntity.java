@@ -253,9 +253,15 @@ public class ProductEntity implements Serializable {
       this.productCategoryEntities = productCategoryEntities;
    }
 
+   public Long getCountSold (){
+      return ProductDAO.getInstance().getCountProductSold(this.productId);
+   }
+
+   public Long getCountStock (){
+      return ProductDAO.getInstance().getCountProductInStock(this.productId);
+   }
+
    public String toJson() {
-      Long countSold = ProductDAO.getInstance().getCountProductSold(this.productId);
-      Long countStock = ProductDAO.getInstance().getCountProductInStock(this.productId);
       return "{" +
               "\"id\":\"" + productId + "\"," +
               "\"productName\":\"" + productName + "\"," +
@@ -265,8 +271,9 @@ public class ProductEntity implements Serializable {
               "\"productOrigin\":\"" + productOrigin + "\"," +
               "\"createDate\":\"" + DateTimeUtils.dateToString(productCreateDate, "dd/MM/yyyy") + "\"," +
               "\"priceOrder\":\"" + priceOrder + "\"," +
+              "\"priceOrigin\":\"" + priceOrigin + "\"," +
               "\"image0\":\"" + getImage0() + "\"," +
-              "\"number\":\"" + countSold + " - " + countStock + "\"," +
+              "\"number\":\"" + getCountSold() + " - " + getCountStock() + "\"," +
               "\"status\":\"" + status + "\"" +
               "}";
    }
