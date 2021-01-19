@@ -281,6 +281,10 @@
     });
   }
 
+  function currencyFormat(num) {
+    return num.toFixed(0).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.');
+  }
+
   function loadProduct() {
     $.ajax({
       url: '/api/product-customer',
@@ -319,9 +323,9 @@
             '<!--Price-->' +
             '<div class="col-8 p-0 text-left">' +
             '<!--Order price-->' +
-            '<span class="product-item__price product-item__price--order">' + item.priceOrder + '</span>' +
+            '<span class="product-item__price product-item__price--order d-block">' + currencyFormat(priceOrder) + '</span>' +
             '<!--Origin price-->' +
-            '<span class="product-item__price product-item__price--origin">' + item.priceOrigin + '</span>' +
+            '<span class="product-item__price product-item__price--origin">' + currencyFormat(priceOrigin) + '</span>' +
             '</div>' +
             '<!--Add to card button-->' +
             '<div class="col-4 p-0 text-right">' +
