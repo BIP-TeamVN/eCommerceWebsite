@@ -1,4 +1,4 @@
-package com.hknp.controller.common;
+package com.hknp.controller.api.open;
 
 import com.hknp.model.dao.UserDAO;
 import com.hknp.model.entity.Cons;
@@ -14,7 +14,7 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 
-@WebServlet(urlPatterns = {"/login-customer"})
+@WebServlet(urlPatterns = {"/api/login-customer"})
 
 public class LoginCustomerController extends HttpServlet {
    @Override

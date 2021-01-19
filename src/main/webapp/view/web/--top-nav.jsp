@@ -397,7 +397,7 @@
   $('#form-login').submit(function (e){
     e.preventDefault();
     $.ajax({
-      url: '/login-customer',
+      url: '/api/login-customer',
       method: 'POST',
       async: false,
       data: {
@@ -429,7 +429,6 @@
   const email = document.getElementById('signup-email');
   const lastName = document.getElementById('login-last-name');
   const firstName = document.getElementById('login-first-name');
-
 
   let isValidate = true;
 
@@ -508,7 +507,7 @@
     if (isValidate){
 
       $.ajax({
-        url: '/register-account',
+        url: 'api/register-account',
         method: 'POST',
         data: {
           'signup-email': email.value.trim()
@@ -538,7 +537,7 @@
     });
 
     $.ajax({
-      url: '/register-account',
+      url: 'api/register-account',
       method: 'PUT',
       async: false,
       cache: false,

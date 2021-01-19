@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import java.util.Map;
 
 
-@WebServlet(urlPatterns = {"/register-account"})
+@WebServlet(urlPatterns = {"/api/register-account"})
 public class RegisterAccount extends HttpServlet {
 
 
