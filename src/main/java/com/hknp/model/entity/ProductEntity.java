@@ -265,6 +265,7 @@ public class ProductEntity implements Serializable {
               "\"productOrigin\":\"" + productOrigin + "\"," +
               "\"createDate\":\"" + DateTimeUtils.dateToString(productCreateDate, "dd/MM/yyyy") + "\"," +
               "\"priceOrder\":\"" + priceOrder + "\"," +
+              "\"priceOrigin\":\"" + priceOrigin + "\"," +
               "\"image0\":\"" + getImage0() + "\"," +
               "\"number\":\"" + countSold + " - " + countStock + "\"," +
               "\"status\":\"" + status + "\"" +

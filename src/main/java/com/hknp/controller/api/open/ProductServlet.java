@@ -8,6 +8,7 @@ import com.hknp.utils.ServletUtils;
 import com.hknp.utils.StringUtils;
 
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -17,6 +18,7 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 
+@WebServlet(urlPatterns = {"/api/product-customer"})
 public class ProductServlet extends HttpServlet {
    @Override
    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -36,7 +38,7 @@ public class ProductServlet extends HttpServlet {
       List<ProductEntity> listProduct = new ArrayList<>();
       List<String> listJsonStr = new ArrayList<>();
 
-      listProduct = ProductDAO.getInstance().gets((page - 1) * 10, 10, 1, keyword, columnName, typeSort);
+      listProduct = ProductDAO.getInstance().gets((page - 1) * 12, 12, 1, keyword, columnName, typeSort);
 
       for (ProductEntity product : listProduct) {
          listJsonStr.add(product.toJson());
