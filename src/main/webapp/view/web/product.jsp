@@ -71,7 +71,6 @@
                                  <!--Slides-->
                                  <div class="carousel-inner" role="listbox" id="list-image"></div>
                                  <!--/.Slides-->
-                                 <!--Controls-->
                                  <a class="carousel-control carousel-control-prev" href="#carousel-thumb" role="button"
                                     data-slide="prev">
                                     <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -86,10 +85,8 @@
                            </div>
                         </div>
 
-
                         <div class="row mt-3">
                            <div class="col px--4">
-                              <!--/.Controls-->
                               <ol class="p-0 carousel-img-thumb justify-content-around" id="list-image-min"></ol>
                            </div>
                         </div>
@@ -314,10 +311,8 @@
 
 <script>
    const PRODUCT_ID = parseFloat('<%= p.getProductId()%>');
-   //console.log(PRODUCT_ID);
-</script>
-<script>
-  let html1 =
+
+   let html1 =
     '<div class="carousel-item active">' +
     '<img class="rounded product-detail__img"' +
     'src="<%=p.getImage0()%>" alt="First slide">' +
