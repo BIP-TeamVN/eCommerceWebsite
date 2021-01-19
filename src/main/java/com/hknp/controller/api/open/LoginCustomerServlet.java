@@ -16,7 +16,7 @@ import java.io.IOException;
 
 @WebServlet(urlPatterns = {"/api/login-customer"})
 
-public class LoginCustomerController extends HttpServlet {
+public class LoginCustomerServlet extends HttpServlet {
    @Override
    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
       doPost(req, resp);
