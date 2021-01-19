@@ -126,10 +126,10 @@
                            <div class="row">
                               <div class="col-4">
                                  <input class="input-numeric" id="quantity-number" name="quantity-number" type="number" min="1"
-                                        max="20" value="1" maxlength="2" />
+                                        max="20" value="1" maxlength="2"/>
                               </div>
                               <div class="col-8">
-                                 <button type="submit" class="btn btn-primary btn-block text-uppercase">Thêm vào giỏ hàng <em
+                                 <button onclick="addToCarts()" type="submit" class="btn btn-primary btn-block text-uppercase">Thêm vào giỏ hàng <em
                                          class="ml-2 fa fa-cart-plus"></em></button>
                               </div>
                            </div>
@@ -436,7 +436,7 @@
             '</div>' +
             '<!--Add to card button-->' +
             '<div class="col-4 p-0 text-right">' +
-            '<button type="button" onclick="addToCart(\'' + item.id + '\')" class="btn btn-primary" ' +
+            '<button type="button" onclick="addToCartIn(\'' + item.id + '\')" class="btn btn-primary" ' +
             'data-toggle="tooltip" data-placement="top" title="Thêm vào giỏ hàng">' +
             '<em class="fa fa-cart-plus text-white" style="font-size: 1.2rem;"></em>' +
             '</button>' +
@@ -452,6 +452,37 @@
     });
   }
   productOfShop();
+
+  function addToCartIn(productId){
+    $.ajax({
+      url: '/api/carts',
+      method: 'POST',
+      async: false,
+      data: {
+        'product-id': productId
+      },
+      success: function (data, textStatus, jqXHR) {
+        let result = data.toString().split('\n');
+        if (result[0] === 'true') {
+          alert("Thêm sản phẩm thành công");
+        } else {
+          alert("Lỗi: " + result[1]);
+          e.preventDefault();
+        }
+      },
+      error: function (jqXHR, textStatus, errorThrown) {
+        alert("Lỗi: " + errorThrown);
+        e.preventDefault();
+      }
+    });
+  }
+
+  const quantity = document.getElementById("quantity-number");
+  const productTypeId = document.getElementById();
+  function addToCarts(){
+
+  }
+
 </script>
 </body>
 </html>

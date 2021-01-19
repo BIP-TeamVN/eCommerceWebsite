@@ -98,7 +98,7 @@
                   <em class="ni ni-zoom-split-in"></em>
                </a>
             </li>
-            <li class="nav-item dropdown">
+            <li class="nav-item dropdown" onclick="loadProductInCart()">
                <a class="nav-link" href="#" role="button" data-toggle="dropdown" aria-haspopup="true"
                   aria-expanded="false">
                   <em class="fa fa-shopping-cart mr-1"></em>
@@ -112,28 +112,10 @@
                         hàng. </h6>
                   </div>
                   <!-- List group -->
-                  <div class="list-group list-group-flush">
-                     <a href="#!" class="list-group-item list-group-item-action">
-                        <div class="row align-items-center">
-                           <div class="col-auto">
-                              <img alt="Image placeholder" src="../no-image-product.svg" class="avatar rounded">
-                           </div>
-                           <div class="col ml--2">
-                              <div class="d-flex justify-content-between align-items-center">
-                                 <div>
-                                    <h4 class="mb-0 text-sm">Tên sản phẩm</h4>
-                                 </div>
-                                 <div class="text-right text-muted">
-                                    <small>80000</small>
-                                 </div>
-                              </div>
-                              <p class="text-sm mb-0">Let's meet at Starbucks at 11:30. Wdyt?</p>
-                           </div>
-                        </div>
-                     </a>
+                  <div class="list-group list-group-flush" id="list-product-carts">
                   </div>
                   <!-- View all -->
-                  <a href="#!" class="dropdown-item text-center text-primary font-weight-bold py-3">Thanh toán</a>
+                  <a href="" class="dropdown-item text-center text-primary font-weight-bold py-3">Thanh toán</a>
                </div>
             </li>
          </ul>
@@ -601,4 +583,41 @@
       $('#quantity-cart1').append(quantity);
     }
   });
+
+  function loadProductInCart(){
+
+    $.ajax({
+      url: '/api/load-list-product-in-carts',
+      method: 'GET',
+      cache: false,
+      success: function (data, textStatus, jqXHR) {
+        let list = $.parseJSON(data);
+        $.each(list, function (index, item) {
+          let html =
+              '<a href="/product?id='+ item.productId + '" class="list-group-item list-group-item-action">' +
+              '<div class="row align-items-center">' +
+              '<div class="col-auto">' +
+              '<img alt="Image placeholder" src="'+ item.image + '" class="avatar rounded">' +
+              '</div>' +
+              '<div class="col ml--2">' +
+              '<div class="d-flex justify-content-between align-items-center">' +
+              '<div>' +
+              '<h4 class="mb-0 text-sm">'+ item.name + '</h4>' +
+              '</div>' +
+              '<div class="text-right text-muted">' +
+              '<small>' + item.price + ' vnđ</small>' +
+              '</div>' +
+              '</div>' +
+              '<p class="text-sm mb-0">' + item.nameDetail + '</p>' +
+              '</div>' +
+              '</div>' +
+              '</a>';
+          $('#list-product-carts').append(html);
+        });
+      }
+    });
+  }
+
+
+
 </script>

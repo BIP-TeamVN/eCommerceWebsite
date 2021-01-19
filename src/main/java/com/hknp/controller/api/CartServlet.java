@@ -3,10 +3,13 @@ package com.hknp.controller.api;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 import com.hknp.model.dao.BrandDAO;
+import com.hknp.model.dao.ProductTypeDAO;
 import com.hknp.model.domain.CartItemDomain;
 import com.hknp.model.entity.BrandEntity;
+import com.hknp.model.entity.ProductTypeEntity;
 import com.hknp.utils.CookieUtils;
 import com.hknp.utils.ServletUtils;
+import com.hknp.utils.StringUtils;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -42,7 +45,21 @@ public class CartServlet extends HttpServlet {
    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
       String result = "";
       try {
-         String id = req.getParameter("product-type-id");
+         String idProduct = req.getParameter("product-id");
+         Long productId = Long.parseLong(idProduct);
+
+         ArrayList<ProductTypeEntity> listProductType = ProductTypeDAO.getInstance().getByProductId(null,null,productId);
+
+         Integer maxQuantity = 0;
+         ProductTypeEntity productTypeEntity = new ProductTypeEntity();
+         String id = "";
+         for (int i = 0; i < listProductType.size(); i++) {
+            if (listProductType.get(i).getQuantity() > maxQuantity){
+               maxQuantity = listProductType.get(i).getQuantity();
+               productTypeEntity = listProductType.get(i);
+            }
+         }
+         id = productTypeEntity.getProductTypeId().toString();
 
          String value = CookieUtils.getCookieValue(req, COOKIE_NAME);
 
