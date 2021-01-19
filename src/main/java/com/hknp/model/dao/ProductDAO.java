@@ -211,6 +211,16 @@ public class ProductDAO implements IRetrieveEntity<ProductEntity, Long>, IModify
       return entityMgr.find(ProductEntity.class, id);
    }
 
+   public ProductEntity getByIdForCustomer(Long id) {
+      EntityManager entityMgr = EntityUtils.getEntityManager();
+      ProductEntity productEntity = entityMgr.find(ProductEntity.class, id);
+      if (productEntity.getStatus() == 1){
+         return productEntity;
+      } else {
+         return null;
+      }
+   }
+
    public ProductEntity getByIdAndSeller(Long productId, Long sellerId) {
       EntityManager entityMgr = EntityUtils.getEntityManager();
       try {

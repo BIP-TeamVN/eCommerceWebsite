@@ -192,7 +192,7 @@
                <div class="card-footer bg-transparent">
                   <div class="row text-center m-1">
                      <div class="col">
-                        <a class="btn btn-outline-primary" style="width: 35%;" href="javascipt:void(0)">Xem thêm</a>
+                        <a class="btn btn-outline-primary" style="width: 35%;" onclick="loadProduct()">Xem thêm</a>
                      </div>
                   </div>
                </div>
@@ -281,16 +281,13 @@
     });
   }
 
-  function currencyFormat(num) {
-    return num.toFixed(0).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.');
-  }
-
+  let page = 1;
   function loadProduct() {
     $.ajax({
       url: '/api/product-customer',
       method: 'GET',
       data: {
-        'page': 1,
+        'page': page,
         'keyword': '',
         'columnName': 'productCreateDate',
         'typeSort': 'asc'
@@ -298,13 +295,16 @@
       cache: false,
       success: function (data, textStatus, jqXHR) {
         let list = $.parseJSON(data);
+        if (data != "[]") {
+          page += 1;
+        }
         $('#tb-list').find('tr').remove();
         $.each(list, function (index, item) {
           let priceOrder = parseFloat(item.priceOrder);
           let priceOrigin = parseFloat(item.priceOrigin);
           let percentDiscount = (100*(priceOrigin-priceOrder)/priceOrigin).toFixed(0);
           let html = '<div class="col-lg-3 col-md-6">' +
-            '<a class="product-item" href="javascript:void(0)">' +
+            '<a class="product-item" href="/product?id=' + item.id + '">' +
             '<!--Product image-->' +
             '<div class="row">' +
             '<div class="col text-center">' +
@@ -323,9 +323,9 @@
             '<!--Price-->' +
             '<div class="col-8 p-0 text-left">' +
             '<!--Order price-->' +
-            '<span class="product-item__price product-item__price--order d-block">' + currencyFormat(priceOrder) + '</span>' +
+            '<span class="product-item__price product-item__price--order d-block">' + priceOrder.toFixed(0).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.') + '</span>' +
             '<!--Origin price-->' +
-            '<span class="product-item__price product-item__price--origin">' + currencyFormat(priceOrigin) + '</span>' +
+            '<span class="product-item__price product-item__price--origin">' + priceOrigin.toFixed(0).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.') + '</span>' +
             '</div>' +
             '<!--Add to card button-->' +
             '<div class="col-4 p-0 text-right">' +
