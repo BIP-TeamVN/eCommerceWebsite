@@ -18,11 +18,6 @@
 <body>
 <% ProductEntity p = (ProductEntity) request.getAttribute("product"); %>
 <% List<ProductTypeEntity> types = new ArrayList<>(p.getProductTypeEntities());%>
-<%
-   BigDecimal percent = new BigDecimal(0);
-   percent = p.getPriceOrigin().subtract(p.getPriceOrder()).multiply(new BigDecimal(100));
-   percent = percent.divide(p.getPriceOrigin());
-%>
 <!-- Main content -->
 <div class="main-content" id="panel">
    <!--Top navigation-->
@@ -124,7 +119,7 @@
 
                               <div class="col-2">
                                  <!--Deal Percent-->
-                                 <span class="product-detail__price--percent"><%= percent%>%</span>
+                                 <span class="product-detail__price--percent">%</span>
                               </div>
                            </div>
 
@@ -289,7 +284,7 @@
                               </div>
                            </div>
                            <!--Deal Percent-->
-                           <span class="product-item__price-percent"><%= percent%></span>
+                           <span class="product-item__price-percent"></span>
                         </a>
                      </div>
                   </div>

@@ -16,18 +16,22 @@ import java.io.IOException;
 public class ProductController extends HttpServlet {
    @Override
    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-      String idPara = req.getParameter("id");
-      Long productId = StringUtils.toLong(idPara);
-      ProductEntity productEntity = ProductDAO.getInstance().getByIdForCustomer(productId);
+      try {
+         String idPara = req.getParameter("id");
+         Long productId = StringUtils.toLong(idPara);
+         ProductEntity productEntity = ProductDAO.getInstance().getByIdForCustomer(productId);
 
-      if(productEntity != null){
-         productEntity.setProductDesc(productEntity.getProductDesc().replace("\n", "<br>"));
-         req.setAttribute("product", productEntity);
+         if (productEntity != null) {
+            productEntity.setProductDesc(productEntity.getProductDesc().replace("\n", "<br>"));
+            req.setAttribute("product", productEntity);
 
-         ServletUtils.forward(req, resp,"/view/web/product.jsp");
+            ServletUtils.forward(req, resp, "/view/web/product.jsp");
+         } else {
+            ServletUtils.forward(req, resp, "/home");
+         }
       }
-      else {
-         ServletUtils.forward(req, resp,"/view/web/home.jsp");
+      catch (Exception e){
+         ServletUtils.forward(req, resp, "/home");
       }
    }
 
