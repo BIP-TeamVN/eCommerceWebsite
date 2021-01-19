@@ -24,7 +24,7 @@ public class ProductByCategoryServlet extends HttpServlet {
       List<ProductEntity> listProduct = new ArrayList<>();
       List<String> listJsonStr = new ArrayList<>();
       if (type.equals("min")) {
-         listProduct = ProductDAO.getInstance().getProductByCategory(0, 8, productId);
+         listProduct = ProductDAO.getInstance().getProductByCategory(0, 4, productId);
       } else {
          Integer currentPage = StringUtils.toInt(req.getParameter("currentPage"));
          listProduct = ProductDAO.getInstance().getProductByCategory((currentPage - 1) * 12, 12, productId);

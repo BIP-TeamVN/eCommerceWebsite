@@ -4,14 +4,14 @@ import com.hknp.interfaces.IModifySingleEntityAutoIncrement;
 import com.hknp.interfaces.IRetrieveEntity;
 import com.hknp.model.entity.BillDetailEntity;
 import com.hknp.model.entity.BillEntity;
+import com.hknp.utils.DateTimeUtils;
 import com.hknp.utils.EntityUtils;
+import com.hknp.utils.StringUtils;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityTransaction;
-import javax.persistence.Query;
-import javax.persistence.TypedQuery;
+import javax.persistence.*;
 import java.math.BigInteger;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class BillDAO implements IRetrieveEntity<BillEntity, Long>, IModifySingleEntityAutoIncrement<BillEntity, Long> {
    private static BillDAO instance = null;
@@ -168,7 +168,7 @@ public class BillDAO implements IRetrieveEntity<BillEntity, Long>, IModifySingle
 
       String strQuery = "SELECT distinct u.billEntity FROM BillDetailEntity AS u " +
               "WHERE u.productTypeEntity.productEntity.sellerEntity.userId = :sellerId " +
-              "and u.billEntity.status = :status";
+              "and u.billEntity.status = :status ";
 
       Query query = entityMgr.createQuery(strQuery);
       query.setParameter("sellerId", sellerId);
@@ -180,6 +180,51 @@ public class BillDAO implements IRetrieveEntity<BillEntity, Long>, IModifySingle
       if (maxResults != null) {
          query.setMaxResults(maxResults);
       }
+
+      ArrayList<BillEntity> result = null;
+      try {
+         result = new ArrayList<>(query.getResultList());
+      } catch (Exception exception) {
+         exception.printStackTrace();
+      } finally {
+         entityMgr.close();
+      }
+      return result;
+   }
+
+   public ArrayList<BillEntity> getsByMonth(String first, String last) {
+      EntityManager entityMgr = EntityUtils.getEntityManager();
+      String strQuery = null;
+      if(first != "12"){
+         strQuery = "SELECT u FROM BillEntity AS u where u.billCreateDate between '2021-" +first + "-01' and '2021-" +last +"-01' ";
+      }
+      else{
+         strQuery = "SELECT u FROM BillEntity AS u where u.billCreateDate between '2021-" +first + "-01' and '2021-" +first +"-31' ";
+      }
+
+      Query query = entityMgr.createQuery(strQuery);
+
+      ArrayList<BillEntity> result = null;
+      try {
+         result = new ArrayList<>(query.getResultList());
+      } catch (Exception exception) {
+         exception.printStackTrace();
+      } finally {
+         entityMgr.close();
+      }
+      return result;
+   }
+
+   public  ArrayList<BillEntity> getsForSumByMonth(String first, String last , Long sellerId){
+      EntityManager entityMgr = EntityUtils.getEntityManager();
+
+      String strQuery = "SELECT distinct u.billEntity FROM BillDetailEntity AS u " +
+              "WHERE u.productTypeEntity.productEntity.sellerEntity.userId = :sellerId " +
+              "and u.billEntity.status = 6 " +
+              "and u.billEntity.billCreateDate between '2021-"+first+"-01' and '2021-"+last+"-01' ";
+
+      Query query = entityMgr.createQuery(strQuery);
+      query.setParameter("sellerId", sellerId);
 
       ArrayList<BillEntity> result = null;
       try {
@@ -240,5 +285,22 @@ public class BillDAO implements IRetrieveEntity<BillEntity, Long>, IModifySingle
       query = entityMgr.createQuery(queryStr);
       query.setParameter("status", status);
       return (Long) query.getSingleResult();
+   }
+
+   public  Long CountCustomerForSeller(Long sellerId){
+      EntityManager entityMgr = EntityUtils.getEntityManager();
+      String strQuery ="select  distinct b.billEntity.customerEntity from BillDetailEntity AS b " +
+              "where  b.productTypeEntity.productEntity.sellerEntity.userId = :sellerId ";
+      Query query = entityMgr.createQuery(strQuery);
+      query.setParameter("sellerId", sellerId);
+      ArrayList<BillEntity> result = null;
+      try {
+         result = new ArrayList<>(query.getResultList());
+      } catch (Exception exception) {
+         exception.printStackTrace();
+      } finally {
+         entityMgr.close();
+      }
+      return result.stream().count();
    }
 }

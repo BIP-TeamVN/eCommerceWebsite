@@ -263,7 +263,6 @@
     $.ajax({
       url: "/api/bill/view/detail",
       method: 'PUT',
-      async: false,
       cache: false,
       data: paras,
       success: function (){
