@@ -14,7 +14,6 @@ import java.io.IOException;
 public class HomeController extends HttpServlet {
    @Override
    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-      ProductDAO.getInstance().getProductBySellerId(0, 12, 10003L);
       ServletUtils.forward(req, resp,"/view/web/home.jsp");
    }
 

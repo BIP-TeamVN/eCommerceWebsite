@@ -16,6 +16,7 @@ import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import java.util.ArrayList;
+import java.util.List;
 
 public class ProductDAO implements IRetrieveEntity<ProductEntity, Long>, IModifySingleEntityAutoIncrement<ProductEntity, Long> {
    private static ProductDAO instance = null;
@@ -348,6 +349,39 @@ public class ProductDAO implements IRetrieveEntity<ProductEntity, Long>, IModify
       query = entityMgr.createQuery(queryStr, ProductEntity.class);
 
       query.setParameter("sellerIdPara", sellerId);
+
+      if (firstResult != null) {
+         query.setFirstResult(firstResult);
+      }
+      if (maxResults != null) {
+         query.setMaxResults(maxResults);
+      }
+
+      ArrayList<ProductEntity> result = null;
+      try {
+         result = new ArrayList<>(query.getResultList());
+      } catch (Exception exception) {
+         exception.printStackTrace();
+      } finally {
+         entityMgr.close();
+      }
+      return result;
+   }
+
+   public ArrayList<ProductEntity> getProductByCategory(Integer firstResult, Integer maxResults, Long productId) {
+      EntityManager entityMgr = EntityUtils.getEntityManager();
+
+      ProductEntity productEntity = getById(productId);
+
+      ArrayList<ProductCategoryEntity> categoryEntities = new ArrayList<>(productEntity.getProductCategoryEntities());
+      List<Long> categoryIds = new ArrayList<>();
+      for (ProductCategoryEntity p: categoryEntities) {
+         categoryIds.add(p.getProductCategoryId());
+      }
+
+      String queryStr = "SELECT distinct u FROM ProductEntity u join u.productCategoryEntities r where r.productCategoryId in :Ids";
+      Query query = entityMgr.createQuery(queryStr, ProductEntity.class);
+      query.setParameter("Ids", categoryIds);
 
       if (firstResult != null) {
          query.setFirstResult(firstResult);
