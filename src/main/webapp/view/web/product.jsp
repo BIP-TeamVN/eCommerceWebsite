@@ -4,13 +4,6 @@
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="java.math.BigDecimal" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8" %>
-<% ProductEntity p = (ProductEntity) request.getAttribute("product"); %>
-<% List<ProductTypeEntity> types = new ArrayList<>(p.getProductTypeEntities());%>
-<%
-   BigDecimal percent = new BigDecimal(0);
-   percent = p.getPriceOrigin().subtract(p.getPriceOrder()).multiply(new BigDecimal(100));
-   percent = percent.divide(p.getPriceOrigin());
-%>
 <html lang="vi">
 <head>
    <%@ include file="../../common/meta-info.jsp" %>
@@ -23,6 +16,13 @@
 </head>
 
 <body>
+<% ProductEntity p = (ProductEntity) request.getAttribute("product"); %>
+<% List<ProductTypeEntity> types = new ArrayList<>(p.getProductTypeEntities());%>
+<%
+   BigDecimal percent = new BigDecimal(0);
+   percent = p.getPriceOrigin().subtract(p.getPriceOrder()).multiply(new BigDecimal(100));
+   percent = percent.divide(p.getPriceOrigin());
+%>
 <!-- Main content -->
 <div class="main-content" id="panel">
    <!--Top navigation-->
@@ -388,7 +388,6 @@
   }
 </script>
 <script>
-   console.log('<%= types.get(0).getProductTypeName()%>');
    <%
       String imageTypes = "";
       String nameTypes = "";
