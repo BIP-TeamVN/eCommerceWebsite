@@ -35,7 +35,7 @@
                <li class="nav-item">
                   <a class="nav-link <%=isActive[0] ? "active" : ""%>" href="<%=isActive[0] ? "javascript:void(0)" : "/seller"%>">
                      <i class="fa fa-user-ninja text-yellow"></i>
-                     <span class="nav-link-text">Ngành hàng</span>
+                     <span class="nav-link-text">Thống kê</span>
                   </a>
                </li>
                <li class="nav-item">
