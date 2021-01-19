@@ -1,5 +1,5 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8" %>
+<%@ page import="javax.servlet.http.HttpServletRequest" %>
 <html>
 <head>
    <%@ include file="../../common/meta-info.jsp" %>
@@ -8,6 +8,7 @@
 </head>
 
 <body>
+
 <!--Left side nav-->
 <jsp:include page="./sh--side-nav.jsp">
    <jsp:param name="selectedIndex" value="0"/>
@@ -15,202 +16,173 @@
 
 <!-- Main content -->
 <div class="main-content" id="panel">
-   <!--Top navigation-->
    <%@include file="./sh--top-nav.jsp" %>
 
-   <!--Header and breadcrumb-->
+   <!-- Header -->
+   <!-- Header -->
    <div class="header bg-primary pb-6">
       <div class="container-fluid">
          <div class="header-body">
             <div class="row align-items-center py-4">
                <div class="col-lg-6 col-7">
-                  <nav aria-label="breadcrumb" class="d-none d-md-inline-block">
+                  <h6 class="h2 text-white d-inline-block mb-0">Default</h6>
+                  <nav aria-label="breadcrumb" class="d-none d-md-inline-block ml-md-4">
                      <ol class="breadcrumb breadcrumb-links breadcrumb-dark">
-                        <li class="breadcrumb-item"><a href="/admin"><i class="fa fa-home mr-2"></i>Trang chủ</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Ngành hàng</li>
+                        <li class="breadcrumb-item"><a href="#"><i class="fas fa-home"></i></a></li>
+                        <li class="breadcrumb-item"><a href="#">Dashboards</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Shop</li>
                      </ol>
                   </nav>
                </div>
                <div class="col-lg-6 col-5 text-right">
-                  <button type="button" data-toggle="modal" data-target="#modal-add-product-category"
-                          class="btn btn-secondary text-uppercase">Thêm ngành hàng mới
-                  </button>
+                  <a href="#" class="btn btn-sm btn-neutral">New</a>
+                  <a href="#" class="btn btn-sm btn-neutral">Filters</a>
+               </div>
+            </div>
+            <!-- Card stats -->
+            <div class="row">
+               <div class="col-xl-3 col-md-6">
+                  <div class="card card-stats">
+                     <!-- Card body -->
+                     <div class="card-body">
+                        <div class="row">
+                           <div class="col">
+                              <h5 class="card-title text-uppercase text-muted mb-0">Tổng số sản phẩm</h5>
+                              <span class="h2 font-weight-bold mb-0">${totalProduct}</span>
+                           </div>
+                           <div class="col-auto">
+                              <div class="icon icon-shape bg-gradient-red text-white rounded-circle shadow">
+                                 <i class="fa fa-users text-white"></i>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+               <div class="col-xl-3 col-md-6">
+                  <div class="card card-stats">
+                     <!-- Card body -->
+                     <div class="card-body">
+                        <div class="row">
+                           <div class="col">
+                              <h5 class="card-title text-uppercase text-muted mb-0">Tổng số đơn hàng</h5>
+                              <span class="h2 font-weight-bold mb-0">${totalBill}</span>
+                           </div>
+                           <div class="col-auto">
+                              <div class="icon icon-shape bg-gradient-orange text-white rounded-circle shadow">
+                                 <i class="fa fa-store text-white"></i>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+               <div class="col-xl-3 col-md-6">
+                  <div class="card card-stats">
+                     <!-- Card body -->
+                     <div class="card-body">
+                        <div class="row">
+                           <div class="col">
+                              <h5 class="card-title text-uppercase text-muted mb-0">Tổng số khách hàng</h5>
+                              <span class="h2 font-weight-bold mb-0">${totalCustomer}</span>
+                           </div>
+                           <div class="col-auto">
+                              <div class="icon icon-shape bg-gradient-green text-white rounded-circle shadow">
+                                 <i class="fa fa-id-card-alt text-white"></i>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+               <div class="col-xl-3 col-md-6">
+                  <div class="card card-stats">
+                     <!-- Card body -->
+                     <div class="card-body">
+                        <div class="row">
+                           <div class="col">
+                              <h5 class="card-title text-uppercase text-muted mb-0">Tổng doanh số</h5>
+                              <span class="h2 font-weight-bold mb-0">${totalSale}</span>
+                           </div>
+                           <div class="col-auto">
+                              <div class="icon icon-shape bg-gradient-info text-white rounded-circle shadow">
+                                 <i class="ni ni-money-coins"></i>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
                </div>
             </div>
          </div>
       </div>
    </div>
-
-   <!-- From add employee -->
-   <%@ include file="../../common/form-add-product-category.jsp" %>
-
    <!-- Page content -->
    <div class="container-fluid mt--6">
-
-      <!--List employee card-->
       <div class="row">
-         <div class="col">
-            <div class="card">
-               <!-- Card header -->
-               <div class="card-header border-0">
-                  <h2 class="mb-0 text-center text-uppercase display-4">Danh sách ngành hàng</h2>
-               </div>
-
-               <!--Loading-->
-               <div id="loading" class="d-none">
-                  <p class="text-dark text-center">Đang load dữ liệu</p>
-                  <div class="dots-loading">
-                     <div></div>
-                     <div></div>
-                     <div></div>
-                     <div></div>
+         <div class="col-xl-8">
+            <div class="card bg-default">
+               <div class="card-header bg-transparent">
+                  <div class="row align-items-center">
+                     <div class="col">
+                        <h6 class="text-light text-uppercase ls-1 mb-1">Overview</h6>
+                        <h5 class="h3 text-white mb-0">Sales value</h5>
+                     </div>
+                     <div class="col">
+                        <ul class="nav nav-pills justify-content-end">
+                           <li class="nav-item mr-2 mr-md-0" data-toggle="chart" data-target="#chart-sales-dark"
+                               data-update='{"data":{"datasets":[{"data":[${T2}, ${T3}, ${T4}, ${T5}, ${T6} ${T7}, ${T8}, ${T9}]}]}}'
+                               data-prefix="$" data-suffix="k">
+                              <a href="#" class="nav-link py-2 px-3 active" data-toggle="tab">
+                                 <span class="d-none d-md-block">Month</span>
+                                 <span class="d-md-none">M</span>
+                              </a>
+                           </li>
+                           <li class="nav-item" data-toggle="chart" data-target="#chart-sales-dark"
+                               data-update='{"data":{"datasets":[{"data":[0, 20, 5, 25, 10, 30, 15, 40, 40]}]}}'
+                               data-prefix="$" data-suffix="k">
+                              <a href="#" class="nav-link py-2 px-3" data-toggle="tab">
+                                 <span class="d-none d-md-block">Week</span>
+                                 <span class="d-md-none">W</span>
+                              </a>
+                           </li>
+                        </ul>
+                     </div>
                   </div>
                </div>
-
-               <!-- Light table -->
-               <div class="table-responsive">
-                  <table class="table align-items-center table-flush">
-                     <thead class="thead-light">
-                     <tr>
-                        <th scope="col" class="text-center">Mã</th>
-                        <th scope="col" class="text-center">Tên ngành hàng</th>
-                        <th scope="col" class="text-center">Ảnh minh họa</th>
-                     </tr>
-                     </thead>
-                     <tbody class="list" id="tb-list">
-                     </tbody>
-                  </table>
+               <div class="card-body">
+                  <!-- Chart -->
+                  <div class="chart">
+                     <!-- Chart wrapper -->
+                     <canvas id="chart-sales-dark" class="chart-canvas"></canvas>
+                  </div>
                </div>
-
-               <!-- Card footer -->
-               <div class="card-footer py-2">
-                  <!-- Pagination -->
-                  <nav aria-label="...">
-                     <ul id="page-pagination" class="pagination justify-content-center mt-3">
-                        <li class="page-item">
-                           <button type="button" class="page-link" onclick="goPrev()">
-                              <i class="fa fa-angle-left"></i>
-                              <span class="sr-only">Trang trước</span>
-                           </button>
-                        </li>
-                        <li class="page-item"><a class="page-link" href="#">1</a></li>
-                        <li class="page-item active">
-                           <a class="page-link" href="#">2</a>
-                        </li>
-                        <li class="page-item"><a class="page-link" href="#">3</a></li>
-                        <li class="page-item">
-                           <button type="button" class="page-link" onclick="goNext()">
-                              <i class="fa fa-angle-right"></i>
-                              <span class="sr-only">Trang sau</span>
-                           </button>
-                        </li>
-                     </ul>
-                  </nav>
+            </div>
+         </div>
+         <div class="col-xl-4">
+            <div class="card">
+               <div class="card-header bg-transparent">
+                  <div class="row align-items-center">
+                     <div class="col">
+                        <h6 class="text-uppercase text-muted ls-1 mb-1">Performance</h6>
+                        <h5 class="h3 mb-0">Total orders</h5>
+                     </div>
+                  </div>
+               </div>
+               <div class="card-body">
+                  <!-- Chart -->
+                  <div class="chart">
+                     <canvas id="chart-bars" class="chart-canvas"></canvas>
+                  </div>
                </div>
             </div>
          </div>
       </div>
-
       <!-- Footer -->
       <%@ include file="../../common/footer.jsp" %>
    </div>
 </div>
 
-<!--Javascript-->
 <%@ include file="../../common/import-js.jsp" %>
-<script>
-  let firstPageButton = '<li class="page-item"><button type="button" class="page-link" onclick="goFirst()"><i class="fa fa-angle-double-left"></i><span class="sr-only">Trang đầu tiên</span></button></li>';
-  let prevPageButton = '<li class="page-item"><button type="button" class="page-link" onclick="goPrev()"><i class="fa fa-angle-left"></i><span class="sr-only">Trang trước</span></button></li>';
-  let nextPageButton = '<li class="page-item"><button type="button" class="page-link" onclick="goNext()"><i class="fa fa-angle-right"></i><span class="sr-only">Trang sau</span></button></li>';
-  let lastPageButton = '<li class="page-item"><button type="button" class="page-link" onclick="goLast()"><i class="fa fa-angle-double-right"></i><span class="sr-only">Trang cuối</span></button></li>';
-
-  let totalPage = ${totalPage};
-  let currentPage = ${currentPage};
-
-  reloadPage();
-
-  function goFirst() {
-    if(currentPage > 1) {
-      currentPage = 1;
-      reloadPage();
-    }
-  }
-
-  function goPrev() {
-    if(currentPage > 1) {
-      currentPage = currentPage - 1;
-      reloadPage();
-    }
-  }
-
-  function goNext() {
-    if(currentPage < totalPage) {
-      currentPage = currentPage + 1;
-      reloadPage();
-    }
-  }
-
-  function goLast() {
-    if(currentPage < totalPage) {
-      currentPage = totalPage;
-      reloadPage();
-    }
-  }
-
-  function goToPage(page) {
-    currentPage = page;
-    reloadPage();
-  }
-
-  function updatePagination() {
-    $('#page-pagination').find('li').remove();
-
-    $('#page-pagination').append(currentPage > 2 ? firstPageButton : '');
-    $('#page-pagination').append(currentPage > 1 ? prevPageButton : '');
-
-    let startIndex = currentPage - 3 > 1 ? currentPage - 3 : 1;
-    for (let i = startIndex; i < currentPage; i++) {
-      $('#page-pagination').append('<li class="page-item"><button type="button" class="page-link" onclick="goToPage(' + i + ')">' + i + '</but></li>');
-    }
-
-    $('#page-pagination').append('<li class="page-item active"><a class="page-link" href="javascript:void(0)">' + currentPage + '</a></li>');
-
-    for (let i = currentPage + 1; i < currentPage + 4 && i <= totalPage; i++) {
-      $('#page-pagination').append('<li class="page-item"><button type="button" class="page-link" onclick="goToPage(' + i + ')">' + i + '</but></li>');
-    }
-
-    $('#page-pagination').append(currentPage < totalPage ? nextPageButton : '');
-    $('#page-pagination').append(currentPage < totalPage - 1 ? lastPageButton : '');
-  }
-
-  function reloadPage() {
-    updatePagination();
-
-    $.ajax({
-      url: '/api/product-categories',
-      method: 'GET',
-      data: { page: currentPage },
-      cache: false,
-      success: function (data, textStatus, jqXHR) {
-        let list = $.parseJSON(data);
-        console.log(list);
-        $('#tb-list').find('tr').remove();
-        $.each(list, function (index, item) {
-          let html =
-            '<tr>' +
-            '<td>' + item.id + '</td>' +
-            '<td>' + item.name + '</td>' +
-            '<td>' +
-            '<a href="#" class="media m-auto align-items-center">' +
-            '<img class="avatar product-category-img m-auto rounded-circle" src="' + item.image + '" alt="category_image" >' +
-            '</a>' +
-            '</td>' +
-            '</tr>';
-          $('#tb-list').append(html);
-        });
-      }
-    });
-  }
-</script>
 </body>
 </html>

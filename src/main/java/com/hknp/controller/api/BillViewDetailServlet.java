@@ -2,6 +2,8 @@ package com.hknp.controller.api;
 
 import com.hknp.model.dao.*;
 import com.hknp.model.entity.*;
+import com.hknp.utils.DateTimeUtils;
+import com.hknp.utils.MailUtils;
 import com.hknp.utils.ServletUtils;
 import com.hknp.utils.StringUtils;
 
@@ -45,31 +47,54 @@ public class BillViewDetailServlet extends HttpServlet {
    protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException{
       String result = "";
       HttpSession session = req.getSession();
-      Long deliveryId = (Long) session.getAttribute("id");
+      Long id = (Long) session.getAttribute("id");
       Map<String, Object> parameterMap = ServletUtils.getParametersMap(req);
 
       try {
          String billIdid = (String) parameterMap.get("id");
          Integer status = (Integer) parameterMap.get("status");
+         String email = (BillDAO.getInstance().getById(StringUtils.toLong(billIdid)).getCustomerEntity().getUserEntity().getEmail());
+         String customerName = BillDAO.getInstance().getById(StringUtils.toLong(billIdid)).getCustomerEntity().getUserEntity().getFullName();
          if(status == 4){
             BillEntity updateBill = BillDAO.getInstance().getById(StringUtils.toLong(billIdid));
-            updateBill.setDeliveryEntity(DeliveryDAO.getInstance().getById(deliveryId));
+            updateBill.setDeliveryEntity(DeliveryDAO.getInstance().getById(id));
             updateBill.setStatus(status);
             Boolean updateResult = BillDAO.getInstance().update(updateBill);
-
             if (updateResult != false) {
                result += "true\n" + updateBill.getDeliveryEntity().getUserId();
             } else {
                result += "false\nError while get bill";
             }
          }
+         else if(status == 2){
+            BillEntity updateBill = BillDAO.getInstance().getById(StringUtils.toLong(billIdid));
+            updateBill.setStatus(status);
+            MailUtils.send(email, "Xac Nhan Don Hang","Chào "+ customerName +", cửa hàng đã duyệt đơn hàng mang mã số "+ billIdid+ " của bạn! <br/> Cảm ơn bạn đã sử dụng dịch vụ của chúng tôi! <br/> Shipper sẽ giao hàng cho bạn trong thời gian sớm nhất!", "text/html" );
+            updateBill.setBillCreateDate(DateTimeUtils.currentDate());
+
+            Boolean updateResult = BillDAO.getInstance().update(updateBill);
+
+            if (updateResult != false) {
+               result += "true\n" + updateBill.getDeliveryEntity().getUserId();
+            } else {
+               result += "false\nError while confirm bill";
+            }
+         }
+         else if(status == 6) {
+            BillEntity updateBill = BillDAO.getInstance().getById(StringUtils.toLong(billIdid));
+            updateBill.setStatus(status);
+            updateBill.setBillDoneDate(DateTimeUtils.currentDate());
+            Boolean updateResult = BillDAO.getInstance().update(updateBill);
+            if (updateResult != false) {
+               result += "true\n" + updateBill.getDeliveryEntity().getUserId();
+            } else {
+               result += "false\nError while confirm bill";
+            }
+         }
          else {
             BillEntity updateBill = BillDAO.getInstance().getById(StringUtils.toLong(billIdid));
             updateBill.setStatus(status);
-            Date date= (Date) java.util.Calendar.getInstance().getTime();
-            updateBill.setBillCreateDate(date);
             Boolean updateResult = BillDAO.getInstance().update(updateBill);
-
             if (updateResult != false) {
                result += "true\n" + updateBill.getDeliveryEntity().getUserId();
             } else {

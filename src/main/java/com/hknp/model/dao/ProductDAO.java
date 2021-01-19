@@ -343,6 +343,19 @@ public class ProductDAO implements IRetrieveEntity<ProductEntity, Long>, IModify
       return result == null ? 0 : result;
    }
 
+   public Long countProductSell(Long sellerId) {
+      EntityManager entityMgr = EntityUtils.getEntityManager();
+
+      String queryStr;
+      Query query;
+      queryStr = "select count(*) from ProductEntity p " +
+                 "where p.sellerEntity.userId = :sellerIdPara " +
+                 "and p.status = 1 ";
+      query = entityMgr.createQuery(queryStr);
+      query.setParameter("sellerIdPara", sellerId);
+      return (Long) query.getSingleResult();
+   }
+
    public Long getCountProductInStock(Long productId) {
       EntityManager entityMgr = EntityUtils.getEntityManager();
 
