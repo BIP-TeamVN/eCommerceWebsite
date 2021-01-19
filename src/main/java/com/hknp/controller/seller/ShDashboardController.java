@@ -59,7 +59,7 @@ public class ShDashboardController extends HttpServlet {
       req.setAttribute("totalBill", totalBill);
 
       for(int i = 1;i<12;i++){
-         BigDecimal totalEachMonth = new BigDecimal(0);8
+         BigDecimal totalEachMonth = new BigDecimal(0);
          List<BillEntity> listbill =  new ArrayList<>();
          String first =  String.valueOf(i);
          String last = String.valueOf(i+1);
