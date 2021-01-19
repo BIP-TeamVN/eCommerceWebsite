@@ -154,6 +154,7 @@ img {
   color: #333;
   font-size: 1rem;
   line-height: 1.4rem;
+  height: 4.2rem;
   font-weight: 600;
   display: -webkit-box;
   -webkit-line-clamp: 3;
@@ -213,6 +214,46 @@ img {
   height: 27rem;
   object-fit: cover;
   display: block!important;
+}
+
+.product-detail__price {
+  padding-left: 1.5rem !important;
+  margin-left: 0 !important;
+}
+
+.product-detail__price::after {
+  margin-left: 0.2rem;
+  content: "đ";
+  text-decoration: underline;
+  font-size: 69%;
+}
+
+.product-detail__price--order {
+  font-size: 2.4rem !important;
+  line-height: 2.6rem !important;
+  font-weight: 600;
+}
+
+.product-detail__price--origin {
+  color: rgb(120, 120, 120);
+  font-size: 1.4rem !important;
+  font-weight: 300;
+  text-decoration: line-through;
+}
+
+.product-detail__price--percent::before{
+  content: '- ';
+}
+
+.product-detail__price--percent {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  color: #f80031;
+  background-color: #fdd1da;
+  border-radius: 10rem;
+  position: absolute;
+  top: 0rem;
+  right: 0rem;
+  padding: 0.5rem;
 }
 
 .carousel-img-thumb {

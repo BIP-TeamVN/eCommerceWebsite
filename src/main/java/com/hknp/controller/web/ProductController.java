@@ -18,14 +18,11 @@ public class ProductController extends HttpServlet {
    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
       String idPara = req.getParameter("id");
       Long productId = StringUtils.toLong(idPara);
-      ProductEntity productEntity = ProductDAO.getInstance().getById(productId);
+      ProductEntity productEntity = ProductDAO.getInstance().getByIdForCustomer(productId);
 
       if(productEntity != null){
-         req.setAttribute("productId", productId);
-         req.setAttribute("brandId", productEntity.getBrandEntity().getBrandId());
-         req.setAttribute("brandName", productEntity.getBrandEntity().getBrandName());
-
-         req.setAttribute("productName", productEntity.getProductName());
+         productEntity.setProductDesc(productEntity.getProductDesc().replace("\n", "<br>"));
+         req.setAttribute("product", productEntity);
 
          ServletUtils.forward(req, resp,"/view/web/product.jsp");
       }
