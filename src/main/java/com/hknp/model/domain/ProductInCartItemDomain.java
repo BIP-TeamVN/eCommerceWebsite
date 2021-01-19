@@ -1,5 +1,7 @@
 package com.hknp.model.domain;
 
+import com.hknp.utils.StringUtils;
+
 public class ProductInCartItemDomain {
 
    private String productId;
@@ -7,6 +9,16 @@ public class ProductInCartItemDomain {
    private String name;
    private String price;
    private String nameDetail;
+
+   public Integer getQuantity() {
+      return quantity;
+   }
+
+   public void setQuantity(Integer quantity) {
+      this.quantity = quantity;
+   }
+
+   private Integer quantity;
 
    public String getProductId() {
       return productId;
@@ -54,18 +66,20 @@ public class ProductInCartItemDomain {
               "\"image\":\"" + image + "\"," +
               "\"name\":\"" + name + "\"," +
               "\"price\":\"" + price + "\"," +
-              "\"nameDetail\":\"" + nameDetail + "\"" +
+              "\"nameDetail\":\"" + nameDetail + "\"," +
+              "\"quantity\":\"" + quantity + "\"" +
               "}";
    }
 
    public ProductInCartItemDomain() {
    }
 
-   public ProductInCartItemDomain(String productId, String image, String name, String price, String nameDetail) {
+   public ProductInCartItemDomain(String productId, String image, String name, String price, String nameDetail,String quantity) {
       this.productId = productId;
       this.image = image;
       this.name = name;
       this.price = price;
       this.nameDetail = nameDetail;
+      this.quantity = StringUtils.toInt(quantity);
    }
 }

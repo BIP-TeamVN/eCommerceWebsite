@@ -609,6 +609,7 @@
               '</div>' +
               '</div>' +
               '<p class="text-sm mb-0">' + item.nameDetail + '</p>' +
+              '<p class="text-sm mb-0">Số lượng: '+ item.quantity + '</p>' +
               '</div>' +
               '</div>' +
               '</a>';
