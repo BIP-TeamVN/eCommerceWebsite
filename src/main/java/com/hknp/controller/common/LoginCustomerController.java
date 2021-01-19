@@ -24,8 +24,7 @@ public class LoginCustomerController extends HttpServlet {
 
    @Override
    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-      HttpSession session = req.getSession(true);
-      Long id = (Long) session.getAttribute("id");
+      Long id;
       String result = "";
       try {
          String userName = req.getParameter("username");
@@ -38,7 +37,7 @@ public class LoginCustomerController extends HttpServlet {
          String userType = UserDAO.getInstance().getUserType(id);
 
          if (userType.equals(Cons.User.USER_TYPE_CUSTOMER)) {
-            result += "true\n"+user.getFullName()+ "\n" + user.getImageSrc();
+            result += "true\n"+ user.getFullName()+ "\n" + user.getImageSrc();
             ServletUtils.printWrite(resp, result);
          } else {
             result += "false\n";
