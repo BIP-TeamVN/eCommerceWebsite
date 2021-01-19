@@ -72,7 +72,7 @@
                <li class="nav-item">
                   <a class="nav-link <%=isActive[7] ? "active" : ""%>" href="<%=isActive[7] ? "javascript:void(0)" : "/admin/brand"%>">
                      <i class="fa fa-copyright text-success"></i>
-                     <span class="nav-link-text">Nhãn hiệu</span>
+                     <span class="nav-link-text">Thương hiệu</span>
                   </a>
                </li>
                <li class="nav-item">
