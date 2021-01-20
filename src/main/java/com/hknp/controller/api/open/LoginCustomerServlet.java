@@ -18,7 +18,18 @@ import java.io.IOException;
 public class LoginCustomerServlet extends HttpServlet {
    @Override
    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-      doPost(req, resp);
+      String result = "";
+      HttpSession session = req.getSession(false);
+      Long id = (Long) session.getAttribute("id");
+
+      if (id != null) {
+         UserEntity user = UserDAO.getInstance().getById(id);
+         if (user != null
+                 && user.getUserType().equals(Cons.User.USER_TYPE_CUSTOMER)) {
+            result = user.toJson();
+         }
+      }
+      ServletUtils.printWrite(resp, result);
    }
 
    @Override
@@ -36,7 +47,8 @@ public class LoginCustomerServlet extends HttpServlet {
          String userType = UserDAO.getInstance().getUserType(id);
 
          if (userType.equals(Cons.User.USER_TYPE_CUSTOMER)) {
-            result += "true\n"+ user.getFullName()+ "\n" + user.getImageSrc();
+            result += "true\n" + user.getFullName() + "\n" + user.getImageSrc();
+
             HttpSession session = req.getSession();
             session.setAttribute("id", id);
          } else {

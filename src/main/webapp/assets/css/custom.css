@@ -139,7 +139,7 @@ img {
 
 .product-item {
   display: inline-block;
-  padding: 0.5rem;
+  padding: 0.8rem;
   width: 100%;
   cursor: pointer;
   text-align: left;
@@ -272,7 +272,7 @@ img {
 }
 
 .product-detail__price {
-  padding-left: 1.5rem !important;
+  padding-left: 0 !important;
   margin-left: 0 !important;
 }
 

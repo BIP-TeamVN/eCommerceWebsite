@@ -21,18 +21,18 @@ public class LogoutController extends HttpServlet {
 
    @Override
    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-      String urlLogout ="";
-      try {
-         HttpSession session = req.getSession();
-         Long id = (Long) session.getAttribute("id");
-         String userType = UserDAO.getInstance().getUserType(id);
-         if (userType.equals(Cons.User.USER_TYPE_CUSTOMER) || userType.equals("")) {
-            urlLogout = "/home";
-         } else {
-            urlLogout = "/login";
-         }
-         session.invalidate();
-      } catch (Exception e) {}
-      ServletUtils.forward(req, resp, urlLogout);
+      String urlLogout = "/home";
+      HttpSession session = req.getSession();
+      Long id = (Long) session.getAttribute("id");
+
+      String userType = UserDAO.getInstance().getUserType(id);
+
+      if (!userType.equals(Cons.User.USER_TYPE_CUSTOMER)
+              && !userType.equals("")) {
+         urlLogout = "/login";
+      }
+
+      session.invalidate();
+      ServletUtils.forward(req, resp, "/home");
    }
 }
