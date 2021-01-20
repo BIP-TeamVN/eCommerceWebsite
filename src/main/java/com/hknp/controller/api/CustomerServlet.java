@@ -70,6 +70,10 @@ public class CustomerServlet extends HttpServlet {
          newUser.setImage(Cons.User.DEFAULT_USER_IMAGE_MALE_SRC);
          newUser.setStatus(true);
 
+         newUser.setGender("Khác");
+         newUser.setDateOfBirth(DateTimeUtils.currentDate());
+         newUser.setSsn("000000000");
+         newUser.setPhoneNumber("0000000000");
 
          CustomerEntity newCustomer = new CustomerEntity();
          newCustomer.setUserEntity(newUser);

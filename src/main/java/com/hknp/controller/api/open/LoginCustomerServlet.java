@@ -38,7 +38,7 @@ public class LoginCustomerServlet extends HttpServlet {
          if (userType.equals(Cons.User.USER_TYPE_CUSTOMER)) {
             result += "true\n"+ user.getFullName()+ "\n" + user.getImageSrc();
             HttpSession session = req.getSession();
-
+            session.setAttribute("id", id);
          } else {
             result += "false\n";
          }

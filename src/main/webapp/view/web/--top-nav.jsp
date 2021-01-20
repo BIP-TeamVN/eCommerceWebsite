@@ -142,9 +142,9 @@
                      <i class="ni ni-single-02"></i>
                      <span>Thông tin tài khoản</span>
                   </a>
-                  <a href="#!" class="dropdown-item">
+                  <a href="/info/address" class="dropdown-item">
                      <i class="ni ni-settings-gear-65"></i>
-                     <span>Sổ địa chỉ</span>
+                     <span>Địa chỉ</span>
                   </a>
                   <a href="#!" class="dropdown-item">
                      <i class="fa fa-shopping-cart"></i>

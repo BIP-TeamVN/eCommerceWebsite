@@ -31,7 +31,7 @@
                   <nav aria-label="breadcrumb" class="d-md-block">
                      <ol class="breadcrumb breadcrumb-links breadcrumb-dark">
                         <li class="breadcrumb-item"><a href="/home"><em class="fa fa-home mr-2"></em>Trang chủ</a></li>
-                        <li class="breadcrumb-item"><a href="/brand?id=${product.brandEntity.brandId}">${product.brandEntity.brandName}</a></li>
+                        <li class="breadcrumb-item"><a href="/product-search?brands=${product.brandEntity.brandId}">${product.brandEntity.brandName}</a></li>
                         <li class="breadcrumb-item active" aria-current="page">${product.productName}</li>
                      </ol>
                   </nav>
