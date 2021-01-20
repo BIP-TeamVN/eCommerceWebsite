@@ -345,13 +345,13 @@
     });
   }
 
-  function addToCart(productTypeId) {
+  function addToCart(productId) {
     $.ajax({
       url: '/api/carts',
       method: 'POST',
       async: false,
       data: {
-        'product-type-id': productTypeId
+        'product-id': productId
       },
       success: function (data, textStatus, jqXHR) {
         let result = data.toString().split('\n');
