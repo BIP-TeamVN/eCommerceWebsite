@@ -33,37 +33,31 @@
             <!-- Nav items -->
             <ul class="navbar-nav">
                <li class="nav-item">
-                  <a class="nav-link <%=isActive[0] ? "active" : ""%>" href="<%=isActive[0] ? "javascript:void(0)" : "/admin"%>">
-                     <i class="ni ni-tv-2 text-primary"></i>
-                     <span class="nav-link-text">Dashboard</span>
-                  </a>
-               </li>
-               <li class="nav-item">
-                  <a class="nav-link <%=isActive[1] ? "active" : ""%>" href="<%=isActive[1] ? "javascript:void(0)" : "/delivery/info"%>">
+                  <a class="nav-link <%=isActive[0] ? "active" : ""%>" href="<%=isActive[0] ? "javascript:void(0)" : "/delivery/info"%>">
                      <i class="fa fa-user-ninja text-yellow"></i>
                      <span class="nav-link-text">Thông tin cá nhân</span>
                   </a>
                </li>
                <li class="nav-item">
-                  <a class="nav-link <%=isActive[2] ? "active" : ""%>" href="<%=isActive[2] ? "javascript:void(0)" : "/delivery"%>?type=2">
+                  <a class="nav-link <%=isActive[1] ? "active" : ""%>" href="<%=isActive[1] ? "javascript:void(0)" : "/delivery"%>?type=2">
                      <i class="fa fa-list-alt text-danger"></i>
                      <span class="nav-link-text">Danh Sách đơn hàng</span>
                   </a>
                </li>
                <li class="nav-item">
-                  <a class="nav-link <%=isActive[3] ? "active" : ""%>" href="<%=isActive[3] ? "javascript:void(0)" : "/delivery"%>?type=4">
+                  <a class="nav-link <%=isActive[2] ? "active" : ""%>" href="<%=isActive[2] ? "javascript:void(0)" : "/delivery"%>?type=4">
                      <i class="fa fa-people-carry text-default"></i>
                      <span class="nav-link-text">Đơn chưa nhận hàng</span>
                   </a>
                </li>
                <li class="nav-item">
-                  <a class="nav-link <%=isActive[4] ? "active" : ""%>" href="<%=isActive[4] ? "javascript:void(0)" : "/delivery"%>?type=5">
+                  <a class="nav-link <%=isActive[3] ? "active" : ""%>" href="<%=isActive[3] ? "javascript:void(0)" : "/delivery"%>?type=5">
                      <i class="fa fa-motorcycle text-green"></i>
                      <span class="nav-link-text">Đơn đang giao</span>
                   </a>
                </li>
                <li class="nav-item">
-                  <a class="nav-link <%=isActive[5] ? "active" : ""%>" href="<%=isActive[5] ? "javascript:void(0)" : "/delivery"%>?type=6">
+                  <a class="nav-link <%=isActive[4] ? "active" : ""%>" href="<%=isActive[4] ? "javascript:void(0)" : "/delivery"%>?type=6">
                      <i class="fa fa-clipboard-check text-orange"></i>
                      <span class="nav-link-text">Đơn đã giao</span>
                   </a>

@@ -22,6 +22,9 @@ public class HomeController extends HttpServlet {
       Integer tempt = Type;
       if(tempt > 3)
       {
+         tempt -=2;
+      }
+      else if (tempt == 2){
          tempt -=1;
       }
       String status = tempt.toString();
