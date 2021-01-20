@@ -434,4 +434,70 @@ public class ProductDAO implements IRetrieveEntity<ProductEntity, Long>, IModify
       }
       return result;
    }
+
+   public ArrayList<ProductEntity> gets(Integer firstResult, Integer maxResults, String keyword, String columnName, String typeSort, List<Long> categories, List<Long> brands) {
+      EntityManager entityMgr = EntityUtils.getEntityManager();
+
+      String queryStr;
+      Query query;
+      if (brands.size() == 0 && categories.size() == 0) {
+         queryStr = "SELECT distinct u FROM ProductEntity u join u.productCategoryEntities r " +
+                 "where u.status = 1 " +
+                 "and (u.productName like :keywordPara " +
+                 "or u.sellerEntity.storeName like :keywordPara " +
+                 "or u.productOrigin like :keywordPara " +
+                 "or u.brandEntity.brandName like :keywordPara)" + sortColumn(columnName, typeSort);
+         query = entityMgr.createQuery(queryStr, ProductEntity.class);
+      } else if (brands.size() == 0) {
+         queryStr = "SELECT distinct u FROM ProductEntity u join u.productCategoryEntities r " +
+                 "where u.status = 1 " +
+                 "and r.productCategoryId in :categoriesPara " +
+                 "and (u.productName like :keywordPara " +
+                 "or u.sellerEntity.storeName like :keywordPara " +
+                 "or u.productOrigin like :keywordPara " +
+                 "or u.brandEntity.brandName like :keywordPara)" + sortColumn(columnName, typeSort);
+         query = entityMgr.createQuery(queryStr, ProductEntity.class);
+         query.setParameter("categoriesPara", categories);
+      } else if (categories.size() == 0) {
+         queryStr = "SELECT distinct u FROM ProductEntity u join u.productCategoryEntities r " +
+                 "where u.status = 1 " +
+                 "and u.brandEntity.brandId in :brandsPara " +
+                 "and (u.productName like :keywordPara " +
+                 "or u.sellerEntity.storeName like :keywordPara " +
+                 "or u.productOrigin like :keywordPara " +
+                 "or u.brandEntity.brandName like :keywordPara)" + sortColumn(columnName, typeSort);
+         query = entityMgr.createQuery(queryStr, ProductEntity.class);
+         query.setParameter("brandsPara", brands);
+      } else {
+         queryStr = "SELECT distinct u FROM ProductEntity u join u.productCategoryEntities r " +
+                 "where u.status = 1 " +
+                 "and (r.productCategoryId in :categoriesPara or u.brandEntity.brandId in :brandsPara) " +
+                 "and (u.productName like :keywordPara " +
+                 "or u.sellerEntity.storeName like :keywordPara " +
+                 "or u.productOrigin like :keywordPara " +
+                 "or u.brandEntity.brandName like :keywordPara)" + sortColumn(columnName, typeSort);
+         query = entityMgr.createQuery(queryStr, ProductEntity.class);
+         query.setParameter("categoriesPara", categories);
+         query.setParameter("brandsPara", brands);
+      }
+
+      query.setParameter("keywordPara", "%" + keyword + "%");
+
+      if (firstResult != null) {
+         query.setFirstResult(firstResult);
+      }
+      if (maxResults != null) {
+         query.setMaxResults(maxResults);
+      }
+
+      ArrayList<ProductEntity> result = null;
+      try {
+         result = new ArrayList<>(query.getResultList());
+      } catch (Exception exception) {
+         exception.printStackTrace();
+      } finally {
+         entityMgr.close();
+      }
+      return result;
+   }
 }

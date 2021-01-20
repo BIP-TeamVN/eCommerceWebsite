@@ -27,7 +27,7 @@
 
             <div class="row m-0">
                <div class="col pl-0">
-                  <form class="m-auto w-100 navbar-search navbar-search-light form-inline" id="tb-search">
+                  <form class="m-auto w-100 navbar-search navbar-search-light form-inline" id="form-keyword-search">
                      <div class="form-group w-100 mb-0">
                         <div style="border: 1px solid #EFF1F3;"
                              class="w-100 input-group input-group-alternative input-group-merge">
@@ -37,10 +37,6 @@
                            <input class="form-control" id="tb-input-search" placeholder="Tìm kiếm" type="text">
                         </div>
                      </div>
-                     <button class="close" data-action="search-close" data-target="#tb-search"
-                             aria-label="Close" onclick="search()">
-                        <span aria-hidden="true">×</span>
-                     </button>
                   </form>
                </div>
 
@@ -80,14 +76,14 @@
                <div class="col form-group">
                   <label for="categories" class="form-control-label">Ngành hàng</label>
                   <div>
-                     <select class="form-control" name="categories" id="categories" multiple rows="5"></select>
+                     <select class="form-control" name="categories" id="categories" multiple rows="5" onchange="search()"></select>
                   </div>
                </div>
 
                <div class="col form-group">
                   <label for="brands" class="form-control-label">Nhãn hiệu</label>
                   <div>
-                     <select class="form-control" name="brands" id="brands" multiple rows="5"></select>
+                     <select class="form-control" name="brands" id="brands" multiple rows="5" onchange="search()"></select>
                   </div>
                </div>
             </div>
@@ -143,13 +139,15 @@
   let page = 1;
   function loadProduct() {
     $.ajax({
-      url: '/api/product-customer',
+      url: '/api/product-search-customer',
       method: 'GET',
       data: {
         'page': page,
         'keyword': $('#tb-input-search').val(),
         'columnName': $('#sort-by-column').val(),
-        'typeSort': $('#sort-type').val()
+        'typeSort': $('#sort-type').val(),
+        'categories': $('#categories').val().join('@nq'),
+        'brands': $('#brands').val().join('@nq')
       },
       cache: false,
       success: function (data, textStatus, jqXHR) {
@@ -157,7 +155,6 @@
         if (data != "[]") {
           page += 1;
         }
-        $('#tb-list').find('tr').remove();
         $.each(list, function (index, item) {
           let priceOrder = parseFloat(item.priceOrder);
           let priceOrigin = parseFloat(item.priceOrigin);
@@ -226,42 +223,31 @@
         e.preventDefault();
       }
     });
-
-
   }
 
   loadProduct();
 </script>
 <script>
   function search(){
-    $.ajax({
-      url: '/api/count-product-count',
-      method: 'GET',
-      data: {
-        'page': currentPage,
-        'status': $('#filter-status').val(),
-        'keyword': $('#tb-input-search').val()
-      },
-      cache: false,
-      async: false,
-      success: function (data) {
-        let result = data.toString().split(",");
-        totalPage = parseInt(result[0]);
-        currentPage = parseInt(result[1]);
-        reloadPage();
-      }
-    });
+    $('#product-list').find('div').remove();
+    page = 1;
+    loadProduct();
   }
 </script>
 <link rel="stylesheet" href="/assets/vendor/slim-select/dist/slimselect.min.css" type="text/css">
 <script src="/assets/vendor/slim-select/dist/slimselect.js"></script>
 <script>
   new SlimSelect({
-    select: '#categories'
-  });
-  new SlimSelect({
     select: '#brands'
   });
+  new SlimSelect({
+    select: '#categories'
+  });
+
+  $('#form-keyword-search').submit(function (e) {
+    e.preventDefault();
+    search();
+  })
 </script>
 </body>
 </html>

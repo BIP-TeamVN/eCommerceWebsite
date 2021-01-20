@@ -2,11 +2,13 @@ package com.hknp.controller.web;
 
 import com.hknp.model.dao.BrandDAO;
 import com.hknp.model.dao.ProductCategoryDAO;
+import com.hknp.model.dao.ProductDAO;
 import com.hknp.model.dao.SellerDAO;
 import com.hknp.model.entity.BrandEntity;
 import com.hknp.model.entity.ProductCategoryEntity;
 import com.hknp.utils.ServletUtils;
 import com.hknp.utils.StringUtils;
+import com.sun.deploy.util.ArrayUtil;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -23,13 +25,32 @@ public class ProductSearchController extends HttpServlet {
    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
       try {
          //Load category
-         String[] categories;
+         String[] categories1;
+         String[] categories2;
+
          try {
             String categoriesPara = req.getParameter("categories");
-            categories = categoriesPara.split("@,a");
+            categories1 = categoriesPara.split("@,a");
          } catch (Exception e) {
-            categories = null;
+            categories1 = new String[0];
          }
+         try {
+            String productIdPara = req.getParameter("product");
+            List<ProductCategoryEntity> categoryEntities = new ArrayList<>(ProductDAO.getInstance().getById(StringUtils.toLong(productIdPara)).getProductCategoryEntities());
+            categories2 = new String[categoryEntities.size()];
+            for (int i = 0; i < categoryEntities.size(); i++) {
+               categories2[i] = categoryEntities.get(i).getProductCategoryId().toString();
+            }
+         } catch (Exception e) {
+            categories2 = new String[0];
+         }
+
+         int len1 = categories1.length;
+         int len2 = categories2.length;
+         String[] categories = new String[len1 + len2];
+
+         System.arraycopy(categories1, 0, categories, 0, len1);
+         System.arraycopy(categories2, 0, categories, len1, len2);
 
          String resultCategories = "";
          ArrayList<ProductCategoryEntity> productCategoryEntities = ProductCategoryDAO.getInstance().gets();
