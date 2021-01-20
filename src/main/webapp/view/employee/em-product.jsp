@@ -364,8 +364,8 @@
         $('#brand').html('<b>Nhãn hiệu:</b> ' + list.brand);
         $('#product-origin').html('<b>Nơi sản xuất:</b> ' + list.productOrigin);
         $('#product-desc').html('<b>Mô tả:</b> <br>' + list.productDesc);
-        $('#price-order').html('<b>Nơi sản xuất:</b> ' + list.priceOrder);
-        $('#price-origin').html('<b>Nơi sản xuất:</b> ' + list.priceOrigin);
+        $('#price-order').html('<b>Giá bán:</b> ' + list.priceOrder);
+        $('#price-origin').html('<b>Giá thị trường:</b> ' + list.priceOrigin);
         setImage("img-upload-0", list.image0);
         setImage("img-upload-1", list.image1);
         setImage("img-upload-2", list.image2);

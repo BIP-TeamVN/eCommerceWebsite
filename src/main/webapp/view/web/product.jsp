@@ -129,7 +129,7 @@
                                         max="20" value="1" maxlength="2"/>
                               </div>
                               <div class="col-8">
-                                 <button onclick="addToCarts()" type="submit" class="btn btn-primary btn-block text-uppercase">Thêm vào giỏ hàng <em
+                                 <button onclick="addToCarts()" class="btn btn-primary btn-block text-uppercase">Thêm vào giỏ hàng <em
                                          class="ml-2 fa fa-cart-plus"></em></button>
                               </div>
                            </div>
@@ -238,7 +238,7 @@
                         <h3 class="mb-0 text-uppercase"><em class="fa fa-equals text-pink mr-2"></em> Sản phẩm tương tự</h3>
                      </div>
                      <div class="col text-right">
-                        <a href="javascript:void(0)" class="btn btn-sm btn-primary">
+                        <a id="btn-show-all-category" class="btn btn-sm btn-primary">
                            Xem tất cả
                            <em class="fa fa-angle-double-right ml-2"></em>
                         </a>
@@ -268,6 +268,7 @@
    const PRODUCT_ID = parseFloat('<%= p.getProductId()%>');
    const SELLER_ID = parseFloat('<%= p.getSellerEntity().getUserId()%>');
    $('#btn-show-all-shop').attr('href', '/product-search?shop=' + SELLER_ID);
+   $('#btn-show-all-category').attr('href', '/product-search?product=' + PRODUCT_ID);
 
    let html1 =
     '<div class="carousel-item active">' +
@@ -343,13 +344,21 @@
    <%
       String imageTypes = "";
       String nameTypes = "";
-      for (ProductTypeEntity t: types) {
-         imageTypes += "<div class=\"carousel-item\">" +
+      imageTypes += "<div class=\"carousel-item\">" +
           "<img class=\"rounded product-detail__img\"" +
-          "src=\"" + t.getImage() + "\" alt=\"First slide\">" +
+          "src=\"" + types.get(0).getImage() + "\" alt=\"First slide\">" +
           "</div> ";
          nameTypes += "<label class=\"btn btn-secondary d-block\">" +
-          "<input type=\"radio\" name=\"product-types\" id=\"product-type-" + t.getProductTypeId() + "\" value=\"" + t.getProductTypeId() + "\">" + t.getProductTypeName() +
+          "<input type=\"radio\" name=\"product-types\" id=\"" + types.get(0).getProductTypeId() + "\"checked value=\"" + types.get(0).getProductTypeId() + "\">" + types.get(0).getProductTypeName() +
+          "</label>";
+
+      for (int i = 1; i < types.size(); i++) {
+         imageTypes += "<div class=\"carousel-item\">" +
+          "<img class=\"rounded product-detail__img\"" +
+          "src=\"" + types.get(i).getImage() + "\" alt=\"First slide\">" +
+          "</div> ";
+         nameTypes += "<label class=\"btn btn-secondary d-block\">" +
+          "<input type=\"radio\" name=\"product-types\" id=\"" + types.get(i).getProductTypeId() + "\" value=\"" + types.get(i).getProductTypeId() + "\">" + types.get(i).getProductTypeName() +
           "</label>";
       }
    %>
@@ -440,8 +449,35 @@
   }
 
   const quantity = document.getElementById("quantity-number");
-  const productTypeId = document.getElementById();
-  function addToCarts(){
+  const  productTypeId = $('input[name="product-types"]:checked').val();
+
+  function addToCarts() {
+
+    let paras = JSON.stringify({
+      'product-type-id': productTypeId,
+      'quantity': quantity.value.trim()
+    });
+    $.ajax({
+      url: '/api/carts',
+      method: 'PUT',
+      async: false,
+      cache: false,
+      data: paras,
+      success: function (data, textStatus, jqXHR) {
+        let result = data.toString().split('\n');
+        if (result[0] === 'true') {
+          alert("THêm sản phẩm thành công!")
+        } else {
+          alert("Lỗi: " + result[1]);
+          e.preventDefault();
+        }
+      },
+      error: function (jqXHR, textStatus, errorThrown) {
+        alert("Lỗi: " + errorThrown);
+        e.preventDefault();
+      }
+    });
+
 
   }
   function productOfCategory () {
