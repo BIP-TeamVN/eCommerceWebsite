@@ -5,6 +5,7 @@ import com.hknp.utils.StringUtils;
 public class ProductInCartItemDomain {
 
    private String productId;
+   private String productTypeId;
    private String image;
    private String name;
    private String price;
@@ -12,6 +13,14 @@ public class ProductInCartItemDomain {
    private Integer quantity;
    private String shopName;
    private String sellerId;
+
+   public String getProductTypeId() {
+      return productTypeId;
+   }
+
+   public void setProductTypeId(String productTypeId) {
+      this.productTypeId = productTypeId;
+   }
 
    public String getShopName() {
       return shopName;
@@ -90,6 +99,7 @@ public class ProductInCartItemDomain {
    public String toJsonOne() {
       return "{" +
               "\"productId\":\"" + productId + "\"," +
+              "\"productTypeId\":\"" + productTypeId + "\"," +
               "\"name\":\"" + name + "\"," +
               "\"image\":\"" + image + "\"," +
               "\"price\":\"" + price + "\"," +
@@ -120,8 +130,7 @@ public class ProductInCartItemDomain {
       return "{" +
               "\"shopName\":\"" + shopName + "\"," +
               "\"sellerId\":\"" + sellerId + "\"," +
-              "\"carts\":" + str + "," +
-              "}";
+              "\"carts\":" + str + "}";
    }
 
 

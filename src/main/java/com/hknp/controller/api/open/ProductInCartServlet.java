@@ -49,6 +49,7 @@ public class ProductInCartServlet extends HttpServlet {
             ProductTypeEntity productTypeEntity = ProductTypeDAO.getInstance().getById(StringUtils.toLong(product.getProductTypeId()));
 
             productInCartItemDomain.setProductId(productTypeEntity.getProductEntity().getProductId().toString());
+            productInCartItemDomain.setProductTypeId(product.getProductTypeId());
             productInCartItemDomain.setImage(productTypeEntity.getImage());
             productInCartItemDomain.setName(productTypeEntity.getProductEntity().getProductName());
             productInCartItemDomain.setPrice(productTypeEntity.getProductEntity().getPriceOrder().toString());

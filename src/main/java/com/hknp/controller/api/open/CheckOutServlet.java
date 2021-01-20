@@ -28,6 +28,7 @@ import java.util.stream.Collectors;
 public class CheckOutServlet extends HttpServlet {
 
    private static final String COOKIE_NAME = "carts";
+
    @Override
    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
@@ -54,6 +55,7 @@ public class CheckOutServlet extends HttpServlet {
             ProductTypeEntity productTypeEntity = ProductTypeDAO.getInstance().getById(StringUtils.toLong(product.getProductTypeId()));
 
             productInCartItemDomain.setProductId(productTypeEntity.getProductEntity().getProductId().toString());
+            productInCartItemDomain.setProductTypeId(product.getProductTypeId());
             productInCartItemDomain.setImage(productTypeEntity.getImage());
             productInCartItemDomain.setName(productTypeEntity.getProductEntity().getProductName());
             productInCartItemDomain.setPrice(productTypeEntity.getProductEntity().getPriceOrder().toString());
@@ -68,8 +70,9 @@ public class CheckOutServlet extends HttpServlet {
 
             productInCartItemDomainArrayList.add(productInCartItemDomain);
          }
-         Map<String, List<ProductInCartItemDomain>> result = productInCartItemDomainArrayList.stream().collect(Collectors.groupingBy(ProductInCartItemDomain::getSellerId));
 
+         Map<String, List<ProductInCartItemDomain>> result = productInCartItemDomainArrayList.stream().
+                 collect(Collectors.groupingBy(ProductInCartItemDomain::getSellerId));
          List<List<ProductInCartItemDomain>> productList = new ArrayList<>();
 
          result.forEach((k,v) -> {
@@ -90,6 +93,7 @@ public class CheckOutServlet extends HttpServlet {
             for (int j = 0; j < productDetail.size(); j++) {
                listJsonStr.add(productDetail.get(j).toJsonOne());
             }
+
             String temp = "[" + String.join(", ", listJsonStr) + "]";
             listJsonStrFull.add(productList.get(i).get(0).toJson(temp));
          }
