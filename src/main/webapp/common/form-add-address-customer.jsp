@@ -15,7 +15,7 @@
    <div class="modal-dialog modal-lg modal-dialog-scrollable modal-dialog-centered" role="document">
       <div class="modal-content">
          <div class="modal-header p-3">
-            <h2 class="mx-3 my-2 text-center text-uppercase display-4">Thêm cửa hàng mới</h2>
+            <h2 class="mx-3 my-2 text-center text-uppercase display-4">Thêm địa chỉ mới</h2>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                <span aria-hidden="true">&times;</span>
             </button>
@@ -54,23 +54,7 @@
                         </div>
                      </div>
 
-                     <!--Giới tính và ngày sinh-->
-                     <div class="row">
-                        <div class="col-md-6 form-group">
-                           <label for="gender" class="form-control-label">Giới tính</label>
-                           <select class="form-control" id="gender" name="gender" required>
-                              <option value="Nam">Nam</option>
-                              <option value="Nữ">Nữ</option>
-                              <option value="Khác" selected>Khác</option>
-                           </select>
-                        </div>
-                        <div class="col-md-6 form-group">
-                           <label for="dob" class="form-control-label">Ngày sinh (không bắt buộc)</label>
-                           <input class="form-control" type="date" min="<%=minDob%>" value="<%=defaultDob%>" id="dob" name="dob">
-                        </div>
-                     </div>
-
-                     <!--SDT và CMND-->
+                     <!--SDT và loại địa chỉ-->
                      <div class="row">
                         <div class="col-md-6">
                            <!--SDT-->
@@ -87,31 +71,20 @@
                            </div>
                         </div>
                         <div class="col-md-6">
-                           <!--CMND-->
+                           <!--Loại địa chỉ-->
                            <div class="form-group">
-                              <label for="ssn" class="form-control-label">Căn cước công dân</label>
+                              <label for="type-address" class="form-control-label">Loại địa chỉ</label>
                               <a tabindex="-1" href="javascript:void(0)" class="badge badge-secondary"
                                  data-toggle="popover" data-placement="right"
-                                 data-content="9 hoặc 12 số">?</a>
+                                 data-content="Phải là chuỗi hợp lệ">?</a>
                               <div>
-                                 <input class="form-control" type="text" id="ssn" maxlength="12"
-                                        placeholder="VD: 123456789 hoặc 123456789012">
+                                 <input class="form-control" type="text" id="type-address"
+                                        placeholder="VD:Nhà hoặc công ty">
                               </div>
-                              <small class="error-input text-danger">Vui lòng nhập chứng mình nhân dân</small>
+                              <small class="error-input text-danger">Vui lòng nhập loại địa chỉ</small>
                            </div>
                         </div>
                      </div>
-
-                     <!--Mail-->
-                     <div class="form-group">
-                        <label for="email" class="form-control-label">Email</label>
-                        <div>
-                           <input class="form-control" type="email" id="email" name="email" maxlength="40"
-                                  placeholder="VD: user@gmail.com">
-                        </div>
-                        <small class="error-input text-danger">Email sai định dạng</small>
-                     </div>
-
 
                      <!--Tỉnh - huyện - xã-->
                      <div class="row">
@@ -158,57 +131,6 @@
                         </div>
                         <small class="error-input text-danger">Vui lòng nhập địa chỉ</small>
                      </div>
-
-                     <!--Ảnh-->
-                     <div class="form-group">
-                        <label for="up-image" class="form-control-label d-inline-block w-100">Ảnh</label>
-                        <img id="img-upload" class="d-none"/>
-                        <div class="custom-file">
-                           <label class="custom-file-label custom-file-img-label" for="up-image">Select file</label>
-                           <input type="file" class="custom-file-input" id="up-image" name="up-image" accept="image/*"
-                                  onchange="encodeImgToBase64(this)">
-                        </div>
-                     </div>
-
-                     <!--Tên cửa hàng, Link cửa hàng -->
-                     <div class="row">
-                        <div class="col-md-6 form-group">
-                           <label for="email" class="form-control-label">Tên cửa hàng</label>
-                           <div>
-                              <input class="form-control" type="text" id="store-name" name="store-name" maxlength="20">
-                           </div>
-                           <small class="error-input text-danger">...</small>
-                        </div>
-                        <div class="col-md-6 form-group">
-                           <label for="email" class="form-control-label">Link cửa hàng</label>
-                           <div>
-                              <input class="form-control" type="text" id="store-link" name="store-link" maxlength="20">
-                           </div>
-                           <small class="error-input text-danger">...</small>
-                        </div>
-                     </div>
-
-                     <div class="row">
-                        <!--giấy phép kinh doanh-->
-                        <div class="col-md-6 form-group">
-                           <label for="email" class="form-control-label">Giấy phép kinh doanh</label>
-                           <div>
-                              <input class="form-control" type="text" id="business-license-id"
-                                     name="business-license-id" maxlength="20">
-                           </div>
-                           <small class="error-input text-danger">...</small>
-                        </div>
-
-                        <!--số tài khoản-->
-                        <div class="col-md-6 form-group">
-                           <label for="email" class="form-control-label">Số tài khoản</label>
-                           <div>
-                              <input class="form-control" type="text" id="bank-account-id" name="bank-account-id"
-                                     maxlength="20">
-                           </div>
-                           <small class="error-input text-danger">...</small>
-                        </div>
-                     </div>
                   </form>
                </div>
             </div>
@@ -231,7 +153,7 @@
             </button>
          </div>
          <div class="modal-body">
-            Thêm cửa hàng thành công !
+            Thêm địa chỉ thành công !
          </div>
          <div class="modal-footer">
             <button class="btn btn-primary px-4" type="button" data-dismiss="modal">OK</button>
