@@ -28,6 +28,7 @@ public class AdDashboardController extends HttpServlet {
          UserEntity user = UserDAO.getInstance().getById(id);
          req.setAttribute("id", id);
       }
+      
       Long totalCustomer = (Long) CustomerDAO.getInstance().count();
       req.setAttribute("totalCustomer", totalCustomer);
 
@@ -38,12 +39,13 @@ public class AdDashboardController extends HttpServlet {
       req.setAttribute("totalSeller", totalSeller);
 
       BigDecimal totalSale = new BigDecimal(0);
-
-      List<BillEntity> listBill =  new ArrayList<>();
-      listBill = BillDAO.getInstance().gets();
-      for (BillEntity bill : listBill){
-         totalSale = totalSale.add(bill.getTotal());
+      List<BillEntity> listBill = BillDAO.getInstance().gets();
+      if (listBill != null) {
+         for (BillEntity bill : listBill) {
+            totalSale = totalSale.add(bill.getTotal());
+         }
       }
+
       req.setAttribute("totalSale", totalSale);
 
       ServletUtils.forward(req, resp, "/view/admin/ad-dashboard.jsp");
