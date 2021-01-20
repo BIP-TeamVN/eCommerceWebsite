@@ -1,4 +1,14 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8" %>
+<%@ page import="com.hknp.model.entity.UserEntity" %>
+<%@ page import="com.hknp.model.dao.UserDAO" %>
+
+<%
+   HttpSession sessionHttp = request.getSession(true);
+   Long id = (Long) sessionHttp.getAttribute("id");
+   UserEntity user = UserDAO.getInstance().getById(id);
+   String image = user.getImageSrc();
+   String fullName = user.getFullName();
+%>
 <!-- Topnav -->
 <nav class="navbar navbar-top navbar-expand navbar-dark bg-primary border-bottom">
    <div class="container-fluid">
@@ -207,10 +217,10 @@
                   aria-expanded="false">
                   <div class="media align-items-center">
                   <span class="avatar avatar-sm rounded-circle">
-                    <img alt="Image placeholder" src="../../assets/img/theme/team-4.jpg">
+                    <img alt="Image placeholder" src="<%=image%>">
                   </span>
                      <div class="media-body  ml-2  d-none d-lg-block">
-                        <span class="mb-0 text-sm  font-weight-bold">John Snow</span>
+                        <span class="mb-0 text-sm  font-weight-bold"><%=fullName%></span>
                      </div>
                   </div>
                </a>

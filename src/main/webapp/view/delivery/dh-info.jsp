@@ -18,7 +18,7 @@
 <body>
 <!--Left side nav-->
 <jsp:include page="dh--side-nav.jsp">
-    <jsp:param name="selectedIndex" value="1"/>
+    <jsp:param name="selectedIndex" value="0"/>
 </jsp:include>
 
 <!-- Main content -->

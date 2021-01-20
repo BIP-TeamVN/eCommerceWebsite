@@ -1,7 +1,7 @@
-package com.hknp.controller.admin;
+package com.hknp.controller.employee;
 
-import com.hknp.model.dao.BrandDAO;
-import com.hknp.model.dao.EmployeeDAO;
+import com.hknp.model.dao.ProductCategoryDAO;
+import com.hknp.model.dao.ProductDAO;
 import com.hknp.utils.ServletUtils;
 import com.hknp.utils.StringUtils;
 
@@ -12,12 +12,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet(urlPatterns = {"/admin/brand"})
-public class AdBrandController extends HttpServlet {
+@WebServlet(urlPatterns = {"/employee/category"})
+public class EmCategoryController extends HttpServlet {
    @Override
    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
-      Long totalRows = BrandDAO.getInstance().count();
+      Long totalRows = ProductCategoryDAO.getInstance().count();
       String page = req.getParameter("page");
 
       Long currentPage = StringUtils.toLong(page);
@@ -32,7 +31,7 @@ public class AdBrandController extends HttpServlet {
 
       req.setAttribute("totalPage", totalPage);
       req.setAttribute("currentPage", currentPage);
-      ServletUtils.forward(req, resp, "/view/admin/ad-brand.jsp");
+      ServletUtils.forward(req, resp, "/view/employee/em-category.jsp");
    }
 
    @Override

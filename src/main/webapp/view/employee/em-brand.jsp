@@ -1,4 +1,3 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8" %>
 <html>
 <head>
@@ -10,13 +9,13 @@
 <body>
 <!--Left side nav-->
 <jsp:include page="./em--side-nav.jsp">
-   <jsp:param name="selectedIndex" value="1"/>
+   <jsp:param name="selectedIndex" value="7"/>
 </jsp:include>
 
 <!-- Main content -->
 <div class="main-content" id="panel">
    <!--Top navigation-->
-   <%@include file="em--top-nav.jsp" %>
+   <%@include file="./em--top-nav.jsp" %>
 
    <!--Header and breadcrumb-->
    <div class="header bg-primary pb-6">
@@ -27,25 +26,31 @@
                   <nav aria-label="breadcrumb" class="d-none d-md-inline-block">
                      <ol class="breadcrumb breadcrumb-links breadcrumb-dark">
                         <li class="breadcrumb-item"><a href="/employee"><i class="fa fa-home mr-2"></i>Trang chủ</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Sản phẩm</li>
+                        <li class="breadcrumb-item active" aria-current="page">Thương hiệu</li>
                      </ol>
                   </nav>
+               </div>
+               <div class="col-lg-6 col-5 text-right">
+                  <button type="button" data-toggle="modal" data-target="#modal-add-brand"
+                          class="btn btn-secondary text-uppercase">Thêm thương hiệu
+                  </button>
                </div>
             </div>
          </div>
       </div>
    </div>
-
+   <!-- From add product-category -->
+   <%@ include file="../../common/form-add-brand-em.jsp" %>
    <!-- Page content -->
    <div class="container-fluid mt--6">
 
-      <!--List employee card-->
+      <!--List brand card-->
       <div class="row">
          <div class="col">
             <div class="card">
                <!-- Card header -->
                <div class="card-header border-0">
-                  <h2 class="mb-0 text-center text-uppercase display-4">Danh sách Sản phẩm</h2>
+                  <h2 class="mb-0 text-center text-uppercase display-4">Danh sách thương hiệu</h2>
                   <div class="position-absolute row" style="right: 2rem; top: 1.5rem;">
                      <div class="col-3 text-right">
                         <label class="custom-toggle">
@@ -93,14 +98,9 @@
                                  <div class="form-group m-1">
                                     <label for="sort-by-column" class="floating-label">Sắp xếp theo</label>
                                     <select class="form-control input-border" id="sort-by-column" onchange="search()">
-                                       <option value="productId" selected>Mã</option>
-                                       <option value="productName">Tên sản phẩm</option>
-                                       <option value="brandEntity.brandName">Nhãn hiệu</option>
-                                       <option value="sellerEntity.storeName">Cửa hàng</option>
-                                       <option value="productRate">Đánh giá</option>
-                                       <option value="productOrigin">Xuất xứ</option>
-                                       <option value="productCreateDate">Ngày tạo</option>
-                                       <option value="priceOrder">Giá bán</option>
+                                       <option value="brandId" selected>Mã</option>
+                                       <option value="brandName">Tên nhãn hiệu</option>
+                                       <option value="brandOrigin">Xuất xứ</option>
                                     </select>
                                  </div>
                               </div>
@@ -118,11 +118,8 @@
                               <div class="col p-0">
                                  <div class="form-group m-1">
                                     <label for="filter-status" class="floating-label">Trạng thái</label>
-                                    <select class="form-control input-border" id="filter-status" onchange="search()">
-                                       <option selected value="3">Tất cả trạng thái</option>
-                                       <option value="0">Chưa xác nhận</option>
-                                       <option value="1">Đã xác nhận</option>
-                                       <option value="2">Đã từ chối</option>
+                                    <select class="form-control input-border" id="filter-status">
+                                       <option value="2">Tất cả trạng thái</option>
                                     </select>
                                  </div>
                               </div>
@@ -153,16 +150,10 @@
                   <table class="table align-items-center table-flush">
                      <thead class="thead-light">
                      <tr>
-                        <th scope="col" class="text-center">Ảnh</th>
-                        <th scope="col" class="text-center">Mã</th>
-                        <th scope="col" class="text-center">Tên sản phẩm</th>
-                        <th scope="col" class="text-center">Nhãn hiệu</th>
-                        <th scope="col" class="text-center">Cửa hàng</th>
-                        <th scope="col" class="text-center">Đánh giá</th>
-                        <th scope="col" class="text-center">Nước sản xuất</th>
-                        <th scope="col" class="text-center">Ngày tạo</th>
-                        <th scope="col" class="text-center">Giá bán</th>
-                        <th scope="col" class="text-center">Đã bán/Trong kho</th>
+                        <th scope="col" class="text-center">Mã thương hiệu</th>
+                        <th scope="col" class="text-center">Tên thương hiệu</th>
+                        <th scope="col" class="text-center">Xuất xứ</th>
+                        <th scope="col" class="text-center">Ảnh minh hoại</th>
                         <th scope="col" class="text-center">Tùy chọn</th>
                      </tr>
                      </thead>
@@ -207,6 +198,7 @@
 
 <!--Javascript-->
 <%@ include file="../../common/import-js.jsp" %>
+
 <script>
   $('#chk-show-filter').change(function () {
     if ($(this).is(':checked')) {
@@ -283,60 +275,42 @@
   function reloadPage() {
     updatePagination();
 
+
     $.ajax({
-      url: '/api/product',
+      url: '/api/brands',
       method: 'GET',
+      data: {page: currentPage},
+      cache: false,
       data: {
         'page': currentPage,
-        'status': $('#filter-status').val(),
         'keyword': $('#tb-input-search').val(),
         'columnName': $('#sort-by-column').val(),
         'typeSort': $('#sort-type').val()
       },
-      cache: false,
       beforeSend: function(){
         $('#loading').removeClass('d-none');
         $('div.table-responsive').addClass('d-none');
       },
       success: function (data, textStatus, jqXHR) {
-        //console.log(data);
         let list = $.parseJSON(data);
-        //console.log(list);
+        console.log(list);
         $('#tb-list').find('tr').remove();
         $.each(list, function (index, item) {
-          //console.log(item.status);
           let html =
-            '<tr id="status--' + item.id + '">' +
-            '<td>' +
-            '<a href="#" class="media align-items-center">' +
-            '<img class="m-auto avatar rounded-circle" src="' + item.image0 + '" alt="product_image" >' +
-            '</a>' +
-            '</td>' +
-            '<td>' + item.id + '</td>' +
-            '<td>' + item.productName + '</td>' +
-            '<td>' + item.brand + '</td>' +
-            '<td>' + item.seller + '</td>' +
-            '<td>' + item.productRate + '</td>' +
-            '<td>' + item.productOrigin + '</td>' +
-            '<td>' + item.createDate + '</td>' +
-            '<td>' + item.priceOrder + '</td>' +
-            '<td>' + item.number + '</td>' +
-            '<td class="td-actions text-center">' +
-            '<button class="btn btn-primary px-2 py-1" onclick="showProductDetail('+ item.id +')">' +
-            '<i class="fa fa-edit"></i>' +
-            '</button>' +
-            (item.status === "0" ?
-              '<label class="btn btn-danger px-2 py-1 mt-2" title="Chưa xác nhận" id="status-' + item.id + '">' +
-              '<i class="fa fa-lock"></i>' +
-              '</label>' : (item.status === "1" ?
-                '<label class="btn btn-success px-2 py-1 mt-2" title="Đã xác nhận" id="status-' + item.id + '">' +
-                '<i class="fa fa-lock-open"></i>' +
-                '</label>' :
-                '<label class="btn btn-warning px-2 py-1 mt-2" title="Đã từ chối" id="status-' + item.id + '">' +
-                '<i class="fa fa-exclamation-triangle"></i>' +
-                '</label>')) +
-            '</td>' +
-            '</tr>';
+              '<tr>' +
+              '<td>' + item.id + '</td>' +
+              '<td>' + item.brandName + '</td>' +
+              '<td>' + item.brandOrigin + '</td>' +
+              '<td>' +
+              '<a href="#" class="media m-auto align-items-center">' +
+              '<img class="avatar m-auto rounded-circle" src="' + item.image + '" alt="brand_image" >' +
+              '</a>' +
+              '<td class="td-actions text-center">' +
+              '<a href="/employee/brand/edit?id=' + item.id +'" class="btn btn-primary px-2 py-1" data-toggle="tooltip" data-placement="top" title="Chỉnh sửa thông tin">' +
+              '<i class="fa fa-edit"></i>' +
+              '</a>' +
+              '</td>' +
+              '</tr>';
           $('#tb-list').append(html);
         });
 
@@ -347,54 +321,12 @@
   }
 </script>
 <script>
-  let id;
-  function showProductDetail(idPara) {
-    id = idPara;
-    //console.log(id);
-    $.ajax({
-      url: '/employee/product/detail',
-      method: 'GET',
-      data: {'id': id},
-      cache: false,
-      success: function (data) {
-        let list = JSON.parse(data)[0];
-        $('#modal-product-detail').modal('show');
-        $('#id').html('<b>Mã:</b> ' + list.id);
-        $('#product-name').html('<b>Tên sản phẩm:</b> ' + list.productName);
-        $('#brand').html('<b>Nhãn hiệu:</b> ' + list.brand);
-        $('#product-origin').html('<b>Nơi sản xuất:</b> ' + list.productOrigin);
-        $('#product-desc').html('<b>Mô tả:</b> <br>' + list.productDesc);
-        $('#price-order').html('<b>Giá bán:</b> ' + list.priceOrder);
-        $('#price-origin').html('<b>Giá thị trường:</b> ' + list.priceOrigin);
-        setImage("img-upload-0", list.image0);
-        setImage("img-upload-1", list.image1);
-        setImage("img-upload-2", list.image2);
-        setImage("img-upload-3", list.image3);
-        setImage("img-upload-4", list.image4);
-        countPara = list.countType;
-        typesPara = list.types.split('@$3,');
-        quantitiesPara = list.quantities.split('@$3,');
-        imagesPara = list.images.split('@$3,');
-        $('#categories').html('<b>Ngành hàng: </b>' + list.categories);
-        addType();
-        showButton();
-      }
-    });
-  }
-</script>
-<script>
-  function setImage(id, src) {
-    $('#' + id).attr('src',src);
-  }
-</script>
-<script>
   function search(){
     $.ajax({
-      url: '/api/count-product-count',
+      url: '/api/count-brand-count',
       method: 'GET',
       data: {
         'page': currentPage,
-        'status': $('#filter-status').val(),
         'keyword': $('#tb-input-search').val()
       },
       cache: false,
@@ -408,6 +340,5 @@
     });
   }
 </script>
-<%@ include file="./em-product-detail.jsp" %>
 </body>
 </html>

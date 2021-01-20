@@ -199,7 +199,7 @@ public class BillDAO implements IRetrieveEntity<BillEntity, Long>, IModifySingle
          strQuery = "SELECT u FROM BillEntity AS u where u.billCreateDate between '"+year+"-" +first + "-01' and '"+year+"-" +first +"-31' ";
       }
       else{
-         strQuery = "SELECT u FROM BillEntity AS u where u.billCreateDate between '"+year+"-" +first + "-01' and '2021-" +last +"-01' ";
+         strQuery = "SELECT u FROM BillEntity AS u where u.billCreateDate between '"+year+"-" +first + "-01' and '"+year+"-" +last +"-01' ";
       }
 
       Query query = entityMgr.createQuery(strQuery);

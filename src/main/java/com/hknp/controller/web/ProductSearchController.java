@@ -126,7 +126,10 @@ public class ProductSearchController extends HttpServlet {
          } catch (Exception e) {
             keyword = "";
          }
-         req.setAttribute("shopName", keyword.replace("'", "\\'"));
+         if (keyword == null) {
+            keyword = "";
+         }
+         req.setAttribute("keyword", keyword.replace("'", "\\'"));
 
          ServletUtils.forward(req, resp, "/view/web/product-search.jsp");
       }
