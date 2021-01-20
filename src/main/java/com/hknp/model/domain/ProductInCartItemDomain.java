@@ -9,16 +9,25 @@ public class ProductInCartItemDomain {
    private String name;
    private String price;
    private String nameDetail;
-
-   public Integer getQuantity() {
-      return quantity;
-   }
-
-   public void setQuantity(Integer quantity) {
-      this.quantity = quantity;
-   }
-
    private Integer quantity;
+   private String shopName;
+   private String sellerId;
+
+   public String getShopName() {
+      return shopName;
+   }
+
+   public void setShopName(String shopName) {
+      this.shopName = shopName;
+   }
+
+   public String getSellerId() {
+      return sellerId;
+   }
+
+   public void setSellerId(String sellerId) {
+      this.sellerId = sellerId;
+   }
 
    public String getProductId() {
       return productId;
@@ -44,9 +53,7 @@ public class ProductInCartItemDomain {
       this.name = name;
    }
 
-   public String getPrice() {
-      return price;
-   }
+   public String getPrice() {return price; }
 
    public void setPrice(String price) {
       this.price = price;
@@ -60,8 +67,18 @@ public class ProductInCartItemDomain {
       this.nameDetail = nameDetail;
    }
 
+   public Integer getQuantity() {
+      return quantity;
+   }
+
+   public void setQuantity(Integer quantity) {
+      this.quantity = quantity;
+   }
+
    public String toJson() {
       return "{" +
+              "\"shopName\":\"" + shopName + "\"," +
+              "\"sellerId\":\"" + sellerId + "\"," +
               "\"productId\":\"" + productId + "\"," +
               "\"image\":\"" + image + "\"," +
               "\"name\":\"" + name + "\"," +
@@ -70,6 +87,18 @@ public class ProductInCartItemDomain {
               "\"quantity\":\"" + quantity + "\"" +
               "}";
    }
+   public String toJsonOne() {
+      return "{" +
+              "\"productId\":\"" + productId + "\"," +
+              "\"name\":\"" + name + "\"," +
+              "\"image\":\"" + image + "\"," +
+              "\"price\":\"" + price + "\"," +
+              "\"nameDetail\":\"" + nameDetail + "\"," +
+              "\"quantity\":\"" + quantity + "\"" +
+              "}";
+   }
+
+
 
    public String toJson(String shopName, Long sellerId) {
       return "{" +
@@ -86,15 +115,40 @@ public class ProductInCartItemDomain {
                   "}]" +
               "}";
    }
+
+   public String toJson(String str) {
+      return "{" +
+              "\"shopName\":\"" + shopName + "\"," +
+              "\"sellerId\":\"" + sellerId + "\"," +
+              "\"carts\":" + str + "," +
+              "}";
+   }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
    public ProductInCartItemDomain() {
    }
 
-   public ProductInCartItemDomain(String productId, String image, String name, String price, String nameDetail,String quantity) {
+   public ProductInCartItemDomain(String productId, String image, String name, String price, String nameDetail, String quantity, String shopName, String sellerId) {
       this.productId = productId;
       this.image = image;
       this.name = name;
       this.price = price;
       this.nameDetail = nameDetail;
       this.quantity = StringUtils.toInt(quantity);
+      this.shopName = shopName;
+      this.sellerId = sellerId;
    }
 }

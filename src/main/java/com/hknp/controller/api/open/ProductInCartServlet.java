@@ -57,6 +57,12 @@ public class ProductInCartServlet extends HttpServlet {
             productInCartItemDomain.setNameDetail(productTypeEntity.getProductTypeName());
             productInCartItemDomain.setQuantity(product.getQuantity());
 
+            String shopName = productTypeEntity.getProductEntity().getSellerEntity().getStoreName();
+            Long sellerId = productTypeEntity.getProductEntity().getSellerEntity().getUserId();
+
+            productInCartItemDomain.setShopName(shopName);
+            productInCartItemDomain.setSellerId(sellerId.toString());
+
             productInCartItemDomainArrayList.add(productInCartItemDomain);
             listJsonStr.add(productInCartItemDomain.toJson());
          }

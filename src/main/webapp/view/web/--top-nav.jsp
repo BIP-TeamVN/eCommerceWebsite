@@ -115,7 +115,7 @@
                   <div class="list-group list-group-flush" id="list-product-carts">
                   </div>
                   <!-- View all -->
-                  <a href="" class="dropdown-item text-center text-primary font-weight-bold py-3">Thanh toán</a>
+                  <a href="javascript:redirectCheckOut()" class="dropdown-item text-center text-primary font-weight-bold py-3">Thanh toán</a>
                </div>
             </li>
          </ul>
@@ -632,6 +632,31 @@
         });
       }
     });
+  }
+
+  function redirectCheckOut(){
+
+    $.ajax({
+      url: '/api/check-out',
+      method: 'POST',
+      async: false,
+      data: {
+      },
+      success: function (data, textStatus, jqXHR) {
+        let result = data.toString().split('\n');
+        if (result[0] === 'true') {
+          window.location.href = window.location.origin + '/check-out';
+        } else {
+          alert("Lỗi: Vui lòng đăng nhập để thanh toán");
+          e.preventDefault();
+        }
+      },
+      error: function (jqXHR, textStatus, errorThrown) {
+        alert("Lỗi: " + errorThrown);
+        e.preventDefault();
+      }
+    });
+
   }
 </script>
 <script>
