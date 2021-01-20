@@ -129,7 +129,7 @@
                                         max="20" value="1" maxlength="2"/>
                               </div>
                               <div class="col-8">
-                                 <button onclick="addToCarts()" type="submit" class="btn btn-primary btn-block text-uppercase">Thêm vào giỏ hàng <em
+                                 <button onclick="addToCarts()" class="btn btn-primary btn-block text-uppercase">Thêm vào giỏ hàng <em
                                          class="ml-2 fa fa-cart-plus"></em></button>
                               </div>
                            </div>
@@ -344,13 +344,21 @@
    <%
       String imageTypes = "";
       String nameTypes = "";
-      for (ProductTypeEntity t: types) {
-         imageTypes += "<div class=\"carousel-item\">" +
+      imageTypes += "<div class=\"carousel-item\">" +
           "<img class=\"rounded product-detail__img\"" +
-          "src=\"" + t.getImage() + "\" alt=\"First slide\">" +
+          "src=\"" + types.get(0).getImage() + "\" alt=\"First slide\">" +
           "</div> ";
          nameTypes += "<label class=\"btn btn-secondary d-block\">" +
-          "<input type=\"radio\" name=\"product-types\" id=\"product-type-" + t.getProductTypeId() + "\" value=\"" + t.getProductTypeId() + "\">" + t.getProductTypeName() +
+          "<input type=\"radio\" name=\"product-types\" id=\"" + types.get(0).getProductTypeId() + "\"checked value=\"" + types.get(0).getProductTypeId() + "\">" + types.get(0).getProductTypeName() +
+          "</label>";
+
+      for (int i = 1; i < types.size(); i++) {
+         imageTypes += "<div class=\"carousel-item\">" +
+          "<img class=\"rounded product-detail__img\"" +
+          "src=\"" + types.get(i).getImage() + "\" alt=\"First slide\">" +
+          "</div> ";
+         nameTypes += "<label class=\"btn btn-secondary d-block\">" +
+          "<input type=\"radio\" name=\"product-types\" id=\"" + types.get(i).getProductTypeId() + "\" value=\"" + types.get(i).getProductTypeId() + "\">" + types.get(i).getProductTypeName() +
           "</label>";
       }
    %>
@@ -441,8 +449,35 @@
   }
 
   const quantity = document.getElementById("quantity-number");
-  const productTypeId = document.getElementById();
-  function addToCarts(){
+  const  productTypeId = $('input[name="product-types"]:checked').val();
+
+  function addToCarts() {
+
+    let paras = JSON.stringify({
+      'product-type-id': productTypeId,
+      'quantity': quantity.value.trim()
+    });
+    $.ajax({
+      url: '/api/carts',
+      method: 'PUT',
+      async: false,
+      cache: false,
+      data: paras,
+      success: function (data, textStatus, jqXHR) {
+        let result = data.toString().split('\n');
+        if (result[0] === 'true') {
+          alert("THêm sản phẩm thành công!")
+        } else {
+          alert("Lỗi: " + result[1]);
+          e.preventDefault();
+        }
+      },
+      error: function (jqXHR, textStatus, errorThrown) {
+        alert("Lỗi: " + errorThrown);
+        e.preventDefault();
+      }
+    });
+
 
   }
   function productOfCategory () {
