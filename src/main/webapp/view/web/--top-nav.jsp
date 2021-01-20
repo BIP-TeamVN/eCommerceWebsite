@@ -9,7 +9,7 @@
 <nav class="py-1 navbar navbar-expand-lg navbar-dark bg-primary">
    <div class="container">
       <!--Brand logo-->
-      <a class="navbar-brand" href="javascript:void(0)">
+      <a class="navbar-brand" href="/home">
          <img class="d-inline-block" src="../../assets/img/brand/white.png" style="max-width: 100%;height: 2.2rem;" alt="brand_logo" />
       </a>
       <!--Toggle button-->
@@ -82,7 +82,7 @@
                   <div class="input-group-prepend">
                      <span class="input-group-text"><em class="fas fa-search"></em></span>
                   </div>
-                  <input class="form-control" placeholder="Tìm kiếm sản phẩm" type="text">
+                  <input class="form-control" placeholder="Tìm kiếm sản phẩm" type="text" id="search-keyword-all">
                </div>
             </div>
             <button type="button" class="close" data-action="search-close" data-target="#navbar-search-main"
@@ -618,4 +618,10 @@
       }
     });
   }
+</script>
+<script>
+  $('#navbar-search-main').submit(function (e) {
+    e.preventDefault();
+    window.location.href = window.location.origin +  '/product-search?keyword=' + $('#search-keyword-all').val();
+  })
 </script>

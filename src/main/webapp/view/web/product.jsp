@@ -238,7 +238,7 @@
                         <h3 class="mb-0 text-uppercase"><em class="fa fa-equals text-pink mr-2"></em> Sản phẩm tương tự</h3>
                      </div>
                      <div class="col text-right">
-                        <a href="javascript:void(0)" class="btn btn-sm btn-primary">
+                        <a id="btn-show-all-category" class="btn btn-sm btn-primary">
                            Xem tất cả
                            <em class="fa fa-angle-double-right ml-2"></em>
                         </a>
@@ -268,6 +268,7 @@
    const PRODUCT_ID = parseFloat('<%= p.getProductId()%>');
    const SELLER_ID = parseFloat('<%= p.getSellerEntity().getUserId()%>');
    $('#btn-show-all-shop').attr('href', '/product-search?shop=' + SELLER_ID);
+   $('#btn-show-all-category').attr('href', '/product-search?product=' + PRODUCT_ID);
 
    let html1 =
     '<div class="carousel-item active">' +
