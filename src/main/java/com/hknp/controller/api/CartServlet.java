@@ -21,6 +21,7 @@ import java.net.URLDecoder;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 @WebServlet(urlPatterns = {"/api/carts"})
 public class CartServlet extends HttpServlet {
@@ -120,30 +121,59 @@ public class CartServlet extends HttpServlet {
    @Override
    protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
       String result="";
+      Map<String, Object> parameterMap = ServletUtils.getParametersMap(req);
       try {
-         String id = req.getParameter("product-type-id");
-         String quantity = req.getParameter("quantity");
+         String id = (String) parameterMap.get("product-type-id");
+         String quantity = (String) parameterMap.get("quantity");
 
          String value = CookieUtils.getCookieValue(req, COOKIE_NAME);
          value= URLDecoder.decode(value , "utf-8");
 
-         final ObjectMapper objectMapper = new ObjectMapper();
-         CartItemDomain[] listCartItem = objectMapper.readValue(value, CartItemDomain[].class);
+         ArrayList<CartItemDomain> listCartItemDomain = new ArrayList<>();
+         CartItemDomain cartItemDomain = new CartItemDomain();
+         Gson gson = new Gson();
+         if (value.equals("")) {
 
-         for (int i = 0; i < listCartItem.length; i++) {
-            if (listCartItem[i].getProductTypeId().equals(id)) {
-               result += "true\n" + listCartItem[i].getProductTypeId();
-               Integer num = Integer.parseInt(quantity);
-               if (num > 0) {
-                  listCartItem[i].setQuantity(num);
+            cartItemDomain.setProductTypeId(id);
+            cartItemDomain.setQuantity(StringUtils.toInt(quantity));
+
+            listCartItemDomain.add(cartItemDomain);
+            String valueJson = gson.toJson(listCartItemDomain);
+            String encodeCookie = URLEncoder.encode(valueJson,"utf-8");
+
+            CookieUtils.addCookie(resp, COOKIE_NAME, encodeCookie, COOKIE_AGE);
+            result += "true\n" + id;
+         }else {
+            final ObjectMapper objectMapper = new ObjectMapper();
+            CartItemDomain[] listCartItem = objectMapper.readValue(value, CartItemDomain[].class);
+
+            for (CartItemDomain cartItem : listCartItem) {
+               listCartItemDomain.add(cartItem);
+            }
+
+            int flag = 0;
+            for (int i = 0; i < listCartItem.length; i++) {
+               if (listCartItem[i].getProductTypeId().equals(id)) {
+                  result += "true\n" + listCartItem[i].getProductTypeId();
+                  flag = 1;
+                  Integer currentQuantity = listCartItem[i].getQuantity();
+                  listCartItem[i].setQuantity(currentQuantity + StringUtils.toInt(quantity));
                   break;
                }
             }
+            if (flag == 0) {
+               result += "true\n" + id;
+               cartItemDomain.setProductTypeId(id);
+               cartItemDomain.setQuantity(StringUtils.toInt(quantity));
+
+               listCartItemDomain.add(cartItemDomain);
+               value = gson.toJson(listCartItemDomain);
+            } else {
+               value = gson.toJson(listCartItem);
+            }
+            String encodeCookie = URLEncoder.encode(value,"utf-8");
+            CookieUtils.updateCookie(req, resp, COOKIE_NAME, encodeCookie, COOKIE_AGE);
          }
-         Gson gson = new Gson();
-         value = gson.toJson(listCartItem);
-         String encodeCookie = URLEncoder.encode(value,"utf-8");
-         CookieUtils.updateCookie(req, resp, COOKIE_NAME, encodeCookie, COOKIE_AGE);
       } catch (Exception e) {
          result += "false\n" + e.getMessage();
       }
