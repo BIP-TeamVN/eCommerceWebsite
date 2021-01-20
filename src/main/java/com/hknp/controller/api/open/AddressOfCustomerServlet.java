@@ -1,7 +1,6 @@
 package com.hknp.controller.api.open;
 
-import com.hknp.model.dao.AddressDAO;
-import com.hknp.model.dao.UserDAO;
+import com.hknp.model.dao.*;
 import com.hknp.model.entity.AddressEntity;
 import com.hknp.model.entity.UserEntity;
 import com.hknp.utils.ServletUtils;
@@ -29,6 +28,7 @@ public class AddressOfCustomerServlet extends HttpServlet {
          List<AddressEntity> addressEntities = UserDAO.getInstance().getById(userId).getAddressEntities();
          List<String> listJsonStr = new ArrayList<>();
          for (AddressEntity a: addressEntities) {
+            a.setStreet(a.getStreet().replace("\n", "<br>"));
             listJsonStr.add(a.toJson1());
          }
          ServletUtils.printWrite(resp, "[" + String.join(", ", listJsonStr) + "]");
@@ -46,9 +46,9 @@ public class AddressOfCustomerServlet extends HttpServlet {
          String communeId = req.getParameter("commune");
          String districtId = req.getParameter("district");
          String provinceId = req.getParameter("province");
-         String fullName = req.getParameter("fullName");
-         String addressName = req.getParameter("addressName");
-         String phoneNumber = req.getParameter("phoneNumber");
+         String fullName = req.getParameter("full-name");
+         String addressName = req.getParameter("address-name");
+         String phoneNumber = req.getParameter("phone-number");
 
          HttpSession session = req.getSession();
          Long userId = (Long) session.getAttribute("id");
@@ -56,17 +56,7 @@ public class AddressOfCustomerServlet extends HttpServlet {
          AddressEntity addressEntity = new AddressEntity(streetPara, communeId, districtId, provinceId, userId, fullName, addressName, phoneNumber);
          Long resultAddress = AddressDAO.getInstance().insert(addressEntity);
          if (resultAddress != 0) {
-            addressEntity.setAddressId(resultAddress);
-            UserEntity userEntity = UserDAO.getInstance().getById(userId);
-            List<AddressEntity> addressEntityList = userEntity.getAddressEntities();
-            addressEntityList.add(addressEntity);
-            userEntity.setAddressEntities(addressEntityList);
-            Boolean resultUser = UserDAO.getInstance().update(userEntity);
-            if (resultUser != false) {
-               result += "true\n" + resultAddress;
-            } else {
-               result += "false\nError while update user";
-            }
+            result += "true\n" + resultAddress;
          } else {
             result += "false\nError while insert address";
          }
@@ -89,15 +79,22 @@ public class AddressOfCustomerServlet extends HttpServlet {
          String communeId = (String) parameterMap.get("commune");
          String districtId = (String) parameterMap.get("district");
          String provinceId = (String) parameterMap.get("province");
-         String fullName = (String) parameterMap.get("fullName");
-         String addressName = (String) parameterMap.get("addressName");
-         String phoneNumber = (String) parameterMap.get("phoneNumber");
+         String fullName = (String) parameterMap.get("full-name");
+         String addressName = (String) parameterMap.get("address-name");
+         String phoneNumber = (String) parameterMap.get("phone-number");
 
          HttpSession session = req.getSession();
          Long userId = (Long) session.getAttribute("id");
 
-         AddressEntity addressEntity = new AddressEntity(streetPara, communeId, districtId, provinceId, userId, fullName, addressName, phoneNumber);
-         addressEntity.setUserId(StringUtils.toLong(id));
+         AddressEntity addressEntity = AddressDAO.getInstance().getById(StringUtils.toLong(id));
+         addressEntity.setStreet(streetPara);
+         addressEntity.setCommuneEntity(CommuneDAO.getInstance().getById(communeId));
+         addressEntity.setDistrictEntity(DistrictDAO.getInstance().getById(districtId));
+         addressEntity.setProvinceEntity(ProvinceDAO.getInstance().getById(provinceId));
+         addressEntity.setFullName(fullName);
+         addressEntity.setAddressName(addressName);
+         addressEntity.setPhoneNumber(phoneNumber);
+
          Boolean resultAddress = AddressDAO.getInstance().update(addressEntity);
          if (resultAddress != false) {
             result += "true\n" + resultAddress;
