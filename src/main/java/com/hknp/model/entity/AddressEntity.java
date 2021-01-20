@@ -135,10 +135,10 @@ public class AddressEntity implements Serializable {
    public String toJson() {
       return "{" +
               "\"addressId\":\"" + addressId + "\"," +
-              "\"street\":\"" + street + "\"," +
-              "\"province\":\"" + provinceEntity.toJson() + "\"," +
-              "\"district\":\"" + districtEntity.toJson() + "\"," +
-              "\"commune\":\"" + communeEntity.toJson() + "\"," +
+              "\"fullAddress\":\"" + street +", " +
+              communeEntity.toJson() + ", " +
+              districtEntity.toJson() + ", " +
+              provinceEntity.toJson() + "\"," +
               "\"userId\":\"" + userId + "\"," +
               "\"fullName\":\"" + fullName + "\"," +
               "\"addressName\":\"" + addressName + "\"," +

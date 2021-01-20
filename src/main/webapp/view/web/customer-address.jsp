@@ -1,16 +1,77 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: namtr
-  Date: 1/20/2021
-  Time: 4:14 PM
-  To change this template use File | Settings | File Templates.
---%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<html>
+<%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8" %>
+<html lang="vi">
 <head>
-   <title>Title</title>
+   <%@ include file="../../common/meta-info.jsp" %>
+   <title>eCommerce Website</title>
+   <%@ include file="../../common/link-css.jsp" %>
+   <!--Javascript-->
+   <%@ include file="../../common/import-js.jsp" %>
 </head>
-<body>
 
+<body>
+<!-- Main content -->
+<div class="main-content" id="panel">
+   <!--Top navigation-->
+   <%@include file="./--top-nav.jsp" %>
+
+   <!-- Page content -->
+   <div class="container">
+      <!--Filter-->
+      <div class="row">
+         <div class="col">
+            <div class="card">
+               <!-- Card header -->
+               <div class="card-header border-0">
+                  <h2 class="mb-0 text-center text-uppercase display-4">Danh sách địa chỉ</h2>
+               </div>
+
+               <!--Filter-->
+
+               <!--Loading-->
+               <div id="loading" class="d-none">
+                  <p class="text-dark text-center">Đang load dữ liệu</p>
+                  <div class="dots-loading">
+                     <div></div>
+                     <div></div>
+                     <div></div>
+                     <div></div>
+                  </div>
+               </div>
+               <!-- Light table -->
+               <div class="table-responsive">
+                  <table class="table align-items-center table-flush">
+                     <thead class="thead-light">
+                     <tr>
+                        <th scope="col" class="text-center">Mã địa chỉ</th>
+                        <th scope="col" class="text-center">Địa chỉ</th>
+                        <th scope="col" class="text-center">Mã người dùng</th>
+                        <th scope="col" class="text-center">Họ và tên</th>
+                        <th scope="col" class="text-center">Loại địa chỉ</th>
+                        <th scope="col" class="text-center">Số điện thoại</th>
+                     </tr>
+                     </thead>
+                     <tbody class="list" id="tb-list">
+                     </tbody>
+                  </table>
+               </div>
+
+               <!-- Card footer -->
+            </div>
+         </div>
+      </div>
+
+      <!--Product-->
+
+      <!--Scroll to top button-->
+      <button onclick="window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });" class="btn btn-icon-only btn-primary btn-circle btn-float">
+         <em class="fa fa-arrow-up"></em>
+      </button>
+
+      <!-- Footer -->
+      <%@ include file="../../common/footer.jsp" %>
+   </div>
+</div>
+<script>
+</script>
 </body>
 </html>
