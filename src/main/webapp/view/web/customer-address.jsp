@@ -23,9 +23,15 @@
                <!-- Card header -->
                <div class="card-header border-0">
                   <h2 class="mb-0 text-center text-uppercase display-4">Danh sách địa chỉ</h2>
+                  <div class="col-lg-12 col-5 text-right">
+                     <button type="button" data-toggle="modal" data-target="#modal-add-seller"
+                             href="#" class="btn btn-secondary text-uppercase">Thêm cửa hàng mới
+                     </button>
+                  </div>
                </div>
 
                <!--Filter-->
+               <%@ include file="../../common/form-add-address-customer.jsp" %>
 
                <!--Loading-->
                <div id="loading" class="d-none">
