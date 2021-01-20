@@ -106,14 +106,14 @@
                               <div class="col-4">
                                  <!--Origin price-->
                                  <span class="product-detail__price product-detail__price--origin">
-                                    ${product.priceOrigin}
+                                    ${product.getPriceOriginDisplay()}
                                  </span>
                               </div>
 
                               <div class="col-6">
                                  <!--Order price-->
                                  <span class="product-detail__price product-detail__price--order">
-                                    ${product.priceOrder}
+                                    ${product.getPriceOrderDisplay()}
                                  </span>
                               </div>
 

@@ -71,6 +71,21 @@ public class ProductInCartItemDomain {
               "}";
    }
 
+   public String toJson(String shopName, Long sellerId) {
+      return "{" +
+              "\"shopName\":\"" + shopName + "\"," +
+              "\"sellerId\":\"" + sellerId + "\"," +
+              "\"carts\":" +
+                  "[{" +
+                    "\"productId\":\"" + productId + "\"," +
+                    "\"image\":\"" + image + "\"," +
+                    "\"name\":\"" + name + "\"," +
+                    "\"price\":\"" + price + "\"," +
+                    "\"nameDetail\":\"" + nameDetail + "\"," +
+                    "\"quantity\":\"" + quantity + "\"," +
+                  "}]" +
+              "}";
+   }
    public ProductInCartItemDomain() {
    }
 
