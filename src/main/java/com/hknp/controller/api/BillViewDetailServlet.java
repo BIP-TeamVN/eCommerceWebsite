@@ -1,7 +1,10 @@
 package com.hknp.controller.api;
 
-import com.hknp.model.dao.*;
-import com.hknp.model.entity.*;
+import com.hknp.model.dao.BillDAO;
+import com.hknp.model.dao.BillDetailDAO;
+import com.hknp.model.dao.DeliveryDAO;
+import com.hknp.model.entity.BillDetailEntity;
+import com.hknp.model.entity.BillEntity;
 import com.hknp.utils.DateTimeUtils;
 import com.hknp.utils.MailUtils;
 import com.hknp.utils.ServletUtils;
@@ -14,8 +17,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;

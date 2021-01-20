@@ -88,7 +88,9 @@ public class CustomerDAO implements IRetrieveEntity<CustomerEntity, Long>, IModi
    }
 
    @Override
-   public ArrayList<CustomerEntity> gets() { return gets(null, null); }
+   public ArrayList<CustomerEntity> gets() {
+      return gets(null, null);
+   }
 
    @Override
    public ArrayList<CustomerEntity> gets(Integer firstResult, Integer maxResults) {
@@ -122,7 +124,9 @@ public class CustomerDAO implements IRetrieveEntity<CustomerEntity, Long>, IModi
    }
 
    @Override
-   public Long count() {return EntityUtils.count(CustomerEntity.class.getName());}
+   public Long count() {
+      return EntityUtils.count(CustomerEntity.class.getName());
+   }
 
    public Long count(String keyword) {
       EntityManager entityMgr = EntityUtils.getEntityManager();
@@ -176,10 +180,10 @@ public class CustomerDAO implements IRetrieveEntity<CustomerEntity, Long>, IModi
       return result;
    }
 
-   public String sortColumn (String columnName, String typeSort) {
+   public String sortColumn(String columnName, String typeSort) {
       String result = "";
-      if (!columnName.equals("")){
-         result = " ORDER BY u." + columnName +" " + typeSort;
+      if (!columnName.equals("")) {
+         result = " ORDER BY u." + columnName + " " + typeSort;
       }
       return result;
    }

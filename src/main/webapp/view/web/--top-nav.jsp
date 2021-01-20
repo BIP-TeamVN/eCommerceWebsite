@@ -53,19 +53,6 @@
                   <span class="nav-link-inner--text">Thông báo</span>
                </a>
             </li>
-            <!-- <li class="nav-item dropdown">
-              <a class="nav-link nav-link-icon" href="javascipt:void(0)" id="navbar-noti_dropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <em class="ni ni-settings-gear-65"></em>
-                <span class="nav-link-inner--text">Settings</span>
-              </a>
-
-              <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbar-noti_dropdown">
-                <a class="dropdown-item" href="#">Action</a>
-                <a class="dropdown-item" href="#">Another action</a>
-                <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="#">Something else here</a>
-              </div>
-            </li> -->
          </ul>
       </div>
    </div>
@@ -142,9 +129,9 @@
                      <i class="ni ni-single-02"></i>
                      <span>Thông tin tài khoản</span>
                   </a>
-                  <a href="#!" class="dropdown-item">
+                  <a href="/info/address" class="dropdown-item">
                      <i class="ni ni-settings-gear-65"></i>
-                     <span>Sổ địa chỉ</span>
+                     <span>Địa chỉ</span>
                   </a>
                   <a href="#!" class="dropdown-item">
                      <i class="fa fa-shopping-cart"></i>
@@ -367,10 +354,6 @@
 
 
 <script>
-  $(document).ready(function() {
-    console.log('ready');
-  });
-
   function loadPage() {
     let loadPara = '${result}'.split('@ab');
     console.log('${result}');
@@ -382,7 +365,6 @@
       $('#image-customer').attr('src',loadPara[2]);
     }
   }
-  loadPage();
 
   <!--Sign in-->
   const username = document.getElementById('login-username');
@@ -546,6 +528,7 @@
         let result = data.toString().split('\n');
         if (result[0] === 'true') {
           $('#code-error').html("Mã xác nhận chính xác");
+          isOTP = true;
         } else {
           $('#code-error').attr('style', "display: inline;");
         }
@@ -556,7 +539,9 @@
     });
   }
 
+  let isOTP = false;
   $('#form-signup').submit(function (e) {
+    if (isOTP != false) {
       $.ajax({
         url: '/api/customers',
         method: 'POST',
@@ -582,6 +567,10 @@
           e.preventDefault();
         }
       });
+    } else {
+      e.preventDefault();
+      $('#code-error').attr('style', "display: inline;");
+    }
   });
 
   $.ajax({
@@ -633,31 +622,7 @@
       }
     });
   }
-
-  function redirectCheckOut(){
-
-    $.ajax({
-      url: '/api/check-out',
-      method: 'POST',
-      async: false,
-      data: {
-      },
-      success: function (data, textStatus, jqXHR) {
-        let result = data.toString().split('\n');
-        if (result[0] === 'true') {
-          window.location.href = window.location.origin + '/check-out';
-        } else {
-          alert("Lỗi: Vui lòng đăng nhập để thanh toán");
-          e.preventDefault();
-        }
-      },
-      error: function (jqXHR, textStatus, errorThrown) {
-        alert("Lỗi: " + errorThrown);
-        e.preventDefault();
-      }
-    });
-
-  }
+  loadPage();
 </script>
 <script>
   $('#navbar-search-main').submit(function (e) {

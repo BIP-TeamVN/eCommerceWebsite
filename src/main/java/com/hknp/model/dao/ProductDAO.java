@@ -42,7 +42,7 @@ public class ProductDAO implements IRetrieveEntity<ProductEntity, Long>, IModify
          entityTrans.begin();
 
          Boolean typeResult = true;
-         for (ProductTypeEntity type: entity.getProductTypeEntities()) {
+         for (ProductTypeEntity type : entity.getProductTypeEntities()) {
             entityMgr.persist(type);
             Long newType = type.getProductTypeId();
             if (newType == 0) {
@@ -99,7 +99,9 @@ public class ProductDAO implements IRetrieveEntity<ProductEntity, Long>, IModify
    }
 
    @Override
-   public ArrayList<ProductEntity> gets() { return gets(null, null); }
+   public ArrayList<ProductEntity> gets() {
+      return gets(null, null);
+   }
 
    @Override
    public ArrayList<ProductEntity> gets(Integer firstResult, Integer maxResults) {
@@ -150,10 +152,10 @@ public class ProductDAO implements IRetrieveEntity<ProductEntity, Long>, IModify
       return result;
    }
 
-   public String sortColumn (String columnName, String typeSort) {
+   public String sortColumn(String columnName, String typeSort) {
       String result = "";
-      if (!columnName.equals("")){
-         result = " ORDER BY u." + columnName +" " + typeSort;
+      if (!columnName.equals("")) {
+         result = " ORDER BY u." + columnName + " " + typeSort;
       }
       return result;
    }
@@ -214,7 +216,7 @@ public class ProductDAO implements IRetrieveEntity<ProductEntity, Long>, IModify
    public ProductEntity getByIdForCustomer(Long id) {
       EntityManager entityMgr = EntityUtils.getEntityManager();
       ProductEntity productEntity = entityMgr.find(ProductEntity.class, id);
-      if (productEntity.getStatus() == 1){
+      if (productEntity.getStatus() == 1) {
          return productEntity;
       } else {
          return null;
@@ -244,7 +246,9 @@ public class ProductDAO implements IRetrieveEntity<ProductEntity, Long>, IModify
    }
 
    @Override
-   public Long count() {return EntityUtils.count(ProductEntity.class.getName());}
+   public Long count() {
+      return EntityUtils.count(ProductEntity.class.getName());
+   }
 
    public Long count(Integer status, String keyword) {
       EntityManager entityMgr = EntityUtils.getEntityManager();
@@ -303,7 +307,7 @@ public class ProductDAO implements IRetrieveEntity<ProductEntity, Long>, IModify
       return (Long) query.getSingleResult();
    }
 
-   public Boolean updateStatus (Long productId, Integer status) {
+   public Boolean updateStatus(Long productId, Integer status) {
       EntityManager entityMgr = EntityUtils.getEntityManager();
       EntityTransaction tran = entityMgr.getTransaction();
       tran.begin();
@@ -319,7 +323,7 @@ public class ProductDAO implements IRetrieveEntity<ProductEntity, Long>, IModify
       return result > 0;
    }
 
-   public Integer getStatusById (Long productId) {
+   public Integer getStatusById(Long productId) {
       EntityManager entityMgr = EntityUtils.getEntityManager();
 
       String queryStr = "select p.status from ProductEntity as p where p.productId = :productIdPara";
@@ -329,7 +333,7 @@ public class ProductDAO implements IRetrieveEntity<ProductEntity, Long>, IModify
       return (Integer) query.getSingleResult();
    }
 
-   public Long getCountProductSold (Long productId) {
+   public Long getCountProductSold(Long productId) {
       EntityManager entityMgr = EntityUtils.getEntityManager();
 
       String queryStr = "SELECT SUM(bd.quantity) " +
@@ -349,8 +353,8 @@ public class ProductDAO implements IRetrieveEntity<ProductEntity, Long>, IModify
       String queryStr;
       Query query;
       queryStr = "select count(*) from ProductEntity p " +
-                 "where p.sellerEntity.userId = :sellerIdPara " +
-                 "and p.status = 1 ";
+              "where p.sellerEntity.userId = :sellerIdPara " +
+              "and p.status = 1 ";
       query = entityMgr.createQuery(queryStr);
       query.setParameter("sellerIdPara", sellerId);
       return (Long) query.getSingleResult();
@@ -409,7 +413,7 @@ public class ProductDAO implements IRetrieveEntity<ProductEntity, Long>, IModify
 
       ArrayList<ProductCategoryEntity> categoryEntities = new ArrayList<>(productEntity.getProductCategoryEntities());
       List<Long> categoryIds = new ArrayList<>();
-      for (ProductCategoryEntity p: categoryEntities) {
+      for (ProductCategoryEntity p : categoryEntities) {
          categoryIds.add(p.getProductCategoryId());
       }
 

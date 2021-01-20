@@ -3,7 +3,6 @@ package com.hknp.controller.admin;
 import com.hknp.model.dao.*;
 import com.hknp.model.entity.BillEntity;
 import com.hknp.model.entity.UserEntity;
-import com.hknp.utils.DateTimeUtils;
 import com.hknp.utils.ServletUtils;
 
 import javax.servlet.ServletException;
@@ -14,8 +13,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.math.BigDecimal;
-import java.sql.Date;
-import java.util.ArrayList;
 import java.util.List;
 
 @WebServlet(urlPatterns = {"/admin"})

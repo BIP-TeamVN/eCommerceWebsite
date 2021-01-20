@@ -79,7 +79,9 @@ public class RateCommentDAO implements IRetrieveEntity<RateCommentEntity, Long>,
    }
 
    @Override
-   public ArrayList<RateCommentEntity> gets() { return gets(null, null); }
+   public ArrayList<RateCommentEntity> gets() {
+      return gets(null, null);
+   }
 
    @Override
    public ArrayList<RateCommentEntity> gets(Integer firstResult, Integer maxResults) {
@@ -113,5 +115,7 @@ public class RateCommentDAO implements IRetrieveEntity<RateCommentEntity, Long>,
    }
 
    @Override
-   public Long count() {return EntityUtils.count(RateCommentEntity.class.getName());}
+   public Long count() {
+      return EntityUtils.count(RateCommentEntity.class.getName());
+   }
 }

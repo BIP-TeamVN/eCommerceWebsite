@@ -1,7 +1,6 @@
 package com.hknp.controller.employee;
 
 import com.hknp.model.dao.ProductCategoryDAO;
-import com.hknp.model.dao.ProductDAO;
 import com.hknp.utils.ServletUtils;
 import com.hknp.utils.StringUtils;
 

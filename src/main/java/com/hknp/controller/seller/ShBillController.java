@@ -1,7 +1,6 @@
 package com.hknp.controller.seller;
 
 import com.hknp.model.dao.BillDAO;
-import com.hknp.model.dao.ProductDAO;
 import com.hknp.utils.StringUtils;
 
 import javax.servlet.RequestDispatcher;

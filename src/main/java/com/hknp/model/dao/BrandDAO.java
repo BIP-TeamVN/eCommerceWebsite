@@ -3,7 +3,6 @@ package com.hknp.model.dao;
 import com.hknp.interfaces.IModifySingleEntityAutoIncrement;
 import com.hknp.interfaces.IRetrieveEntity;
 import com.hknp.model.entity.BrandEntity;
-import com.hknp.model.entity.CustomerEntity;
 import com.hknp.utils.EntityUtils;
 
 import javax.persistence.EntityManager;
@@ -117,7 +116,9 @@ public class BrandDAO implements IRetrieveEntity<BrandEntity, Long>, IModifySing
    }
 
    @Override
-   public Long count() {return EntityUtils.count(BrandEntity.class.getName());}
+   public Long count() {
+      return EntityUtils.count(BrandEntity.class.getName());
+   }
 
    public Long count(String keyword) {
       EntityManager entityMgr = EntityUtils.getEntityManager();
@@ -167,11 +168,13 @@ public class BrandDAO implements IRetrieveEntity<BrandEntity, Long>, IModifySing
       return result;
    }
 
-   public String sortColumn (String columnName, String typeSort) {
+   public String sortColumn(String columnName, String typeSort) {
       String result = "";
-      if (!columnName.equals("")){
-         result = " ORDER BY u." + columnName +" " + typeSort;
+
+      if (!columnName.equals("")) {
+         result = " ORDER BY u." + columnName + " " + typeSort;
       }
+      
       return result;
    }
 }

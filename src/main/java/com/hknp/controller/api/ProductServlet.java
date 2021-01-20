@@ -1,8 +1,13 @@
 package com.hknp.controller.api;
 
 import com.hknp.model.dao.*;
-import com.hknp.model.entity.*;
-import com.hknp.utils.*;
+import com.hknp.model.entity.Cons;
+import com.hknp.model.entity.ProductCategoryEntity;
+import com.hknp.model.entity.ProductEntity;
+import com.hknp.model.entity.ProductTypeEntity;
+import com.hknp.utils.DateTimeUtils;
+import com.hknp.utils.ServletUtils;
+import com.hknp.utils.StringUtils;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;

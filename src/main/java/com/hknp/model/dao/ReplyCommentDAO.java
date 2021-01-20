@@ -79,7 +79,9 @@ public class ReplyCommentDAO implements IRetrieveEntity<ReplyCommentEntity, Long
    }
 
    @Override
-   public ArrayList<ReplyCommentEntity> gets() { return gets(null, null); }
+   public ArrayList<ReplyCommentEntity> gets() {
+      return gets(null, null);
+   }
 
    @Override
    public ArrayList<ReplyCommentEntity> gets(Integer firstResult, Integer maxResults) {
@@ -113,5 +115,7 @@ public class ReplyCommentDAO implements IRetrieveEntity<ReplyCommentEntity, Long
    }
 
    @Override
-   public Long count() {return EntityUtils.count(ReplyCommentEntity.class.getName());}
+   public Long count() {
+      return EntityUtils.count(ReplyCommentEntity.class.getName());
+   }
 }

@@ -3,7 +3,6 @@ package com.hknp.controller.admin;
 import com.hknp.model.dao.*;
 import com.hknp.model.entity.AddressEntity;
 import com.hknp.model.entity.Cons;
-import com.hknp.model.entity.EmployeeEntity;
 import com.hknp.model.entity.UserEntity;
 import com.hknp.utils.DateTimeUtils;
 import com.hknp.utils.ServletUtils;

@@ -2,16 +2,14 @@ package com.hknp.model.dao;
 
 import com.hknp.interfaces.IModifySingleEntityAutoIncrement;
 import com.hknp.interfaces.IRetrieveEntity;
-import com.hknp.model.entity.BillDetailEntity;
 import com.hknp.model.entity.BillEntity;
-import com.hknp.utils.DateTimeUtils;
 import com.hknp.utils.EntityUtils;
-import com.hknp.utils.StringUtils;
 
-import javax.persistence.*;
-import java.math.BigInteger;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityTransaction;
+import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 import java.util.ArrayList;
-import java.util.Date;
 
 public class BillDAO implements IRetrieveEntity<BillEntity, Long>, IModifySingleEntityAutoIncrement<BillEntity, Long> {
    private static BillDAO instance = null;
@@ -139,7 +137,7 @@ public class BillDAO implements IRetrieveEntity<BillEntity, Long>, IModifySingle
       EntityManager entityMgr = EntityUtils.getEntityManager();
 
       String strQuery = "SELECT u FROM BillEntity u where u.status = :status " +
-              "and u.deliveryEntity.id = :deliveryId "  ;
+              "and u.deliveryEntity.id = :deliveryId ";
 
       Query query = entityMgr.createQuery(strQuery);
       query.setParameter("deliveryId", deliveryId);
@@ -195,11 +193,10 @@ public class BillDAO implements IRetrieveEntity<BillEntity, Long>, IModifySingle
    public ArrayList<BillEntity> getsByMonth(String first, String last, String year) {
       EntityManager entityMgr = EntityUtils.getEntityManager();
       String strQuery = null;
-      if(first.equals("12")){
-         strQuery = "SELECT u FROM BillEntity AS u where u.billCreateDate between '"+year+"-" +first + "-01' and '"+year+"-" +first +"-31' ";
-      }
-      else{
-         strQuery = "SELECT u FROM BillEntity AS u where u.billCreateDate between '"+year+"-" +first + "-01' and '"+year+"-" +last +"-01' ";
+      if (first.equals("12")) {
+         strQuery = "SELECT u FROM BillEntity AS u where u.billCreateDate between '" + year + "-" + first + "-01' and '" + year + "-" + first + "-31' ";
+      } else {
+         strQuery = "SELECT u FROM BillEntity AS u where u.billCreateDate between '" + year + "-" + first + "-01' and '" + year + "-" + last + "-01' ";
       }
 
       Query query = entityMgr.createQuery(strQuery);
@@ -215,20 +212,19 @@ public class BillDAO implements IRetrieveEntity<BillEntity, Long>, IModifySingle
       return result;
    }
 
-   public  ArrayList<BillEntity> getsForSumByMonth(String first, String last , Long sellerId, String year){
+   public ArrayList<BillEntity> getsForSumByMonth(String first, String last, Long sellerId, String year) {
       EntityManager entityMgr = EntityUtils.getEntityManager();
       String strQuery = null;
-      if(first.equals("12")){
+      if (first.equals("12")) {
          strQuery = "SELECT distinct u.billEntity FROM BillDetailEntity AS u " +
                  "WHERE u.productTypeEntity.productEntity.sellerEntity.userId = :sellerId " +
                  "and u.billEntity.status = 6 " +
-                 "and u.billEntity.billCreateDate between '"+year+"-"+first+"-01' and '"+year+"-"+first+"-31' ";
-      }
-      else {
+                 "and u.billEntity.billCreateDate between '" + year + "-" + first + "-01' and '" + year + "-" + first + "-31' ";
+      } else {
          strQuery = "SELECT distinct u.billEntity FROM BillDetailEntity AS u " +
                  "WHERE u.productTypeEntity.productEntity.sellerEntity.userId = :sellerId " +
                  "and u.billEntity.status = 6 " +
-                 "and u.billEntity.billCreateDate between '"+year+"-"+first+"-01' and '"+year+"-"+last+"-01' ";
+                 "and u.billEntity.billCreateDate between '" + year + "-" + first + "-01' and '" + year + "-" + last + "-01' ";
       }
       Query query = entityMgr.createQuery(strQuery);
       query.setParameter("sellerId", sellerId);
@@ -251,9 +247,11 @@ public class BillDAO implements IRetrieveEntity<BillEntity, Long>, IModifySingle
    }
 
    @Override
-   public Long count() {return EntityUtils.count(BillEntity.class.getName());}
+   public Long count() {
+      return EntityUtils.count(BillEntity.class.getName());
+   }
 
-   public Long count(Long sellerId, Integer status){
+   public Long count(Long sellerId, Integer status) {
       EntityManager entityMgr = EntityUtils.getEntityManager();
 
       String queryStr;
@@ -269,7 +267,7 @@ public class BillDAO implements IRetrieveEntity<BillEntity, Long>, IModifySingle
       return (Long) result.stream().count();
    }
 
-   public Long countForShipper(Long deliveryId, Integer status){
+   public Long countForShipper(Long deliveryId, Integer status) {
       EntityManager entityMgr = EntityUtils.getEntityManager();
 
       String queryStr;
@@ -283,7 +281,7 @@ public class BillDAO implements IRetrieveEntity<BillEntity, Long>, IModifySingle
       return (Long) query.getSingleResult();
    }
 
-   public Long count(Integer status){
+   public Long count(Integer status) {
       EntityManager entityMgr = EntityUtils.getEntityManager();
 
       String queryStr;
@@ -294,9 +292,9 @@ public class BillDAO implements IRetrieveEntity<BillEntity, Long>, IModifySingle
       return (Long) query.getSingleResult();
    }
 
-   public  Long CountCustomerForSeller(Long sellerId){
+   public Long CountCustomerForSeller(Long sellerId) {
       EntityManager entityMgr = EntityUtils.getEntityManager();
-      String strQuery ="select  distinct b.billEntity.customerEntity from BillDetailEntity AS b " +
+      String strQuery = "select  distinct b.billEntity.customerEntity from BillDetailEntity AS b " +
               "where  b.productTypeEntity.productEntity.sellerEntity.userId = :sellerId ";
       Query query = entityMgr.createQuery(strQuery);
       query.setParameter("sellerId", sellerId);
