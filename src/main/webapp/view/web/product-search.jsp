@@ -134,7 +134,11 @@
 <script>
   $('#categories').append('${categories}');
   $('#brands').append('${brands}');
-  $('#tb-input-search').val('${shopName}');
+  if ('${keyword}' === ""){
+    $('#tb-input-search').val('${shopName}');
+  } else {
+    $('#tb-input-search').val('${keyword}');
+  }
 
   let page = 1;
   function loadProduct() {
