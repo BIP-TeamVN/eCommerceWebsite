@@ -1,8 +1,6 @@
 package com.hknp.controller.api;
 
-import com.hknp.model.dao.ProductCategoryDAO;
 import com.hknp.model.dao.ProductDAO;
-import com.hknp.model.entity.ProductCategoryEntity;
 import com.hknp.model.entity.ProductEntity;
 import com.hknp.model.entity.ProductTypeEntity;
 import com.hknp.utils.ServletUtils;

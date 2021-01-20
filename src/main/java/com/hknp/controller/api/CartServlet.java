@@ -2,10 +2,8 @@ package com.hknp.controller.api;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
-import com.hknp.model.dao.BrandDAO;
 import com.hknp.model.dao.ProductTypeDAO;
 import com.hknp.model.domain.CartItemDomain;
-import com.hknp.model.entity.BrandEntity;
 import com.hknp.model.entity.ProductTypeEntity;
 import com.hknp.utils.CookieUtils;
 import com.hknp.utils.ServletUtils;
@@ -20,7 +18,6 @@ import java.io.IOException;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 
 @WebServlet(urlPatterns = {"/api/carts"})

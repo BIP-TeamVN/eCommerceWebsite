@@ -1,7 +1,6 @@
 package com.hknp.controller.admin;
 
 import com.hknp.model.dao.CustomerDAO;
-import com.hknp.model.dao.EmployeeDAO;
 import com.hknp.utils.ServletUtils;
 import com.hknp.utils.StringUtils;
 

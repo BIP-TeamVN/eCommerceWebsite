@@ -76,5 +76,7 @@ public class CommuneDAO implements IRetrieveEntity<CommuneEntity, String> {
    }
 
    @Override
-   public Long count() {return EntityUtils.count(CommuneEntity.class.getName());}
+   public Long count() {
+      return EntityUtils.count(CommuneEntity.class.getName());
+   }
 }

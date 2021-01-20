@@ -51,7 +51,9 @@ public class DeliveryEntity implements Serializable {
       this.userId = userId;
    }
 
-   public String getStartDateStr(String formatPattern) { return DateTimeUtils.dateToString(startDate, formatPattern); }
+   public String getStartDateStr(String formatPattern) {
+      return DateTimeUtils.dateToString(startDate, formatPattern);
+   }
 
    public Date getStartDate() {
       return startDate;

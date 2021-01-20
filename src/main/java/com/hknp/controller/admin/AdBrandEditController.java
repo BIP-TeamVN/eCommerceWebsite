@@ -1,11 +1,7 @@
 package com.hknp.controller.admin;
 
-import com.hknp.model.dao.AddressDAO;
 import com.hknp.model.dao.BrandDAO;
-import com.hknp.model.dao.EmployeeDAO;
-import com.hknp.model.entity.AddressEntity;
 import com.hknp.model.entity.BrandEntity;
-import com.hknp.model.entity.EmployeeEntity;
 import com.hknp.utils.ServletUtils;
 import com.hknp.utils.StringUtils;
 

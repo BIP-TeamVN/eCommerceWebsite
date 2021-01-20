@@ -43,7 +43,9 @@ public class EmployeeEntity implements Serializable {
               "}";
    }
 
-   public String getStartDateStr(String formatPattern) { return DateTimeUtils.dateToString(startDate, formatPattern); }
+   public String getStartDateStr(String formatPattern) {
+      return DateTimeUtils.dateToString(startDate, formatPattern);
+   }
 
    public Long getUserId() {
       return userId;

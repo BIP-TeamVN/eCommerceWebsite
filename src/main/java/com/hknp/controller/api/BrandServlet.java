@@ -1,15 +1,13 @@
 package com.hknp.controller.api;
 
 import com.hknp.model.dao.BrandDAO;
-import com.hknp.model.dao.ProductCategoryDAO;
 import com.hknp.model.dao.UserDAO;
 import com.hknp.model.entity.BrandEntity;
 import com.hknp.model.entity.Cons;
-import com.hknp.model.entity.ProductCategoryEntity;
 import com.hknp.utils.ServletUtils;
 import com.hknp.utils.StringUtils;
 
-import javax.servlet.*;
+import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -19,7 +17,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-
 
 @WebServlet(urlPatterns = {"/api/brands"})
 public class BrandServlet extends HttpServlet {
@@ -50,7 +47,7 @@ public class BrandServlet extends HttpServlet {
    protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
       if (req.getMethod().equals("GET")) {
          doGet(req, resp);
-      }  else {
+      } else {
          if (isAuthenticationAdmin(req)) {
             switch (req.getMethod()) {
                case "POST":
@@ -71,6 +68,7 @@ public class BrandServlet extends HttpServlet {
          }
       }
    }
+
    @Override
    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
       String pagePara = req.getParameter("page");
@@ -79,6 +77,7 @@ public class BrandServlet extends HttpServlet {
       String keyword = req.getParameter("keyword").trim();
       String columnName = req.getParameter("columnName");
       String typeSort = req.getParameter("typeSort");
+
       if (keyword == null) {
          keyword = "";
       }
@@ -87,12 +86,10 @@ public class BrandServlet extends HttpServlet {
          page = 1;
       }
 
-      List<BrandEntity> listBrand = new ArrayList<>();
       List<String> listJsonStr = new ArrayList<>();
+      List<BrandEntity> listBrand = BrandDAO.getInstance().gets((page - 1) * 10, 10, keyword, columnName, typeSort);
 
-      listBrand = BrandDAO.getInstance().gets((page - 1) * 10, 10, keyword, columnName, typeSort);
-
-      for (BrandEntity br: listBrand) {
+      for (BrandEntity br : listBrand) {
          listJsonStr.add(br.toJson());
       }
 
@@ -106,9 +103,7 @@ public class BrandServlet extends HttpServlet {
       try {
          String brandName = req.getParameter("brandName");
          String brandOrigin = req.getParameter("brandOrigin");
-
          String imageBase64 = req.getParameter("imageBase64");
-
 
          BrandEntity newBrand = new BrandEntity();
          newBrand.setBrandName(brandName);
@@ -117,8 +112,8 @@ public class BrandServlet extends HttpServlet {
          if (imageBase64 != null && !imageBase64.isEmpty()) {
             newBrand.setImage(imageBase64);
          }
-         Long newBrandId = BrandDAO.getInstance().insert(newBrand);
 
+         Long newBrandId = BrandDAO.getInstance().insert(newBrand);
          if (newBrandId != 0) {
             result += "true\n" + newBrandId.toString();
          } else {
@@ -127,6 +122,7 @@ public class BrandServlet extends HttpServlet {
       } catch (Exception e) {
          result += "false\n" + e.getMessage();
       }
+      
       ServletUtils.printWrite(resp, result);
    }
 

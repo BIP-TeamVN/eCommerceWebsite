@@ -79,7 +79,9 @@ public class DiscountDAO implements IRetrieveEntity<DiscountEntity, Long>, IModi
    }
 
    @Override
-   public ArrayList<DiscountEntity> gets() { return gets(null, null); }
+   public ArrayList<DiscountEntity> gets() {
+      return gets(null, null);
+   }
 
    @Override
    public ArrayList<DiscountEntity> gets(Integer firstResult, Integer maxResults) {
@@ -113,5 +115,7 @@ public class DiscountDAO implements IRetrieveEntity<DiscountEntity, Long>, IModi
    }
 
    @Override
-   public Long count() {return EntityUtils.count(DiscountEntity.class.getName());}
+   public Long count() {
+      return EntityUtils.count(DiscountEntity.class.getName());
+   }
 }

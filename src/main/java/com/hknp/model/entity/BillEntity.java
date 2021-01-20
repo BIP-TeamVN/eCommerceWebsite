@@ -118,10 +118,10 @@ public class BillEntity implements Serializable {
       this.deliveryEntity = deliveryEntity;
    }
 
-   public BigDecimal getTotal(){
+   public BigDecimal getTotal() {
       BigDecimal total = new BigDecimal(0);
 
-      for (BillDetailEntity billdetail: billDetailEntities) {
+      for (BillDetailEntity billdetail : billDetailEntities) {
          total = total.add(billdetail.getAmount());
       }
       total = total.subtract(discountEntity.getDiscountMaxValue());
@@ -134,7 +134,7 @@ public class BillEntity implements Serializable {
               "\"fullName\":\"" + addressEntity.getFullName() + "\"," +
               "\"phone\":\"" + addressEntity.phoneNumber + "\"," +
               "\"status\":\"" + status + "\"," +
-              "\"fullAddress\":\"" + addressEntity.getStreet() +", " +
+              "\"fullAddress\":\"" + addressEntity.getStreet() + ", " +
               addressEntity.getCommuneEntity().getCommuneFullName() + ", " +
               addressEntity.getDistrictEntity().getDistrictFullName() + ", " +
               addressEntity.getProvinceEntity().getProvinceFullName() + "\"," +

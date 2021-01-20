@@ -40,7 +40,9 @@ public class DistrictDAO implements IRetrieveEntity<DistrictEntity, String> {
    }
 
    @Override
-   public ArrayList<DistrictEntity> gets() { return gets(null, null); }
+   public ArrayList<DistrictEntity> gets() {
+      return gets(null, null);
+   }
 
    @Override
    public ArrayList<DistrictEntity> gets(Integer firstResult, Integer maxResults) {
@@ -75,5 +77,7 @@ public class DistrictDAO implements IRetrieveEntity<DistrictEntity, String> {
    }
 
    @Override
-   public Long count() {return EntityUtils.count(DistrictEntity.class.getName());}
+   public Long count() {
+      return EntityUtils.count(DistrictEntity.class.getName());
+   }
 }

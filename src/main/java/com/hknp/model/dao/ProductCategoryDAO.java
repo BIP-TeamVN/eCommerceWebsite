@@ -81,7 +81,9 @@ public class ProductCategoryDAO implements IRetrieveEntity<ProductCategoryEntity
    }
 
    @Override
-   public ArrayList<ProductCategoryEntity> gets() { return gets(null, null); }
+   public ArrayList<ProductCategoryEntity> gets() {
+      return gets(null, null);
+   }
 
    @Override
    public ArrayList<ProductCategoryEntity> gets(Integer firstResult, Integer maxResults) {
@@ -115,7 +117,9 @@ public class ProductCategoryDAO implements IRetrieveEntity<ProductCategoryEntity
    }
 
    @Override
-   public Long count() {return EntityUtils.count(ProductCategoryEntity.class.getName());}
+   public Long count() {
+      return EntityUtils.count(ProductCategoryEntity.class.getName());
+   }
 
    public Long count(String keyword) {
       EntityManager entityMgr = EntityUtils.getEntityManager();
@@ -163,10 +167,10 @@ public class ProductCategoryDAO implements IRetrieveEntity<ProductCategoryEntity
       return result;
    }
 
-   public String sortColumn (String columnName, String typeSort) {
+   public String sortColumn(String columnName, String typeSort) {
       String result = "";
-      if (!columnName.equals("")){
-         result = " ORDER BY u." + columnName +" " + typeSort;
+      if (!columnName.equals("")) {
+         result = " ORDER BY u." + columnName + " " + typeSort;
       }
       return result;
    }

@@ -32,7 +32,9 @@ public class ProvinceEntity {
       return "{\"id\":\"" + provinceId + "\",\"name\":\"" + getProvinceFullName() + "\"}";
    }
 
-   public String getProvinceFullName() { return (provinceType.equals("C") ? "Thành phố " : "Tỉnh ") + provinceName; }
+   public String getProvinceFullName() {
+      return (provinceType.equals("C") ? "Thành phố " : "Tỉnh ") + provinceName;
+   }
 
    public String getProvinceId() {
       return provinceId;

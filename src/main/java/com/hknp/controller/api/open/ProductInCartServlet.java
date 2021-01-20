@@ -1,11 +1,9 @@
 package com.hknp.controller.api.open;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.gson.Gson;
 import com.hknp.model.dao.ProductTypeDAO;
 import com.hknp.model.domain.CartItemDomain;
 import com.hknp.model.domain.ProductInCartItemDomain;
-import com.hknp.model.entity.BrandEntity;
 import com.hknp.model.entity.ProductTypeEntity;
 import com.hknp.utils.CookieUtils;
 import com.hknp.utils.ServletUtils;
