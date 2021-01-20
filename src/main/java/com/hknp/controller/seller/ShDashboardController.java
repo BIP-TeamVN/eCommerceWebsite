@@ -57,9 +57,8 @@ public class ShDashboardController extends HttpServlet {
       totalBill = listBill.stream().count();
       req.setAttribute("totalSale", totalSale);
       req.setAttribute("totalBill", totalBill);
-
-      for(int i = 1;i<12;i++){
-         BigDecimal totalEachMonth = new BigDecimal(0);8
+      for(int i = 1;i<13;i++){
+         BigDecimal totalEachMonth = new BigDecimal(0);
          List<BillEntity> listbill =  new ArrayList<>();
          String first =  String.valueOf(i);
          String last = String.valueOf(i+1);
@@ -67,10 +66,9 @@ public class ShDashboardController extends HttpServlet {
          Long countBillByMonth = listbill.stream().count();
          for (BillEntity bill : listbill){
             totalEachMonth = totalEachMonth.add(bill.getTotal());
-            //req.setAttribute("T"+i +"", totalEachMonth);// tổng tiền mỗi tháng
          }
-         //req.setAttribute();// tổng tiền mỗi tháng
-         //req.setAttribute();// tổng số bill mỗi tháng
+         req.setAttribute("T"+i +"", totalEachMonth);
+         req.setAttribute("t"+i +"", countBillByMonth);
       }
 
 
