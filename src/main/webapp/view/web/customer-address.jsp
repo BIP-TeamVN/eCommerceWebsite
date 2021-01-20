@@ -78,6 +78,38 @@
    </div>
 </div>
 <script>
+   function reloadPage(){
+     $.ajax({
+       url: '/api/info/address',
+       method: 'GET',
+       cache: false,
+       beforeSend: function(){
+         $('#loading').removeClass('d-none');
+         $('div.table-responsive').addClass('d-none');
+       },
+       success: function (data, textStatus, jqXHR) {
+         let list = $.parseJSON(data);
+         $('#tb-list').find('tr').remove();
+         $.each(list, function (index, item) {
+           let html =
+             '<tr>' +
+             '<td>' + item.addressId + '</td>' +
+             '<td>' + item.fullAddress + '</td>' +
+             '<td>' + item.userId + '</td>' +
+             '<td>' + item.fullName + '</td>' +
+             '<td>' + item.addressName + '</td>' +
+             '<td>' + item.phoneNumber + '</td>';
+           $('#tb-list').append(html);
+         });
+       },
+       complete: function () {
+         $('#loading').addClass('d-none');
+         $('div.table-responsive').removeClass('d-none');
+       }
+     });
+   }
+
+   reloadPage();
 </script>
 </body>
 </html>
