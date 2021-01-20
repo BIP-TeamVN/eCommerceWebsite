@@ -1,8 +1,3 @@
-<%@ page import="com.hknp.utils.CookieUtils" %>
-<%@ page import="com.fasterxml.jackson.databind.ObjectMapper" %>
-<%@ page import="com.hknp.model.domain.CartItemDomain" %>
-<%@ page import="java.util.ArrayList" %>
-<%@ page import="java.net.URLDecoder" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8" %>
 
 <!--Top nav 1-->
@@ -10,7 +5,8 @@
    <div class="container">
       <!--Brand logo-->
       <a class="navbar-brand" href="/home">
-         <img class="d-inline-block" src="../../assets/img/brand/white.png" style="max-width: 100%;height: 2.2rem;" alt="brand_logo" />
+         <img class="d-inline-block" src="../../assets/img/brand/white.png" style="max-width: 100%;height: 2.2rem;"
+              alt="brand_logo"/>
       </a>
       <!--Toggle button-->
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-default"
@@ -103,13 +99,14 @@
                   aria-expanded="false">
                   <em class="fa fa-shopping-cart mr-1"></em>
                   <span>Giỏ hàng</span>
-                  <span id="quantity-cart" class="ml-1 badge badge-md badge-circle badge-floating badge-secondary border-white"></span>
+                  <span id="cart-count-noti" class="ml-1 badge badge-md badge-circle badge-floating badge-secondary border-white"></span>
                </a>
                <div class="dropdown-menu dropdown-menu-xl  dropdown-menu-right  py-0 overflow-hidden">
                   <!-- Dropdown header -->
                   <div class="px-3 py-3">
-                     <h6 class="text-sm text-muted m-0">Bạn có <strong id="quantity-cart1" class="text-primary"></strong> sản phẩm trong giỏ
-                        hàng. </h6>
+                     <h6 class="text-sm text-muted m-0">
+                        Bạn có <strong id="cart-count-drop" class="text-primary"></strong> sản phẩm trong giỏ hàng.
+                     </h6>
                   </div>
                   <!-- List group -->
                   <div class="list-group list-group-flush" id="list-product-carts">
@@ -121,13 +118,12 @@
          </ul>
 
          <!--User login-->
-         <ul id="nav-user-login" hidden="true"  class="navbar-nav align-items-center ml-auto ml-md-0">
+         <ul id="nav-user-login" class="navbar-nav align-items-center ml-auto ml-md-0 d-none">
             <li class="nav-item dropdown">
-               <a class="nav-link pr-0" href="#" role="button" data-toggle="dropdown" aria-haspopup="true"
-                  aria-expanded="false">
+               <a class="nav-link pr-0" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                   <div class="media align-items-center">
                   <span class="avatar avatar-sm rounded-circle">
-                    <img id="image-customer" alt="Image placeholder" src="">
+                    <img id="image-customer" alt="avatar">
                   </span>
                      <div class="media-body ml-2 d-none d-lg-block">
                         <span id="full-name-customer" class="mb-0 text-sm font-weight-bold"></span>
@@ -164,10 +160,12 @@
          </ul>
 
          <!--User guest-->
-         <ul id="nav-user-guest" class="navbar-nav align-items-center ml-auto ml-md-0 mr-0" >
-            <li><button data-toggle="modal" data-target="#modal-login" class="btn btn-secondary my-1 ml-1 mr-0">
-               Đăng nhập/ Đăng kí
-            </button></li>
+         <ul id="nav-user-guest" class="navbar-nav align-items-center ml-auto ml-md-0 mr-0">
+            <li>
+               <button data-toggle="modal" data-target="#modal-login" class="btn btn-secondary my-1 ml-1 mr-0">
+                  Đăng nhập/ Đăng kí
+               </button>
+            </li>
          </ul>
       </div>
    </div>
@@ -199,7 +197,8 @@
                         </li>
                         <!--Nav button signup-->
                         <li class="nav-item">
-                           <a id="tabs-signup-tab" class="nav-link mb-sm-3 mb-md-0" aria-selected="true" data-toggle="tab"
+                           <a id="tabs-signup-tab" class="nav-link mb-sm-3 mb-md-0" aria-selected="true"
+                              data-toggle="tab"
                               href="#tabs-signup" role="tab" aria-controls="tabs-signup">
                               <em class="fa fa-user-plus mr-3"></em>Tạo tài khoản
                            </a>
@@ -218,7 +217,8 @@
                                     <div class="card bg-secondary border-0 mb-0">
 
                                        <p class="mx-5 mt-5">
-                                          Đăng nhập để theo dõi đơn hàng, lưu danh sách sản phẩm yêu thích, nhận nhiều ưu đãi hấp dẫn.
+                                          Đăng nhập để theo dõi đơn hàng, lưu danh sách sản phẩm yêu thích, nhận nhiều
+                                          ưu đãi hấp dẫn.
                                        </p>
 
                                        <div class="card-body px-5 pt-5 pb-3">
@@ -226,9 +226,12 @@
                                              <div class="form-group mb-3">
                                                 <div class="input-group input-group-merge input-group-alternative">
                                                    <div class="input-group-prepend">
-                                                      <span class="input-group-text"><em class="fa fa-user-alt"></em></span>
+                                                      <span class="input-group-text"><em
+                                                              class="fa fa-user-alt"></em></span>
                                                    </div>
-                                                   <input onclick="hiddenError()" class="form-control" id="login-username" name="login-username" autofocus placeholder="Tên đăng nhập hoặc email" type="text" required>
+                                                   <input onclick="hiddenError()" class="form-control"
+                                                          id="login-username" name="login-username" autofocus
+                                                          placeholder="Tên đăng nhập hoặc email" type="text" required>
                                                 </div>
                                              </div>
                                              <div class="form-group">
@@ -236,21 +239,28 @@
                                                    <div class="input-group-prepend">
                                                       <span class="input-group-text"><em class="fa fa-key"></em></span>
                                                    </div>
-                                                   <input onclick="hiddenError()" class="form-control" placeholder="Mật khẩu" type="password" name="login-password" id="login-password" required>
+                                                   <input onclick="hiddenError()" class="form-control"
+                                                          placeholder="Mật khẩu" type="password" name="login-password"
+                                                          id="login-password" required>
                                                 </div>
                                              </div>
-                                             <small id="login-error" class="error-input text-danger" style="display: none;">Mật khẩu hoặc tên đăng nhập không đúng</small>
-                                             <div><a href="#" class="text-primary"><small>Quên mật khẩu ?</small></a></div>
+                                             <small id="login-error" class="error-input text-danger"
+                                                    style="display: none;">Mật khẩu hoặc tên đăng nhập không
+                                                đúng</small>
+                                             <div><a href="#" class="text-primary"><small>Quên mật khẩu ?</small></a>
+                                             </div>
 
                                              <div class="text-center">
-                                                <button type="submit" class="btn btn-primary my-4 px-5">Đăng nhập</button>
+                                                <button type="submit" class="btn btn-primary my-4 px-5">Đăng nhập
+                                                </button>
                                              </div>
                                           </form>
                                        </div>
                                     </div>
 
                                     <div class="text-center my-3">
-                                       <a class="text-success" href="javascript:$('#tabs-signup-tab').trigger('click');">
+                                       <a class="text-success"
+                                          href="javascript:$('#tabs-signup-tab').trigger('click');">
                                           Tạo tài khoản
                                        </a>
                                     </div>
@@ -259,13 +269,15 @@
                            </div>
 
                            <!--Tab sign up-->
-                           <div class="tab-pane fade" id="tabs-signup" role="tabpanel" aria-labelledby="tabs-signup-tab">
+                           <div class="tab-pane fade" id="tabs-signup" role="tabpanel"
+                                aria-labelledby="tabs-signup-tab">
                               <div class="row justify-content-center">
                                  <div class="col">
                                     <div class="card bg-secondary border-0 mb-0">
 
                                        <p class="mx-5 mt-5">
-                                          Tạo tài khoản để theo dõi đơn hàng, lưu danh sách sản phẩm yêu thích, nhận nhiều ưu đãi hấp dẫn.
+                                          Tạo tài khoản để theo dõi đơn hàng, lưu danh sách sản phẩm yêu thích, nhận
+                                          nhiều ưu đãi hấp dẫn.
                                        </p>
 
                                        <div class="card-body px-5 pt-3 pb-0">
@@ -276,9 +288,12 @@
                                                    <div class="form-group mb-3">
                                                       <div class="input-group input-group-merge input-group-alternative">
                                                          <div class="input-group-prepend">
-                                                            <span class="input-group-text"><em class="fa fa-user-circle"></em></span>
+                                                            <span class="input-group-text"><em
+                                                                    class="fa fa-user-circle"></em></span>
                                                          </div>
-                                                         <input class="form-control" placeholder="Họ và tên đệm" type="text" name="login-last-name" id="login-last-name" required="">
+                                                         <input class="form-control" placeholder="Họ và tên đệm"
+                                                                type="text" name="login-last-name" id="login-last-name"
+                                                                required="">
                                                       </div>
                                                    </div>
                                                 </div>
@@ -286,38 +301,57 @@
                                                    <div class="form-group mb-3">
                                                       <div class="input-group input-group-merge input-group-alternative">
                                                          <div class="input-group-prepend">
-                                                            <span class="input-group-text"><em class="fa fa-user-circle"></em></span>
+                                                            <span class="input-group-text"><em
+                                                                    class="fa fa-user-circle"></em></span>
                                                          </div>
-                                                         <input class="form-control" placeholder="Tên" type="text" name="login-first-name" id="login-first-name" required="">
+                                                         <input class="form-control" placeholder="Tên" type="text"
+                                                                name="login-first-name" id="login-first-name"
+                                                                required="">
                                                       </div>
                                                    </div>
                                                 </div>
                                              </div>
 
                                              <div class="form-group mb-3">
-                                                <div class="input-group input-group-merge input-group-alternative" style="display: flex;">
+                                                <div class="input-group input-group-merge input-group-alternative"
+                                                     style="display: flex;">
                                                    <div class="input-group-prepend">
-                                                      <span class="input-group-text"><em class="fas fa-envelope"></em></span>
+                                                      <span class="input-group-text"><em
+                                                              class="fas fa-envelope"></em></span>
                                                    </div>
-                                                   <input onclick="hiddenErrorEmail()" class="form-control" id="signup-email" name="signup-email" autofocus="" placeholder="Email" type="text" required="">
+                                                   <input onclick="hiddenErrorEmail()" class="form-control"
+                                                          id="signup-email" name="signup-email" autofocus=""
+                                                          placeholder="Email" type="text" required="">
                                                    <div class="input-group-append">
-                                                      <button onclick="sendCode()" class="ml-1 btn btn-outline-primary" type="button" id="btn-signup-send-code" style="width: 8rem;">Gửi mã</button>
+                                                      <button onclick="sendCode()" class="ml-1 btn btn-outline-primary"
+                                                              type="button" id="btn-signup-send-code"
+                                                              style="width: 8rem;">Gửi mã
+                                                      </button>
                                                    </div>
                                                 </div>
-                                                <small id="mail-error" class ="error-input text-danger">Email đã đươc sử dụng...</small>
+                                                <small id="mail-error" class="error-input text-danger">Email đã đươc sử
+                                                   dụng...</small>
                                              </div>
 
                                              <div class="form-group mb-3">
                                                 <div class="input-group input-group-merge input-group-alternative">
                                                    <div class="input-group-prepend">
-                                                      <span class="input-group-text"><em class="fa fa-keyboard"></em></span>
+                                                      <span class="input-group-text"><em
+                                                              class="fa fa-keyboard"></em></span>
                                                    </div>
-                                                   <input onclick="hiddenErrorCode()" class="form-control" id="signup-verified-code" name="signup-verified-code" placeholder="Mã xác thực gửi tới email của bạn" type="text" required="">
+                                                   <input onclick="hiddenErrorCode()" class="form-control"
+                                                          id="signup-verified-code" name="signup-verified-code"
+                                                          placeholder="Mã xác thực gửi tới email của bạn" type="text"
+                                                          required="">
                                                    <div class="input-group-append">
-                                                      <button onclick="checkCode()" class="ml-1 btn btn-outline-primary" type="button" id="btn-signup-check-code" style="width: 8rem;">Kiểm tra</button>
+                                                      <button onclick="checkCode()" class="ml-1 btn btn-outline-primary"
+                                                              type="button" id="btn-signup-check-code" style="width: 8rem;">
+                                                         Kiểm tra
+                                                      </button>
                                                    </div>
                                                 </div>
-                                                <small id="code-error" class ="error-input text-danger">Mã xác nhận không chính xác</small>
+                                                <small id="code-error" class="error-input text-danger">Mã xác nhận không
+                                                   chính xác</small>
                                              </div>
 
                                              <div class="form-group mb-3">
@@ -325,7 +359,8 @@
                                                    <div class="input-group-prepend">
                                                       <span class="input-group-text"><em class="fa fa-key"></em></span>
                                                    </div>
-                                                   <input class="form-control" placeholder="Mật khẩu" type="password" name="signup-password" id="signup-password" required="">
+                                                   <input class="form-control" placeholder="Mật khẩu" type="password"
+                                                          name="signup-password" id="signup-password" required="">
                                                 </div>
                                              </div>
 
@@ -334,12 +369,16 @@
                                                    <div class="input-group-prepend">
                                                       <span class="input-group-text"><em class="fa fa-key"></em></span>
                                                    </div>
-                                                   <input class="form-control" placeholder="Nhập lại mật khẩu" type="password" name="signup-re-password" id="signup-re-password" required="">
+                                                   <input class="form-control" placeholder="Nhập lại mật khẩu"
+                                                          type="password" name="signup-re-password"
+                                                          id="signup-re-password" required="">
                                                 </div>
                                              </div>
 
                                              <div class="text-center">
-                                                <button id="sign-up" type="submit" class="btn btn-primary my-4 px-5">Đăng ký</button>
+                                                <button id="sign-up" type="submit" class="btn btn-primary my-4 px-5">
+                                                   Đăng ký
+                                                </button>
                                              </div>
                                           </form>
                                        </div>
@@ -364,25 +403,87 @@
    </div>
 </div>
 
-
-
 <script>
-  $(document).ready(function() {
-    console.log('ready');
-  });
+  function loadUserLogin() {
+    $.ajax({
+      url: '/api/login-customer',
+      method: 'GET',
+      async: false,
+      data: {},
+      success: function (data, textStatus, jqXHR) {
+        let userLogin = null;
+        try {
+          userLogin = JSON.parse(data);
+        } catch (err) {
+        }
 
-  function loadPage() {
-    let loadPara = '${result}'.split('@ab');
-    console.log('${result}');
-    if (loadPara[0] === 'true') {
-      $('#nav-user-login').attr('hidden', false);
-      $('#nav-user-guest').attr('hidden', true);
-      $('#modal-login').modal('hide');
-      $('#full-name-customer').html(loadPara[1]);
-      $('#image-customer').attr('src',loadPara[2]);
-    }
+        console.log(userLogin);
+
+        if (userLogin != null) {
+          $('#nav-user-login').removeClass('d-none');
+          $('#nav-user-guest').addClass('d-none');
+
+          $('#image-customer').attr('src', userLogin.imgSrc);
+          $('#full-name-customer').html(userLogin.fullName);
+        }
+        else {
+          $('#nav-user-login').addClass('d-none');
+          $('#nav-user-guest').removeClass('d-none');
+        }
+      }
+    });
   }
-  loadPage();
+
+  function loadProductInCart() {
+    $.ajax({
+      url: '/api/carts',
+      method: 'GET',
+      cache: false,
+      success: function (data, textStatus, jqXHR) {
+        let list = $.parseJSON(data);
+        $('#cart-count-noti').html(list.length);
+        $('#cart-count-noti').html(list.length);
+      }
+    });
+
+    $.ajax({
+      url: '/api/load-list-product-in-carts',
+      method: 'GET',
+      cache: false,
+      success: function (data, textStatus, jqXHR) {
+        let list = $.parseJSON(data);
+        $('#list-product-carts').find('a').remove();
+        $.each(list, function (index, item) {
+          let html =
+            '<a href="/product?id=' + item.productId + '" class="list-group-item list-group-item-action">' +
+            '<div class="row align-items-center">' +
+            '<div class="col-auto">' +
+            '<img alt="Image placeholder" src="' + item.image + '" class="avatar rounded">' +
+            '</div>' +
+            '<div class="col ml--2">' +
+            '<div class="d-flex justify-content-between align-items-center">' +
+            '<div>' +
+            '<h4 class="mb-0 text-sm">' + item.name + '</h4>' +
+            '</div>' +
+            '<div class="text-right text-muted">' +
+            '<small>' + item.price + ' vnđ</small>' +
+            '</div>' +
+            '</div>' +
+            '<p class="text-sm mb-0">' + item.nameDetail + '</p>' +
+            '<p class="text-sm mb-0">Số lượng: ' + item.quantity + '</p>' +
+            '</div>' +
+            '</div>' +
+            '</a>';
+          $('#list-product-carts').append(html);
+        });
+      }
+    });
+  }
+
+  $(document).ready(function () {
+    loadUserLogin();
+    loadProductInCart();
+  });
 
   <!--Sign in-->
   const username = document.getElementById('login-username');
@@ -390,12 +491,13 @@
   const signPassword = document.getElementById('signup-password');
   const rePassword = document.getElementById('signup-re-password');
 
-  function hiddenError(){
-    $('#login-error').attr('style',"display: none;");
+  function hiddenError() {
+    $('#login-error').attr('style', "display: none;");
   }
 
-  $('#form-login').submit(function (e){
+  $('#form-login').submit(function (e) {
     e.preventDefault();
+
     $.ajax({
       url: '/api/login-customer',
       method: 'POST',
@@ -407,19 +509,16 @@
       success: function (data, textStatus, jqXHR) {
         let result = data.toString().split('\n');
         if (result[0] === 'true') {
-          $('#nav-user-login').attr('hidden', false);
-          $('#nav-user-guest').attr('hidden', true);
+          loadUserLogin();
+          $('#form-login').trigger('reset');
           $('#modal-login').modal('hide');
-          $('#full-name-customer').html(result[1]);
-          $('#image-customer').attr('src',result[2]);
+          window.history.pushState({}, '', '/home');
         } else {
-          $('#login-error').attr('style',"display: inline;")
-          e.preventDefault();
+          $('#login-error').attr('style', "display: inline;")
         }
       },
       error: function (jqXHR, textStatus, errorThrown) {
         alert("Lỗi: " + errorThrown);
-        e.preventDefault();
       }
     });
   });
@@ -433,7 +532,6 @@
   let isValidate = true;
 
   function checkInputs() {
-
     let emailValue = email.value.trim();
 
     isValidate = true;
@@ -475,15 +573,15 @@
     return /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(email);
   }
 
-  function hiddenErrorEmail(){
-    $('#mail-error').attr('style',"display: none;");
+  function hiddenErrorEmail() {
+    $('#mail-error').attr('style', "display: none;");
   }
 
-  function hiddenErrorCode(){
-    $('#code-error').attr('style',"display: none;");
+  function hiddenErrorCode() {
+    $('#code-error').attr('style', "display: none;");
   }
 
-  function sendCode(){
+  function sendCode() {
     checkInputs();
 
     //Check email
@@ -504,8 +602,7 @@
       cache: false
     });
 
-    if (isValidate){
-
+    if (isValidate) {
       $.ajax({
         url: 'api/register-account',
         method: 'POST',
@@ -517,7 +614,7 @@
           if (result[0] === 'true') {
             $('#mail-error').html("Đã gửi mã xác nhận");
           } else {
-            $('#mail-error').attr('style',"display: inline;");
+            $('#mail-error').attr('style', "display: inline;");
           }
         },
         error: function (jqXHR, textStatus, errorThrown) {
@@ -525,13 +622,11 @@
         }
       });
     }
-
   }
 
   let code = document.getElementById("signup-verified-code");
 
   function checkCode() {
-
     let paras = JSON.stringify({
       'signup-verified-code': code.value.trim()
     });
@@ -557,86 +652,37 @@
   }
 
   $('#form-signup').submit(function (e) {
-      $.ajax({
-        url: '/api/customers',
-        method: 'POST',
-        async: false,
-        data: {
-          'login-last-name': lastName.value.trim(),
-          'login-first-name': firstName.value.trim(),
-          'signup-email': email.value.trim(),
-          'signup-password': signPassword.value.trim(),
-          'signup-re-password': rePassword.value.trim()
-        },
-        success: function (data, textStatus, jqXHR) {
-          let result = data.toString().split('\n');
-          if (result[0] === 'true') {
-            alert("Tạo tài khoản thành công!")
-          } else {
-            alert("Lỗi: " + result[1]);
-            e.preventDefault();
-          }
-        },
-        error: function (jqXHR, textStatus, errorThrown) {
-          alert("Lỗi: " + errorThrown);
-          e.preventDefault();
-        }
-      });
-  });
-
-  $.ajax({
-    url: '/api/carts',
-    method: 'GET',
-    cache: false,
-    success: function (data, textStatus, jqXHR) {
-      let list = $.parseJSON(data);
-      let quantity = 0;
-      $.each(list, function (index, item){
-         quantity = quantity + 1;
-      });
-      $('#quantity-cart').append(quantity);
-      $('#quantity-cart1').append(quantity);
-    }
-  });
-
-  function loadProductInCart(){
+    e.preventDefault();
 
     $.ajax({
-      url: '/api/load-list-product-in-carts',
-      method: 'GET',
-      cache: false,
+      url: '/api/customers',
+      method: 'POST',
+      async: false,
+      data: {
+        'login-last-name': lastName.value.trim(),
+        'login-first-name': firstName.value.trim(),
+        'signup-email': email.value.trim(),
+        'signup-password': signPassword.value.trim(),
+        'signup-re-password': rePassword.value.trim()
+      },
       success: function (data, textStatus, jqXHR) {
-        let list = $.parseJSON(data);
-        $.each(list, function (index, item) {
-          let html =
-              '<a href="/product?id='+ item.productId + '" class="list-group-item list-group-item-action">' +
-              '<div class="row align-items-center">' +
-              '<div class="col-auto">' +
-              '<img alt="Image placeholder" src="'+ item.image + '" class="avatar rounded">' +
-              '</div>' +
-              '<div class="col ml--2">' +
-              '<div class="d-flex justify-content-between align-items-center">' +
-              '<div>' +
-              '<h4 class="mb-0 text-sm">'+ item.name + '</h4>' +
-              '</div>' +
-              '<div class="text-right text-muted">' +
-              '<small>' + item.price + ' vnđ</small>' +
-              '</div>' +
-              '</div>' +
-              '<p class="text-sm mb-0">' + item.nameDetail + '</p>' +
-              '<p class="text-sm mb-0">Số lượng: '+ item.quantity + '</p>' +
-              '</div>' +
-              '</div>' +
-              '</a>';
-          $('#list-product-carts').append(html);
-        });
+        let result = data.toString().split('\n');
+        if (result[0] === 'true') {
+          alert("Tạo tài khoản thành công!")
+        } else {
+          alert("Lỗi: " + result[1]);
+        }
+      },
+      error: function (jqXHR, textStatus, errorThrown) {
+        alert("Lỗi: " + errorThrown);
       }
     });
-  }
-</script>
-<script>
+  });
+
   $('#navbar-search-main').submit(function (e) {
     e.preventDefault();
-    window.location.href = window.location.origin +  '/product-search?keyword=' + $('#search-keyword-all').val();
-  })
+    window.location.href = window.location.origin
+      + '/product-search?keyword='
+      + $('#search-keyword-all').val();
+  });
 </script>

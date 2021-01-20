@@ -78,6 +78,18 @@ public class UserEntity implements Serializable {
       this.status = true;
    }
 
+   public String toJson() {
+      return "{" +
+              "\"id\":\"" + getUserId() + "\"," +
+              "\"username\":\"" + getUserName() + "\"," +
+              "\"fullName\":\"" + getFullName() + "\"," +
+              "\"phone\":\"" + getPhoneNumber() + "\"," +
+              "\"email\":\"" + getEmail() + "\"," +
+              "\"imgSrc\":\"" + getImageSrc() + "\"," +
+              "\"status\":\"" + getStatus() + "\"" +
+              "}";
+   }
+
    public String getFullName() {
       return lastName + " " + firstName;
    }
