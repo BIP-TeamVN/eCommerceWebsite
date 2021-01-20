@@ -6,6 +6,7 @@ import com.hknp.utils.DateTimeUtils;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.text.DecimalFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Set;
@@ -251,6 +252,14 @@ public class ProductEntity implements Serializable {
 
    public void setProductCategoryEntities(Set<ProductCategoryEntity> productCategoryEntities) {
       this.productCategoryEntities = productCategoryEntities;
+   }
+
+   public String getPriceOrderDisplay() {
+      return new DecimalFormat("###,###").format(priceOrder);
+   }
+
+   public String getPriceOriginDisplay() {
+      return new DecimalFormat("###,###").format(priceOrigin);
    }
 
    public Long getCountSold (){
