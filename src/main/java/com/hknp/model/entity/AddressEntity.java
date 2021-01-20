@@ -132,6 +132,22 @@ public class AddressEntity implements Serializable {
    public void setPhoneNumber(String phoneNumber) {
       this.phoneNumber = phoneNumber;
    }
+
+   public String toJson1() {
+      String fullAddress = street + ", " +
+              communeEntity.communeName+ ", " +
+              districtEntity.districtName + ", " +
+              provinceEntity.provinceName;
+      return "{" +
+              "\"addressId\":\"" + addressId + "\"," +
+              "\"fullAddress\":\"" + fullAddress + "\"," +
+              "\"userId\":\"" + userId + "\"," +
+              "\"fullName\":\"" + fullName + "\"," +
+              "\"addressName\":\"" + addressName + "\"," +
+              "\"phoneNumber\":\"" + phoneNumber + "\"" +
+              "}";
+   }
+
    public String toJson() {
       return "{" +
               "\"addressId\":\"" + addressId + "\"," +
@@ -142,7 +158,7 @@ public class AddressEntity implements Serializable {
               "\"userId\":\"" + userId + "\"," +
               "\"fullName\":\"" + fullName + "\"," +
               "\"addressName\":\"" + addressName + "\"," +
-              "\"phoneNumber\":\"" + phoneNumber + "\"," +
+              "\"phoneNumber\":\"" + phoneNumber + "\"" +
               "}";
    }
 }
