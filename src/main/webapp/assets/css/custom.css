@@ -1,9 +1,17 @@
 @charset "UTF-8";
 
-.navbar-vertical .navbar-brand-img, .navbar-vertical .navbar-brand > img {
-  FONT-VARIANT: JIS04;
+.navbar-vertical .navbar-brand-img,
+.navbar-vertical .navbar-brand > img {
+  font-variant: JIS04;
   max-width: 100%;
   max-height: 3.5rem;
+}
+
+.separate-dashed {
+  overflow: hidden;
+  height: 0;
+  margin: 0.5rem 0;
+  border-top: 2px dashed #e9ecef;
 }
 
 img {
@@ -12,7 +20,7 @@ img {
 }
 
 .breadcrumb-item + .breadcrumb-item::before {
-  content: '\00BB';
+  content: "\00BB";
 }
 
 .error-input {
@@ -37,7 +45,7 @@ img {
 }
 
 .floating-label {
-  position: absolute!important;
+  position: absolute !important;
   font-size: 0.75rem;
   top: -0.25rem;
   left: 1.25rem;
@@ -99,7 +107,7 @@ img {
   line-height: 1.8rem;
 }
 
-.carousel-button:hover > em{
+.carousel-button:hover > em {
   font-size: 2.5rem;
   line-height: 2.5rem;
 }
@@ -169,6 +177,27 @@ img {
   text-overflow: ellipsis;
 }
 
+.product-item__type {
+  margin: 0.5rem 0.25rem 1rem 0.25rem !important;
+  text-align: justify !important;
+  padding: 0.25rem !important;
+
+  color: #333;
+  font-size: 1rem;
+  line-height: 1.4rem;
+  height: 1.9rem;
+  font-weight: 400;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+
+  display: inline-block;
+  border: 1px solid #cccccc;
+  border-radius: 0.25rem;
+}
+
 .product-item__desc {
   font-size: 90%;
 }
@@ -198,6 +227,26 @@ img {
   text-decoration: line-through;
 }
 
+.product-item__price--item {
+  font-size: 1rem !important;
+  line-height: 1.2rem !important;
+  font-weight: 500;
+}
+
+.product-item__price--item::before {
+  content: "Đơn giá\A";
+  white-space: pre-wrap;
+  font-size: 0.7rem;
+  line-height: 0.7rem;
+  height: 0.7rem;
+}
+
+.product-item__price--total::before {
+  content: "Thành tiền\A";
+  white-space: pre-wrap;
+  font-size: 0.75rem;
+}
+
 .product-item__price-percent::before {
   content: "- ";
 }
@@ -219,7 +268,7 @@ img {
   width: 100%;
   height: 27rem;
   object-fit: cover;
-  display: block!important;
+  display: block !important;
 }
 
 .product-detail__price {
@@ -247,8 +296,8 @@ img {
   text-decoration: line-through;
 }
 
-.product-detail__price--percent::before{
-  content: '- ';
+.product-detail__price--percent::before {
+  content: "- ";
 }
 
 .product-detail__price--percent {
@@ -279,7 +328,7 @@ img {
   width: 100%;
   height: 8rem;
   object-fit: cover;
-  display: block!important;
+  display: block !important;
 }
 
 .product-detail__img--thumb:hover {
@@ -289,13 +338,13 @@ img {
 }
 
 .carousel-control {
-  background-color: rgba(0,0,0,0.2);
+  background-color: rgba(0, 0, 0, 0.2);
   width: 2.5rem;
   border-radius: 0.2rem;
 }
 
 .carousel-control:hover {
-  background-color: rgba(0,0,0,0.6);
+  background-color: rgba(0, 0, 0, 0.6);
   width: 3rem;
 }
 
@@ -471,7 +520,6 @@ img {
     opacity: 0;
   }
 }
-
 
 .line-text {
   text-align: center;

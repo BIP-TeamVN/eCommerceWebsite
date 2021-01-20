@@ -102,7 +102,6 @@
                                        <option value="productId" selected>Mã</option>
                                        <option value="productName">Tên sản phẩm</option>
                                        <option value="brandEntity.brandName">Nhãn hiệu</option>
-                                       <option value="sellerEntity.storeName">Cửa hàng</option>
                                        <option value="productRate">Đánh giá</option>
                                        <option value="productOrigin">Xuất xứ</option>
                                        <option value="productCreateDate">Ngày tạo</option>
@@ -163,7 +162,6 @@
                         <th scope="col" class="text-center">Mã</th>
                         <th scope="col" class="text-center">Tên sản phẩm</th>
                         <th scope="col" class="text-center">Nhãn hiệu</th>
-                        <th scope="col" class="text-center">Cửa hàng</th>
                         <th scope="col" class="text-center">Đánh giá</th>
                         <th scope="col" class="text-center">Nước sản xuất</th>
                         <th scope="col" class="text-center">Ngày tạo</th>
@@ -322,7 +320,6 @@
             '<td>' + item.id + '</td>' +
             '<td>' + item.productName + '</td>' +
             '<td>' + item.brand + '</td>' +
-            '<td>' + item.seller + '</td>' +
             '<td>' + item.productRate + '</td>' +
             '<td>' + item.productOrigin + '</td>' +
             '<td>' + item.createDate + '</td>' +

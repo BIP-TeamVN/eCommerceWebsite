@@ -51,7 +51,7 @@
                   </a>
                </li>
                <li class="nav-item">
-                  <a class="nav-link <%=isActive[3] ? "active" : ""%>" href="<%=isActive[3] ? "javascript:void(0)" : "/admin/message"%>">
+                  <a class="nav-link <%=isActive[3] ? "active" : ""%>" href="<%=isActive[3] ? "javascript:void(0)" : "/seller/message"%>">
                      <i class="fa fa-comment-dots text-blue"></i>
                      <span class="nav-link-text">Tin nhắn</span>
                   </a>
