@@ -211,7 +211,8 @@
   }
 
   function Back(){
-    window.history.back();
+    window.location.href = window.location.origin +  '/seller/bills?status='+'${status}';
+
   }
 </script>
 </body>

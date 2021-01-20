@@ -68,6 +68,7 @@ public class DeliveryViewBillController extends HttpServlet {
       req.setAttribute("currentPage", currentPage);
 
       req.setAttribute("billId", id);
+      req.setAttribute("status", bill.getStatus());
 
       if(bill.getStatus() == 0){
          ServletUtils.forward(req, resp, "/view/seller/sh-bill-waiting-accept.jsp");

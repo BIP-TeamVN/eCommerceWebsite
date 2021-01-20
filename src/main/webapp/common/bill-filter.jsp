@@ -9,12 +9,12 @@
 <div class="col-md-6 text-right">
    <div class="d-inline-block ml-2">
       <select class="form-control" id="status" name="status" required onchange="changeStatus()">
-         <option value="0">Đợi duyệt</option>
-         <option value="2">Đã duyệt</option>
-         <option value="4">Đang đợi shipper nhận hàng</option>
-         <option value="5">Đang giao</option>
-         <option value="6">Đã giao xong</option>
-         <option value="7">Giao thất bại</option>
+         <option id="option-status-0" value="0">Đợi duyệt</option>
+         <option id="option-status-2" value="2">Đã duyệt</option>
+         <option id="option-status-4" value="4">Đang đợi shipper nhận hàng</option>
+         <option id="option-status-5" value="5">Đang giao</option>
+         <option id="option-status-6" value="6">Đã giao xong</option>
+         <option id="option-status-7" value="7">Giao thất bại</option>
       </select>
    </div>
 </div>
@@ -37,4 +37,5 @@
       }
     });
   }
+
 </script>

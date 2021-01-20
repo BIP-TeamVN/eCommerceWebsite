@@ -182,7 +182,6 @@
   function reloadPage() {
     updatePagination();
 
-
     $.ajax({
       url: '/api/deliverybill',
       method: 'GET',
@@ -220,6 +219,9 @@
       }
     });
   }
+  console.log('<%=request.getParameter("status")%>');
+  document.getElementById("option-status-" +"<%=request.getParameter("status")%>").selected = "true"
+  reloadPage();
 </script>
 </body>
 </html>
