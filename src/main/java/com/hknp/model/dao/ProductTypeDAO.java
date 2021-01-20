@@ -106,6 +106,30 @@ public class ProductTypeDAO implements IRetrieveEntity<ProductTypeEntity, Long>,
       return result;
    }
 
+   public ArrayList<ProductTypeEntity> getByProductId(Integer firstResult, Integer maxResults, Long id) {
+      EntityManager entityMgr = EntityUtils.getEntityManager();
+
+      String query = "SELECT u FROM ProductTypeEntity u where u.productEntity.productId =" + id;
+      TypedQuery<ProductTypeEntity> typedQuery = entityMgr.createQuery(query, ProductTypeEntity.class);
+
+      if (firstResult != null) {
+         typedQuery.setFirstResult(firstResult);
+      }
+      if (maxResults != null) {
+         typedQuery.setMaxResults(maxResults);
+      }
+
+      ArrayList<ProductTypeEntity> result = null;
+      try {
+         result = new ArrayList<>(typedQuery.getResultList());
+      } catch (Exception exception) {
+         exception.printStackTrace();
+      } finally {
+         entityMgr.close();
+      }
+      return result;
+   }
+
    @Override
    public ProductTypeEntity getById(Long id) {
       EntityManager entityMgr = EntityUtils.getEntityManager();

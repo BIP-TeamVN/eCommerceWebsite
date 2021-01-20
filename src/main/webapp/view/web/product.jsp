@@ -119,17 +119,17 @@
 
                               <div class="col-2">
                                  <!--Deal Percent-->
-                                 <span class="product-detail__price--percent">%</span>
+                                 <span class="product-detail__price--percent">${percent}%</span>
                               </div>
                            </div>
 
                            <div class="row">
                               <div class="col-4">
                                  <input class="input-numeric" id="quantity-number" name="quantity-number" type="number" min="1"
-                                        max="20" value="1" maxlength="2" />
+                                        max="20" value="1" maxlength="2"/>
                               </div>
                               <div class="col-8">
-                                 <button type="submit" class="btn btn-primary btn-block text-uppercase">Thêm vào giỏ hàng <em
+                                 <button onclick="addToCarts()" type="submit" class="btn btn-primary btn-block text-uppercase">Thêm vào giỏ hàng <em
                                          class="ml-2 fa fa-cart-plus"></em></button>
                               </div>
                            </div>
@@ -209,11 +209,10 @@
                <div class="card-header bg-transparent">
                   <div class="row">
                      <div class="col">
-                        <h3 class="mb-0 text-uppercase"><em class="fa fa-store text-success mr-2"></em>Các sản phẩm khác của
-                           shop</h3>
+                        <h3 class="mb-0 text-uppercase"><em class="fa fa-store text-success mr-2"></em>Các sản phẩm khác của shop</h3>
                      </div>
                      <div class="col text-right">
-                        <a href="javascript:void(0)" class="btn btn-sm btn-primary">
+                        <a id="btn-show-all-shop" class="btn btn-sm btn-primary">
                            Xem tất cả
                            <em class="fa fa-angle-double-right ml-2"></em>
                         </a>
@@ -248,46 +247,7 @@
                </div>
                <!--Product main content-->
                <div class="card-body">
-                  <div class="row" id="relative-product-list">
-                     <div class="col-lg-3 col-md-6">
-                        <a class="product-item" href="javascript:void(0)">
-                           <!--Product image-->
-                           <div class="row">
-                              <div class="col text-center">
-                                 <img src="https://cdn.pixabay.com/photo/2018/03/30/15/11/deer-3275594_960_720.jpg"
-                                      class="rounded product-item__img" alt="...">
-                              </div>
-                           </div>
-                           <!--Product name-->
-                           <div class="row">
-                              <div class="col">
-                                 <p class="product-item__name">Lorem ipsum dolor sit amet consectetur adipisicing elit. Eligendi,
-                                    voluptas incidunt! Nulla tenetur consequatur nostrum dignissimos temporibus iure assumenda
-                                    iste quia, quam voluptates totam. Libero laboriosam ipsa voluptates voluptatem ad!</p>
-                              </div>
-                           </div>
-                           <!--Price and add to card-->
-                           <div class="row mr-0">
-                              <!--Price-->
-                              <div class="col-8 p-0 text-left">
-                                 <!--Order price-->
-                                 <span class="product-item__price product-item__price--order">160000</span>
-                                 <!--Origin price-->
-                                 <span class="product-item__price product-item__price--origin">200000</span>
-                              </div>
-                              <!--Add to card button-->
-                              <div class="col-4 p-0 text-right">
-                                 <button type="button" onclick="addToCart('000000000')" class="btn btn-primary"
-                                         data-toggle="tooltip" data-placement="top" title="Thêm vào giỏ hàng">
-                                    <em class="fa fa-cart-plus text-white" style="font-size: 1.2rem;"></em>
-                                 </button>
-                              </div>
-                           </div>
-                           <!--Deal Percent-->
-                           <span class="product-item__price-percent"></span>
-                        </a>
-                     </div>
-                  </div>
+                  <div class="row" id="relative-product-list"></div>
                </div>
             </div>
          </div>
@@ -306,6 +266,8 @@
 
 <script>
    const PRODUCT_ID = parseFloat('<%= p.getProductId()%>');
+   const SELLER_ID = parseFloat('<%= p.getSellerEntity().getUserId()%>');
+   $('#btn-show-all-shop').attr('href', '/product-search?shop=' + SELLER_ID);
 
    let html1 =
     '<div class="carousel-item active">' +
@@ -401,7 +363,94 @@
       method: 'GET',
       data: {
         'type': 'min',
-        'sellerId': <%= p.getSellerEntity().getUserId()%>
+        'sellerId': SELLER_ID
+      },
+      cache: false,
+      success: function (data, textStatus, jqXHR) {
+        let list = $.parseJSON(data);
+        $.each(list, function (index, item) {
+          let priceOrder = parseFloat(item.priceOrder);
+          let priceOrigin = parseFloat(item.priceOrigin);
+          let percentDiscount = (100*(priceOrigin-priceOrder)/priceOrigin).toFixed(0);
+          let html = '<div class="col-lg-3 col-md-6">' +
+            '<a class="product-item" href="/product?id=' + item.id + '">' +
+            '<!--Product image-->' +
+            '<div class="row">' +
+            '<div class="col text-center">' +
+            '<img src="' + item.image0 + '"' +
+            'class="rounded product-item__img" alt="...">' +
+            '</div>' +
+            '</div>' +
+            '<!--Product name-->' +
+            '<div class="row">' +
+            '<div class="col">' +
+            '<p class="product-item__name">' + item.productName + '</p>' +
+            '</div>' +
+            '</div>' +
+            '<!--Price and add to card-->' +
+            '<div class="row mr-0">' +
+            '<!--Price-->' +
+            '<div class="col-8 p-0 text-left">' +
+            '<!--Order price-->' +
+            '<span class="product-item__price product-item__price--order d-block">' + priceOrder.toFixed(0).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.') + '</span>' +
+            '<!--Origin price-->' +
+            '<span class="product-item__price product-item__price--origin">' + priceOrigin.toFixed(0).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.') + '</span>' +
+            '</div>' +
+            '<!--Add to card button-->' +
+            '<div class="col-4 p-0 text-right">' +
+            '<button type="button" onclick="addToCartIn(\'' + item.id + '\')" class="btn btn-primary" ' +
+            'data-toggle="tooltip" data-placement="top" title="Thêm vào giỏ hàng">' +
+            '<em class="fa fa-cart-plus text-white" style="font-size: 1.2rem;"></em>' +
+            '</button>' +
+            '</div>' +
+            '</div>' +
+            '<!--Deal Percent-->' +
+            '<span class="product-item__price-percent">' + percentDiscount + '%</span>' +
+            '</a>' +
+            '</div>';
+          $('#shop-product-list').append(html);
+        });
+      }
+    });
+  }
+  productOfShop();
+
+  function addToCartIn(productId){
+    $.ajax({
+      url: '/api/carts',
+      method: 'POST',
+      async: false,
+      data: {
+        'product-id': productId
+      },
+      success: function (data, textStatus, jqXHR) {
+        let result = data.toString().split('\n');
+        if (result[0] === 'true') {
+          alert("Thêm sản phẩm thành công");
+        } else {
+          alert("Lỗi: " + result[1]);
+          e.preventDefault();
+        }
+      },
+      error: function (jqXHR, textStatus, errorThrown) {
+        alert("Lỗi: " + errorThrown);
+        e.preventDefault();
+      }
+    });
+  }
+
+  const quantity = document.getElementById("quantity-number");
+  const productTypeId = document.getElementById();
+  function addToCarts(){
+
+  }
+  function productOfCategory () {
+    $.ajax({
+      url: '/api/product-by-category',
+      method: 'GET',
+      data: {
+        'type': 'min',
+        'productId': PRODUCT_ID
       },
       cache: false,
       success: function (data, textStatus, jqXHR) {
@@ -446,12 +495,15 @@
             '<span class="product-item__price-percent">' + percentDiscount + '%</span>' +
             '</a>' +
             '</div>';
-          $('#shop-product-list').append(html);
+          $('#relative-product-list').append(html);
         });
       }
     });
   }
-  productOfShop();
+  productOfCategory();
+</script>
+<script>
+
 </script>
 </body>
 </html>

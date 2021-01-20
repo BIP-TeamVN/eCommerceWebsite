@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.math.BigDecimal;
 
 @WebServlet(urlPatterns = {"/product"})
 public class ProductController extends HttpServlet {
@@ -23,7 +24,13 @@ public class ProductController extends HttpServlet {
 
          if (productEntity != null) {
             productEntity.setProductDesc(productEntity.getProductDesc().replace("\n", "<br>"));
+
+            BigDecimal percent = productEntity.getPriceOrigin().subtract(productEntity.getPriceOrder());
+            percent = percent.multiply(new BigDecimal(100));
+            percent = percent.divide(productEntity.getPriceOrigin(), 0, 1);
+
             req.setAttribute("product", productEntity);
+            req.setAttribute("percent", percent);
 
             ServletUtils.forward(req, resp, "/view/web/product.jsp");
          } else {

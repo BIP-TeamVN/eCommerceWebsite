@@ -232,6 +232,17 @@ public class ProductDAO implements IRetrieveEntity<ProductEntity, Long>, IModify
       return null;
    }
 
+   public ProductEntity getByIdAndSeller(Long productId) {
+      EntityManager entityMgr = EntityUtils.getEntityManager();
+      try {
+         String query = "SELECT u FROM ProductEntity AS u WHERE u.productId = " + productId;
+         return entityMgr.createQuery(query, ProductEntity.class).getSingleResult();
+      } catch (Exception exception) {
+         exception.printStackTrace();
+      }
+      return null;
+   }
+
    @Override
    public Long count() {return EntityUtils.count(ProductEntity.class.getName());}
 

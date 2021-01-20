@@ -236,7 +236,7 @@
           let slides = '<div class="carousel-item' + (i == 0 ? ' active' : '') + '"><div class="row">';
           for (let j = 0; j < listCategory[i].length; j++) {
             slides += '<div class="col-md-2 col-sm-4 col-xs-12 clearfix d-inline-block d-md-block">'
-              + '<a class="card product-category-item" href="/category?id=' + listCategory[i][j].id + '">'
+              + '<a class="card product-category-item" href="/product-search?categories=' + listCategory[i][j].id + '">'
               + '<img class="card-img-top" src="' + listCategory[i][j].image + '" alt="category_logo">'
               + '<div class="card-body text-center p-0 m-auto">'
               + '<h5 class="card-title m-auto py-1">' + listCategory[i][j].name + '</h5>'
@@ -268,7 +268,7 @@
         $('#tb-list').find('tr').remove();
         $.each(list, function (index, item) {
           let html = '<div class="col-lg-3 col-md-6">' +
-            '<a class="btn-icon-clipboard p-2" href="javascript:void(0)">' +
+            '<a class="btn-icon-clipboard p-2" href="/product-search?brands=' + item.id + '">' +
             '<div>' +
             '<img src="' + item.image + '" class="rounded avatar" alt="...">' +
             '<h4 class="ml-3 my-auto">' + item.brandName + '</h4>' +
@@ -345,13 +345,13 @@
     });
   }
 
-  function addToCart(productTypeId) {
+  function addToCart(productId) {
     $.ajax({
       url: '/api/carts',
       method: 'POST',
       async: false,
       data: {
-        'product-type-id': productTypeId
+        'product-id': productId
       },
       success: function (data, textStatus, jqXHR) {
         let result = data.toString().split('\n');
@@ -367,8 +367,6 @@
         e.preventDefault();
       }
     });
-
-
   }
 
   loadProductCategory();
@@ -405,8 +403,6 @@
        }
      });
    };
-
-
 </script>
 </body>
 </html>
