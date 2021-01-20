@@ -38,6 +38,25 @@ public class AddressOfCustomerServlet extends HttpServlet {
 
    @Override
    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+      String result = "";
 
+      try {
+         String streetPara = req.getParameter("street");
+         String communeId = req.getParameter("commune");
+         String districtId = req.getParameter("district");
+         String provinceId = req.getParameter("province");
+         String fullName = req.getParameter("fullName");
+         String addressName = req.getParameter("addressName");
+         String phoneNumber = req.getParameter("phoneNumber");
+
+         HttpSession session = req.getSession();
+         Long userId = (Long) session.getAttribute("id");
+
+         AddressEntity addressEntity = new AddressEntity(streetPara, communeId, districtId, provinceId, userId, fullName, addressName, phoneNumber);
+
+      }
+      catch (Exception e) {
+
+      }
    }
 }
