@@ -46,20 +46,6 @@ public class AdDashboardController extends HttpServlet {
       }
       req.setAttribute("totalSale", totalSale);
 
-      for(int i =1 ; i< 13;i++){
-         BigDecimal totalEachMonth = new BigDecimal(0);
-         List<BillEntity> listbill =  new ArrayList<>();
-         String first =  String.valueOf(i);
-         String last = String.valueOf(i+1);
-         listbill = BillDAO.getInstance().getsByMonth(first, last);
-         Long countBillByMonth = listbill.stream().count();
-         for (BillEntity bill : listbill){
-            totalEachMonth = totalEachMonth.add(bill.getTotal());
-         }
-         req.setAttribute("T"+i +"", totalEachMonth);
-         req.setAttribute("t"+i +"", countBillByMonth);
-      }
-
       ServletUtils.forward(req, resp, "/view/admin/ad-dashboard.jsp");
    }
 

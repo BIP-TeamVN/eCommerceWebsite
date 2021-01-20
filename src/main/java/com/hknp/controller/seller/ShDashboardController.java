@@ -41,6 +41,8 @@ public class ShDashboardController extends HttpServlet {
       HttpSession session = req.getSession();
       Long sellerId = (Long) session.getAttribute("id");
 
+      req.setAttribute("sellerId", sellerId);
+
       Long totalCustomer = BillDAO.getInstance().CountCustomerForSeller(sellerId);
       req.setAttribute("totalCustomer", totalCustomer);
 
@@ -57,21 +59,6 @@ public class ShDashboardController extends HttpServlet {
       totalBill = listBill.stream().count();
       req.setAttribute("totalSale", totalSale);
       req.setAttribute("totalBill", totalBill);
-      for(int i = 1;i<13;i++){
-         BigDecimal totalEachMonth = new BigDecimal(0);
-         List<BillEntity> listbill =  new ArrayList<>();
-         String first =  String.valueOf(i);
-         String last = String.valueOf(i+1);
-         listbill = BillDAO.getInstance().getsForSumByMonth(first, last, sellerId);
-         Long countBillByMonth = listbill.stream().count();
-         for (BillEntity bill : listbill){
-            totalEachMonth = totalEachMonth.add(bill.getTotal());
-         }
-         req.setAttribute("T"+i +"", totalEachMonth);
-         req.setAttribute("t"+i +"", countBillByMonth);
-      }
-
-
 
       ServletUtils.forward(req, resp, "/view/seller/sh-dashboard.jsp");
    }

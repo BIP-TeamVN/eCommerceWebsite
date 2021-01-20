@@ -192,14 +192,14 @@ public class BillDAO implements IRetrieveEntity<BillEntity, Long>, IModifySingle
       return result;
    }
 
-   public ArrayList<BillEntity> getsByMonth(String first, String last) {
+   public ArrayList<BillEntity> getsByMonth(String first, String last, String year) {
       EntityManager entityMgr = EntityUtils.getEntityManager();
       String strQuery = null;
-      if(first != "12"){
-         strQuery = "SELECT u FROM BillEntity AS u where u.billCreateDate between '2021-" +first + "-01' and '2021-" +last +"-01' ";
+      if(first.equals("12")){
+         strQuery = "SELECT u FROM BillEntity AS u where u.billCreateDate between '"+year+"-" +first + "-01' and '"+year+"-" +first +"-31' ";
       }
       else{
-         strQuery = "SELECT u FROM BillEntity AS u where u.billCreateDate between '2021-" +first + "-01' and '2021-" +first +"-31' ";
+         strQuery = "SELECT u FROM BillEntity AS u where u.billCreateDate between '"+year+"-" +first + "-01' and '2021-" +last +"-01' ";
       }
 
       Query query = entityMgr.createQuery(strQuery);
@@ -215,14 +215,21 @@ public class BillDAO implements IRetrieveEntity<BillEntity, Long>, IModifySingle
       return result;
    }
 
-   public  ArrayList<BillEntity> getsForSumByMonth(String first, String last , Long sellerId){
+   public  ArrayList<BillEntity> getsForSumByMonth(String first, String last , Long sellerId, String year){
       EntityManager entityMgr = EntityUtils.getEntityManager();
-
-      String strQuery = "SELECT distinct u.billEntity FROM BillDetailEntity AS u " +
-              "WHERE u.productTypeEntity.productEntity.sellerEntity.userId = :sellerId " +
-              "and u.billEntity.status = 6 " +
-              "and u.billEntity.billCreateDate between '2021-"+first+"-01' and '2021-"+last+"-01' ";
-
+      String strQuery = null;
+      if(first.equals("12")){
+         strQuery = "SELECT distinct u.billEntity FROM BillDetailEntity AS u " +
+                 "WHERE u.productTypeEntity.productEntity.sellerEntity.userId = :sellerId " +
+                 "and u.billEntity.status = 6 " +
+                 "and u.billEntity.billCreateDate between '"+year+"-"+first+"-01' and '"+year+"-"+first+"-31' ";
+      }
+      else {
+         strQuery = "SELECT distinct u.billEntity FROM BillDetailEntity AS u " +
+                 "WHERE u.productTypeEntity.productEntity.sellerEntity.userId = :sellerId " +
+                 "and u.billEntity.status = 6 " +
+                 "and u.billEntity.billCreateDate between '"+year+"-"+first+"-01' and '"+year+"-"+last+"-01' ";
+      }
       Query query = entityMgr.createQuery(strQuery);
       query.setParameter("sellerId", sellerId);
 

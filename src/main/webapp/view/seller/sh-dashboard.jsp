@@ -177,6 +177,33 @@
 <%@ include file="../../common/import-js.jsp" %>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
 <script>
+  $.ajax({
+    url: '/api/statists-each-seller',
+    method: "GET",
+    data: {
+      year: '2021',
+      type: 'total',
+      sellerId: ${sellerId},
+    },
+    cache: false,
+    success: function (data) {
+      let obj = $.parseJSON(data);
+      console.log(obj);
+      chart.data =  {
+        labels: ['T1', 'T2', 'T3', 'T4', 'T5', 'T6', 'T7', 'T8', 'T9', 'T10', 'T11', 'T12'],
+        datasets: [{
+          label: 'Doanh số',
+          backgroundColor: 'rgb(255, 99, 132)',
+          barPercentage: 1,
+          barThickness: 8,
+          maxBarThickness: 8,
+          minBarLength: 2,
+          data: obj,
+        }]
+      };
+      chart.update();
+    }
+  });
   var ctx = document.getElementById('myChart').getContext('2d');
   var chart = new Chart(ctx, {
     // The type of chart we want to create
@@ -189,7 +216,7 @@
         label: 'Doanh số',
         backgroundColor: 'rgb(255, 99, 132)',
         borderColor: 'rgb(255, 99, 132)',
-        data: [${T1}, ${T2}, ${T3}, ${T4}, ${T5}, ${T6},${T7},${T8},${T9},${T10},${T11},${T12}]
+        data: [1,2,3,4,5,6,7,8,9,10,11,12],
       }]
     },
 
@@ -210,9 +237,36 @@
         barThickness: 8,
         maxBarThickness: 8,
         minBarLength: 2,
-        data: [${t1}, ${t2}, ${t3}, ${t4}, ${t5}, ${t6},${t7},${t8},${t9},${t10},${t11},${t12}]
+        data: [1,2,3,4,5,6,7,8,9,10,11,12],
       }]
     },
+  });
+  $.ajax({
+    url: '/api/statists-each-seller',
+    method: "GET",
+    data: {
+      year: '2021',
+      type: 'count',
+      sellerId: ${sellerId},
+    },
+    cache: false,
+    success: function (data) {
+      let obj = $.parseJSON(data);
+      console.log(obj);
+      myBarChart.data =  {
+        labels: ['T1', 'T2', 'T3', 'T4', 'T5', 'T6', 'T7', 'T8', 'T9', 'T10', 'T11', 'T12'],
+        datasets: [{
+          label: 'Số lượng đơn hàng',
+          backgroundColor: 'rgb(255, 99, 132)',
+          barPercentage: 1,
+          barThickness: 8,
+          maxBarThickness: 8,
+          minBarLength: 2,
+          data: obj,
+        }]
+      };
+      myBarChart.update();
+    }
   });
 </script>
 </body>
