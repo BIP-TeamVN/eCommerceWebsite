@@ -222,7 +222,7 @@
                                        </p>
 
                                        <div class="card-body px-5 pt-5 pb-3">
-                                          <form id="form-login">
+                                          <form id="form-login" method="post">
                                              <div class="form-group mb-3">
                                                 <div class="input-group input-group-merge input-group-alternative">
                                                    <div class="input-group-prepend">
@@ -368,6 +368,19 @@
   $(document).ready(function() {
     console.log('ready');
   });
+
+  function loadPage() {
+    let loadPara = '${result}'.split('@ab');
+    console.log('${result}');
+    if (loadPara[0] === 'true') {
+      $('#nav-user-login').attr('hidden', false);
+      $('#nav-user-guest').attr('hidden', true);
+      $('#modal-login').modal('hide');
+      $('#full-name-customer').html(loadPara[1]);
+      $('#image-customer').attr('src',loadPara[2]);
+    }
+  }
+  loadPage();
 
   <!--Sign in-->
   const username = document.getElementById('login-username');
