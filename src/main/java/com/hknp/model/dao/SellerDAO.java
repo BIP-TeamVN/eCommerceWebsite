@@ -2,8 +2,6 @@ package com.hknp.model.dao;
 
 import com.hknp.interfaces.IModifySingleEntityAutoIncrement;
 import com.hknp.interfaces.IRetrieveEntity;
-import com.hknp.model.entity.DeliveryEntity;
-import com.hknp.model.entity.EmployeeEntity;
 import com.hknp.model.entity.SellerEntity;
 import com.hknp.model.entity.UserEntity;
 import com.hknp.utils.EntityUtils;
@@ -90,7 +88,9 @@ public class SellerDAO implements IRetrieveEntity<SellerEntity, Long>, IModifySi
    }
 
    @Override
-   public ArrayList<SellerEntity> gets() { return gets(null, null); }
+   public ArrayList<SellerEntity> gets() {
+      return gets(null, null);
+   }
 
    @Override
    public ArrayList<SellerEntity> gets(Integer firstResult, Integer maxResults) {
@@ -129,22 +129,19 @@ public class SellerDAO implements IRetrieveEntity<SellerEntity, Long>, IModifySi
       Query query;
       String queryStr;
       Boolean temp;
-      if(status == 2)
-      {
+      if (status == 2) {
          queryStr = "SELECT u FROM SellerEntity  u " +
                  "where concat(u.userEntity.firstName , ' ', u.userEntity.lastName) like :searchKeyword " +
                  "or u.userEntity.gender like :searchKeyword " +
                  "or  u.storeName like :searchKeyword " +
                  "or u.storeLink like :searchKeyword " +
                  "or u.businessLicenseId like :searchKeyword " +
-                 "or u.bankAccountId like :searchKeyword "+ sortColumn(sortColumnName, typeSort);
+                 "or u.bankAccountId like :searchKeyword " + sortColumn(sortColumnName, typeSort);
          query = entityMgr.createQuery(queryStr, SellerEntity.class);
-      }
-      else {
-         if(status == 1){
+      } else {
+         if (status == 1) {
             temp = true;
-         }
-         else {
+         } else {
             temp = false;
          }
          queryStr = "SELECT u FROM SellerEntity  u " +
@@ -154,23 +151,23 @@ public class SellerDAO implements IRetrieveEntity<SellerEntity, Long>, IModifySi
                  "or  u.storeName like :searchKeyword " +
                  "or u.storeLink like :searchKeyword " +
                  "or  u.businessLicenseId like :searchKeyword " +
-                 "or u.bankAccountId like :searchKeyword) "+ sortColumn(sortColumnName, typeSort);
+                 "or u.bankAccountId like :searchKeyword) " + sortColumn(sortColumnName, typeSort);
          query = entityMgr.createQuery(queryStr, SellerEntity.class);
          query.setParameter("statusPara", temp);
       }
       query.setParameter("searchKeyword", "%" + searchKeyword + "%");
 
-      if(firstResult != null){
+      if (firstResult != null) {
          query.setFirstResult(firstResult);
       }
-      if(maxResults != null){
+      if (maxResults != null) {
          query.setMaxResults(maxResults);
       }
 
       ArrayList<SellerEntity> result = null;
       try {
          result = new ArrayList<>(query.getResultList());
-      } catch (Exception exception){
+      } catch (Exception exception) {
          exception.printStackTrace();
       } finally {
          entityMgr.close();
@@ -178,10 +175,10 @@ public class SellerDAO implements IRetrieveEntity<SellerEntity, Long>, IModifySi
       return result;
    }
 
-   public String sortColumn (String columnName, String typeSort) {
+   public String sortColumn(String columnName, String typeSort) {
       String result = "";
-      if (!columnName.equals("")){
-         result = " ORDER BY u." + columnName +" " + typeSort;
+      if (!columnName.equals("")) {
+         result = " ORDER BY u." + columnName + " " + typeSort;
       }
       return result;
    }
@@ -192,7 +189,7 @@ public class SellerDAO implements IRetrieveEntity<SellerEntity, Long>, IModifySi
       String queryStr;
       Query query;
       Boolean temp;
-      if(status == 2){
+      if (status == 2) {
          queryStr = String.format("SELECT count(*) FROM SellerEntity  u " +
                  "where concat(u.userEntity.firstName , ' ', u.userEntity.lastName) like :searchKeyword " +
                  "or u.userEntity.phoneNumber like :searchKeyword " +
@@ -200,12 +197,10 @@ public class SellerDAO implements IRetrieveEntity<SellerEntity, Long>, IModifySi
                  "or u.userEntity.gender like :searchKeyword ");
          query = entityMgr.createQuery(queryStr);
          query.setParameter("searchKeyword", "%" + keyword + "%");
-      }
-      else {
-         if(status == 1){
+      } else {
+         if (status == 1) {
             temp = true;
-         }
-         else {
+         } else {
             temp = false;
          }
          queryStr = String.format("SELECT COUNT(*) FROM SellerEntity  u " +
@@ -225,5 +220,7 @@ public class SellerDAO implements IRetrieveEntity<SellerEntity, Long>, IModifySi
    }
 
    @Override
-   public Long count() {return EntityUtils.count(SellerEntity.class.getName());}
+   public Long count() {
+      return EntityUtils.count(SellerEntity.class.getName());
+   }
 }

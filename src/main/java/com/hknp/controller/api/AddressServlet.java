@@ -1,8 +1,10 @@
 package com.hknp.controller.api;
 
-import com.hknp.model.dao.*;
+import com.hknp.model.dao.AddressDAO;
+import com.hknp.model.dao.CommuneDAO;
+import com.hknp.model.dao.DistrictDAO;
+import com.hknp.model.dao.ProvinceDAO;
 import com.hknp.model.entity.AddressEntity;
-import com.hknp.model.entity.Cons;
 import com.hknp.utils.ServletUtils;
 import com.hknp.utils.StringUtils;
 
@@ -11,9 +13,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,7 +22,6 @@ public class AddressServlet extends HttpServlet {
 
    @Override
    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
       ArrayList<AddressEntity> listAddress = AddressDAO.getInstance().gets();
       List<String> listJsonStr = new ArrayList<>();
 
@@ -31,7 +30,6 @@ public class AddressServlet extends HttpServlet {
       }
 
       ServletUtils.printWrite(resp, "[" + String.join(", ", listJsonStr) + "]");
-
    }
 
    @Override

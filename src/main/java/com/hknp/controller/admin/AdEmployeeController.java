@@ -4,7 +4,6 @@ import com.hknp.model.dao.EmployeeDAO;
 import com.hknp.utils.ServletUtils;
 import com.hknp.utils.StringUtils;
 
-import javax.persistence.Persistence;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;

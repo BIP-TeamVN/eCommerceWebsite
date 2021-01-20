@@ -111,7 +111,7 @@ public class BillDetailDAO implements IRetrieveEntity<BillDetailEntity, Long>, I
    public ArrayList<BillDetailEntity> gets(Integer firstResult, Integer maxResults, Long billId) {
       EntityManager entityMgr = EntityUtils.getEntityManager();
 
-      String query = "SELECT u FROM BillDetailEntity u where u.billEntity.id ="+ billId;
+      String query = "SELECT u FROM BillDetailEntity u where u.billEntity.id =" + billId;
       TypedQuery<BillDetailEntity> typedQuery = entityMgr.createQuery(query, BillDetailEntity.class);
 
       if (firstResult != null) {
@@ -131,6 +131,7 @@ public class BillDetailDAO implements IRetrieveEntity<BillDetailEntity, Long>, I
       }
       return result;
    }
+
    @Override
    public BillDetailEntity getById(Long id) {
       EntityManager entityMgr = EntityUtils.getEntityManager();
@@ -138,5 +139,7 @@ public class BillDetailDAO implements IRetrieveEntity<BillDetailEntity, Long>, I
    }
 
    @Override
-   public Long count() {return EntityUtils.count(BillDetailEntity.class.getName());}
+   public Long count() {
+      return EntityUtils.count(BillDetailEntity.class.getName());
+   }
 }

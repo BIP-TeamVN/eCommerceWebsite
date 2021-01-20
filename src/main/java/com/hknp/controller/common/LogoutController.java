@@ -2,7 +2,6 @@ package com.hknp.controller.common;
 
 import com.hknp.model.dao.UserDAO;
 import com.hknp.model.entity.Cons;
-import com.hknp.model.entity.UserEntity;
 import com.hknp.utils.ServletUtils;
 
 import javax.servlet.ServletException;

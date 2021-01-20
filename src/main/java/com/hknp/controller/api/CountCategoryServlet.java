@@ -1,6 +1,5 @@
 package com.hknp.controller.api;
 
-import com.hknp.model.dao.CustomerDAO;
 import com.hknp.model.dao.ProductCategoryDAO;
 import com.hknp.model.dao.UserDAO;
 import com.hknp.model.entity.Cons;

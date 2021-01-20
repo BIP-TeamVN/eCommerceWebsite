@@ -1,7 +1,5 @@
 package com.hknp.model.entity;
 
-import com.hknp.utils.DateTimeUtils;
-
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Set;
@@ -27,7 +25,6 @@ public class ProductCategoryEntity implements Serializable {
    }
 
 
-
    public String toJson() {
       return "{" +
               "\"id\":\"" + productCategoryId + "\"," +
@@ -35,6 +32,7 @@ public class ProductCategoryEntity implements Serializable {
               "\"image\":\"" + getImageSrc() + "\"" +
               "}";
    }
+
    public Long getProductCategoryId() {
       return productCategoryId;
    }
@@ -55,15 +53,16 @@ public class ProductCategoryEntity implements Serializable {
       return image;
    }
 
+   public void setImage(String image) {
+      this.image = image;
+   }
+
    public String getImageSrc() {
       if (image == null || image.isEmpty()) {
          return Cons.ProductCategory.DEFAULT_PRODUCT_CATEGORY_IMAGE;
       } else {
          return image;
       }
-   }
-   public void setImage(String image) {
-      this.image = image;
    }
 
    public Set<ProductEntity> getProductEntities() {

@@ -1,7 +1,6 @@
 package com.hknp.controller.seller;
 
 import com.hknp.model.dao.ProductDAO;
-import com.hknp.model.dao.SellerDAO;
 import com.hknp.utils.ServletUtils;
 import com.hknp.utils.StringUtils;
 

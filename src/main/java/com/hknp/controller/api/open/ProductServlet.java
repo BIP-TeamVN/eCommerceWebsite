@@ -1,8 +1,6 @@
 package com.hknp.controller.api.open;
 
 import com.hknp.model.dao.ProductDAO;
-import com.hknp.model.dao.UserDAO;
-import com.hknp.model.entity.Cons;
 import com.hknp.model.entity.ProductEntity;
 import com.hknp.utils.ServletUtils;
 import com.hknp.utils.StringUtils;
@@ -12,9 +10,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 

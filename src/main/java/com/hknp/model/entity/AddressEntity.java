@@ -3,7 +3,6 @@ package com.hknp.model.entity;
 import com.hknp.model.dao.CommuneDAO;
 import com.hknp.model.dao.DistrictDAO;
 import com.hknp.model.dao.ProvinceDAO;
-import com.hknp.utils.DateTimeUtils;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -132,6 +131,7 @@ public class AddressEntity implements Serializable {
    public void setPhoneNumber(String phoneNumber) {
       this.phoneNumber = phoneNumber;
    }
+
    public String toJson() {
       return "{" +
               "\"addressId\":\"" + addressId + "\"," +

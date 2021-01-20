@@ -2,18 +2,16 @@ package com.hknp.model.entity;
 
 public class Cons {
    public static class User {
-      public static String USER_GENDER_MALE = "Nam";
-      public static String USER_GENDER_FEMALE = "Nữ";
-      public static String USER_GENDER_OTHER = "Khác";
-
       public static final String USER_TYPE_ADMIN = "ADMIN";
       public static final String USER_TYPE_EMPLOYEE = "EMPLOYEE";
       public static final String USER_TYPE_SELLER = "SELLER";
       public static final String USER_TYPE_CUSTOMER = "CUSTOMER";
       public static final String USER_TYPE_DELIVERY = "DELIVERY";
-
       public static final String DEFAULT_USER_IMAGE_MALE_SRC = "../../assets/img/default-image-male.png";
       public static final String DEFAULT_USER_IMAGE_FEMALE_SRC = "../../assets/img/default-image-female.png";
+      public static String USER_GENDER_MALE = "Nam";
+      public static String USER_GENDER_FEMALE = "Nữ";
+      public static String USER_GENDER_OTHER = "Khác";
 
    }
 
@@ -23,9 +21,9 @@ public class Cons {
 
    public static class Product {
       public static final String DEFAULT_PRODUCT_IMAGE = "../../assets/img/no-image-product.svg";
-      public static final Integer PRODUCT_STATUS_CREATE = 0;//Chưa xác nhận
-      public static final Integer PRODUCT_STATUS_ACCESS = 1;//xác nhận
-      public static final Integer PRODUCT_STATUS_REJECT = 2;//Từ chối
+      public static final Integer PRODUCT_STATUS_CREATE = 0;   //Chưa xác nhận
+      public static final Integer PRODUCT_STATUS_ACCESS = 1;   //xác nhận
+      public static final Integer PRODUCT_STATUS_REJECT = 2;   //Từ chối
    }
 
    public static class ProductCategory {

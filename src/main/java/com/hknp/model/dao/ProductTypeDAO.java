@@ -79,7 +79,9 @@ public class ProductTypeDAO implements IRetrieveEntity<ProductTypeEntity, Long>,
    }
 
    @Override
-   public ArrayList<ProductTypeEntity> gets() { return gets(null, null); }
+   public ArrayList<ProductTypeEntity> gets() {
+      return gets(null, null);
+   }
 
    @Override
    public ArrayList<ProductTypeEntity> gets(Integer firstResult, Integer maxResults) {
@@ -137,5 +139,7 @@ public class ProductTypeDAO implements IRetrieveEntity<ProductTypeEntity, Long>,
    }
 
    @Override
-   public Long count() {return EntityUtils.count(ProductTypeEntity.class.getName());}
+   public Long count() {
+      return EntityUtils.count(ProductTypeEntity.class.getName());
+   }
 }

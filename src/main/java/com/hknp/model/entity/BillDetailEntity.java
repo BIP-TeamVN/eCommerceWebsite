@@ -55,7 +55,7 @@ public class BillDetailEntity implements Serializable {
       this.quantity = quantity;
    }
 
-   public BigDecimal getAmount(){
+   public BigDecimal getAmount() {
       return productTypeEntity.getProductEntity().getPriceOrder().multiply(BigDecimal.valueOf(quantity));
    }
 

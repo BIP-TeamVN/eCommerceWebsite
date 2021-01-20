@@ -88,11 +88,13 @@ public class EmployeeDAO implements IRetrieveEntity<EmployeeEntity, Long>, IModi
    }
 
    @Override
-   public ArrayList<EmployeeEntity> gets() { return gets(null, null); }
+   public ArrayList<EmployeeEntity> gets() {
+      return gets(null, null);
+   }
 
    @Override
    public ArrayList<EmployeeEntity> gets(Integer firstResult, Integer maxResults) {
-      return gets(firstResult, maxResults, null, null,null, null);
+      return gets(firstResult, maxResults, null, null, null, null);
    }
 
    public ArrayList<EmployeeEntity> gets(Integer firstResult, Integer maxResults, String searchKeyword, Integer status, String sortColumnName, String typeSort) {
@@ -101,21 +103,18 @@ public class EmployeeDAO implements IRetrieveEntity<EmployeeEntity, Long>, IModi
       Query query;
       String queryStr;
       Boolean temp;
-      if(status == 2)
-      {
+      if (status == 2) {
          queryStr = "SELECT u FROM EmployeeEntity  u " +
                  "where concat(u.userEntity.firstName , ' ', u.userEntity.lastName) like :searchKeyword " +
                  "or u.userEntity.phoneNumber like :searchKeyword " +
                  "or  u.userEntity.email like :searchKeyword " +
                  "or u.userEntity.gender like :searchKeyword " +
-                 "or u.salary like :searchKeyword "+ sortColumn(sortColumnName, typeSort);
+                 "or u.salary like :searchKeyword " + sortColumn(sortColumnName, typeSort);
          query = entityMgr.createQuery(queryStr, EmployeeEntity.class);
-      }
-      else {
-         if(status == 1){
+      } else {
+         if (status == 1) {
             temp = true;
-         }
-         else {
+         } else {
             temp = false;
          }
          queryStr = "SELECT u FROM EmployeeEntity  u " +
@@ -124,23 +123,23 @@ public class EmployeeDAO implements IRetrieveEntity<EmployeeEntity, Long>, IModi
                  "or u.userEntity.phoneNumber like :searchKeyword " +
                  "or  u.userEntity.email like :searchKeyword " +
                  "or u.userEntity.gender like :searchKeyword " +
-                 "or u.salary like :searchKeyword) "+ sortColumn(sortColumnName, typeSort);
+                 "or u.salary like :searchKeyword) " + sortColumn(sortColumnName, typeSort);
          query = entityMgr.createQuery(queryStr, EmployeeEntity.class);
          query.setParameter("statusPara", temp);
       }
       query.setParameter("searchKeyword", "%" + searchKeyword + "%");
 
-      if(firstResult != null){
+      if (firstResult != null) {
          query.setFirstResult(firstResult);
       }
-      if(maxResults != null){
+      if (maxResults != null) {
          query.setMaxResults(maxResults);
       }
 
       ArrayList<EmployeeEntity> result = null;
       try {
          result = new ArrayList<>(query.getResultList());
-      } catch (Exception exception){
+      } catch (Exception exception) {
          exception.printStackTrace();
       } finally {
          entityMgr.close();
@@ -148,10 +147,10 @@ public class EmployeeDAO implements IRetrieveEntity<EmployeeEntity, Long>, IModi
       return result;
    }
 
-   public String sortColumn (String columnName, String typeSort) {
+   public String sortColumn(String columnName, String typeSort) {
       String result = "";
-      if (!columnName.equals("")){
-         result = " ORDER BY u." + columnName +" " + typeSort;
+      if (!columnName.equals("")) {
+         result = " ORDER BY u." + columnName + " " + typeSort;
       }
       return result;
    }
@@ -162,7 +161,7 @@ public class EmployeeDAO implements IRetrieveEntity<EmployeeEntity, Long>, IModi
       String queryStr;
       Query query;
       Boolean temp;
-      if(status == 2){
+      if (status == 2) {
          queryStr = String.format("SELECT count(*) FROM EmployeeEntity  u " +
                  "where concat(u.userEntity.firstName , ' ', u.userEntity.lastName) like :searchKeyword " +
                  "or u.userEntity.phoneNumber like :searchKeyword " +
@@ -171,12 +170,10 @@ public class EmployeeDAO implements IRetrieveEntity<EmployeeEntity, Long>, IModi
                  "or u.salary like :searchKeyword ");
          query = entityMgr.createQuery(queryStr);
          query.setParameter("searchKeyword", "%" + keyword + "%");
-      }
-      else {
-         if(status == 1){
+      } else {
+         if (status == 1) {
             temp = true;
-         }
-         else {
+         } else {
             temp = false;
          }
          queryStr = String.format("SELECT count(*) FROM EmployeeEntity  u " +
@@ -201,5 +198,7 @@ public class EmployeeDAO implements IRetrieveEntity<EmployeeEntity, Long>, IModi
    }
 
    @Override
-   public Long count() {return EntityUtils.count(EmployeeEntity.class.getName());}
+   public Long count() {
+      return EntityUtils.count(EmployeeEntity.class.getName());
+   }
 }

@@ -1,7 +1,10 @@
 package com.hknp.controller.api;
 
 import com.hknp.model.dao.*;
-import com.hknp.model.entity.*;
+import com.hknp.model.entity.AddressEntity;
+import com.hknp.model.entity.Cons;
+import com.hknp.model.entity.SellerEntity;
+import com.hknp.model.entity.UserEntity;
 import com.hknp.utils.*;
 
 import javax.servlet.ServletException;
