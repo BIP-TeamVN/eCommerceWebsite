@@ -1,5 +1,11 @@
 @charset "UTF-8";
 
+.navbar-vertical .navbar-brand-img, .navbar-vertical .navbar-brand > img {
+  FONT-VARIANT: JIS04;
+  max-width: 100%;
+  max-height: 3.5rem;
+}
+
 img {
   display: inline-block;
   max-width: 100%;

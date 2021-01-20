@@ -57,7 +57,7 @@
                     </div>
 
                     <!-- form edit -->
-                    <form id="employee-edit-form" class="px-5">
+                    <form id="seller-edit-form" class="px-5">
                         <!--Mã-->
                         <div class="form-group">
                             <label for="id" class="form-control-label">Mã</label>
@@ -161,25 +161,6 @@
                             <small class="error-input text-danger">Email sai định dạng</small>
                         </div>
 
-                        <!--<div class="row">
-                     <div class="col-md-6 form-group">
-                        <label for="email" class="form-control-label">Mức lương</label>
-                        <div>
-                           <input class="form-control" type="text" id="salary" name="salary" maxlength="20"
-                                  value="${employeeEdit.getSalary()}">
-                        </div>
-                        <small class="error-input text-danger">...</small>
-                     </div>
-                     <div class="col-md-6 form-group">
-                        <label for="start-date" class="form-control-label">Ngày bắt đầu</label>
-                        <a tabindex="-1" tabindex="-1" href="javascript:void(0)" class="badge badge-secondary"
-                           data-toggle="popover" data-placement="right"
-                           data-content="Mặc định là hôm nay">?</a>
-                        <input class="form-control" type="date" min="2000-01-01"
-                               value="${employeeEdit.getStartDateStr("yyyy-MM-dd")}" id="start-date"
-                               name="start-date">
-                     </div>
-                  </div>-->
 
                         <!--Tỉnh - huyện - xã-->
                         <div class="row">
@@ -232,7 +213,7 @@
                         <div class="form-group">
                             <label for="up-image" class="form-control-label d-inline-block w-100">Ảnh</label>
                             <img id="img-upload" class="mb-2 rounded avatar-img"
-                                 src="${employeeEdit.getUserEntity().getImageSrc()}"/>
+                                 src="${sellerEdit.getUserEntity().getImageSrc()}"/>
                             <div class="custom-file">
                                 <label class="custom-file-label custom-file-img-label" for="up-image">Select file</label>
                                 <input type="file" class="custom-file-input" id="up-image" name="up-image" accept="image/*"
@@ -295,7 +276,7 @@
                     <div class="card-footer py-4">
                         <div class="row">
                             <div class="col-md-6 text-md-right text-center mb-sm-3">
-                                <button type="submit" form="employee-edit-form" class="btn btn-primary px-6">
+                                <button type="submit" form="seller-edit-form" class="btn btn-primary px-6">
                                     LƯU
                                 </button>
                             </div>

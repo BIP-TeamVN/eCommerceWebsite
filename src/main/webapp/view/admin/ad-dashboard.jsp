@@ -130,13 +130,21 @@
                      </div>
                      <div class="col">
                         <ul class="nav nav-pills justify-content-end">
-                           <li class="nav-item mr-2 mr-md-0" data-toggle="chart" data-target="#chart-sales-dark"
-                               data-update='{"data":{"datasets":[{"data":[${T2}, ${T3}, ${T4}, ${T5}, ${T6} ${T7}, ${T8}, ${T9}]}]}}'
-                               data-prefix="$" data-suffix="k">
-                              <a href="#" class="nav-link py-2 px-3 active" data-toggle="tab">
-                                 <span class="d-none d-md-block">Năm</span>
-                                 <span class="d-md-none">M</span>
-                              </a>
+                           <li class="nav-item mr-2 mr-md-0">
+                              <!-- Example split danger button -->
+                              <div class="btn-group">
+                                 <button type="button" class="btn btn-danger">Action</button>
+                                 <button type="button" class="btn btn-danger dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <span class="sr-only">Toggle Dropdown</span>
+                                 </button>
+                                 <div class="dropdown-menu">
+                                    <a class="dropdown-item" href="#">Action</a>
+                                    <a class="dropdown-item" href="#">Another action</a>
+                                    <a class="dropdown-item" href="#">Something else here</a>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item" href="#">Separated link</a>
+                                 </div>
+                              </div>
                            </li>
                         </ul>
                      </div>
@@ -179,6 +187,32 @@
 <%@ include file="../../common/import-js.jsp" %>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
 <script>
+  $.ajax({
+    url: 'api/statists',
+    method: "GET",
+    data: {
+      year: '2021',
+      type: 'total'
+    },
+    cache: false,
+    success: function (data) {
+      let obj = $.parseJSON(data);
+      console.log(obj);
+      chart.data =  {
+        labels: ['T1', 'T2', 'T3', 'T4', 'T5', 'T6', 'T7', 'T8', 'T9', 'T10', 'T11', 'T12'],
+        datasets: [{
+          label: 'Doanh số',
+          backgroundColor: 'rgb(255, 99, 132)',
+          barPercentage: 1,
+          barThickness: 8,
+          maxBarThickness: 8,
+          minBarLength: 2,
+          data: obj,
+        }]
+      };
+      chart.update();
+    }
+  });
   var ctx = document.getElementById('myChart').getContext('2d');
   var chart = new Chart(ctx, {
     // The type of chart we want to create
@@ -191,7 +225,7 @@
         label: 'Doanh số',
         backgroundColor: 'rgb(255, 99, 132)',
         borderColor: 'rgb(255, 99, 132)',
-        data: [${T1}, ${T2}, ${T3}, ${T4}, ${T5}, ${T6},${T7},${T8},${T9},${T10},${T11},${T12}]
+        data: [1,2,3,4,5,6,7,8,9,10,11,12],
       }]
     },
 
@@ -212,9 +246,35 @@
         barThickness: 8,
         maxBarThickness: 8,
         minBarLength: 2,
-        data: [${t1}, ${t2}, ${t3}, ${t4}, ${t5}, ${t6},${t7},${t8},${t9},${t10},${t11},${t12}]
+        data: [1,2,3,4,5,6,7,8,9,10,11,12],
       }]
     },
+  });
+  $.ajax({
+    url: 'api/statists',
+    method: "GET",
+    data: {
+      year: '2021',
+      type: 'count'
+    },
+    cache: false,
+    success: function (data) {
+      let obj = $.parseJSON(data);
+      console.log(obj);
+    myBarChart.data =  {
+        labels: ['T1', 'T2', 'T3', 'T4', 'T5', 'T6', 'T7', 'T8', 'T9', 'T10', 'T11', 'T12'],
+        datasets: [{
+          label: 'Số lượng đơn hàng',
+          backgroundColor: 'rgb(255, 99, 132)',
+          barPercentage: 1,
+          barThickness: 8,
+          maxBarThickness: 8,
+          minBarLength: 2,
+          data: obj,
+        }]
+      };
+    myBarChart.update();
+    }
   });
 </script>
 </body>
