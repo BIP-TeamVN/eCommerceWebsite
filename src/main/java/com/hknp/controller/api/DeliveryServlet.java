@@ -26,6 +26,10 @@ public class DeliveryServlet extends HttpServlet {
 
       if (id != null) {
          String userType = UserDAO.getInstance().getUserType(id);
+         if(userType.equals(Cons.User.USER_TYPE_DELIVERY))
+         {
+            return  userType.equals(Cons.User.USER_TYPE_DELIVERY);
+         }
          return userType.equals(Cons.User.USER_TYPE_ADMIN) || userType.equals(Cons.User.USER_TYPE_EMPLOYEE);
       }
 
@@ -197,7 +201,6 @@ public class DeliveryServlet extends HttpServlet {
 
          updateUser.setUserType(Cons.User.USER_TYPE_DELIVERY);
          updateUser.setUserName(phoneNumber);
-         updateUser.setPassword(HashUtils.getMd5(Base64Utils.encodeFromString(phoneNumber)));
          updateUser.setStatus(true);
 
          Boolean updateResult = UserDAO.getInstance().update(updateUser);

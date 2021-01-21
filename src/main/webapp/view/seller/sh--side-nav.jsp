@@ -51,7 +51,13 @@
                   </a>
                </li>
                <li class="nav-item">
-                  <a class="nav-link <%=isActive[3] ? "active" : ""%>" href="<%=isActive[3] ? "javascript:void(0)" : "/seller/message"%>">
+                  <a class="nav-link <%=isActive[3] ? "active" : ""%>" href="<%=isActive[3] ? "javascript:void(0)" : "/seller/edit"%>">
+                     <i class="fa fa-file-invoice text-green"></i>
+                     <span class="nav-link-text">Thông tin cửa hàng </span>
+                  </a>
+               </li>
+               <li class="nav-item">
+                  <a class="nav-link <%=isActive[4] ? "active" : ""%>" href="<%=isActive[4] ? "javascript:void(0)" : "/seller/message"%>">
                      <i class="fa fa-comment-dots text-blue"></i>
                      <span class="nav-link-text">Tin nhắn</span>
                   </a>

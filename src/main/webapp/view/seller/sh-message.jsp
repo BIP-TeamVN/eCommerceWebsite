@@ -9,7 +9,7 @@
 <body>
 <!--Left side nav-->
 <jsp:include page="./sh--side-nav.jsp">
-   <jsp:param name="selectedIndex" value="8"/>
+   <jsp:param name="selectedIndex" value="4"/>
 </jsp:include>
 
 <!-- Main content -->

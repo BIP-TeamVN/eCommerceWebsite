@@ -248,10 +248,9 @@ $('#' + FORM_ID).submit(function (e) {
       success: function (data, textStatus, jqXHR) {
         let result = data.toString().split('\n');
         if (result[0] === 'true') {
-          alert("Chỉnh sửa thông tin thành công");
           $('#successful-modal').modal('show');
           $('#successful-modal').on('hidden.bs.modal', function () {
-            window.location.href = window.location.origin +  '/admin/seller';
+            window.location.href = window.location.origin +  '/seller';
           });
         } else {
           alert("Lỗi: " + result[1]);

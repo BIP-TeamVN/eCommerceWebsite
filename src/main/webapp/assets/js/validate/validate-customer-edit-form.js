@@ -1,109 +1,107 @@
-const FORM_ID = 'delivery-edit-form';
+const FORM_ID = 'customer-edit-form';
+console.log("vo");
 
 let id = document.getElementById('id');
-let lastName = document.getElementById('last-name');
-let firstName = document.getElementById('first-name');
+let lastNamee = document.getElementById('last-name');
+let firstNamee = document.getElementById('first-name');
 
-let gender = document.getElementById('gender');
-let dob = document.getElementById('dob')
+let genderr = document.getElementById('gender');
+let dobb = document.getElementById('dob')
 
-let phoneNumber = document.getElementById('phone-number');
-let ssn = document.getElementById('ssn');
-let email = document.getElementById('email');
+let phoneNumberr = document.getElementById('phone-number');
+let ssnn = document.getElementById('ssn');
+let emaill = document.getElementById('email');
 
-let salary = document.getElementById('salary');
-let startDate = document.getElementById('start-date');
+let provincee = document.getElementById('province');
+let districtt = document.getElementById('district');
+let communee = document.getElementById('commune');
+let addressStreett = document.getElementById('address-street');
 
-let province = document.getElementById('province');
-let district = document.getElementById('district');
-let commune = document.getElementById('commune');
-let addressStreet = document.getElementById('address-street');
-
-let isValidate = true;
+let isValidatee = true;
 
 function checkInputs() {
   // trim to remove the whitespaces
-  let lastNameValue = lastName.value.trim();
-  let firstNameValue = firstName.value.trim();
+  let lastNameValue = lastNamee.value.trim();
+  let firstNameValue = firstNamee.value.trim();
 
-  let phoneNumberValue = phoneNumber.value.trim();
-  let ssnValue = ssn.value.trim();
-  let emailValue = email.value.trim();
+  let phoneNumberValue = phoneNumberr.value.trim();
+  let ssnValue = ssnn.value.trim();
+  let emailValue = emaill.value.trim();
 
-  let provinceValue = province.value;
-  let districtValue = district.value;
-  let communeValue = commune.value;
-  let addressStreetValue = addressStreet.value.trim();
+  let provinceValue = provincee.value;
+  let districtValue = districtt.value;
+  let communeValue = communee.value;
+  let addressStreetValue = addressStreett.value.trim();
 
-  isValidate = true;
+  isValidatee = true;
 
   if (lastNameValue === '') {
-    setErrorFor(lastName, 'Vui lòng nhập họ và tên đệm');
+    setErrorFor(lastNamee, 'Vui lòng nhập họ và tên đệm');
   } else {
-    setSuccessFor(lastName);
+    setSuccessFor(lastNamee);
   }
 
   if (firstNameValue === '') {
-    setErrorFor(firstName, 'Vui lòng nhập tên');
+    setErrorFor(firstNamee, 'Vui lòng nhập tên');
   } else {
-    setSuccessFor(firstName);
+    setSuccessFor(firstNamee);
   }
 
   if (phoneNumberValue === '') {
-    setErrorFor(phoneNumber, 'Vui lòng nhập số điện thoại');
+    setErrorFor(phoneNumberr, 'Vui lòng nhập số điện thoại');
   } else if (!isPhoneNumber(phoneNumberValue)) {
-    setErrorFor(phoneNumber, 'Số điện thoại phải có 10 chữ số, bắt đầu từ số 0');
+    setErrorFor(phoneNumberr, 'Số điện thoại phải có 10 chữ số, bắt đầu từ số 0');
   } else {
-    setSuccessFor(phoneNumber);
+    setSuccessFor(phoneNumberr);
   }
 
   if (ssnValue === '') {
-    setErrorFor(ssn, 'Vui lòng nhập căn cước công dân');
+    setErrorFor(ssnn, 'Vui lòng nhập căn cước công dân');
   } else if (!isSsn(ssnValue)) {
-    setErrorFor(ssn, 'Số trên thẻ căn cước công dân có 9 hoặc 12 chữ số');
+    setErrorFor(ssnn, 'Số trên thẻ căn cước công dân có 9 hoặc 12 chữ số');
   } else {
-    setSuccessFor(ssn);
+    setSuccessFor(ssnn);
   }
 
   if (emailValue === '') {
-    setErrorFor(email, 'Vui lòng nhập email');
+    setErrorFor(emaill, 'Vui lòng nhập email');
   } else if (!isEmail(emailValue)) {
-    setErrorFor(email, 'Email không đúng định dạng');
+    setErrorFor(emaill, 'Email không đúng định dạng');
   } else {
-    setSuccessFor(email);
+    setSuccessFor(emaill);
   }
 
   if (provinceValue === '00') {
-    setErrorFor(province, 'Vui lòng chọn tỉnh/ thành phố');
+    setErrorFor(provincee, 'Vui lòng chọn tỉnh/ thành phố');
   } else {
-    setSuccessFor(province);
+    setSuccessFor(provincee);
   }
 
   if (districtValue === '000') {
-    setErrorFor(district, 'Vui lòng chọn quận/ huyện');
+    setErrorFor(districtt, 'Vui lòng chọn quận/ huyện');
   } else {
-    setSuccessFor(district);
+    setSuccessFor(districtt);
   }
 
   if (communeValue === '00000') {
-    setErrorFor(commune, 'Vui lòng chọn xã/ phường');
+    setErrorFor(communee, 'Vui lòng chọn xã/ phường');
   } else {
-    setSuccessFor(commune);
+    setSuccessFor(communee);
   }
 
   if (addressStreetValue === '') {
-    setErrorFor(addressStreet, 'Vui lòng nhập địa chỉ giao hàng');
+    setErrorFor(addressStreett, 'Vui lòng nhập địa chỉ giao hàng');
   } else {
-    setSuccessFor(addressStreet);
+    setSuccessFor(addressStreett);
   }
 }
 
 function setErrorFor(input, message) {
-  if (isValidate) {
+  if (isValidatee) {
     input.focus();
   }
 
-  isValidate = false;
+  isValidatee = false;
 
   input.parentElement.className = 'has-danger';
   input.className = 'form-control is-invalid';
@@ -162,7 +160,7 @@ $('#' + FORM_ID).submit(function (e) {
     success: function (data) {
       console.log(data);
       if (data.toString() === 'false') {
-        setErrorFor(phoneNumber, "Số điện thoại đã được sử dụng cho tài khoản khác");
+        setErrorFor(phoneNumberr, "Số điện thoại đã được sử dụng cho tài khoản khác");
       }
     },
     cache: false
@@ -181,7 +179,7 @@ $('#' + FORM_ID).submit(function (e) {
     success: function (data) {
       console.log(data);
       if (data.toString() === 'false') {
-        setErrorFor(email, "Email đã được sử dụng cho tài khoản khác");
+        setErrorFor(emaill, "Email đã được sử dụng cho tài khoản khác");
       }
     },
     cache: false
@@ -189,25 +187,23 @@ $('#' + FORM_ID).submit(function (e) {
 
   let paras = JSON.stringify({
     'id': id.value.toString(),
-    'last-name': lastName.value.trim(),
-    'first-name': firstName.value.trim(),
-    'gender': gender.value,
-    'dob': dob.value,
-    'phone-number': phoneNumber.value,
-    'ssn': ssn.value,
-    'email': email.value,
-    'province': province.value,
-    'district': district.value,
-    'commune': commune.value,
-    'address-street': addressStreet.value.trim(),
-    'start-date': startDate.value,
-    'salary': salary.value,
+    'last-name': lastNamee.value.trim(),
+    'first-name': firstNamee.value.trim(),
+    'gender': genderr.value,
+    'dob': dobb.value,
+    'phone-number': phoneNumberr.value,
+    'ssn': ssnn.value,
+    'email': emaill.value,
+    'province': provincee.value,
+    'district': districtt.value,
+    'commune': communee.value,
+    'address-street': addressStreett.value.trim(),
     'image': $('#img-upload').attr('src')
   });
 
-  if (isValidate) {
+  if (isValidatee) {
     $.ajax({
-      url: '/api/deliveries',
+      url: '/api/customers',
       method: 'PUT',
       async: false,
       cache: false,
@@ -217,7 +213,7 @@ $('#' + FORM_ID).submit(function (e) {
         if (result[0] === 'true') {
           $('#successful-modal').modal('show');
           $('#successful-modal').on('hidden.bs.modal', function () {
-            window.location.href = window.location.origin +  '/delivery';
+            window.location.href = window.location.origin +  '/home';
           });
         } else {
           alert("Lỗi: " + result[1]);

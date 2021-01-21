@@ -248,7 +248,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary px-3" data-dismiss="modal">KHÔNG</button>
-                        <a href="/admin/delivery" class="btn btn-primary px-4">CÓ</a>
+                        <a href="/delivery" class="btn btn-primary px-4">CÓ</a>
                     </div>
                 </div>
             </div>
