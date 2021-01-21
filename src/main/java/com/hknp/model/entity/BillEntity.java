@@ -124,7 +124,7 @@ public class BillEntity implements Serializable {
       for (BillDetailEntity billdetail : billDetailEntities) {
          total = total.add(billdetail.getAmount());
       }
-      total = total.subtract(discountEntity.getDiscountMaxValue());
+      //total = total.subtract(discountEntity.getDiscountMaxValue());
       return total;
    }
 

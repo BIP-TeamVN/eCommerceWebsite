@@ -33,9 +33,8 @@ public class OrderServlet extends HttpServlet {
    private String COOKIE_NAME = "carts";
    private Integer COOKIE_AGE = 10 * 3600 * 24;
 
-
    @Override
-   protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+   protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
       String value = CookieUtils.getCookieValue(req, COOKIE_NAME);
 
       ArrayList<ProductInCartItemDomain> productInCartItemDomainArrayList = new ArrayList<>();
@@ -46,15 +45,12 @@ public class OrderServlet extends HttpServlet {
       } else {
          String cookieValue = URLDecoder.decode(value, "utf-8");
 
-
-
          final ObjectMapper objectMapper = new ObjectMapper();
          CartItemDomain[] listCartItem = objectMapper.readValue(cookieValue, CartItemDomain[].class);
 
          for (CartItemDomain cartItem : listCartItem) {
             listCartItemDomain.add(cartItem);
          }
-
 
          for (CartItemDomain product : listCartItemDomain) {
 
@@ -81,7 +77,6 @@ public class OrderServlet extends HttpServlet {
          Map<String, List<ProductInCartItemDomain>> result = productInCartItemDomainArrayList.stream().
                  collect(Collectors.groupingBy(ProductInCartItemDomain::getSellerId));
 
-
          result.forEach((k, v) -> {
 
             List<ProductInCartItemDomain> product = new ArrayList<>();
@@ -91,8 +86,8 @@ public class OrderServlet extends HttpServlet {
          });
       }
 
-      String listSellerIdPara = req.getParameter("listSellerId");
-      String addressId = req.getParameter("addressId");
+      String listSellerIdPara = req.getParameter("list-seller-id");
+      String addressId = req.getParameter("address-id");
 
       List<String> listSellerId = StringUtils.splitToList(listSellerIdPara, "@ab");
 
@@ -109,6 +104,7 @@ public class OrderServlet extends HttpServlet {
             billEntity.setBillCreateDate(DateTimeUtils.currentDate());
             billEntity.setBillDoneDate(null);
             billEntity.setDeliveryEntity(null);
+            billEntity.setDiscountEntity(DiscountDAO.getInstance().getById(1L));
             Long resultBill = BillDAO.getInstance().insert(billEntity);
 
             if (resultBill != 0) {

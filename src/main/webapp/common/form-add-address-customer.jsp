@@ -120,6 +120,7 @@
       </div>
    </div>
 </div>
+
 <!-- Modal add successful -->
 <div class="modal fade" id="successful-modal" tabindex="-1" role="dialog" aria-labelledby="conform-modal-lb" aria-hidden="true">
    <div class="modal-dialog" role="document">
@@ -139,6 +140,6 @@
       </div>
    </div>
 </div>
-<%@ include file="import-js.jsp" %>
+
 <script src="../../assets/js/dynamic-admin-unit-drop-down.js"></script>
 <script src="../../assets/js/validate/validate-address-customer-form.js"></script>

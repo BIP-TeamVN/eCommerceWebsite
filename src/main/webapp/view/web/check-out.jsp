@@ -9,7 +9,7 @@
    <script src="../../assets/vendor/bootstrap-input-spinner/src/bootstrap-input-spinner.js"></script>
    <script>
      function updateInputNumeric() {
-       $(".input-numeric").inputSpinner({
+       $('.input-numeric').inputSpinner({
          buttonsClass: "btn-outline-primary p-2",
          buttonsWidth: "1rem",
          template: // the template of the input
@@ -22,7 +22,7 @@
            '<button style="min-width: ${buttonsWidth}" class="btn btn-increment btn-outline-primary p-2 btn-plus" type="button"><em class=\"fa fa-plus\"></em></button>' +
            '</div>' +
            '</div>'
-       });
+       })
      }
 
      $(document).ready(function () {
@@ -77,9 +77,9 @@
                <div class="card-body">
                   <div class="row">
                      <div class="col">
-                        <h5 class="card-title text-uppercase text-muted mb-2">Nguyễn Văn A</h5>
-                        <p class="h2 my-1 pb-0 font-weight-bold">0986552563</p>
-                        <p class="text-wrap text-justify text-dark"></p>
+                        <h5 id="selected-add-name" class="card-title text-uppercase text-muted mb-2"></h5>
+                        <p id="selected-add-phone" class="h2 my-1 pb-0 font-weight-bold"></p>
+                        <p id="selected-add-desc" class="text-wrap text-justify text-dark"></p>
                      </div>
                   </div>
                </div>
@@ -105,7 +105,7 @@
                   </div>
                </div>
                <div class="card-footer text-right">
-                  <button class="btn btn-primary text-uppercase">Thanh toán</button>
+                  <button type="button" id="btn-pay" class="btn btn-primary text-uppercase">Thanh toán</button>
                </div>
             </div>
          </div>
@@ -137,13 +137,19 @@
 <%--                  </div>--%>
                </div>
                <div class="modal-footer p-3 text-uppercase">
-                  <button class="btn btn-secondary pl-6 pr-6" type="button" id="btn-cancel" data-dismiss="modal">Hủy
+                  <button type="button" data-toggle="modal" data-target="#modal-add-address" class="text-left btn btn-secondary m-auto text-uppercase mb-3">
+                     thêm địa mới
                   </button>
-                  <button class="btn btn-primary pl-6 pr-6" type="button">Lưu</button>
+
+                  <button class="btn btn-secondary pl-6 pr-6" type="button" id="btn-cancel" data-dismiss="modal">Hủy</button>
+                  <button class="btn btn-primary pl-6 pr-6" type="button" id="btn-save-select">Lưu</button>
                </div>
             </div>
          </div>
       </div>
+
+      <!--Form add new Address-->
+      <%@ include file="../../common/form-add-address-customer.jsp" %>
 
       <!--Scroll to top button-->
       <button onclick="window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });"
@@ -221,6 +227,9 @@
 
   function updateSelectedAddress() {
       let selectedAdd = listUserAddress.filter(add => add.isSelected)[0];
+      $('#selected-add-name').html(selectedAdd.fullName);
+      $('#selected-add-phone').html(selectedAdd.phoneNumber);
+      $('#selected-add-desc').html('[' + selectedAdd.addressName + '] ' + selectedAdd.fullAddress);
   }
 
   $.ajax({
@@ -322,12 +331,42 @@
         listCartGroupByShop[i].totalBill = totalBill;
         listCartGroupByShop[i].isSelected = true;
       }
-      
+
       updateInputNumeric();
       addEventSelectShop();
       updateTotalAllBillSelected();
       loadUserAddress();
+      updateSelectedAddress();
     }
+  });
+
+  $('#btn-save-select').click(function() {
+    let addId = $('input[name="list-addresses"]:checked').val();
+    listUserAddress.forEach(x => x.isSelected = false);
+    listUserAddress.filter(add => add.addressId == addId)[0].isSelected = true;
+    $('#modal-list-address').modal('hide');
+    updateSelectedAddress();
+  });
+
+  $('#btn-pay').click(function() {
+
+    let addressId = listUserAddress.filter(add => add.isSelected)[0].addressId;
+    let listSellerId = [];
+    listCartGroupByShop.filter(item => item.isSelected)
+      .forEach(x => listSellerId.push(x.sellerId));
+
+    $.ajax({
+      url: '/api/home-order',
+      method: 'POST',
+      cache: false,
+      data: {
+        'address-id': addressId,
+        'list-seller-id': listSellerId.join("@ab")
+      },
+      success: function (data, textStatus, jqXHR) {
+        alert(data);
+      }
+    });
   });
 
 </script>

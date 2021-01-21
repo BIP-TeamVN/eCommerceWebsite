@@ -36,6 +36,9 @@
       </div>
    </div>
 
+   <!--Form add new Address-->
+   <%@ include file="../../common/form-add-address-customer.jsp" %>
+
    <!-- Page content -->
    <div class="container">
       <div class="row mt--7 justify-content-center">
@@ -45,9 +48,6 @@
                <div class="card-header border-0">
                   <h2 class="mb-0 text-center text-uppercase display-4">sổ địa chỉ</h2>
                </div>
-
-               <!--Filter-->
-               <%@ include file="../../common/form-add-address-customer.jsp" %>
 
                <!--Loading-->
                <div id="loading" class="d-none">
