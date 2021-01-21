@@ -21,7 +21,6 @@ import java.util.Map;
 public class VerifyProductServlet extends HttpServlet {
    @Override
    protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-      resp.setContentType("text/html; charset=UTF-8");
       Map<String,Object> parameterMap = ServletUtils.getParametersMap(req);
       if (isAuthentication(req)) {
          String idPara = (String) parameterMap.get("id");
@@ -52,10 +51,10 @@ public class VerifyProductServlet extends HttpServlet {
 
    @Override
    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-      resp.setContentType("text/html; charset=UTF-8");
       if (isAuthentication(req)) {
-         String idPara = req.getParameter("id");
-         ServletUtils.printWrite(resp, (ProductDAO.getInstance().getStatusById(StringUtils.toLong(idPara))).toString());
+         Long id = StringUtils.toLong(req.getParameter("id"));
+         String result = ProductDAO.getInstance().getStatusById(id).toString();
+         ServletUtils.printWrite(resp, result);
       }
    }
 

@@ -183,7 +183,7 @@
     updatePagination();
 
     $.ajax({
-      url: '/api/deliverybill',
+      url: '/api/delivery-bill',
       method: 'GET',
       data: {
         'page': currentPage,
