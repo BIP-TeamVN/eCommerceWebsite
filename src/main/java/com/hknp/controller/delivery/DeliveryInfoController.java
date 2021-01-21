@@ -1,13 +1,8 @@
 package com.hknp.controller.delivery;
 
-import com.hknp.model.dao.AddressDAO;
 import com.hknp.model.dao.DeliveryDAO;
-import com.hknp.model.dao.EmployeeDAO;
-import com.hknp.model.entity.AddressEntity;
 import com.hknp.model.entity.DeliveryEntity;
-import com.hknp.model.entity.EmployeeEntity;
 import com.hknp.utils.ServletUtils;
-import com.hknp.utils.StringUtils;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -16,7 +11,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.util.Collections;
 
 @WebServlet(urlPatterns = {"/delivery/info"})
 public class DeliveryInfoController extends HttpServlet {

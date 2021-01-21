@@ -1,7 +1,5 @@
 package com.hknp.model.entity;
 
-import com.hknp.utils.DateTimeUtils;
-
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
@@ -38,6 +36,7 @@ public class BrandEntity implements Serializable {
               "\"image\":\"" + getImageSrc() + "\"" +
               "}";
    }
+
    public List<ProductEntity> getProductEntities() {
       return productEntities;
    }
@@ -73,14 +72,16 @@ public class BrandEntity implements Serializable {
    public String getImage() {
       return image;
    }
+
+   public void setImage(String image) {
+      this.image = image;
+   }
+
    public String getImageSrc() {
       if (image == null || image.isEmpty()) {
          return Cons.Brand.DEFAULT_BRAND_IMAGE;
       } else {
          return image;
       }
-   }
-   public void setImage(String image) {
-      this.image = image;
    }
 }

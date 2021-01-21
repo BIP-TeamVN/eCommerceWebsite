@@ -1,11 +1,9 @@
 package com.hknp.controller.api.open;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.gson.Gson;
 import com.hknp.model.dao.ProductTypeDAO;
 import com.hknp.model.domain.CartItemDomain;
 import com.hknp.model.domain.ProductInCartItemDomain;
-import com.hknp.model.entity.BrandEntity;
 import com.hknp.model.entity.ProductTypeEntity;
 import com.hknp.utils.CookieUtils;
 import com.hknp.utils.ServletUtils;
@@ -51,11 +49,18 @@ public class ProductInCartServlet extends HttpServlet {
             ProductTypeEntity productTypeEntity = ProductTypeDAO.getInstance().getById(StringUtils.toLong(product.getProductTypeId()));
 
             productInCartItemDomain.setProductId(productTypeEntity.getProductEntity().getProductId().toString());
+            productInCartItemDomain.setProductTypeId(product.getProductTypeId());
             productInCartItemDomain.setImage(productTypeEntity.getImage());
             productInCartItemDomain.setName(productTypeEntity.getProductEntity().getProductName());
             productInCartItemDomain.setPrice(productTypeEntity.getProductEntity().getPriceOrder().toString());
             productInCartItemDomain.setNameDetail(productTypeEntity.getProductTypeName());
             productInCartItemDomain.setQuantity(product.getQuantity());
+
+            String shopName = productTypeEntity.getProductEntity().getSellerEntity().getStoreName();
+            Long sellerId = productTypeEntity.getProductEntity().getSellerEntity().getUserId();
+
+            productInCartItemDomain.setShopName(shopName);
+            productInCartItemDomain.setSellerId(sellerId.toString());
 
             productInCartItemDomainArrayList.add(productInCartItemDomain);
             listJsonStr.add(productInCartItemDomain.toJson());

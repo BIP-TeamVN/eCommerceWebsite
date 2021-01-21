@@ -1,10 +1,6 @@
 package com.hknp.controller.seller;
 
-import com.hknp.model.dao.AddressDAO;
-import com.hknp.model.dao.EmployeeDAO;
 import com.hknp.model.dao.ProductDAO;
-import com.hknp.model.entity.AddressEntity;
-import com.hknp.model.entity.EmployeeEntity;
 import com.hknp.model.entity.ProductEntity;
 import com.hknp.utils.ServletUtils;
 import com.hknp.utils.StringUtils;

@@ -6,7 +6,6 @@ import com.hknp.model.entity.UserEntity;
 import com.hknp.utils.Base64Utils;
 import com.hknp.utils.EntityUtils;
 import com.hknp.utils.HashUtils;
-import com.hknp.utils.StringUtils;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
@@ -96,36 +95,53 @@ public class UserDAO implements IRetrieveEntity<UserEntity, Long>, IModifySingle
 
    @Override
    public boolean delete(Long id) {
-      EntityManager entityMgr = EntityUtils.getEntityManager();
-      EntityTransaction entityTrans = null;
-
-      try {
-         entityTrans = entityMgr.getTransaction();
-         entityTrans.begin();
-
-         UserEntity userEntity = entityMgr.find(UserEntity.class, id);
-         entityMgr.remove(userEntity);
-
-         entityTrans.commit();
-      } catch (Exception e) {
-         if (entityTrans != null) {
-            entityTrans.rollback();
-         }
-         e.printStackTrace();
-         entityMgr.close();
-         return false;
-      }
-      return true;
+//      EntityManager entityMgr = EntityUtils.getEntityManager();
+//      EntityTransaction entityTrans = null;
+//
+//      try {
+//         entityTrans = entityMgr.getTransaction();
+//         entityTrans.begin();
+//
+//         UserEntity userEntity = entityMgr.find(UserEntity.class, id);
+//         entityMgr.remove(userEntity);
+//
+//         entityTrans.commit();
+//      } catch (Exception e) {
+//         if (entityTrans != null) {
+//            entityTrans.rollback();
+//         }
+//         e.printStackTrace();
+//         entityMgr.close();
+//         return false;
+//      }
+      return false;
    }
 
+   @Override
+   public Long count() {
+      return EntityUtils.count(UserEntity.class.getName());
+   }
+
+   /**
+    * Check user login exist in User table on database
+    *
+    * @param username   Id of user, pass 0 if null
+    * @param password   Email value to check
+    * @return           <code>id of user</code> if login successfully<br>
+    *                   <code>0L</code> otherwise
+    */
    public Long checkLogin(String username, String password) {
       EntityManager entityMgr = EntityUtils.getEntityManager();
-      long id = 0L;
+      Long id = 0L;
       try {
          password = HashUtils.getMd5(Base64Utils.encodeFromString(password));
 
          String strQuery = "SELECT u.userId FROM UserEntity AS u " +
-                 "WHERE (u.userName = :usernamePara or u.phoneNumber = :usernamePara or u.email = :usernamePara) " +
+                 "WHERE (" +
+                    "u.userName = :usernamePara " +
+                    "or u.phoneNumber = :usernamePara " +
+                    "or u.email = :usernamePara" +
+                 ") " +
                  "and u.password = :passwordHash " +
                  "and u.status = true";
 
@@ -144,14 +160,17 @@ public class UserDAO implements IRetrieveEntity<UserEntity, Long>, IModifySingle
    /**
     * Check email exist in User table on database
     *
-    * @param userId Id of user, pass 0 if null
-    * @param email  Email value to check
+    * @param userId     Id of user, pass <code>0</code> if null
+    * @param email      Email value to check
+    * @return           <code>true</code> if email not exits in the persistence context<br>
+    *                   <code>false</code> otherwise
     * @return true if email not exist in database else false
     */
    public Boolean checkEmail(Long userId, String email) {
       EntityManager entityMgr = EntityUtils.getEntityManager();
+      String queryStr = "select count(*) from UserEntity user where user.userId <> :userIdPara " +
+              "and user.email = :emailPara";
 
-      String queryStr = "select count(*) from UserEntity user where user.userId <> :userIdPara and user.email = :emailPara";
       Query query = entityMgr.createQuery(queryStr);
       query.setParameter("userIdPara", userId);
       query.setParameter("emailPara", email);
@@ -163,14 +182,17 @@ public class UserDAO implements IRetrieveEntity<UserEntity, Long>, IModifySingle
    /**
     * Check phone number exist in User table on database
     *
-    * @param userId      Id of user, pass 0 if null
-    * @param phoneNumber Phone number value to check
-    * @return true if phone number not exist in database else false
+    * @param userId        Id of user, pass <code>0</code> if null
+    * @param phoneNumber   Phone number value to check
+    * @return              <code>true</code> if phoneNumber not exits in the persistence context<br>
+    *                      <code>false</code> otherwise
+    * @return true if email not exist in database else false
     */
    public Boolean checkPhoneNumber(Long userId, String phoneNumber) {
       EntityManager entityMgr = EntityUtils.getEntityManager();
+      String queryStr = "select count(*) from UserEntity user where user.userId <> :userIdPara " +
+              "and user.phoneNumber = :phoneNumberPara";
 
-      String queryStr = "select count(*) from UserEntity user where user.userId <> :userIdPara and user.phoneNumber = :phoneNumberPara";
       Query query = entityMgr.createQuery(queryStr);
       query.setParameter("userIdPara", userId);
       query.setParameter("phoneNumberPara", phoneNumber);
@@ -181,9 +203,10 @@ public class UserDAO implements IRetrieveEntity<UserEntity, Long>, IModifySingle
 
    public String getUserType(Long userId) {
       EntityManager entityMgr = EntityUtils.getEntityManager();
-
       String queryStr = "select u.userType from UserEntity u where u.userId = :userIdPara";
-      Query query = entityMgr.createQuery(queryStr).setParameter("userIdPara", userId);
+
+      Query query = entityMgr.createQuery(queryStr)
+              .setParameter("userIdPara", userId);
 
       Object result = null;
       try {
@@ -194,10 +217,4 @@ public class UserDAO implements IRetrieveEntity<UserEntity, Long>, IModifySingle
          return result == null ? "" : (String) result;
       }
    }
-
-   @Override
-   public Long count() {
-      return EntityUtils.count(UserEntity.class.getName());
-   }
 }
-

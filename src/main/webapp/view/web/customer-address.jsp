@@ -24,7 +24,7 @@
                <div class="card-header border-0">
                   <h2 class="mb-0 text-center text-uppercase display-4">Danh sách địa chỉ</h2>
                   <div class="col-lg-12 col-5 text-right">
-                     <button type="button" data-toggle="modal" data-target="#modal-add-seller"
+                     <button type="button" data-toggle="modal" data-target="#modal-add-address"
                              href="#" class="btn btn-secondary text-uppercase">Thêm cửa hàng mới
                      </button>
                   </div>
@@ -50,10 +50,10 @@
                      <tr>
                         <th scope="col" class="text-center">Mã địa chỉ</th>
                         <th scope="col" class="text-center">Địa chỉ</th>
-                        <th scope="col" class="text-center">Mã người dùng</th>
                         <th scope="col" class="text-center">Họ và tên</th>
                         <th scope="col" class="text-center">Loại địa chỉ</th>
                         <th scope="col" class="text-center">Số điện thoại</th>
+                        <th scope="col" class="text-center">Tùy chọn</th>
                      </tr>
                      </thead>
                      <tbody class="list" id="tb-list">
@@ -95,10 +95,14 @@
              '<tr>' +
              '<td>' + item.addressId + '</td>' +
              '<td>' + item.fullAddress + '</td>' +
-             '<td>' + item.userId + '</td>' +
              '<td>' + item.fullName + '</td>' +
              '<td>' + item.addressName + '</td>' +
-             '<td>' + item.phoneNumber + '</td>';
+             '<td>' + item.phoneNumber + '</td>' +
+             '<td class="td-actions text-center">' +
+             '<a class="btn btn-primary px-2 py-1" href="/info/address/edit?id=' + item.addressId + '">' +
+             '<i class="fa fa-edit"></i>' +
+             '</a>' +
+             '</td>';
            $('#tb-list').append(html);
          });
        },

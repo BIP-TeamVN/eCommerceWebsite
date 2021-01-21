@@ -8,7 +8,6 @@ import com.hknp.model.entity.BrandEntity;
 import com.hknp.model.entity.ProductCategoryEntity;
 import com.hknp.utils.ServletUtils;
 import com.hknp.utils.StringUtils;
-import com.sun.deploy.util.ArrayUtil;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;

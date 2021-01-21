@@ -4,6 +4,10 @@
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="java.math.BigDecimal" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8" %>
+
+<% ProductEntity p = (ProductEntity) request.getAttribute("product"); %>
+<% List<ProductTypeEntity> types = new ArrayList<>(p.getProductTypeEntities());%>
+
 <html lang="vi">
 <head>
    <%@ include file="../../common/meta-info.jsp" %>
@@ -16,8 +20,6 @@
 </head>
 
 <body>
-<% ProductEntity p = (ProductEntity) request.getAttribute("product"); %>
-<% List<ProductTypeEntity> types = new ArrayList<>(p.getProductTypeEntities());%>
 <!-- Main content -->
 <div class="main-content" id="panel">
    <!--Top navigation-->
@@ -31,7 +33,7 @@
                   <nav aria-label="breadcrumb" class="d-md-block">
                      <ol class="breadcrumb breadcrumb-links breadcrumb-dark">
                         <li class="breadcrumb-item"><a href="/home"><em class="fa fa-home mr-2"></em>Trang chủ</a></li>
-                        <li class="breadcrumb-item"><a href="/product-search?brands=${product.brandEntity.brandId}">${product.brandEntity.brandName}</a></li>
+                        <li class="breadcrumb-item"><a href="/product-search?brands=${product.brandEntity.brandId}">${product.brandEntity.brandName}</a> </li>
                         <li class="breadcrumb-item active" aria-current="page">${product.productName}</li>
                      </ol>
                   </nav>
@@ -57,22 +59,18 @@
                   <div class="row px-3 pt-3">
                      <!--Product images-->
                      <div class="col-md-7 col-sm-12">
-
                         <div class="row">
                            <div class="col">
                               <!--Carousel Wrapper-->
-                              <div id="carousel-thumb" class="carousel slide carousel-fade carousel-thumbnails"
-                                   data-ride="carousel">
+                              <div id="carousel-thumb" class="carousel slide carousel-fade carousel-thumbnails" data-ride="carousel">
                                  <!--Slides-->
                                  <div class="carousel-inner" role="listbox" id="list-image"></div>
                                  <!--/.Slides-->
-                                 <a class="carousel-control carousel-control-prev" href="#carousel-thumb" role="button"
-                                    data-slide="prev">
+                                 <a class="carousel-control carousel-control-prev" href="#carousel-thumb" role="button" data-slide="prev">
                                     <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                                     <span class="sr-only">Previous</span>
                                  </a>
-                                 <a class="carousel-control carousel-control-next" href="#carousel-thumb" role="button"
-                                    data-slide="next">
+                                 <a class="carousel-control carousel-control-next" href="#carousel-thumb" role="button" data-slide="next">
                                     <span class="carousel-control-next-icon" aria-hidden="true"></span>
                                     <span class="sr-only">Next</span>
                                  </a>
@@ -90,9 +88,7 @@
                      <!--Product info-->
                      <div class="col-md-5 col-sm-12">
                         <form id="add-to-card-form">
-                           <h1 class="product-item__name" style="font-size: 1.25rem; line-height: 2rem;">
-                              ${product.productName}
-                           </h1>
+                           <h1 class="product-item__name" style="font-size: 1.25rem; line-height: 2rem;">${product.productName} </h1>
 
                            <div class="my-5 btn-group btn-group-toggle d-block" data-toggle="buttons"
                                 style="flex-direction: column;" id="list-type-product">
@@ -101,36 +97,28 @@
                            <p class="my-2">Còn <span class="font-weight-bold"><%= p.getCountStock()%></span> sản phẩm</p>
                            <p class="my-2">Đã bán <span class="font-weight-bold"><%= p.getCountSold()%></span> sản phẩm</p>
 
-                           <div class="row my-5">
-                              <!--Price-->
-                              <div class="col-4">
-                                 <!--Origin price-->
-                                 <span class="product-detail__price product-detail__price--origin">
-                                    ${product.getPriceOriginDisplay()}
-                                 </span>
-                              </div>
+                           <!--Origin price and Deal Percent-->
+                           <div class="row mt-5 mb-0">
+                              <div class="col-8"><span class="product-detail__price product-detail__price--origin">${product.getPriceOriginDisplay()}</span></div>
+                              <div class="col-3"><span class="product-detail__price--percent">${percent}%</span></div>
+                           </div>
 
-                              <div class="col-6">
-                                 <!--Order price-->
-                                 <span class="product-detail__price product-detail__price--order">
-                                    ${product.getPriceOrderDisplay()}
-                                 </span>
-                              </div>
-
-                              <div class="col-2">
-                                 <!--Deal Percent-->
-                                 <span class="product-detail__price--percent">${percent}%</span>
+                           <!--Order price-->
+                           <div class="row mt-0 mb-5">
+                              <div class="col">
+                                 <span class="product-detail__price product-detail__price--order">${product.getPriceOrderDisplay()}</span>
                               </div>
                            </div>
 
                            <div class="row">
                               <div class="col-4">
-                                 <input class="input-numeric" id="quantity-number" name="quantity-number" type="number" min="1"
-                                        max="20" value="1" maxlength="2"/>
+                                 <input type="number" class="input-numeric" maxlength="2" id="quantity-number" name="quantity-number"
+                                        min="1" max="20" value="1"/>
                               </div>
                               <div class="col-8">
-                                 <button onclick="addToCarts()" class="btn btn-primary btn-block text-uppercase">Thêm vào giỏ hàng <em
-                                         class="ml-2 fa fa-cart-plus"></em></button>
+                                 <button type="button" onclick="addToCarts()" class="btn btn-primary btn-block text-uppercase">
+                                    Thêm vào giỏ hàng <em class="ml-2 fa fa-cart-plus"></em>
+                                 </button>
                               </div>
                            </div>
                         </form>
@@ -152,9 +140,7 @@
                <!--Product main content-->
                <div class="card-body">
                   <div class="row">
-                     <div class="col">
-                        <p>${product.productDesc}</p>
-                     </div>
+                     <div class="col"><p>${product.productDesc}</p></div>
                   </div>
                </div>
             </div>
@@ -213,8 +199,7 @@
                      </div>
                      <div class="col text-right">
                         <a id="btn-show-all-shop" class="btn btn-sm btn-primary">
-                           Xem tất cả
-                           <em class="fa fa-angle-double-right ml-2"></em>
+                           Xem tất cả <em class="fa fa-angle-double-right ml-2"></em>
                         </a>
                      </div>
                   </div>
@@ -239,8 +224,7 @@
                      </div>
                      <div class="col text-right">
                         <a id="btn-show-all-category" class="btn btn-sm btn-primary">
-                           Xem tất cả
-                           <em class="fa fa-angle-double-right ml-2"></em>
+                           Xem tất cả<em class="fa fa-angle-double-right ml-2"></em>
                         </a>
                      </div>
                   </div>
@@ -265,17 +249,19 @@
 </div>
 
 <script>
-   const PRODUCT_ID = parseFloat('<%= p.getProductId()%>');
-   const SELLER_ID = parseFloat('<%= p.getSellerEntity().getUserId()%>');
-   $('#btn-show-all-shop').attr('href', '/product-search?shop=' + SELLER_ID);
-   $('#btn-show-all-category').attr('href', '/product-search?product=' + PRODUCT_ID);
+  const PRODUCT_ID = parseFloat('<%= p.getProductId()%>');
+  const SELLER_ID = parseFloat('<%= p.getSellerEntity().getUserId()%>');
 
-   let html1 =
+  $('#btn-show-all-shop').attr('href', '/product-search?shop=' + SELLER_ID);
+  $('#btn-show-all-category').attr('href', '/product-search?product=' + PRODUCT_ID);
+
+  let html1 =
     '<div class="carousel-item active">' +
     '<img class="rounded product-detail__img"' +
     'src="<%=p.getImage0()%>" alt="First slide">' +
     '</div>';
   $('#list-image').append(html1);
+
   let html2 =
     '<li data-target="#carousel-thumb" class="mx-2 active" data-slide-to="0">' +
     '<img class="rounded product-detail__img--thumb"' +
@@ -285,10 +271,10 @@
 
   if ('<%=p.getImage1()%>' != '../../assets/img/no-image-product.svg') {
     let html1 =
-    '<div class="carousel-item">' +
+      '<div class="carousel-item">' +
       '<img class="rounded product-detail__img"' +
-           'src="<%=p.getImage1()%>" alt="Second slide">' +
-    '</div>';
+      'src="<%=p.getImage1()%>" alt="Second slide">' +
+      '</div>';
     $('#list-image').append(html1);
     let html2 =
       '<li data-target="#carousel-thumb" class="mx-2" data-slide-to="1">' +
@@ -341,31 +327,34 @@
   }
 </script>
 <script>
-   <%
-      String imageTypes = "";
-      String nameTypes = "";
-      imageTypes += "<div class=\"carousel-item\">" +
-          "<img class=\"rounded product-detail__img\"" +
-          "src=\"" + types.get(0).getImage() + "\" alt=\"First slide\">" +
-          "</div> ";
-         nameTypes += "<label class=\"btn btn-secondary d-block\">" +
-          "<input type=\"radio\" name=\"product-types\" id=\"" + types.get(0).getProductTypeId() + "\"checked value=\"" + types.get(0).getProductTypeId() + "\">" + types.get(0).getProductTypeName() +
-          "</label>";
+  <%
+     String imageTypes = "";
+     String nameTypes = "";
+     imageTypes += "<div class=\"carousel-item\">" +
+         "<img class=\"rounded product-detail__img\"" +
+         "src=\"" + types.get(0).getImage() + "\" alt=\"First slide\">" +
+         "</div> ";
+        nameTypes += "<label class=\"btn btn-secondary d-block\">" +
+         "<input type=\"radio\" name=\"product-types\" id=\"" + types.get(0).getProductTypeId() + "\"checked value=\"" + types.get(0).getProductTypeId() + "\">" + types.get(0).getProductTypeName() +
+         "</label>";
 
-      for (int i = 1; i < types.size(); i++) {
-         imageTypes += "<div class=\"carousel-item\">" +
-          "<img class=\"rounded product-detail__img\"" +
-          "src=\"" + types.get(i).getImage() + "\" alt=\"First slide\">" +
-          "</div> ";
-         nameTypes += "<label class=\"btn btn-secondary d-block\">" +
-          "<input type=\"radio\" name=\"product-types\" id=\"" + types.get(i).getProductTypeId() + "\" value=\"" + types.get(i).getProductTypeId() + "\">" + types.get(i).getProductTypeName() +
-          "</label>";
-      }
-   %>
-   $('#list-image').append('<%= imageTypes%>');
-   $('#list-type-product').append('<%= nameTypes%>');
+     for (int i = 1; i < types.size(); i++) {
+        imageTypes += "<div class=\"carousel-item\">" +
+         "<img class=\"rounded product-detail__img\"" +
+         "src=\"" + types.get(i).getImage() + "\" alt=\"First slide\">" +
+         "</div> ";
+        nameTypes += "<label class=\"btn btn-secondary d-block\">" +
+         "<input type=\"radio\" name=\"product-types\" id=\"" + types.get(i).getProductTypeId() + "\" value=\"" + types.get(i).getProductTypeId() + "\">" + types.get(i).getProductTypeName() +
+         "</label>";
+     }
+  %>
+  $('#list-image').append('<%= imageTypes%>');
+  $('#list-type-product').append('<%= nameTypes%>');
 </script>
 <script>
+  const quantity = document.getElementById("quantity-number");
+  const productTypeId = $('input[name="product-types"]:checked').val();
+
   function productOfShop() {
     $.ajax({
       url: '/api/product-by-seller',
@@ -380,7 +369,7 @@
         $.each(list, function (index, item) {
           let priceOrder = parseFloat(item.priceOrder);
           let priceOrigin = parseFloat(item.priceOrigin);
-          let percentDiscount = (100*(priceOrigin-priceOrder)/priceOrigin).toFixed(0);
+          let percentDiscount = (100 * (priceOrigin - priceOrder) / priceOrigin).toFixed(0);
           let html = '<div class="col-lg-3 col-md-6">' +
             '<a class="product-item" href="/product?id=' + item.id + '">' +
             '<!--Product image-->' +
@@ -422,9 +411,8 @@
       }
     });
   }
-  productOfShop();
 
-  function addToCartIn(productId){
+  function addToCartIn(productId) {
     $.ajax({
       url: '/api/carts',
       method: 'POST',
@@ -448,11 +436,7 @@
     });
   }
 
-  const quantity = document.getElementById("quantity-number");
-  const  productTypeId = $('input[name="product-types"]:checked').val();
-
   function addToCarts() {
-
     let paras = JSON.stringify({
       'product-type-id': productTypeId,
       'quantity': quantity.value.trim()
@@ -480,7 +464,8 @@
 
 
   }
-  function productOfCategory () {
+
+  function productOfCategory() {
     $.ajax({
       url: '/api/product-by-category',
       method: 'GET',
@@ -494,7 +479,7 @@
         $.each(list, function (index, item) {
           let priceOrder = parseFloat(item.priceOrder);
           let priceOrigin = parseFloat(item.priceOrigin);
-          let percentDiscount = (100*(priceOrigin-priceOrder)/priceOrigin).toFixed(0);
+          let percentDiscount = (100 * (priceOrigin - priceOrder) / priceOrigin).toFixed(0);
           let html = '<div class="col-lg-3 col-md-6">' +
             '<a class="product-item" href="/product?id=' + item.id + '">' +
             '<!--Product image-->' +
@@ -536,6 +521,8 @@
       }
     });
   }
+
+  productOfShop();
   productOfCategory();
 </script>
 <script>

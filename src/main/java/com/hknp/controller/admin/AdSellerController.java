@@ -1,6 +1,5 @@
 package com.hknp.controller.admin;
 
-import com.hknp.model.dao.EmployeeDAO;
 import com.hknp.model.dao.SellerDAO;
 import com.hknp.utils.ServletUtils;
 import com.hknp.utils.StringUtils;
@@ -31,6 +30,7 @@ public class AdSellerController extends HttpServlet {
 
       req.setAttribute("totalPage", totalPage);
       req.setAttribute("currentPage", currentPage);
+
       ServletUtils.forward(req, resp, "/view/admin/ad-seller.jsp");
    }
 

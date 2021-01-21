@@ -1,6 +1,7 @@
 package com.hknp.controller.delivery;
 
-import com.hknp.model.dao.*;
+import com.hknp.model.dao.BillDAO;
+import com.hknp.model.dao.BillDetailDAO;
 import com.hknp.model.entity.BillDetailEntity;
 import com.hknp.model.entity.BillEntity;
 import com.hknp.utils.ServletUtils;

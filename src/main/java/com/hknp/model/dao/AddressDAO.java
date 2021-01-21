@@ -116,5 +116,7 @@ public class AddressDAO implements IRetrieveEntity<AddressEntity, Long>, IModify
    }
 
    @Override
-   public Long count() {return EntityUtils.count(AddressEntity.class.getName());}
+   public Long count() {
+      return EntityUtils.count(AddressEntity.class.getName());
+   }
 }

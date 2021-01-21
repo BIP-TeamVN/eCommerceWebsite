@@ -1,12 +1,7 @@
 package com.hknp.controller.api;
 
 import com.hknp.model.dao.BillDAO;
-import com.hknp.model.dao.ProductCategoryDAO;
-import com.hknp.model.dao.ProductDAO;
 import com.hknp.model.entity.BillEntity;
-import com.hknp.model.entity.ProductCategoryEntity;
-import com.hknp.model.entity.ProductEntity;
-import com.hknp.model.entity.ProductTypeEntity;
 import com.hknp.utils.ServletUtils;
 import com.hknp.utils.StringUtils;
 
@@ -15,7 +10,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.ArrayList;

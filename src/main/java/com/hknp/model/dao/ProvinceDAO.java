@@ -22,7 +22,9 @@ public class ProvinceDAO implements IRetrieveEntity<ProvinceEntity, String> {
    }
 
    @Override
-   public ArrayList<ProvinceEntity> gets() { return gets(null, null); }
+   public ArrayList<ProvinceEntity> gets() {
+      return gets(null, null);
+   }
 
    @Override
    public ArrayList<ProvinceEntity> gets(Integer firstResult, Integer maxResults) {
@@ -69,5 +71,7 @@ public class ProvinceDAO implements IRetrieveEntity<ProvinceEntity, String> {
    }
 
    @Override
-   public Long count() {return EntityUtils.count(ProvinceEntity.class.getName());}
+   public Long count() {
+      return EntityUtils.count(ProvinceEntity.class.getName());
+   }
 }

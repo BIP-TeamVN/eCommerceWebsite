@@ -1,18 +1,12 @@
-<%@ page import="java.util.Date" %>
-<%@ page import="com.hknp.utils.DateTimeUtils" %>
-<%@ page import="java.time.Instant" %>
-<%@ page import="java.time.Duration" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%
-   String minDob = DateTimeUtils.dateToString(Date.from(Instant.now().minus(Duration.ofDays(36520))), "yyyy-MM-dd");
-%>
 
 <html lang="vi">
 <head>
    <%@ include file="../../common/meta-info.jsp" %>
-   <title>eCommerce Website - Admin</title>
+   <title>eCommerce Website</title>
    <%@ include file="../../common/link-css.jsp" %>
+   <!--Javascript-->
+   <%@ include file="../../common/import-js.jsp" %>
 </head>
 
 <body>
@@ -23,7 +17,7 @@
    <%@include file="./--top-nav.jsp" %>
 
    <!-- Page content -->
-   <div class="container-fluid mt--12">
+   <div class="container">
       <!--List employee card-->
       <div class="row-cols-1">
          <div class="col">
@@ -34,39 +28,25 @@
                </div>
 
                <!-- form edit -->
-               <form id="employee-edit-form" class="px-5">
+               <form id="address-customer-form" class="px-5">
                   <!--Mã-->
                   <div class="form-group">
                      <label for="id" class="form-control-label">Mã</label>
                      <input class="form-control" type="text" id="id" name="id" readonly
-                             value="${employeeEdit.getUserId()}">
+                             value="${address.addressId}">
                   </div>
 
                   <!--Họ và tên-->
                   <div class="row">
-                     <div class="col-md-6">
+                     <div class="col">
                         <div class="form-group">
-                           <label for="last-name" class="form-control-label">Họ và tên đệm</label>
-                           <a tabindex="-1" href="javascript:void(0)" class="badge badge-secondary"
-                              data-toggle="popover" data-placement="right"
-                              data-content="Trường bắt buộc - Tối đa 40 ký tự">?</a>
-                           <div>
-                              <input class="form-control" type="text" placeholder="VD: Nguyễn Văn" id="last-name"
-                                     name="last-name" maxlength="40"
-                                     value="${employeeEdit.getUserEntity().getLastName()}">
-                           </div>
-                           <small class="error-input text-danger">Vui lòng nhập họ và tên đệm</small>
-                        </div>
-                     </div>
-                     <div class="col-md-6">
-                        <div class="form-group">
-                           <label for="first-name" class="form-control-label">Tên</label>
+                           <label for="full-name" class="form-control-label">Tên</label>
                            <a tabindex="-1" tabindex="-1" href="javascript:void(0)" class="badge badge-secondary"
                               data-toggle="popover" data-placement="right"
                               data-content="Trường bắt buộc - Tối đa 10 ký tự">?</a>
                            <div>
-                              <input class="form-control" type="text" placeholder="VD: A" id="first-name"
-                                     name="first-name" value="${employeeEdit.getUserEntity().getFirstName()}"
+                              <input class="form-control" type="text" placeholder="VD: A" id="full-name"
+                                     name="full-name" value="${address.fullName}"
                                      maxlength=10>
                            </div>
                            <small class="error-input text-danger">Vui lòng nhập tên</small>
@@ -88,7 +68,7 @@
                               <input class="form-control" type="tel" id="phone-number" name="phone-number"
                                      maxlength="10"
                                      placeholder="VD: 0987654321"
-                                     value="${employeeEdit.getUserEntity().getPhoneNumber()}">
+                                     value="${address.phoneNumber}">
                            </div>
                            <small class="error-input text-danger">Số điện thoại không hợp lệ</small>
                         </div>
@@ -103,9 +83,9 @@
                            <div>
                               <input class="form-control" type="text" id="type-address" maxlength="12"
                                      placeholder="VD: Nhà hoặc công ty"
-                                     value="${employeeEdit.getUserEntity().getSsn()}">
+                                     value="${address.addressName}">
                            </div>
-                           <small class="error-input text-danger">Vui lòng nhập chứng mình nhân dân</small>
+                           <small class="error-input text-danger">Tên địa chỉ không hợp lệ</small>
                         </div>
                      </div>
                   </div>
@@ -134,7 +114,7 @@
                         <small class="error-input text-danger">Vui lòng chọn quận/ huyện</small>
                      </div>
 
-                     <!--Xã phường-->
+                     <!-- Xã phường -->
                      <div class="col-md-4 form-group">
                         <label for="commune" class="form-control-label">Xã/ Phường</label>
                         <div>
@@ -146,13 +126,13 @@
                      </div>
                   </div>
 
-                  <!--Số nhà-->
+                  <!-- Số nhà -->
                   <div class="form-group">
                      <label for="address-street" class="form-control-label">Địa chỉ</label>
                      <div>
                         <textarea class="form-control" id="address-street" name="address-street"
                                   placeholder="VD: Số 1 Đường ABC"
-                                  rows="3">${employeeEdit.getUserEntity().getAddressEntities().get(0).getStreet()}</textarea>
+                                  rows="3">${address.street}</textarea>
                      </div>
                      <small class="error-input text-danger">Vui lòng nhập địa chỉ</small>
                   </div>
@@ -163,7 +143,7 @@
                <div class="card-footer py-4">
                   <div class="row">
                      <div class="col-md-6 text-md-right text-center mb-sm-3">
-                        <button type="submit" form="employee-edit-form" class="btn btn-primary px-6">
+                        <button type="submit" form="address-customer-form" class="btn btn-primary px-6">
                            LƯU
                         </button>
                      </div>
@@ -196,7 +176,7 @@
                </div>
                <div class="modal-footer">
                   <button type="button" class="btn btn-secondary px-3" data-dismiss="modal">KHÔNG</button>
-                  <a href="/admin/employee" class="btn btn-primary px-4">CÓ</a>
+                  <a href="/info/address" class="btn btn-primary px-4">CÓ</a>
                </div>
             </div>
          </div>
@@ -214,10 +194,10 @@
                   </button>
                </div>
                <div class="modal-body">
-                  Cập nhật thông tin nhân viên thành công !
+                  Cập nhật địa chỉ thành công !
                </div>
                <div class="modal-footer">
-                  <a href="/admin/employee" class="btn btn-primary px-4">OK</a>
+                  <a href="/info/address" class="btn btn-primary px-4">OK</a>
                </div>
             </div>
          </div>
@@ -230,9 +210,10 @@
 
 <!--Javascript-->
 <%@ include file="../../common/import-js.jsp" %>
+<script src="../../assets/js/validate/validate-address-customer-edit-form.js"></script>
 <script>
   const ADMIN_UNIT_API_URL = "/api/admin-units";
-
+  console.log('${address.provinceEntity.getProvinceId()}');
   $.ajax({
     url: ADMIN_UNIT_API_URL,
     method: "GET",
@@ -244,7 +225,7 @@
       let obj = $.parseJSON(data);
       console.log(obj);
       $.each(obj, function (key, value) {
-        if (value.id === '${employeeEdit.getUserEntity().getAddressEntities().get(0).getProvinceEntity().getProvinceId()}') {
+        if (value.id === '${address.provinceEntity.getProvinceId()}') {
           $('#province').append('<option selected value="' + value.id + '">' + value.name + '</option>');
           $('#province').trigger('change');
         } else {
@@ -272,7 +253,7 @@
         let obj = $.parseJSON(data);
         console.log(obj);
         $.each(obj, function (key, value) {
-          if (value.id === '${employeeEdit.getUserEntity().getAddressEntities().get(0).getDistrictEntity().getDistrictId()}') {
+          if (value.id === '${address.districtEntity.getDistrictId()}') {
             $('#district').append('<option selected value="' + value.id + '">' + value.name + '</option>');
             $('#district').trigger('change');
           } else {
@@ -299,7 +280,7 @@
         let obj = $.parseJSON(data);
         console.log(obj);
         $.each(obj, function (key, value) {
-          if (value.id === '${employeeEdit.getUserEntity().getAddressEntities().get(0).getCommuneEntity().getCommuneId()}') {
+          if (value.id === '${address.communeEntity.getCommuneId()}') {
             $('#commune').append('<option selected value="' + value.id + '">' + value.name + '</option>');
           } else {
             $('#commune').append('<option value="' + value.id + '">' + value.name + '</option>');
@@ -309,6 +290,5 @@
     });
   });
 </script>
-<script src="../../assets/js/validate/validate-employee-edit-form.js"></script>
 </body>
 </html>

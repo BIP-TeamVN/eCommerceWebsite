@@ -262,11 +262,11 @@ public class ProductEntity implements Serializable {
       return new DecimalFormat("###,###").format(priceOrigin);
    }
 
-   public Long getCountSold (){
+   public Long getCountSold() {
       return ProductDAO.getInstance().getCountProductSold(this.productId);
    }
 
-   public Long getCountStock (){
+   public Long getCountStock() {
       return ProductDAO.getInstance().getCountProductInStock(this.productId);
    }
 
