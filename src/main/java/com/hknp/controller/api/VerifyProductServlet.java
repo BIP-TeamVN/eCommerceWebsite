@@ -3,6 +3,8 @@ package com.hknp.controller.api;
 import com.hknp.model.dao.ProductDAO;
 import com.hknp.model.dao.UserDAO;
 import com.hknp.model.entity.Cons;
+import com.hknp.model.entity.ProductEntity;
+import com.hknp.utils.MailUtils;
 import com.hknp.utils.ServletUtils;
 import com.hknp.utils.StringUtils;
 
@@ -31,8 +33,20 @@ public class VerifyProductServlet extends HttpServlet {
          } else {
             ServletUtils.printWrite(resp, "false\nKhông cập nhập thành công");
          }
+         mailVerify(status, id);
       } else {
          ServletUtils.printWrite(resp, "false\nAuthentication");
+      }
+   }
+
+   public void mailVerify (Integer status, Long productId) {
+      ProductEntity productEntity = ProductDAO.getInstance().getById(productId);
+      if (status == Cons.Product.PRODUCT_STATUS_CREATE) {
+         MailUtils.sendPlanText(productEntity.getSellerEntity().getUserEntity().getEmail(), "Khóa sản phẩm", "Sản phẩm: " + productEntity.getProductName() + " Đã bị khóa.\nLiện hệ 0969696029 để biết thêm chi tiết");
+      } else if (status == Cons.Product.PRODUCT_STATUS_ACCESS) {
+         MailUtils.sendPlanText(productEntity.getSellerEntity().getUserEntity().getEmail(), "Xác thực sản phẩm", "Sản phẩm: " + productEntity.getProductName() + " Đã được xác thực.\nLiện hệ 0969696029 để biết thêm chi tiết");
+      } else {
+         MailUtils.sendPlanText(productEntity.getSellerEntity().getUserEntity().getEmail(), "Khóa sản phẩm", "Sản phẩm: " + productEntity.getProductName() + " Đã bị từ chối.\nLiện hệ 0969696029 để biết thêm chi tiết");
       }
    }
 
