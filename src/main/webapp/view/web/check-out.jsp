@@ -56,136 +56,39 @@
 
    <!-- Page content -->
    <div class="container">
-
       <div class="row mt--7 justify-content-center">
-         <div class="col-8" id="list-shop-bills">
-
-
-            <div class="card">
-               <div class="card-header bg-transparent">
-                  <div class="custom-control custom-checkbox">
-                     <input type="checkbox" class="custom-control-input" id="seller-id" checked>
-                     <label class="custom-control-label" for="seller-id">
-                        <h3 class="mb-0 text-uppercase">Shop abc</h3>
-                     </label>
-                  </div>
-               </div>
-               <div class="card-body">
-                  <div class="row">
-                     <div class="col-md-2 col-sm-6 align-self-center"><img class="rounded" src="" alt="product img">
-                     </div>
-                     <div class="col-md-10 col-sm-12">
-                        <div class="row">
-                           <!--Name, type and quantity-->
-                           <div class="col-8">
-                              <div class="row">
-                                 <div class="col">
-                                    <a href="javascript:void(0)" class="product-item__name"></a>
-                                 </div>
-                              </div>
-
-                              <div class="row">
-                                 <div class="col">
-                                    <p class="product-item__type">
-                                       Load sp
-                                    </p>
-                                 </div>
-                                 <div class="col text-right">
-                                    <div class="d-inline-block">
-                                       <input class="input-numeric" id="quantity-number-product-type-2"
-                                              name="quantity-number-product-type-3" type="number"
-                                              min="1" max="20" value="1" maxlength="2"/>
-                                    </div>
-                                 </div>
-                              </div>
-                           </div>
-
-                           <!--Price-->
-                           <div class="col-4 text-right">
-                              <p class="product-item__price product-item__price--item">
-                                 80000
-                              </p>
-                              <p class="product-item__price product-item__price--total product-item__price--order">
-                                 80000
-                              </p>
-                           </div>
-                        </div>
-                     </div>
-                  </div>
-
-                  <div class="separate-dashed"></div>
-
-                  <div class="row">
-                     <!--Image-->
-                     <div class="col-md-2 col-sm-6 align-self-center">
-                        <img class="rounded" src="../../assets/img/theme/img-1-1000x600.jpg" alt="product img">
-                     </div>
-
-                     <!--Order info-->
-                     <div class="col-md-10 col-sm-12">
-                        <div class="row">
-
-                           <!--Name, type and quantity-->
-                           <div class="col-8">
-                              <div class="row">
-                                 <div class="col">
-                                    <a href="javascript:void(0)" class="product-item__name">
-                                       Lorem ipsum, dolor sit amet
-                                       consectetur adipisicing elit. Recusandae facilis commodi earum enim! Fugiat,
-                                       soluta et
-                                       maiores, eius tempore quaerat nisi iusto at animi sapiente consequuntur
-                                       voluptatem ipsa,
-                                       dolorem repellat!
-                                    </a>
-                                 </div>
-                              </div>
-
-                              <div class="row">
-                                 <div class="col">
-                                    <p class="product-item__type">
-                                       Load sp
-                                    </p>
-                                 </div>
-                                 <div class="col text-right">
-                                    <div class="d-inline-block">
-                                       <input class="input-numeric" id="quantity-number-product-type-1"
-                                              name="quantity-number-product-type-1" type="number"
-                                              min="1" max="20" value="1" maxlength="2"/>
-                                    </div>
-                                 </div>
-                              </div>
-                           </div>
-
-                           <!--Price-->
-                           <div class="col-4 text-right">
-                              <p class="product-item__price product-item__price--item">
-                                 80000
-                              </p>
-                              <p class="product-item__price product-item__price--total product-item__price--order">
-                                 80000
-                              </p>
-                           </div>
-                        </div>
-                     </div>
-                  </div>
-               </div>
-
-               <div class="card-footer">
-                  <div class="row">
-                     <div class="col text-right">
-                        <p class="d-inline font-weight-light">Tổng cộng</p>
-                        <span class="product-detail__price product-detail__price--order">
-                    160000
-                  </span>
-                     </div>
+         <div class="col-md-8 col-sm-12" id="list-shop-bills">
+            <div class="card align-self-center">
+               <div class="mt-3 mb-5 text-center">
+                  <div class="circle-loading2">
+                     <div></div>
+                     <div></div>
                   </div>
                </div>
             </div>
-
-
          </div>
 
-         <div class="col-4">
+         <div class="col-md-4 col-sm-12">
+            <div class="card">
+               <div class="card-header bg-transparent">
+                  <h3 class="mb-0 text-uppercase">Chọn địa chỉ nhận hàng</h3>
+               </div>
+
+               <div class="card-body">
+                  <div class="row">
+                     <div class="col">
+                        <h5 class="card-title text-uppercase text-muted mb-2">Nguyễn Văn A</h5>
+                        <p class="h2 my-1 pb-0 font-weight-bold">0986552563</p>
+                        <p class="text-wrap text-justify text-dark"></p>
+                     </div>
+                  </div>
+               </div>
+               <div class="card-footer text-right">
+                  <button class="btn btn-primary text-uppercase" type="button" data-toggle="modal"
+                          data-target="#modal-list-address">Thay đổi</button>
+               </div>
+            </div>
+
             <div class="card">
                <div class="card-header bg-transparent">
                   <h3 class="mb-0 text-uppercase">Tổng các đơn</h3>
@@ -194,7 +97,8 @@
                   <div class="row">
                      <div class="col">
                         <div class="col text-right">
-                          <span id="all-bill-total" class="text-right product-detail__price product-detail__price--order">
+                          <span id="all-bill-total"
+                                class="text-right product-detail__price product-detail__price--order">
                           </span>
                         </div>
                      </div>
@@ -202,6 +106,40 @@
                </div>
                <div class="card-footer text-right">
                   <button class="btn btn-primary text-uppercase">Thanh toán</button>
+               </div>
+            </div>
+         </div>
+      </div>
+
+      <!--Modal list address-->
+      <div id="modal-list-address" class="modal fade show" tabindex="-1" role="dialog" aria-modal="true">
+         <div class="modal-dialog modal-lg modal-dialog-scrollable modal-dialog-centered" role="document">
+            <div class="modal-content">
+               <div class="modal-header p-3">
+                  <h2 class="mx-3 my-2 text-center text-uppercase display-4 w-100">Sổ địa chỉ</h2>
+                  <button type="button" class="close position-absolute" style="top: 1rem; right: 1rem;"
+                          data-dismiss="modal" aria-label="Close">
+                     <span aria-hidden="true">&times;</span>
+                  </button>
+               </div>
+               <div id="list-all-addresses" class="modal-body px-3 py-0">
+<%--                  <div class="row">--%>
+<%--                     <div class="col">--%>
+<%--                        <label>--%>
+<%--                           <input type="radio" name="list-addresses" class="card-input-element"/>--%>
+<%--                           <div class="p-2 panel panel-default card-input">--%>
+<%--                              <h5 class="card-title text-uppercase text-muted mb-2">Nguyễn Văn A</h5>--%>
+<%--                              <p class="h2 my-1 pb-0 font-weight-bold">0986552563</p>--%>
+<%--                              <p class="text-wrap text-justify text-dark">Địa chỉ ABC</p>--%>
+<%--                           </div>--%>
+<%--                        </label>--%>
+<%--                     </div>--%>
+<%--                  </div>--%>
+               </div>
+               <div class="modal-footer p-3 text-uppercase">
+                  <button class="btn btn-secondary pl-6 pr-6" type="button" id="btn-cancel" data-dismiss="modal">Hủy
+                  </button>
+                  <button class="btn btn-primary pl-6 pr-6" type="button">Lưu</button>
                </div>
             </div>
          </div>
@@ -219,41 +157,70 @@
 </div>
 
 <script>
-  // $.ajax({
-  //   url: '/api/check-out',
-  //   method: 'GET',
-  //   cache: false,
-  //   success: function (data, textStatus, jqXHR) {
-  //     console.log(data);
-  //     console.log(typeof data);
-  //     let list = $.parseJSON(data);
-  //     console.log(list);
-  //     console.log(data);
-  //
-  //     let quantity = 0;
-  //     $.each(list, function (index, item) {
-  //       quantity = quantity + 1;
-  //     });
-  //     $('#quantity-product').append("Giỏ hàng (" + quantity + " Sản phẩm)");
-  //   }
-  // });
-
-  let listCartGroupByShop;
+  let listCartGroupByShop = [];
+  let listUserAddress = [];
   let totalAllBillSelected = 0;
 
+  function updateTotalAllBillSelected() {
+    totalAllBillSelected = 0;
+    listCartGroupByShop.filter(item => item.isSelected)
+      .forEach(x => {
+        totalAllBillSelected += x.totalBill;
+      });
+
+    $('#all-bill-total').html(parseFloat(totalAllBillSelected)
+      .toFixed(0).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.'));
+  }
+
   function addEventSelectShop() {
-    $(".custom-control-input").change(function() {
+    $(".custom-control-input").change(function () {
       let sellerId = $(this)[0].id;
       sellerId = sellerId.replace('seller-', '');
 
-      listCartGroupByShop.filter(item =>  item.sellerId === sellerId)[0].isSelected = this.checked;
-
-      totalAllBillSelected = 0;
-      listCartGroupByShop.filter(item => item.isSelected)
-        .forEach(x => { totalAllBillSelected += x.totalBill; } );
-
-      $('#all-bill-total').html(parseFloat(totalAllBillSelected).toFixed(0).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.'));
+      listCartGroupByShop.filter(item => item.sellerId === sellerId)[0].isSelected = this.checked;
+      updateTotalAllBillSelected();
     });
+  }
+
+  function loadUserAddress() {
+    $.ajax({
+      url: '/api/info/address',
+      method: 'GET',
+      cache: false,
+      async: false,
+      success: function (data, textStatus, jqXHR) {
+        try {
+          listUserAddress = $.parseJSON(data);
+        }
+        catch (err) {}
+
+        $('#list-all-addresses').find('div').remove();
+
+        listUserAddress.forEach(x => x.isSelected = false);
+        listUserAddress[0].isSelected = true;
+
+        for (let i = 0; i < listUserAddress.length; i++) {
+          $('#list-all-addresses').append(
+            '<div class="row">' +
+            '<div class="col">' +
+            '<label>' +
+            '<input ' + (listUserAddress[i].isSelected ? 'checked' : '') + ' type="radio" value="' + listUserAddress[i].addressId +'" name="list-addresses" class="card-input-element" />' +
+            '<div class="p-2 panel panel-default card-input">' +
+            '<h5 class="card-title text-uppercase text-muted mb-2">' + listUserAddress[i].fullName + '</h5>' +
+            '<p class="h2 my-1 pb-0 font-weight-bold">' + listUserAddress[i].phoneNumber + '</p>' +
+            '<p class="text-wrap text-justify text-dark">[' + listUserAddress[i].addressName + '] ' + listUserAddress[i].fullAddress + '</p>' +
+            '</div>' +
+            '</label>' +
+            '</div>' +
+            '</div>'
+          );
+        }
+      },
+    });
+  }
+
+  function updateSelectedAddress() {
+      let selectedAdd = listUserAddress.filter(add => add.isSelected)[0];
   }
 
   $.ajax({
@@ -261,10 +228,21 @@
     method: 'GET',
     cache: false,
     success: function (data, textStatus, jqXHR) {
-      let list = $.parseJSON(data);
+      let list;
+      try{
+        list = $.parseJSON(data);
+      }
+      catch(err) {
+        list = [];
+      }
       listCartGroupByShop = list;
 
       $('#list-shop-bills').find('div').remove();
+
+      if (list.length == 0) {
+        $('#list-shop-bills').append('<div class="card align-self-center"><h1 class="p-4">Giỏ hàng trống</h1><div>');
+      }
+
       for (let i = 0; i < list.length; i++) {
         let totalBill = 0;
         let allCartItemHtml = '';
@@ -311,7 +289,9 @@
             '</div>' +
             '</div>';
 
-          if (j != 0) { cartItemHtml = '<div class="separate-dashed"></div>' + cartItemHtml; }
+          if (j != 0) {
+            cartItemHtml = '<div class="separate-dashed"></div>' + cartItemHtml;
+          }
 
           allCartItemHtml = allCartItemHtml + cartItemHtml;
         }
@@ -321,7 +301,7 @@
           '<div class="card-header bg-transparent">' +
           '<div class="custom-control custom-checkbox">' +
           '<input type="checkbox" class="custom-control-input" id="seller-' + list[i].sellerId + '" checked>' +
-          '<label class="custom-control-label" for="seller-' + list[i].sellerId +'">' +
+          '<label class="custom-control-label" for="seller-' + list[i].sellerId + '">' +
           '<h3 class="mb-0 text-uppercase">' + list[i].shopName + '</h3>' +
           '</label>' +
           '</div>' +
@@ -342,14 +322,14 @@
         listCartGroupByShop[i].totalBill = totalBill;
         listCartGroupByShop[i].isSelected = true;
       }
+      
       updateInputNumeric();
       addEventSelectShop();
+      updateTotalAllBillSelected();
+      loadUserAddress();
     }
   });
 
-
 </script>
-
-
 </body>
 </html>
