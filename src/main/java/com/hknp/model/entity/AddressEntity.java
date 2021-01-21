@@ -134,9 +134,9 @@ public class AddressEntity implements Serializable {
 
    public String toJson1() {
       String fullAddress = street + ", " +
-              communeEntity.communeName+ ", " +
-              districtEntity.districtName + ", " +
-              provinceEntity.provinceName;
+              communeEntity.getCommuneFullName()+ ", " +
+              districtEntity.getDistrictFullName() + ", " +
+              provinceEntity.getProvinceFullName();
       return "{" +
               "\"addressId\":\"" + addressId + "\"," +
               "\"fullAddress\":\"" + fullAddress + "\"," +

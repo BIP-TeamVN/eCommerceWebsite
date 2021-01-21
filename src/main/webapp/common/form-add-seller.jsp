@@ -239,6 +239,6 @@
       </div>
    </div>
 </div>
-<%@ include file="import-js.jsp" %>
+
 <script src="../../assets/js/dynamic-admin-unit-drop-down.js"></script>
 <script src="../../assets/js/validate/validate-sellerr-form.js"></script>

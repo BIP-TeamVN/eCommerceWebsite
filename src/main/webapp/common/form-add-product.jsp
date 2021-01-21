@@ -13,6 +13,7 @@
    <%@ include file="meta-info.jsp" %>
    <title>eCommerce Website - Admin</title>
    <%@ include file="link-css.jsp" %>
+   <%@ include file="../common/import-js.jsp" %>
 </head>
 
 <body>
@@ -322,7 +323,7 @@
       <%@ include file="../common/footer.jsp" %>
    </div>
 </div>
-<%@ include file="../common/import-js.jsp" %>
+
 <script src="../assets/js/dynamic-admin-unit-drop-down.js"></script>
 <script src="/assets/js/validate/validate-product-add-form.js"></script>
 <script>

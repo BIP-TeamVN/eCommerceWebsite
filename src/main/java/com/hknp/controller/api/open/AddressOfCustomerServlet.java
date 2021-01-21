@@ -20,7 +20,7 @@ import java.util.Map;
 public class AddressOfCustomerServlet extends HttpServlet {
    @Override
    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-      try {
+
          HttpSession session = req.getSession(false);
          Long userId = (Long) session.getAttribute("id");
 
@@ -31,9 +31,6 @@ public class AddressOfCustomerServlet extends HttpServlet {
             listJsonStr.add(a.toJson1());
          }
          ServletUtils.printWrite(resp, "[" + String.join(", ", listJsonStr) + "]");
-      } catch (Exception e) {
-
-      }
    }
 
    @Override

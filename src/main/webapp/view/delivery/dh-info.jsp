@@ -8,7 +8,7 @@
     String minDob = DateTimeUtils.dateToString(Date.from(Instant.now().minus(Duration.ofDays(36520))), "yyyy-MM-dd");
 %>
 
-<html>
+<html lang="vi">
 <head>
     <%@ include file="../../common/meta-info.jsp" %>
     <title>eCommerce Website - Admin</title>

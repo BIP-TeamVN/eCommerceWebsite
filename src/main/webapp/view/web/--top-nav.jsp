@@ -384,6 +384,10 @@
 </div>
 
 <script>
+  let isLogined = false;
+
+  let fUpdateLogin = null;
+
   function loadUserLogin() {
     $.ajax({
       url: '/api/login-customer',
@@ -397,18 +401,27 @@
         } catch (err) {
         }
 
-        console.log(userLogin);
-
         if (userLogin != null) {
           $('#nav-user-login').removeClass('d-none');
           $('#nav-user-guest').addClass('d-none');
 
           $('#image-customer').attr('src', userLogin.imgSrc);
           $('#full-name-customer').html(userLogin.fullName);
+
+          isLogined = true;
+          if(fUpdateLogin != null && typeof fUpdateLogin === "function") {
+            fUpdateLogin();
+          }
         }
         else {
           $('#nav-user-login').addClass('d-none');
           $('#nav-user-guest').removeClass('d-none');
+
+          isLogined = false;
+
+          if(fUpdateLogin != null && typeof fUpdateLogin === "function") {
+            fUpdateLogin();
+          }
         }
       }
     });

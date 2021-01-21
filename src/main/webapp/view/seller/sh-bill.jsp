@@ -1,10 +1,12 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8" %>
-<html>
+<html lang="vi">
 <head>
    <%@ include file="../../common/meta-info.jsp" %>
    <title>eCommerce Website - Admin</title>
    <%@ include file="../../common/link-css.jsp" %>
+   <!--Javascript-->
+   <%@ include file="../../common/import-js.jsp" %>
 </head>
 
 <body>
@@ -39,7 +41,6 @@
 
    <!-- Page content -->
    <div class="container-fluid mt--6">
-
       <!--List employee card-->
       <div class="row">
          <div class="col">
@@ -112,8 +113,6 @@
    </div>
 </div>
 
-<!--Javascript-->
-<%@ include file="../../common/import-js.jsp" %>
 <script>
   let firstPageButton = '<li class="page-item"><button type="button" class="page-link" onclick="goFirst()"><i class="fa fa-angle-double-left"></i><span class="sr-only">Trang đầu tiên</span></button></li>';
   let prevPageButton = '<li class="page-item"><button type="button" class="page-link" onclick="goPrev()"><i class="fa fa-angle-left"></i><span class="sr-only">Trang trước</span></button></li>';

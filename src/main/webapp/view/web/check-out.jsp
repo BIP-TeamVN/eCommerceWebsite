@@ -45,7 +45,7 @@
                   <nav aria-label="breadcrumb" class="d-md-block">
                      <ol class="breadcrumb breadcrumb-links breadcrumb-dark">
                         <li class="breadcrumb-item"><a href="/home"><em class="fa fa-home mr-2"></em>Trang chủ</a></li>
-                        <li id="quantity-product" class="breadcrumb-item active" aria-current="page"></li>
+                        <li id="cart-quantity-product" class="breadcrumb-item active" aria-current="page"></li>
                      </ol>
                   </nav>
                </div>
@@ -69,7 +69,18 @@
          </div>
 
          <div class="col-md-4 col-sm-12">
-            <div class="card">
+            <div id="request-login" class="card">
+               <div class="card-header bg-transparent">
+                  <h3 class="mb-0 text-uppercase">Vui lòng đăng nhập để đặt hàng</h3>
+               </div>
+               <div class="card-footer text-right">
+                  <button data-toggle="modal" data-target="#modal-login" class="btn btn-primary text-uppercase">
+                     Đăng nhập/ Đăng kí
+                  </button>
+               </div>
+            </div>
+
+            <div id="address-card" class="card d-none">
                <div class="card-header bg-transparent">
                   <h3 class="mb-0 text-uppercase">Chọn địa chỉ nhận hàng</h3>
                </div>
@@ -89,7 +100,7 @@
                </div>
             </div>
 
-            <div class="card">
+            <div id="pay-card" class="card">
                <div class="card-header bg-transparent">
                   <h3 class="mb-0 text-uppercase">Tổng các đơn</h3>
                </div>
@@ -166,14 +177,34 @@
   let listCartGroupByShop = [];
   let listUserAddress = [];
   let totalAllBillSelected = 0;
+  let countBillItemSelected = 0;
+
+  function checkUserLogin() {
+    if (isLogined) {
+      $('#request-login').addClass('d-none');
+      $('#address-card').removeClass('d-none');
+      $('#btn-pay').removeClass('disabled');
+
+      loadUserAddress();
+      updateSelectedAddress();
+    } else {
+      $('#request-login').removeClass('d-none');
+      $('#address-card').addClass('d-none');
+      $('#btn-pay').addClass('disabled');
+    }
+  }
 
   function updateTotalAllBillSelected() {
     totalAllBillSelected = 0;
+    countBillItemSelected = 0;
+
     listCartGroupByShop.filter(item => item.isSelected)
       .forEach(x => {
+        countBillItemSelected += x.carts.length;
         totalAllBillSelected += x.totalBill;
       });
 
+    $('#cart-quantity-product').html('Giỏ hàng (' + countBillItemSelected + ' sản phẩm)');
     $('#all-bill-total').html(parseFloat(totalAllBillSelected)
       .toFixed(0).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.'));
   }
@@ -209,12 +240,12 @@
           $('#list-all-addresses').append(
             '<div class="row">' +
             '<div class="col">' +
-            '<label>' +
+            '<label class="w-100">' +
             '<input ' + (listUserAddress[i].isSelected ? 'checked' : '') + ' type="radio" value="' + listUserAddress[i].addressId +'" name="list-addresses" class="card-input-element" />' +
             '<div class="p-2 panel panel-default card-input">' +
             '<h5 class="card-title text-uppercase text-muted mb-2">' + listUserAddress[i].fullName + '</h5>' +
             '<p class="h2 my-1 pb-0 font-weight-bold">' + listUserAddress[i].phoneNumber + '</p>' +
-            '<p class="text-wrap text-justify text-dark">[' + listUserAddress[i].addressName + '] ' + listUserAddress[i].fullAddress + '</p>' +
+            '<p class="text-wrap text-justify text-dark"><b>[' + listUserAddress[i].addressName + '</b>] ' + listUserAddress[i].fullAddress + '</p>' +
             '</div>' +
             '</label>' +
             '</div>' +
@@ -229,116 +260,111 @@
       let selectedAdd = listUserAddress.filter(add => add.isSelected)[0];
       $('#selected-add-name').html(selectedAdd.fullName);
       $('#selected-add-phone').html(selectedAdd.phoneNumber);
-      $('#selected-add-desc').html('[' + selectedAdd.addressName + '] ' + selectedAdd.fullAddress);
+      $('#selected-add-desc').html('<b>[' + selectedAdd.addressName + ']</b> ' + selectedAdd.fullAddress);
   }
 
-  $.ajax({
-    url: '/api/check-out',
-    method: 'GET',
-    cache: false,
-    success: function (data, textStatus, jqXHR) {
-      let list;
-      try{
-        list = $.parseJSON(data);
-      }
-      catch(err) {
-        list = [];
-      }
-      listCartGroupByShop = list;
+  fUpdateLogin = function () {
+    $.ajax({
+      url: '/api/check-out',
+      method: 'GET',
+      cache: false,
+      success: function (data, textStatus, jqXHR) {
+        let list;
+        try {
+          list = $.parseJSON(data);
+        } catch (err) {
+          list = [];
+        }
+        listCartGroupByShop = list;
 
-      $('#list-shop-bills').find('div').remove();
+        $('#list-shop-bills').find('div').remove();
 
-      if (list.length == 0) {
-        $('#list-shop-bills').append('<div class="card align-self-center"><h1 class="p-4">Giỏ hàng trống</h1><div>');
-      }
-
-      for (let i = 0; i < list.length; i++) {
-        let totalBill = 0;
-        let allCartItemHtml = '';
-
-        for (let j = 0; j < list[i].carts.length; j++) {
-          let itemAmount = list[i].carts[j].price * list[i].carts[j].quantity;
-          totalBill += itemAmount;
-
-          let cartItemHtml =
-            '<div class="row">' +
-            '<div class="col-md-2 col-sm-6 align-self-center"><img class="rounded" src="' + list[i].carts[j].image + '" alt="product img"></div>' +
-            '<div class="col-md-10 col-sm-12">' +
-            '<div class="row">' +
-            '<div class="col-8">' +
-            '<div class="row">' +
-            '<div class="col">' +
-            '<a href="/product?id=' + list[i].carts[j].productId + '" class="product-item__name">' + list[i].carts[j].name + '</a>' +
-            '</div>' +
-            ' </div>' +
-
-            '<div class="row">' +
-            '<div class="col">' +
-            '<p class="product-item__type">' + list[i].carts[j].nameDetail + '</p>' +
-            '</div>' +
-
-            '<div class="col text-right">' +
-            '<div class="d-inline-block">' +
-            '<input class="input-numeric" id="quantity-number-' + list[i].carts[j].productTypeId + '" type="number" name="quantity-number-product-type-3"' +
-            'min = "1"  max = "20" value = "' + list[i].carts[j].quantity + '" maxlength = "2" />' +
-            '</div>' +
-            '</div>' +
-            '</div>' +
-            '</div>' +
-
-            '<div class="col-4 text-right">' +
-            '<p class="product-item__price product-item__price--item">' +
-            parseFloat(list[i].carts[j].price).toFixed(0).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.') +
-            '</p>' +
-            '<p class="product-item__price product-item__price--total product-item__price--order">' +
-            parseFloat(itemAmount).toFixed(0).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.') +
-            '</p>' +
-            '</div>' +
-            '</div>' +
-            '</div>' +
-            '</div>';
-
-          if (j != 0) {
-            cartItemHtml = '<div class="separate-dashed"></div>' + cartItemHtml;
-          }
-
-          allCartItemHtml = allCartItemHtml + cartItemHtml;
+        if (list.length == 0) {
+          $('#list-shop-bills').append('<div class="card align-self-center"><h1 class="p-4">Giỏ hàng trống</h1><div>');
         }
 
-        let shop =
-          '<div class="card">' +
-          '<div class="card-header bg-transparent">' +
-          '<div class="custom-control custom-checkbox">' +
-          '<input type="checkbox" class="custom-control-input" id="seller-' + list[i].sellerId + '" checked>' +
-          '<label class="custom-control-label" for="seller-' + list[i].sellerId + '">' +
-          '<h3 class="mb-0 text-uppercase">' + list[i].shopName + '</h3>' +
-          '</label>' +
-          '</div>' +
-          '</div>' +
-          '<div class="card-body">' +
-          allCartItemHtml +
-          '</div>' +
-          '<div class="card-footer">' +
-          '<div class="row">' +
-          '<div class="col text-right">' +
-          '<p class="d-inline mr-2 font-weight-light style="line-height: 2.6rem">Tổng cộng</p>' +
-          '<span class="product-detail__price product-detail__price--order">' +
-          parseFloat(totalBill).toFixed(0).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.') +
-          '</span>' +
-          '</div></div></div></div>';
+        for (let i = 0; i < list.length; i++) {
+          let totalBill = 0;
+          let allCartItemHtml = '';
 
-        $('#list-shop-bills').append(shop);
-        listCartGroupByShop[i].totalBill = totalBill;
-        listCartGroupByShop[i].isSelected = true;
+          for (let j = 0; j < list[i].carts.length; j++) {
+            let itemAmount = list[i].carts[j].price * list[i].carts[j].quantity;
+            totalBill += itemAmount;
+
+            allCartItemHtml = allCartItemHtml + (j != 0 ? '<div class="separate-dashed"></div>' : '') +
+              '<div class="row">' +
+              '<div class="col-md-2 col-sm-6 align-self-center"><img class="rounded" src="' + list[i].carts[j].image + '" alt="product img"></div>' +
+              '<div class="col-md-10 col-sm-12">' +
+              '<div class="row">' +
+              '<div class="col-8">' +
+              '<div class="row">' +
+              '<div class="col">' +
+              '<a href="/product?id=' + list[i].carts[j].productId + '" class="product-item__name">' + list[i].carts[j].name + '</a>' +
+              '</div>' +
+              ' </div>' +
+
+              '<div class="row">' +
+              '<div class="col">' +
+              '<p class="product-item__type">' + list[i].carts[j].nameDetail + '</p>' +
+              '</div>' +
+
+              '<div class="col text-right">' +
+              '<div class="d-inline-block">' +
+              '<input class="input-numeric" id="quantity-number-' + list[i].carts[j].productTypeId + '" type="number" name="quantity-number-product-type-3"' +
+              'min = "1"  max = "20" value = "' + list[i].carts[j].quantity + '" maxlength = "2" />' +
+              '</div>' +
+              '</div>' +
+              '</div>' +
+              '</div>' +
+
+              '<div class="col-4 text-right">' +
+              '<p class="product-item__price product-item__price--item">' +
+              parseFloat(list[i].carts[j].price).toFixed(0).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.') +
+              '</p>' +
+              '<p class="product-item__price product-item__price--total product-item__price--order">' +
+              parseFloat(itemAmount).toFixed(0).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.') +
+              '</p>' +
+              '</div>' +
+              '</div>' +
+              '</div>' +
+              '</div>';
+          }
+
+          $('#list-shop-bills').append(
+            '<div class="card">' +
+            '<div class="card-header bg-transparent">' +
+            '<div class="custom-control custom-checkbox">' +
+            '<input type="checkbox" class="custom-control-input" id="seller-' + list[i].sellerId + '" checked>' +
+            '<label class="custom-control-label" for="seller-' + list[i].sellerId + '">' +
+            '<h3 class="mb-0 text-uppercase">' + list[i].shopName + '</h3>' +
+            '</label>' +
+            '</div>' +
+            '</div>' +
+            '<div class="card-body">' +
+            allCartItemHtml +
+            '</div>' +
+            '<div class="card-footer">' +
+            '<div class="row">' +
+            '<div class="col text-right">' +
+            '<p class="d-inline mr-2 font-weight-light style="line-height: 2.6rem">Tổng cộng</p>' +
+            '<span class="product-detail__price product-detail__price--order">' +
+            parseFloat(totalBill).toFixed(0).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.') +
+            '</span>' +
+            '</div></div></div></div>'
+          );
+
+          listCartGroupByShop[i].totalBill = totalBill;
+          listCartGroupByShop[i].isSelected = true;
+        }
+
+        updateInputNumeric();
+        addEventSelectShop();
+        updateTotalAllBillSelected();
+
+        checkUserLogin();
       }
-
-      updateInputNumeric();
-      addEventSelectShop();
-      updateTotalAllBillSelected();
-      loadUserAddress();
-      updateSelectedAddress();
-    }
-  });
+    });
+  }
 
   $('#btn-save-select').click(function() {
     let addId = $('input[name="list-addresses"]:checked').val();
@@ -349,7 +375,6 @@
   });
 
   $('#btn-pay').click(function() {
-
     let addressId = listUserAddress.filter(add => add.isSelected)[0].addressId;
     let listSellerId = [];
     listCartGroupByShop.filter(item => item.isSelected)
@@ -368,7 +393,6 @@
       }
     });
   });
-
 </script>
 </body>
 </html>

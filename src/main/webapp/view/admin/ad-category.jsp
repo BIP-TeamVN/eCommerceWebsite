@@ -1,9 +1,11 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8" %>
-<html>
+<html lang="vi">
 <head>
    <%@ include file="../../common/meta-info.jsp" %>
    <title>eCommerce Website - Admin</title>
    <%@ include file="../../common/link-css.jsp" %>
+   <!--Javascript-->
+   <%@ include file="../../common/import-js.jsp" %>
 </head>
 
 <body>
@@ -16,7 +18,6 @@
 <div class="main-content" id="panel">
    <!--Top navigation-->
    <%@include file="./ad--top-nav.jsp" %>
-
 
    <!--Header and breadcrumb-->
    <div class="header bg-primary pb-6">
@@ -40,12 +41,12 @@
          </div>
       </div>
    </div>
+
    <!-- From add product-category -->
    <%@ include file="../../common/form-add-product-category.jsp" %>
 
    <!-- Page content -->
    <div class="container-fluid mt--6">
-
       <!--List product-category card-->
       <div class="row">
          <div class="col">
@@ -195,9 +196,6 @@
       <%@ include file="../../common/footer.jsp" %>
    </div>
 </div>
-
-<!--Javascript-->
-<%@ include file="../../common/import-js.jsp" %>
 
 <script>
   $('#chk-show-filter').change(function () {

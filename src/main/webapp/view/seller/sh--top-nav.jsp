@@ -8,7 +8,7 @@
    String image = user.getImageSrc();
    String fullName = user.getFullName();
 %>
-<!-- Topnav -->
+<!-- Top nav -->
 <nav class="navbar navbar-top navbar-expand navbar-dark bg-primary border-bottom">
    <div class="container-fluid">
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -52,12 +52,12 @@
                <div class="dropdown-menu dropdown-menu-xl  dropdown-menu-right  py-0 overflow-hidden">
                   <!-- Dropdown header -->
                   <div class="px-3 py-3">
-                     <h6 class="text-sm text-muted m-0">You have <strong class="text-primary">13</strong> notifications.
+                     <h6 class="text-sm text-muted m-0">Bạn có <strong class="text-primary">1</strong> thông báo mới.
                      </h6>
                   </div>
                   <!-- List group -->
                   <div class="list-group list-group-flush">
-                     <a href="#!" class="list-group-item list-group-item-action">
+                     <a href="javascript:void(0)" class="list-group-item list-group-item-action">
                         <div class="row align-items-center">
                            <div class="col-auto">
                               <!-- Avatar -->
@@ -67,99 +67,19 @@
                            <div class="col ml--2">
                               <div class="d-flex justify-content-between align-items-center">
                                  <div>
-                                    <h4 class="mb-0 text-sm">John Snow</h4>
+                                    <h4 class="mb-0 text-sm">Shop ABC</h4>
                                  </div>
                                  <div class="text-right text-muted">
                                     <small>2 hrs ago</small>
                                  </div>
                               </div>
-                              <p class="text-sm mb-0">Let's meet at Starbucks at 11:30. Wdyt?</p>
-                           </div>
-                        </div>
-                     </a>
-                     <a href="#!" class="list-group-item list-group-item-action">
-                        <div class="row align-items-center">
-                           <div class="col-auto">
-                              <!-- Avatar -->
-                              <img alt="Image placeholder" src="../../assets/img/theme/team-2.jpg"
-                                   class="avatar rounded-circle">
-                           </div>
-                           <div class="col ml--2">
-                              <div class="d-flex justify-content-between align-items-center">
-                                 <div>
-                                    <h4 class="mb-0 text-sm">John Snow</h4>
-                                 </div>
-                                 <div class="text-right text-muted">
-                                    <small>3 hrs ago</small>
-                                 </div>
-                              </div>
-                              <p class="text-sm mb-0">A new issue has been reported for Argon.</p>
-                           </div>
-                        </div>
-                     </a>
-                     <a href="#!" class="list-group-item list-group-item-action">
-                        <div class="row align-items-center">
-                           <div class="col-auto">
-                              <!-- Avatar -->
-                              <img alt="Image placeholder" src="../../assets/img/theme/team-3.jpg"
-                                   class="avatar rounded-circle">
-                           </div>
-                           <div class="col ml--2">
-                              <div class="d-flex justify-content-between align-items-center">
-                                 <div>
-                                    <h4 class="mb-0 text-sm">John Snow</h4>
-                                 </div>
-                                 <div class="text-right text-muted">
-                                    <small>5 hrs ago</small>
-                                 </div>
-                              </div>
-                              <p class="text-sm mb-0">Your posts have been liked a lot.</p>
-                           </div>
-                        </div>
-                     </a>
-                     <a href="#!" class="list-group-item list-group-item-action">
-                        <div class="row align-items-center">
-                           <div class="col-auto">
-                              <!-- Avatar -->
-                              <img alt="Image placeholder" src="../../assets/img/theme/team-4.jpg"
-                                   class="avatar rounded-circle">
-                           </div>
-                           <div class="col ml--2">
-                              <div class="d-flex justify-content-between align-items-center">
-                                 <div>
-                                    <h4 class="mb-0 text-sm">John Snow</h4>
-                                 </div>
-                                 <div class="text-right text-muted">
-                                    <small>2 hrs ago</small>
-                                 </div>
-                              </div>
-                              <p class="text-sm mb-0">Let's meet at Starbucks at 11:30. Wdyt?</p>
-                           </div>
-                        </div>
-                     </a>
-                     <a href="#!" class="list-group-item list-group-item-action">
-                        <div class="row align-items-center">
-                           <div class="col-auto">
-                              <!-- Avatar -->
-                              <img alt="Image placeholder" src="../../assets/img/theme/team-5.jpg"
-                                   class="avatar rounded-circle">
-                           </div>
-                           <div class="col ml--2">
-                              <div class="d-flex justify-content-between align-items-center">
-                                 <div>
-                                    <h4 class="mb-0 text-sm">John Snow</h4>
-                                 </div>
-                                 <div class="text-right text-muted">
-                                    <small>3 hrs ago</small>
-                                 </div>
-                              </div>
-                              <p class="text-sm mb-0">A new issue has been reported for Argon.</p>
+                              <p class="text-sm mb-0">Có sản phẩm cần duyệt</p>
                            </div>
                         </div>
                      </a>
                   </div>
                   <!-- View all -->
-                  <a href="#!" class="dropdown-item text-center text-primary font-weight-bold py-3">View all</a>
+                  <a href="javascript:void(0)" class="dropdown-item text-center text-primary font-weight-bold py-3">Xem tất cả</a>
                </div>
             </li>
             <li class="nav-item dropdown">
@@ -169,41 +89,41 @@
                </a>
                <div class="dropdown-menu dropdown-menu-lg dropdown-menu-dark bg-default  dropdown-menu-right ">
                   <div class="row shortcuts px-4">
-                     <a href="#!" class="col-4 shortcut-item">
-                    <span class="shortcut-media avatar rounded-circle bg-gradient-red">
-                      <i class="ni ni-calendar-grid-58"></i>
-                    </span>
-                        <small>Calendar</small>
+                     <a href="javascript:void(0)" class="col-4 shortcut-item">
+                        <span class="shortcut-media avatar rounded-circle bg-gradient-red">
+                           <i class="ni ni-calendar-grid-58"></i>
+                        </span>
+                        <small>Lịch</small>
                      </a>
-                     <a href="#!" class="col-4 shortcut-item">
-                    <span class="shortcut-media avatar rounded-circle bg-gradient-orange">
-                      <i class="ni ni-email-83"></i>
-                    </span>
+                     <a href="javascript:void(0)" class="col-4 shortcut-item">
+                        <span class="shortcut-media avatar rounded-circle bg-gradient-orange">
+                           <i class="ni ni-email-83"></i>
+                        </span>
                         <small>Email</small>
                      </a>
-                     <a href="#!" class="col-4 shortcut-item">
-                    <span class="shortcut-media avatar rounded-circle bg-gradient-info">
-                      <i class="ni ni-credit-card"></i>
-                    </span>
-                        <small>Payments</small>
+                     <a href="javascript:void(0)" class="col-4 shortcut-item">
+                        <span class="shortcut-media avatar rounded-circle bg-gradient-info">
+                           <i class="ni ni-credit-card"></i>
+                        </span>
+                        <small>Thanh toán</small>
                      </a>
-                     <a href="#!" class="col-4 shortcut-item">
-                    <span class="shortcut-media avatar rounded-circle bg-gradient-green">
-                      <i class="ni ni-books"></i>
-                    </span>
-                        <small>Reports</small>
+                     <a href="javascript:void(0)" class="col-4 shortcut-item">
+                        <span class="shortcut-media avatar rounded-circle bg-gradient-green">
+                           <i class="ni ni-books"></i>
+                        </span>
+                        <small>Thống kê</small>
                      </a>
-                     <a href="#!" class="col-4 shortcut-item">
-                    <span class="shortcut-media avatar rounded-circle bg-gradient-purple">
-                      <i class="ni ni-pin-3"></i>
-                    </span>
-                        <small>Maps</small>
+                     <a href="javascript:void(0)" class="col-4 shortcut-item">
+                        <span class="shortcut-media avatar rounded-circle bg-gradient-purple">
+                           <i class="ni ni-pin-3"></i>
+                        </span>
+                        <small>Bản đồ</small>
                      </a>
-                     <a href="#!" class="col-4 shortcut-item">
-                    <span class="shortcut-media avatar rounded-circle bg-gradient-yellow">
-                      <i class="ni ni-basket"></i>
-                    </span>
-                        <small>Shop</small>
+                     <a href="javascript:void(0)" class="col-4 shortcut-item">
+                        <span class="shortcut-media avatar rounded-circle bg-gradient-yellow">
+                           <i class="ni ni-basket"></i>
+                        </span>
+                        <small>Cửa hàng</small>
                      </a>
                   </div>
                </div>

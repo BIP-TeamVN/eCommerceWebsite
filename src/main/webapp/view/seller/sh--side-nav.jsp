@@ -5,18 +5,12 @@
    int selectedIndex = 0;
    try {
       selectedIndex = Integer.parseInt(paraSelectedIndex);
-   }
-   catch (Exception e) {
+   } catch (Exception e) {
       e.printStackTrace();
    }
 
    boolean[] isActive = new boolean[countItem];
-   for (int i = 0; i < isActive.length; i++) {
-      isActive[i] = false;
-   }
    isActive[selectedIndex] = true;
-
-   selectedIndex = selectedIndex;
 %>
 <!-- Sidenav -->
 <nav class="sidenav navbar navbar-vertical fixed-left navbar-expand-xs navbar-light bg-white" id="sidenav-main">

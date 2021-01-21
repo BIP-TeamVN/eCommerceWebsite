@@ -1,10 +1,12 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8" %>
-<%@ page import="javax.servlet.http.HttpServletRequest" %>
-<html>
+<html lang="vi">
 <head>
    <%@ include file="../../common/meta-info.jsp" %>
    <title>eCommerce Website - Admin</title>
+
    <%@ include file="../../common/link-css.jsp" %>
+   <%@ include file="../../common/import-js.jsp" %>
+   <script src="../../assets/vendor/chart.js/dist/Chart.js"></script>
 </head>
 
 <body>
@@ -18,7 +20,6 @@
 <div class="main-content" id="panel">
    <%@include file="./ad--top-nav.jsp" %>
 
-   <!-- Header -->
    <!-- Header -->
    <div class="header bg-primary pb-6">
       <div class="container-fluid">
@@ -112,6 +113,7 @@
          </div>
       </div>
    </div>
+
    <!-- Page content -->
    <div class="container-fluid mt--6">
       <div class="row">
@@ -155,20 +157,18 @@
                <div class="card-body">
                   <!-- Chart -->
                   <div class="chart">
-                     <canvas id="myCharttt" height="128px" width="128px></canvas>
+                     <canvas id="myCharttt" height="128px" width="128px"></canvas>
                   </div>
                </div>
             </div>
          </div>
       </div>
-      <div class="row">
+
       <!-- Footer -->
       <%@ include file="../../common/footer.jsp" %>
    </div>
 </div>
 
-<%@ include file="../../common/import-js.jsp" %>
-<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
 <script>
   reloadPage();
   function reloadPage(){
@@ -187,7 +187,7 @@
           labels: ['T1', 'T2', 'T3', 'T4', 'T5', 'T6', 'T7', 'T8', 'T9', 'T10', 'T11', 'T12'],
           datasets: [{
             label: 'Doanh số',
-            backgroundColor: 'rgb(255, 99, 132)',
+            backgroundColor: 'rgb(255,99,132)',
             barPercentage: 1,
             barThickness: 8,
             maxBarThickness: 8,

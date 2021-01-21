@@ -1,10 +1,3 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: namtr
-  Date: 1/14/2021
-  Time: 1:00 PM
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8" %>
 
 <!-- Modal -->
@@ -136,7 +129,7 @@
       </div>
    </div>
 </div>
-<%@ include file="../../common/import-js.jsp" %>
+
 <script>
   let countPara = 0;
   let typesPara = [];

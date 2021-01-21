@@ -4,6 +4,7 @@ import com.hknp.model.dao.BillDAO;
 import com.hknp.model.dao.ProductCategoryDAO;
 import com.hknp.model.dao.ProductDAO;
 import com.hknp.model.entity.BillEntity;
+import com.hknp.model.entity.Cons;
 import com.hknp.utils.ServletUtils;
 import com.hknp.utils.StringUtils;
 
@@ -51,12 +52,14 @@ public class ShDashboardController extends HttpServlet {
 
       Long totalBill = 0L;
       BigDecimal totalSale = new BigDecimal(0);
-      List<BillEntity> listBill = new ArrayList<>();
-      listBill = BillDAO.getInstance().getsForSeller(1,100,sellerId,6);
-      for (BillEntity bill : listBill){
+      List<BillEntity> listBill = BillDAO.getInstance()
+              .getsForSeller(0, 100, sellerId, Cons.Bill.BILL_STATUS_DONE);
+
+      for (BillEntity bill : listBill) {
          totalSale = totalSale.add(bill.getTotal());
       }
       totalBill = listBill.stream().count();
+
       req.setAttribute("totalSale", totalSale);
       req.setAttribute("totalBill", totalBill);
 

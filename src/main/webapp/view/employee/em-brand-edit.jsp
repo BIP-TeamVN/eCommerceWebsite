@@ -1,11 +1,12 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
-<html>
+<html lang="vi">
 <head>
     <%@ include file="../../common/meta-info.jsp" %>
     <title>eCommerce Website - Admin</title>
     <%@ include file="../../common/link-css.jsp" %>
+    <!--Javascript-->
+    <%@ include file="../../common/import-js.jsp" %>
 </head>
 
 <body>
@@ -169,8 +170,6 @@
     </div>
 </div>
 
-<!--Javascript-->
-<%@ include file="../../common/import-js.jsp" %>
 <script src="../../assets/js/validate/validate-brand-edit-form-em.js"></script>
 </body>
 </html>

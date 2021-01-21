@@ -1,10 +1,12 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8" %>
-<html>
+<html lang="vi">
 <head>
    <%@ include file="../../common/meta-info.jsp" %>
    <title>eCommerce Website - Admin</title>
    <%@ include file="../../common/link-css.jsp" %>
+   <!--Javascript-->
+   <%@ include file="../../common/import-js.jsp" %>
 </head>
 
 <body>
@@ -44,7 +46,6 @@
 
    <!-- Page content -->
    <div class="container-fluid mt--6">
-
       <!--List employee card-->
       <div class="row">
          <div class="col">
@@ -209,8 +210,6 @@
    </div>
 </div>
 
-<!--Javascript-->
-<%@ include file="../../common/import-js.jsp" %>
 <script>
   $('#chk-show-filter').change(function () {
     if ($(this).is(':checked')) {

@@ -1,16 +1,11 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: namtr
-  Date: 1/14/2021
-  Time: 10:11 AM
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8" %>
-<html>
+<html lang="vi">
 <head>
    <%@ include file="../../common/meta-info.jsp" %>
    <title>eCommerce Website - Admin</title>
    <%@ include file="../../common/link-css.jsp" %>
+   <!--Javascript-->
+   <%@ include file="../../common/import-js.jsp" %>
 </head>
 
 <body>
@@ -23,7 +18,6 @@
 <div class="main-content" id="panel">
    <%@include file="em--top-nav.jsp" %>
 
-   <!-- Header -->
    <!-- Header -->
    <div class="header bg-primary pb-6">
       <div class="container-fluid">
@@ -138,6 +132,7 @@
          </div>
       </div>
    </div>
+
    <!-- Page content -->
    <div class="container-fluid mt--6">
       <div class="row">
@@ -423,12 +418,11 @@
             </div>
          </div>
       </div>
+
       <!-- Footer -->
       <%@ include file="../../common/footer.jsp" %>
    </div>
 </div>
-
-<%@ include file="../../common/import-js.jsp" %>
 </body>
 </html>
 

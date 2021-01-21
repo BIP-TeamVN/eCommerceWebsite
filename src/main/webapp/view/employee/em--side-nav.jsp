@@ -5,8 +5,7 @@
    int selectedIndex = 0;
    try {
       selectedIndex = Integer.parseInt(paraSelectedIndex);
-   }
-   catch (Exception e) {
+   } catch (Exception e) {
       e.printStackTrace();
    }
 
