@@ -317,7 +317,7 @@
             '<td>' + item.businessLicenseId + '</td>' +
             '<td>' + item.bankAccountId + '</td>' +
             '<td class="td-actions text-center">' +
-            '<a href="/admin/seller/edit?id=' + item.id +'" class="btn btn-primary px-2 py-1" data-toggle="tooltip" data-placement="top" title="Chỉnh sửa thông tin">' +
+            '<a href="/admin/seller/edit?id=' + item.id + '" class="btn btn-primary px-2 py-1" data-toggle="tooltip" data-placement="top" title="Chỉnh sửa thông tin">' +
             '<i class="fa fa-edit"></i>' +
             '</a>' +
             (item.status === "true" ?
@@ -335,9 +335,14 @@
     });
   }
 </script>
+
 <script>
-  function search(){
-    console.log("vo chua");
+  $('#tb-search').submit(function (e) {
+    e.preventDefault();
+    search();
+  });
+
+  function search() {
     $.ajax({
       url: '/api/count-seller',
       method: 'GET',

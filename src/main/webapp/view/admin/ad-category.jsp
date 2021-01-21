@@ -319,7 +319,13 @@
     });
   }
 </script>
+
 <script>
+  $('#tb-search').submit(function (e) {
+    e.preventDefault();
+    search();
+  });
+
   function search(){
     $.ajax({
       url: '/api/count-category-count',

@@ -27,19 +27,19 @@
             <!-- Nav items -->
             <ul class="navbar-nav">
                <li class="nav-item">
-                  <a class="nav-link <%=isActive[5] ? "active" : ""%>" href="<%=isActive[0] ? "javascript:void(0)" : "/employee/category"%>">
+                  <a class="nav-link <%=isActive[0] ? "active" : ""%>" href="<%=isActive[0] ? "javascript:void(0)" : "/employee/category"%>">
                      <i class="ni ni-bullet-list-67 text-default"></i>
                      <span class="nav-link-text">Ngành hàng</span>
                   </a>
                </li>
                <li class="nav-item">
-                  <a class="nav-link <%=isActive[6] ? "active" : ""%>" href="<%=isActive[1] ? "javascript:void(0)" : "/employee/product"%>">
+                  <a class="nav-link <%=isActive[1] ? "active" : ""%>" href="<%=isActive[1] ? "javascript:void(0)" : "/employee/product"%>">
                      <i class="fa fa-box text-default"></i>
                      <span class="nav-link-text">Sản phẩm</span>
                   </a>
                </li>
                <li class="nav-item">
-                  <a class="nav-link <%=isActive[7] ? "active" : ""%>" href="<%=isActive[2] ? "javascript:void(0)" : "/employee/brand"%>">
+                  <a class="nav-link <%=isActive[2] ? "active" : ""%>" href="<%=isActive[2] ? "javascript:void(0)" : "/employee/brand"%>">
                      <i class="fa fa-copyright text-default"></i>
                      <span class="nav-link-text">Nhãn hiệu</span>
                   </a>

@@ -41,7 +41,6 @@
 
    <!-- Page content -->
    <div class="container-fluid mt--6">
-
       <!--List employee card-->
       <div class="row">
          <div class="col">
@@ -254,6 +253,7 @@
     });
   }
 </script>
+
 <script>
   function GetBill(billId){
     let paras = JSON.stringify({

@@ -1,7 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8" %>
 
 <!-- Modal -->
-<div div class="modal fade bd-example-modal-lg"  id="modal-product-detail" tabindex="-1" role="dialog"
+<div div class="modal fade bd-example-modal-lg" id="modal-product-detail" tabindex="-1" role="dialog"
      aria-labelledby="exampleModalLabel" aria-hidden="true">
    <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable" role="document">
       <div class="modal-content">
@@ -99,32 +99,34 @@
                      </div>
 
                      <!--Button-->
-                     <div id="div-button"></div>
-
+<%--                     <div id="div-button"></div>--%>
                   </form>
                </div>
             </div>
+         </div>
+         <div class="modal-footer p-3">
+            <!--Button-->
+            <div id="div-button" class="container"></div>
+         </div>
+      </div>
+   </div>
+</div>
 
-
-            <!-- Modal successful -->
-            <div class="modal fade" id="successful-modal" tabindex="-1" role="dialog" aria-labelledby="conform-modal-lb" aria-hidden="true">
-               <div class="modal-dialog" role="document">
-                  <div class="modal-content">
-                     <div class="modal-header">
-                        <h5 class="modal-title" id="successful-modal-lb">Thông báo</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                           <span aria-hidden="true">&times;</span>
-                        </button>
-                     </div>
-                     <div class="modal-body" id="div-notify">
-                        Xác nhận sản phẩm thành công !
-                     </div>
-                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary px-3" data-dismiss="modal">OK</button>
-                     </div>
-                  </div>
-               </div>
-            </div>
+<!-- Modal successful -->
+<div class="modal fade" id="successful-modal" tabindex="-1" role="dialog" aria-labelledby="conform-modal-lb" aria-hidden="true">
+   <div class="modal-dialog" role="document">
+      <div class="modal-content">
+         <div class="modal-header">
+            <h5 class="modal-title" id="successful-modal-lb">Thông báo</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+               <span aria-hidden="true">&times;</span>
+            </button>
+         </div>
+         <div class="modal-body" id="div-notify">
+            Xác nhận sản phẩm thành công !
+         </div>
+         <div class="modal-footer">
+            <button type="button" class="btn btn-secondary px-3" data-dismiss="modal">OK</button>
          </div>
       </div>
    </div>
@@ -161,7 +163,7 @@
          let html = '';
          if (data.toString() === "0"){
             html =
-              '<div class="row mt-4">'+
+              '<div class="row">'+
                  '<div class="col-md-6 text-md-right text-center">'+
                      '<button type="button" class="btn btn-primary px-6" onclick="verifyProduct()">XÁC NHẬN</button>'+
                  '</div>'+
@@ -171,14 +173,14 @@
               '</div>';
          }else if (data.toString() === "1") {
             html =
-              '<div class="row mt-4">'+
-                 '<div class="col-md-6 text-center">'+
+              '<div class="row">'+
+                 '<div class="col-12 text-center">'+
                      '<button type="button" class="btn btn-primary px-6" onclick="lockProduct()">KHÓA</button>'+
                  '</div>'+
               '</div>';
          } else {
             html =
-              '<div class="row mt-4">'+
+              '<div class="row">'+
                  '<div class="col-md-6 text-md-right text-center">'+
                      '<button type="button" class="btn btn-primary px-6" onclick="verifyProduct()">XÁC NHẬN</button>'+
                  '</div>'+
@@ -217,6 +219,7 @@
           if ($('#filter-status').val() != '3') {
             $('#status--' + id).remove();
           }
+          $('#modal-product-detail').modal('hide');
         } else {
           alert("Lỗi: " + result[1]);
         }
@@ -248,6 +251,7 @@
           if ($('#filter-status').val() != '3') {
             $('#status--' + id).remove();
           }
+          $('#modal-product-detail').modal('hide');
         } else {
           alert("Lỗi: " + result[1]);
         }
@@ -279,6 +283,7 @@
           if ($('#filter-status').val() != '3') {
             $('#status--' + id).remove();
           }
+          $('#modal-product-detail').modal('hide');
         } else {
           alert("Lỗi: " + result[1]);
         }
@@ -289,5 +294,3 @@
     });
   };
 </script>
-
-

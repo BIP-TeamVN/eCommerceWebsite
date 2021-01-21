@@ -11,7 +11,7 @@
 <body>
 <!--Left side nav-->
 <jsp:include page="./em--side-nav.jsp">
-   <jsp:param name="selectedIndex" value="7"/>
+   <jsp:param name="selectedIndex" value="2"/>
 </jsp:include>
 
 <!-- Main content -->
@@ -321,6 +321,11 @@
   }
 </script>
 <script>
+  $('#tb-search').submit(function (e) {
+    e.preventDefault();
+    search();
+  });
+
   function search(){
     $.ajax({
       url: '/api/count-brand-count',

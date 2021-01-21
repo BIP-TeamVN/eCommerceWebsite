@@ -98,7 +98,7 @@
                                        <option value="productName">Tên sản phẩm</option>
                                        <option value="brandEntity.brandName">Nhãn hiệu</option>
                                        <option value="sellerEntity.storeName">Cửa hàng</option>
-                                       <option value="productRate">Đánh giá</option>
+<%--                                       <option value="productRate">Đánh giá</option>--%>
                                        <option value="productOrigin">Xuất xứ</option>
                                        <option value="productCreateDate">Ngày tạo</option>
                                        <option value="priceOrder">Giá bán</option>
@@ -159,7 +159,7 @@
                         <th scope="col" class="text-center">Tên sản phẩm</th>
                         <th scope="col" class="text-center">Nhãn hiệu</th>
                         <th scope="col" class="text-center">Cửa hàng</th>
-                        <th scope="col" class="text-center">Đánh giá</th>
+<%--                        <th scope="col" class="text-center">Đánh giá</th>--%>
                         <th scope="col" class="text-center">Nước sản xuất</th>
                         <th scope="col" class="text-center">Ngày tạo</th>
                         <th scope="col" class="text-center">Giá bán</th>
@@ -315,7 +315,7 @@
             '<td>' + item.productName + '</td>' +
             '<td>' + item.brand + '</td>' +
             '<td>' + item.seller + '</td>' +
-            '<td>' + item.productRate + '</td>' +
+            // '<td>' + item.productRate + '</td>' +
             '<td>' + item.productOrigin + '</td>' +
             '<td>' + item.createDate + '</td>' +
             '<td>' + item.priceOrder + '</td>' +
@@ -387,6 +387,11 @@
   }
 </script>
 <script>
+  $('#tb-search').submit(function (e) {
+    e.preventDefault();
+    search();
+  });
+
   function search(){
     $.ajax({
       url: '/api/count-product-count',

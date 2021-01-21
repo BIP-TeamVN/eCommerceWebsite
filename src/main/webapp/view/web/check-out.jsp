@@ -146,14 +146,17 @@
 <%--                     </div>--%>
 <%--                  </div>--%>
                </div>
-               <div class="modal-footer p-3 text-uppercase">
-                  <button type="button" data-toggle="modal" data-target="#modal-add-address"
-                          class="text-left btn btn-secondary m-auto text-uppercase mb-3">
-                     thêm địa mới
-                  </button>
-
-                  <button class="btn btn-secondary pl-6 pr-6" type="button" id="btn-cancel" data-dismiss="modal">Hủy</button>
-                  <button class="btn btn-primary pl-6 pr-6" type="button" id="btn-save-select">Lưu</button>
+               <div class="modal-footer p-3 text-uppercase row">
+                  <div class="col text-left">
+                     <button type="button" data-toggle="modal" data-target="#modal-add-address"
+                             class="btn btn-success m-auto text-uppercase mb-3">
+                        thêm địa mới
+                     </button>
+                  </div>
+                  <div class="col text-right">
+                     <button class="btn btn-secondary pl-6 pr-6" type="button" id="btn-cancel" data-dismiss="modal">Hủy</button>
+                     <button class="btn btn-primary pl-6 pr-6" type="button" id="btn-save-select">Lưu</button>
+                  </div>
                </div>
             </div>
          </div>
@@ -167,6 +170,28 @@
               class="btn btn-icon-only btn-primary btn-circle btn-float">
          <em class="fa fa-arrow-up"></em>
       </button>
+
+      <!-- Modal update successful -->
+      <div class="modal fade" id="order-successful-modal" tabindex="-1" role="dialog" aria-labelledby="conform-modal-lb"
+           aria-hidden="true">
+         <div class="modal-dialog" role="document">
+            <div class="modal-content">
+               <div class="modal-header">
+                  <h5 class="modal-title" id="successful-modal-lb">Đặt hàng thành công !</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                     <span aria-hidden="true">&times;</span>
+                  </button>
+               </div>
+               <div class="modal-body">
+                  Đơn hàng đã được chuyển đến shop<br>
+                  Bạn sẽ nhận được email thông báo khi shop gửi hàng!
+               </div>
+               <div class="modal-footer">
+                  <button type="button" data-dismiss="modal" class="btn btn-primary px-4">OK</button>
+               </div>
+            </div>
+         </div>
+      </div>
 
       <!-- Footer -->
       <%@ include file="../../common/footer.jsp" %>
@@ -225,9 +250,6 @@
       let productTypeId = e.target.id.replace('quantity-number-', '');
       let boolAdd = "them";
 
-
-      console.log("Đây là quantity" + quantity);
-      console.log("Còn đây là id"+ productTypeId);
       let paras = JSON.stringify({
         'product-type-id': productTypeId,
         'quantity': quantity,
@@ -432,7 +454,10 @@
         'list-seller-id': listSellerId.join("@ab")
       },
       success: function (data, textStatus, jqXHR) {
-        alert(data);
+        if(data.substring(0, 4) === 'true') {
+          $('#order-successful-modal').modal('show');
+          loadBill();
+        }
       }
     });
   });

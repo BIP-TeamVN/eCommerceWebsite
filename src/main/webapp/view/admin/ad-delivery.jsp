@@ -213,7 +213,6 @@
 </div>
 
 <script>
-
   $('#chk-show-filter').change(function () {
     if ($(this).is(':checked')) {
       $('#tb-filter').removeClass('d-none');
@@ -289,7 +288,6 @@
   function reloadPage() {
     updatePagination();
 
-
     $.ajax({
       url: '/api/deliveries',
       method: 'GET',
@@ -349,6 +347,11 @@
 </script>
 
 <script>
+  $('#tb-search').submit(function (e) {
+    e.preventDefault();
+    search();
+  });
+
   function search(){
     $.ajax({
       url: '/api/count-delivery',
