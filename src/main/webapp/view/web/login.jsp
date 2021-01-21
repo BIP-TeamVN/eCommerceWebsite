@@ -2,7 +2,7 @@
 <html lang="vi">
 <head>
    <%@ include file="../../common/meta-info.jsp" %>
-   <title>eCommerce Website - Login</title>
+   <title>BIP - Trang đăng nhập</title>
    <%@ include file="../../common/link-css.jsp" %>
 
 </head>
@@ -21,7 +21,7 @@
          <div class="navbar-collapse-header">
             <div class="row">
                <div class="col-6 collapse-brand">
-                  <a href="dashboard.html">
+                  <a href="./home">
                      <img src="../../assets/img/brand/blue.png">
                   </a>
                </div>
@@ -36,7 +36,7 @@
          </div>
          <ul class="navbar-nav mr-auto">
             <li class="nav-item">
-               <a href="#" class="nav-link">
+               <a href="/home" class="nav-link">
                   <span class="nav-link-inner--text">Trang chủ</span>
                </a>
             </li>
@@ -108,7 +108,11 @@
    </div>
 
    <!-- Footer -->
-   <%@ include file="../../common/footer.jsp" %>
+   <div class="w-100 bg-white">
+      <div class="container">
+         <%@ include file="../../common/footer.jsp" %>
+      </div>
+   </div>
 </div>
 
 </body>

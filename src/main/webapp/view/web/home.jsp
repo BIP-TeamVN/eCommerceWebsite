@@ -2,7 +2,7 @@
 <html lang="vi">
 <head>
    <%@ include file="../../common/meta-info.jsp" %>
-   <title>eCommerce Website</title>
+   <title>BIP - Mua hàng online giá tốt, hàng chuẩn, ship bao nhanh</title>
    <%@ include file="../../common/link-css.jsp" %>
    <!--Javascript-->
    <%@ include file="../../common/import-js.jsp" %>
@@ -359,12 +359,10 @@
           alert("Thêm sản phẩm thành công");
         } else {
           alert("Lỗi: " + result[1]);
-          e.preventDefault();
         }
       },
       error: function (jqXHR, textStatus, errorThrown) {
         alert("Lỗi: " + errorThrown);
-        e.preventDefault();
       }
     });
   }
@@ -374,6 +372,15 @@
   loadProduct();
 </script>
 <script>
+  $('#modal-all-brands').on('shown.bs.modal', function(){
+    $('#search-brand').val('');
+    searchBrand();
+  });
+
+  $('#search-brand').on('input',function(e){
+    searchBrand();
+  });
+
    function searchBrand() {
      $('#brand-list-search').find('div').remove();
      $.ajax({
@@ -403,8 +410,6 @@
        }
      });
    };
-
-
 </script>
 </body>
 </html>

@@ -10,7 +10,7 @@
 <html lang="vi">
 <head>
    <%@ include file="../../common/meta-info.jsp" %>
-   <title>eCommerce Website - Sản phẩm</title>
+   <title>BIP - Mua hàng online giá tốt, hàng chuẩn, ship bao nhanh</title>
    <%@ include file="../../common/link-css.jsp" %>
    <!--Javascript-->
    <%@ include file="../../common/import-js.jsp" %>

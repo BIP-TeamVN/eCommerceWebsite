@@ -3,7 +3,7 @@
 <html lang="vi">
 <head>
    <%@ include file="../../common/meta-info.jsp" %>
-   <title>eCommerce Website</title>
+   <title>BIP - Mua hàng online giá tốt, hàng chuẩn, ship bao nhanh</title>
    <%@ include file="../../common/link-css.jsp" %>
    <!--Javascript-->
    <%@ include file="../../common/import-js.jsp" %>
@@ -86,8 +86,8 @@
                         <label class="form-control-label">Giảm giá: ${discount}</label>
                      </div>
                   </div>
-                  <div class="col">
-                     <div class="modal-footer p-3 text-uppercase">
+                  <div class="row">
+                     <div class="col text-right">
                         <button class="btn btn-secondary pl-6 pr-6" type="button" id="btn-cancel" data-dismiss="modal" onclick="Back()">Trở về</button>
                      </div>
                   </div>
@@ -208,7 +208,6 @@
 
   function Back(){
     window.location.href = window.location.origin +  '/customer/bills?status='+'${status}';
-
   }
 </script>
 </body>

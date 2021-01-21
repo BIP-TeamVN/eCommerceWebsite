@@ -58,7 +58,7 @@
    <div class="container">
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
          <!-- Search form -->
-         <form class="w-50 navbar-search navbar-search-light form-inline mr-sm-3" id="navbar-search-main">
+         <form class="w-50 navbar-search navbar-search-light form-inline my-2 mr-sm-3" id="navbar-search-main">
             <div class="w-100 form-group mb-0">
                <div class="w-100 input-group input-group-alternative input-group-merge">
                   <div class="input-group-prepend">

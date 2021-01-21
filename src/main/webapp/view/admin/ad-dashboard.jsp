@@ -2,7 +2,7 @@
 <html lang="vi">
 <head>
    <%@ include file="../../common/meta-info.jsp" %>
-   <title>eCommerce Website - Admin</title>
+   <title>BIP - Trang quản trị</title>
 
    <%@ include file="../../common/link-css.jsp" %>
    <%@ include file="../../common/import-js.jsp" %>
