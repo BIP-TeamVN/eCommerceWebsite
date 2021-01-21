@@ -16,10 +16,28 @@
    <!--Top navigation-->
    <%@include file="./--top-nav.jsp" %>
 
+   <div class="header bg-primary pb-6">
+      <div class="container">
+         <div class="header-body">
+            <div class="row align-items-center py-4">
+               <div class="col">
+                  <nav aria-label="breadcrumb" class="d-md-block">
+                     <ol class="breadcrumb breadcrumb-links breadcrumb-dark">
+                        <li class="breadcrumb-item"><a href="/home"><em class="fa fa-home mr-2"></em>Trang chủ</a></li>
+                        <li class="breadcrumb-item"><a href="/info/address">Sổ địa chỉ</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Chỉnh sửa địa chỉ</li>
+                     </ol>
+                  </nav>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+
    <!-- Page content -->
    <div class="container">
       <!--List employee card-->
-      <div class="row-cols-1">
+      <div class="row mt--7 justify-content-center">
          <div class="col">
             <div class="card">
                <!-- Card header -->

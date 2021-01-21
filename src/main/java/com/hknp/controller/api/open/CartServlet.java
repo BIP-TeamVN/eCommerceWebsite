@@ -1,4 +1,4 @@
-package com.hknp.controller.api;
+package com.hknp.controller.api.open;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;

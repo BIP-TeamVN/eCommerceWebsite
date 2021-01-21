@@ -1,5 +1,4 @@
-package com.hknp.controller.api;
-
+package com.hknp.controller.api.open;
 
 import com.hknp.model.dao.UserDAO;
 import com.hknp.model.entity.UserEntity;
@@ -16,13 +15,14 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.Map;
 
-@WebServlet(urlPatterns = {"/change-password"})
+@WebServlet(urlPatterns = {"/api/change-password"})
 public class ChangPasswordServlet extends HttpServlet {
 
    @Override
    protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
       HttpSession session = req.getSession();
       Long id = (Long) session.getAttribute("id");
+
       String result = "";
       Map<String, Object> parameterMap = ServletUtils.getParametersMap(req);
 
@@ -52,6 +52,7 @@ public class ChangPasswordServlet extends HttpServlet {
       } catch (Exception e) {
          result += "false\n" + e.getMessage();
       }
+      
       ServletUtils.printWrite(resp, result);
    }
 }

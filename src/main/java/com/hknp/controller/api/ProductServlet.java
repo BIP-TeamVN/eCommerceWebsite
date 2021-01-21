@@ -16,7 +16,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.*;
 
 @WebServlet(urlPatterns = {"/api/product"})
@@ -44,8 +43,7 @@ public class ProductServlet extends HttpServlet {
 
       if (UserDAO.getInstance().getById(id).getUserType().equals(Cons.User.USER_TYPE_SELLER)) {
          listProduct = ProductDAO.getInstance().gets((page - 1) * 10, 10, id, status, keyword, columnName, typeSort);
-      }
-      else {
+      } else {
          listProduct = ProductDAO.getInstance().gets((page - 1) * 10, 10, status, keyword, columnName, typeSort);
       }
 
@@ -140,9 +138,7 @@ public class ProductServlet extends HttpServlet {
          } catch (Exception e) {
             result += "false\n" + e.getMessage();
          }
-         try (PrintWriter out = resp.getWriter()) {
-            out.write(result);
-         }
+         ServletUtils.printWrite(resp, result);
       } else {
          ServletUtils.printWrite(resp, "Access denied");
       }
@@ -150,9 +146,8 @@ public class ProductServlet extends HttpServlet {
 
    @Override
    protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-      resp.setContentType("text/html; charset=UTF-8");
       String result = "";
-      Map<String,Object> parameterMap = ServletUtils.getParametersMap(req);
+      Map<String, Object> parameterMap = ServletUtils.getParametersMap(req);
       HttpSession session = req.getSession(false);
 
       if (isAuthentication(req)) {
@@ -195,6 +190,7 @@ public class ProductServlet extends HttpServlet {
             while (quantities.size() < productTypeEntities.size()) {
                productTypeEntities.remove(productTypeEntities.size() - 1);
             }
+
             for (int i = 0; i < quantities.size(); i++) {
                if (i < productTypeEntities.size()) {
                   productTypeEntities.get(i).setProductTypeName(productTypes.get(i));
@@ -242,9 +238,7 @@ public class ProductServlet extends HttpServlet {
          } catch (Exception e) {
             result += "false\n" + e.getMessage();
          }
-         try (PrintWriter out = resp.getWriter()) {
-            out.write(result);
-         }
+         ServletUtils.printWrite(resp, result);
       } else {
          ServletUtils.printWrite(resp, "Access denied");
       }
@@ -256,7 +250,9 @@ public class ProductServlet extends HttpServlet {
 
       if (id != null) {
          String userType = UserDAO.getInstance().getUserType(id);
-         return userType.equals(Cons.User.USER_TYPE_ADMIN) || userType.equals(Cons.User.USER_TYPE_EMPLOYEE) || userType.equals(Cons.User.USER_TYPE_SELLER);
+         return userType.equals(Cons.User.USER_TYPE_ADMIN)
+                 || userType.equals(Cons.User.USER_TYPE_EMPLOYEE)
+                 || userType.equals(Cons.User.USER_TYPE_SELLER);
       }
       return false;
    }

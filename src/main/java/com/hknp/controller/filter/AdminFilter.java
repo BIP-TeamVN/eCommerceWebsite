@@ -27,14 +27,12 @@ public class AdminFilter implements Filter {
       Long id = (Long) session.getAttribute("id");
       if (id != null) {
          String userType = UserDAO.getInstance().getById(id).getUserType();
-         if (userType.equals(Cons.User.USER_TYPE_ADMIN)){
+         if (userType.equals(Cons.User.USER_TYPE_ADMIN)) {
             chain.doFilter(req, resp);
-         }
-         else {
+         } else {
             ServletUtils.forward(httpReq, httpResp, "/logout");
          }
-      }
-      else {
+      } else {
          ServletUtils.forward(httpReq, httpResp, "/login");
       }
    }

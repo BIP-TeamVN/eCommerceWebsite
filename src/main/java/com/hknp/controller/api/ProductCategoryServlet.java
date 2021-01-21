@@ -42,6 +42,7 @@ public class ProductCategoryServlet extends HttpServlet {
       }
       return false;
    }
+
    @Override
    protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
       if (req.getMethod().equals("GET")) {
@@ -65,6 +66,7 @@ public class ProductCategoryServlet extends HttpServlet {
          ServletUtils.printWrite(resp, "Access denied");
       }
    }
+
    @Override
    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
       String type = req.getParameter("type");

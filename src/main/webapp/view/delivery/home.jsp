@@ -184,7 +184,7 @@
     updatePagination();
 
 
-    const apiUrl = "/api/deliverybill";
+    const apiUrl = "/api/delivery-bill";
 
     $.ajax({
       url: apiUrl,

@@ -4,7 +4,7 @@
  */
 
 $(document).ready(function () {
-  const apiUrl = "/api/deliverybill";
+  const apiUrl = "/api/delivery-bill";
   let status = $('#status').val();
 
   $('#status').change(function () {

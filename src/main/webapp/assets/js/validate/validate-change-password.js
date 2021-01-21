@@ -73,7 +73,7 @@ $('#change-password-form').submit(function (e) {
 
   if (isValidatePassword) {
     $.ajax({
-      url: '/change-password',
+      url: 'api/change-password',
       method: 'PUT',
       async: false,
       cache: false,
