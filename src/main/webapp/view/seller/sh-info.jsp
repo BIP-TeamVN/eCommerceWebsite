@@ -309,7 +309,7 @@
                </div>
                <div class="modal-footer">
                   <button type="button" class="btn btn-secondary px-3" data-dismiss="modal">KHÔNG</button>
-                  <a href="/admin/seller" class="btn btn-primary px-4">CÓ</a>
+                  <a href="/seller" class="btn btn-primary px-4">CÓ</a>
                </div>
             </div>
          </div>
@@ -330,7 +330,7 @@
                   Cập nhật thông tin cửa hàng thành công !
                </div>
                <div class="modal-footer">
-                  <a href="/admin/seller" class="btn btn-primary px-4">OK</a>
+                  <a href="/seller" class="btn btn-primary px-4">OK</a>
                </div>
             </div>
          </div>

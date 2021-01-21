@@ -1,18 +1,13 @@
-<%@ page import="java.util.Date" %>
-<%@ page import="com.hknp.utils.DateTimeUtils" %>
-<%@ page import="java.time.Instant" %>
-<%@ page import="java.time.Duration" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%
-   String minDob = DateTimeUtils.dateToString(Date.from(Instant.now().minus(Duration.ofDays(36520))), "yyyy-MM-dd");
-%>
 
 <html lang="vi">
 <head>
    <%@ include file="../../common/meta-info.jsp" %>
-   <title>eCommerce Website - Admin</title>
+   <title>eCommerce Website</title>
    <%@ include file="../../common/link-css.jsp" %>
+   <!--Javascript-->
+   <%@ include file="../../common/import-js.jsp" %>
 </head>
 
 <body>
@@ -22,7 +17,7 @@
    <%@include file="./--top-nav.jsp" %>
 
    <!-- Page content -->
-   <div class="container-fluid mt--16">
+   <div class="container mt">
       <!--List employee card-->
       <div class="row">
          <div class="col">
@@ -85,7 +80,7 @@
                      </div>
                      <div class="col-md-6 form-group">
                         <label for="dob" class="form-control-label">Ngày sinh (không bắt buộc)</label>
-                        <input class="form-control" type="date" min="<%=minDob%>"
+                        <input class="form-control" type="date"
                                value="${customerEdit.getDateOfBirthStr("yyyy-MM-dd")}" id="dob"
                                name="dob">
                      </div>
@@ -234,7 +229,7 @@
                </div>
                <div class="modal-footer">
                   <button type="button" class="btn btn-secondary px-3" data-dismiss="modal">KHÔNG</button>
-                  <a href="/seller" class="btn btn-primary px-4">CÓ</a>
+                  <a href="/home" class="btn btn-primary px-4">CÓ</a>
                </div>
             </div>
          </div>
@@ -255,7 +250,7 @@
                   Cập nhật thông tin cá nhân thành công !
                </div>
                <div class="modal-footer">
-                  <a href="/seller" class="btn btn-primary px-4">OK</a>
+                  <a href="/home" class="btn btn-primary px-4">OK</a>
                </div>
             </div>
          </div>

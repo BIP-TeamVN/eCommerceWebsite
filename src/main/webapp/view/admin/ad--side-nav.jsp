@@ -30,7 +30,7 @@
                <li class="nav-item">
                   <a class="nav-link <%=isActive[0] ? "active" : ""%>" href="<%=isActive[0] ? "javascript:void(0)" : "/admin"%>">
                      <i class="ni ni-tv-2 text-primary"></i>
-                     <span class="nav-link-text">Dashboard</span>
+                     <span class="nav-link-text">Trang chủ</span>
                   </a>
                </li>
                <li class="nav-item">

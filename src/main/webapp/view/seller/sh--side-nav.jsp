@@ -34,7 +34,7 @@
             <ul class="navbar-nav">
                <li class="nav-item">
                   <a class="nav-link <%=isActive[0] ? "active" : ""%>" href="<%=isActive[0] ? "javascript:void(0)" : "/seller"%>">
-                     <i class="fa fa-user-ninja text-yellow"></i>
+                     <i class="fa fa-signal text-yellow"></i>
                      <span class="nav-link-text">Thống kê</span>
                   </a>
                </li>
@@ -52,7 +52,7 @@
                </li>
                <li class="nav-item">
                   <a class="nav-link <%=isActive[3] ? "active" : ""%>" href="<%=isActive[3] ? "javascript:void(0)" : "/seller/edit"%>">
-                     <i class="fa fa-file-invoice text-green"></i>
+                     <i class="fa fa-address-card text-blue"></i>
                      <span class="nav-link-text">Thông tin cửa hàng </span>
                   </a>
                </li>
