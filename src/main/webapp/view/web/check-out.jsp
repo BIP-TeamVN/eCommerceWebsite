@@ -220,13 +220,39 @@
   }
 
   function addEventNumeric() {
-    $('input[name="quantity-number-product-type"]').on("change paste keyup", function(e) {
+    $('input[name="quantity-number-product-type"]').on("change paste keyup", function (e) {
       let quantity = $('#' + e.target.id).val();
       let productTypeId = e.target.id.replace('quantity-number-', '');
+      let boolAdd = "them";
 
-      //// update cart
 
-      loadBill();
+      console.log("Đây là quantity" + quantity);
+      console.log("Còn đây là id"+ productTypeId);
+      let paras = JSON.stringify({
+        'product-type-id': productTypeId,
+        'quantity': quantity,
+        'bool-add': boolAdd
+      });
+      $.ajax({
+        url: '/api/carts',
+        method: 'PUT',
+        async: false,
+        cache: false,
+        data: paras,
+        success: function (data, textStatus, jqXHR) {
+          let result = data.toString().split('\n');
+          if (result[0] === 'true') {
+            loadBill();
+          } else {
+            alert("Lỗi: " + result[1]);
+            e.preventDefault();
+          }
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+          alert("Lỗi: " + errorThrown);
+          e.preventDefault();
+        }
+      });
     });
   }
 

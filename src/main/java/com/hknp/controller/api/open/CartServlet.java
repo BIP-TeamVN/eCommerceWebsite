@@ -122,6 +122,7 @@ public class CartServlet extends HttpServlet {
       try {
          String id = (String) parameterMap.get("product-type-id");
          String quantity = (String) parameterMap.get("quantity");
+         String boolAdd = (String) parameterMap.get("bool-add");
 
          String value = CookieUtils.getCookieValue(req, COOKIE_NAME);
          value= URLDecoder.decode(value , "utf-8");
@@ -129,47 +130,77 @@ public class CartServlet extends HttpServlet {
          ArrayList<CartItemDomain> listCartItemDomain = new ArrayList<>();
          CartItemDomain cartItemDomain = new CartItemDomain();
          Gson gson = new Gson();
-         if (value.equals("")) {
 
-            cartItemDomain.setProductTypeId(id);
-            cartItemDomain.setQuantity(StringUtils.toInt(quantity));
-
-            listCartItemDomain.add(cartItemDomain);
-            String valueJson = gson.toJson(listCartItemDomain);
-            String encodeCookie = URLEncoder.encode(valueJson,"utf-8");
-
-            CookieUtils.addCookie(resp, COOKIE_NAME, encodeCookie, COOKIE_AGE);
-            result += "true\n" + id;
-         }else {
+         if(boolAdd.equals("them")) {
             final ObjectMapper objectMapper = new ObjectMapper();
             CartItemDomain[] listCartItem = objectMapper.readValue(value, CartItemDomain[].class);
 
             for (CartItemDomain cartItem : listCartItem) {
                listCartItemDomain.add(cartItem);
             }
-
             int flag = 0;
             for (int i = 0; i < listCartItem.length; i++) {
                if (listCartItem[i].getProductTypeId().equals(id)) {
                   result += "true\n" + listCartItem[i].getProductTypeId();
-                  flag = 1;
-                  Integer currentQuantity = listCartItem[i].getQuantity();
-                  listCartItem[i].setQuantity(currentQuantity + StringUtils.toInt(quantity));
+                  listCartItem[i].setQuantity(StringUtils.toInt(quantity));
+
+                  if(StringUtils.toInt(quantity) == 0){
+                     flag = 1;
+                     listCartItemDomain.remove(i);
+                  }
                   break;
                }
             }
-            if (flag == 0) {
-               result += "true\n" + id;
+            if(flag == 0 ){
+               value = gson.toJson(listCartItem);
+            } else {
+               value = gson.toJson(listCartItemDomain);
+            }
+            String encodeCookie = URLEncoder.encode(value, "utf-8");
+            CookieUtils.updateCookie(req, resp, COOKIE_NAME, encodeCookie, COOKIE_AGE);
+         } else {
+            if (value.equals("")) {
+
                cartItemDomain.setProductTypeId(id);
                cartItemDomain.setQuantity(StringUtils.toInt(quantity));
 
                listCartItemDomain.add(cartItemDomain);
-               value = gson.toJson(listCartItemDomain);
-            } else {
-               value = gson.toJson(listCartItem);
+               String valueJson = gson.toJson(listCartItemDomain);
+               String encodeCookie = URLEncoder.encode(valueJson,"utf-8");
+
+               CookieUtils.addCookie(resp, COOKIE_NAME, encodeCookie, COOKIE_AGE);
+               result += "true\n" + id;
+            }else {
+               final ObjectMapper objectMapper = new ObjectMapper();
+               CartItemDomain[] listCartItem = objectMapper.readValue(value, CartItemDomain[].class);
+
+               for (CartItemDomain cartItem : listCartItem) {
+                  listCartItemDomain.add(cartItem);
+               }
+
+               int flag = 0;
+               for (int i = 0; i < listCartItem.length; i++) {
+                  if (listCartItem[i].getProductTypeId().equals(id)) {
+                     result += "true\n" + listCartItem[i].getProductTypeId();
+                     flag = 1;
+                     Integer currentQuantity = listCartItem[i].getQuantity();
+                     listCartItem[i].setQuantity(currentQuantity + StringUtils.toInt(quantity));
+                     break;
+                  }
+               }
+               if (flag == 0) {
+                  result += "true\n" + id;
+                  cartItemDomain.setProductTypeId(id);
+                  cartItemDomain.setQuantity(StringUtils.toInt(quantity));
+
+                  listCartItemDomain.add(cartItemDomain);
+                  value = gson.toJson(listCartItemDomain);
+               } else {
+                  value = gson.toJson(listCartItem);
+               }
+               String encodeCookie = URLEncoder.encode(value,"utf-8");
+               CookieUtils.updateCookie(req, resp, COOKIE_NAME, encodeCookie, COOKIE_AGE);
             }
-            String encodeCookie = URLEncoder.encode(value,"utf-8");
-            CookieUtils.updateCookie(req, resp, COOKIE_NAME, encodeCookie, COOKIE_AGE);
          }
       } catch (Exception e) {
          result += "false\n" + e.getMessage();

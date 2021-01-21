@@ -436,9 +436,11 @@
   }
 
   function addToCarts() {
+    let boolAdd = "k";
     let paras = JSON.stringify({
       'product-type-id': productTypeId,
-      'quantity': quantity.value.trim()
+      'quantity': quantity.value.trim(),
+      'bool-add': boolAdd
     });
     $.ajax({
       url: '/api/carts',
@@ -449,7 +451,7 @@
       success: function (data, textStatus, jqXHR) {
         let result = data.toString().split('\n');
         if (result[0] === 'true') {
-          alert("THêm sản phẩm thành công!")
+          alert("Thêm sản phẩm thành công!")
         } else {
           alert("Lỗi: " + result[1]);
           e.preventDefault();
