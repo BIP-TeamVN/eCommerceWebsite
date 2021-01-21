@@ -29,7 +29,7 @@
                   </nav>
                </div>
                <div class="col-lg-6 col-5 text-right">
-                  <%@ include file="/common/bill-filter.jsp" %>
+                  <%@ include file="/common/customer-bill-filter.jsp" %>
                </div>
             </div>
          </div>
@@ -206,7 +206,7 @@
             '<td>' + item.fullAddress + '</td>' +
             '<td>' + item.total + '</td>' +
             '<td class="td-actions text-center">' +
-            '<a href="/delivery/detailbill?id=' + item.id +'" class="btn btn-primary px-2 py-1" data-toggle="tooltip" data-placement="top" title="Chi Tiết Đơn Hàng">' +
+            '<a href="/customer/detailbill?id=' + item.id +'" class="btn btn-primary px-2 py-1" data-toggle="tooltip" data-placement="top" title="Chi Tiết Đơn Hàng">' +
             '<i class="fa fa-info-circle"></i>' +
             '</a>' +
             '</td>' +
