@@ -34,7 +34,7 @@
             <ul class="navbar-nav">
                <li class="nav-item">
                   <a class="nav-link <%=isActive[0] ? "active" : ""%>" href="<%=isActive[0] ? "javascript:void(0)" : "/delivery/info"%>">
-                     <i class="fa fa-user-ninja text-yellow"></i>
+                     <i class="fa fa-address-card text-blue"></i>
                      <span class="nav-link-text">Thông tin cá nhân</span>
                   </a>
                </li>
