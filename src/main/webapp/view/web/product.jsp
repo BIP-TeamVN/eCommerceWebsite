@@ -460,8 +460,6 @@
         e.preventDefault();
       }
     });
-
-
   }
 
   function productOfCategory() {

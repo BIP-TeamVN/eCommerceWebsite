@@ -16,10 +16,26 @@
    <!--Top navigation-->
    <%@include file="./--top-nav.jsp" %>
 
+   <div class="header bg-primary pb-6">
+      <div class="container">
+         <div class="header-body">
+            <div class="row align-items-center py-4">
+               <div class="col">
+                  <nav aria-label="breadcrumb" class="d-md-block">
+                     <ol class="breadcrumb breadcrumb-links breadcrumb-dark">
+                        <li class="breadcrumb-item"><a href="/home"><em class="fa fa-home mr-2"></em>Trang chủ</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Chỉnh sửa thông tin</li>
+                     </ol>
+                  </nav>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+
    <!-- Page content -->
-   <div class="container mt">
-      <!--List employee card-->
-      <div class="row">
+   <div class="container">
+      <div class="row mt--7 justify-content-center">
          <div class="col">
             <div class="card">
                <!-- Card header -->
@@ -212,6 +228,15 @@
          </div>
       </div>
 
+      <!--Scroll to top button-->
+      <button onclick="window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });"
+              class="btn btn-icon-only btn-primary btn-circle btn-float">
+         <em class="fa fa-arrow-up"></em>
+      </button>
+
+      <!-- Footer -->
+      <%@ include file="../../common/footer.jsp" %>
+
       <!-- Modal conform close -->
       <div class="modal fade" id="conform-modal" tabindex="-1" role="dialog" aria-labelledby="conform-modal-lb"
            aria-hidden="true">
@@ -255,14 +280,9 @@
             </div>
          </div>
       </div>
-
-      <!-- Footer -->
-      <%@ include file="../../common/footer.jsp" %>
    </div>
 </div>
 
-<!--Javascript-->
-<%@ include file="../../common/import-js.jsp" %>
 <script>
   const ADMIN_UNIT_API_URL = "/api/admin-units";
 

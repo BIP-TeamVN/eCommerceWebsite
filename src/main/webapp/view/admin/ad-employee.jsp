@@ -89,7 +89,7 @@
                                     <input class="form-control" id="tb-input-search" placeholder="Tìm kiếm" type="text">
                                  </div>
                               </div>
-                              <button class="close" data-action="search-close" data-target="#tb-search"
+                              <button type="button" class="close" data-action="search-close" data-target="#tb-search"
                                       aria-label="Close" onclick="search()">
                                  <span aria-hidden="true">×</span>
                               </button>
@@ -348,6 +348,11 @@
 </script>
 
 <script>
+  $('#tb-search').submit(function (e) {
+    e.preventDefault();
+    search();
+  });
+
   function search(){
     $.ajax({
       url: '/api/count-employee',

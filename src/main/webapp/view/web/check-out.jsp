@@ -108,8 +108,7 @@
                   <div class="row">
                      <div class="col">
                         <div class="col text-right">
-                          <span id="all-bill-total"
-                                class="text-right product-detail__price product-detail__price--order">
+                          <span id="all-bill-total" class="text-right product-detail__price product-detail__price--order">
                           </span>
                         </div>
                      </div>
@@ -148,7 +147,8 @@
 <%--                  </div>--%>
                </div>
                <div class="modal-footer p-3 text-uppercase">
-                  <button type="button" data-toggle="modal" data-target="#modal-add-address" class="text-left btn btn-secondary m-auto text-uppercase mb-3">
+                  <button type="button" data-toggle="modal" data-target="#modal-add-address"
+                          class="text-left btn btn-secondary m-auto text-uppercase mb-3">
                      thêm địa mới
                   </button>
 
@@ -219,6 +219,17 @@
     });
   }
 
+  function addEventNumeric() {
+    $('input[name="quantity-number-product-type"]').on("change paste keyup", function(e) {
+      let quantity = $('#' + e.target.id).val();
+      let productTypeId = e.target.id.replace('quantity-number-', '');
+
+      //// update cart
+
+      loadBill();
+    });
+  }
+
   function loadUserAddress() {
     $.ajax({
       url: '/api/info/address',
@@ -263,7 +274,7 @@
       $('#selected-add-desc').html('<b>[' + selectedAdd.addressName + ']</b> ' + selectedAdd.fullAddress);
   }
 
-  fUpdateLogin = function () {
+  function loadBill() {
     $.ajax({
       url: '/api/check-out',
       method: 'GET',
@@ -310,8 +321,9 @@
 
               '<div class="col text-right">' +
               '<div class="d-inline-block">' +
-              '<input class="input-numeric" id="quantity-number-' + list[i].carts[j].productTypeId + '" type="number" name="quantity-number-product-type-3"' +
-              'min = "1"  max = "20" value = "' + list[i].carts[j].quantity + '" maxlength = "2" />' +
+              '<input class="input-numeric" id="quantity-number-' + list[i].carts[j].productTypeId +
+              '" type="number" name="quantity-number-product-type"' +
+              'min = "0"  max = "20" value = "' + list[i].carts[j].quantity + '" maxlength = "2" />' +
               '</div>' +
               '</div>' +
               '</div>' +
@@ -359,11 +371,16 @@
 
         updateInputNumeric();
         addEventSelectShop();
+        addEventNumeric();
         updateTotalAllBillSelected();
 
         checkUserLogin();
       }
     });
+  }
+
+  fUpdateLogin = function () {
+    loadBill();
   }
 
   $('#btn-save-select').click(function() {
