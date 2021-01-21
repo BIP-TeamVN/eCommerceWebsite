@@ -5,8 +5,7 @@
    <div class="container">
       <!--Brand logo-->
       <a class="navbar-brand" href="/home">
-         <img class="d-inline-block" src="../../assets/img/brand/white.png" style="max-width: 100%;height: 2.2rem;"
-              alt="brand_logo"/>
+         <img class="d-inline-block" src="../../assets/img/brand/white.png" style="max-width: 100%;height: 2.2rem;" alt="brand_logo"/>
       </a>
       <!--Toggle button-->
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-default"
@@ -68,8 +67,7 @@
                   <input class="form-control" placeholder="Tìm kiếm sản phẩm" type="text" id="search-keyword-all">
                </div>
             </div>
-            <button type="button" class="close" data-action="search-close" data-target="#navbar-search-main"
-                    aria-label="close">
+            <button type="button" class="close" data-action="search-close" data-target="#navbar-search-main" aria-label="close">
                <span aria-hidden="true">×</span>
             </button>
          </form>
@@ -82,13 +80,13 @@
                </a>
             </li>
             <li class="nav-item dropdown" onclick="loadProductInCart()">
-               <a class="nav-link" href="#" role="button" data-toggle="dropdown" aria-haspopup="true"
-                  aria-expanded="false">
+               <a class="nav-link" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                   <em class="fa fa-shopping-cart mr-1"></em>
                   <span>Giỏ hàng</span>
                   <span id="cart-count-noti" class="ml-1 badge badge-md badge-circle badge-floating badge-secondary border-white"></span>
                </a>
-               <div class="dropdown-menu dropdown-menu-xl  dropdown-menu-right  py-0 overflow-hidden">
+               <div class="dropdown-menu dropdown-menu-xl dropdown-menu-right py-0 overflow-auto"
+                    style="height: 30rem;">
                   <!-- Dropdown header -->
                   <div class="px-3 py-3">
                      <h6 class="text-sm text-muted m-0">
@@ -99,7 +97,7 @@
                   <div class="list-group list-group-flush" id="list-product-carts">
                   </div>
                   <!-- View all -->
-                  <a href="javascript:redirectCheckOut()" class="dropdown-item text-center text-primary font-weight-bold py-3">Thanh toán</a>
+                  <a href="/check-out" class="dropdown-item text-center text-primary font-weight-bold py-3">Thanh toán</a>
                </div>
             </li>
          </ul>
@@ -275,12 +273,10 @@
                                                    <div class="form-group mb-3">
                                                       <div class="input-group input-group-merge input-group-alternative">
                                                          <div class="input-group-prepend">
-                                                            <span class="input-group-text"><em
-                                                                    class="fa fa-user-circle"></em></span>
+                                                            <span class="input-group-text"><em class="fa fa-user-circle"></em></span>
                                                          </div>
-                                                         <input class="form-control" placeholder="Họ và tên đệm"
-                                                                type="text" name="login-last-name" id="login-last-name"
-                                                                required="">
+                                                         <input class="form-control" placeholder="Họ và tên đệm" type="text"
+                                                                name="login-last-name" id="login-last-name" required="">
                                                       </div>
                                                    </div>
                                                 </div>
@@ -288,12 +284,10 @@
                                                    <div class="form-group mb-3">
                                                       <div class="input-group input-group-merge input-group-alternative">
                                                          <div class="input-group-prepend">
-                                                            <span class="input-group-text"><em
-                                                                    class="fa fa-user-circle"></em></span>
+                                                            <span class="input-group-text"><em class="fa fa-user-circle"></em></span>
                                                          </div>
                                                          <input class="form-control" placeholder="Tên" type="text"
-                                                                name="login-first-name" id="login-first-name"
-                                                                required="">
+                                                                name="login-first-name" id="login-first-name" required="">
                                                       </div>
                                                    </div>
                                                 </div>
@@ -311,8 +305,8 @@
                                                           placeholder="Email" type="text" required="">
                                                    <div class="input-group-append">
                                                       <button onclick="sendCode()" class="ml-1 btn btn-outline-primary"
-                                                              type="button" id="btn-signup-send-code"
-                                                              style="width: 8rem;">Gửi mã
+                                                              type="button" id="btn-signup-send-code" style="width: 8rem;">
+                                                         Gửi mã
                                                       </button>
                                                    </div>
                                                 </div>
@@ -323,13 +317,11 @@
                                              <div class="form-group mb-3">
                                                 <div class="input-group input-group-merge input-group-alternative">
                                                    <div class="input-group-prepend">
-                                                      <span class="input-group-text"><em
-                                                              class="fa fa-keyboard"></em></span>
+                                                      <span class="input-group-text"><em class="fa fa-keyboard"></em></span>
                                                    </div>
                                                    <input onclick="hiddenErrorCode()" class="form-control"
                                                           id="signup-verified-code" name="signup-verified-code"
-                                                          placeholder="Mã xác thực gửi tới email của bạn" type="text"
-                                                          required="">
+                                                          placeholder="Mã xác thực gửi tới email của bạn" type="text" required="">
                                                    <div class="input-group-append">
                                                       <button onclick="checkCode()" class="ml-1 btn btn-outline-primary"
                                                               type="button" id="btn-signup-check-code" style="width: 8rem;">
@@ -337,8 +329,9 @@
                                                       </button>
                                                    </div>
                                                 </div>
-                                                <small id="code-error" class="error-input text-danger">Mã xác nhận không
-                                                   chính xác</small>
+                                                <small id="code-error" class="error-input text-danger">
+                                                   Mã xác nhận không chính xác
+                                                </small>
                                              </div>
 
                                              <div class="form-group mb-3">
@@ -429,7 +422,7 @@
       success: function (data, textStatus, jqXHR) {
         let list = $.parseJSON(data);
         $('#cart-count-noti').html(list.length);
-        $('#cart-count-noti').html(list.length);
+        $('#cart-count-drop').html(list.length);
       }
     });
 

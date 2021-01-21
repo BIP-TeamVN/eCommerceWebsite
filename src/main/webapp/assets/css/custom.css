@@ -1,5 +1,27 @@
 @charset "UTF-8";
 
+label {
+  width: 100%;
+}
+
+.card-input-element {
+  display: none;
+}
+
+.card-input {
+  margin: 10px;
+  padding: 0px;
+}
+
+.card-input:hover {
+  cursor: pointer;
+  background-color: rgba(134, 131, 131, 0.25);
+}
+
+.card-input-element:checked + .card-input {
+  box-shadow: 0 0 1px 1px #4F60C0;
+}
+
 .navbar-vertical .navbar-brand-img,
 .navbar-vertical .navbar-brand > img {
   font-variant: JIS04;
