@@ -84,7 +84,6 @@
                         <span class="ml-2 product-detail__price product-detail__price--order">${discount}</span>
                      </div>
                   </div>
-
                   <div class="row">
                      <div class="col text-right">
                         <p class="d-inline-block mr-2 font-weight-light" style="line-height:2.6rem; width:3rem;">Tổng cộng</p>

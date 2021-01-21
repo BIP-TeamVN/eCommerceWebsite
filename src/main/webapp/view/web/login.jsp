@@ -46,7 +46,7 @@
    </div>
 </nav>
 <!-- Main content -->
-<div class="main-content">
+<div class="main-content" style="overflow-x: hidden; overflow-y: hidden">
    <!-- Header -->
    <div class="header m--6 bg-gradient-primary py-7 py-lg-8 pt-lg-9">
       <div class="container">
@@ -108,7 +108,7 @@
    </div>
 
    <!-- Footer -->
-   <div class="w-100 bg-white">
+   <div class="w-100 bg-white" style="height: 100vh">
       <div class="container">
          <%@ include file="../../common/footer.jsp" %>
       </div>
