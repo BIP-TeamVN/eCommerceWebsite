@@ -51,6 +51,10 @@ public class SellerServlet extends HttpServlet {
             case "GET":
                doGet(req, resp);
                break;
+            case "PUT":
+            case "PATCH":
+               doPut(req, resp);
+               break;
             default:
                ServletUtils.printWrite(resp, "Method not found");
          }
@@ -225,7 +229,6 @@ public class SellerServlet extends HttpServlet {
 
          updateUser.setUserType(Cons.User.USER_TYPE_SELLER);
          updateUser.setUserName(phoneNumber);
-         updateUser.setPassword(HashUtils.getMd5(Base64Utils.encodeFromString(phoneNumber)));
          updateUser.setStatus(true);
 
          Boolean updateResult = UserDAO.getInstance().update(updateUser);

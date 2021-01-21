@@ -121,7 +121,7 @@
                   <div class="dropdown-header noti-title">
                      <h6 class="text-overflow m-0">Xin chào !</h6>
                   </div>
-                  <a href="#!" class="dropdown-item">
+                  <a href="/info/edit" class="dropdown-item">
                      <i class="ni ni-single-02"></i>
                      <span>Thông tin tài khoản</span>
                   </a>

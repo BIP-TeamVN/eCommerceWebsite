@@ -1,10 +1,7 @@
 package com.hknp.controller.api;
 
-import com.hknp.model.dao.CustomerDAO;
-import com.hknp.model.dao.UserDAO;
-import com.hknp.model.entity.Cons;
-import com.hknp.model.entity.CustomerEntity;
-import com.hknp.model.entity.UserEntity;
+import com.hknp.model.dao.*;
+import com.hknp.model.entity.*;
 import com.hknp.utils.*;
 
 import javax.servlet.ServletException;
@@ -14,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
@@ -103,34 +101,62 @@ public class CustomerServlet extends HttpServlet {
          String id = (String) parameterMap.get("id");
          String lastName = (String) parameterMap.get("last-name");
          String firstName = (String) parameterMap.get("first-name");
+
          String gender = (String) parameterMap.get("gender");
          String dateOfBirth = (String) parameterMap.get("dob");
          String phoneNumber = (String) parameterMap.get("phone-number");
          String ssn = (String) parameterMap.get("ssn");
          String email = (String) parameterMap.get("email");
 
+         String provinceId = (String) parameterMap.get("province");
+         String districtId = (String) parameterMap.get("district");
+         String communeId = (String) parameterMap.get("commune");
+         String addressStreet = (String) parameterMap.get("address-street");
+
+         String image = (String) parameterMap.get("image");
+
          UserEntity updateUser = UserDAO.getInstance().getById(StringUtils.toLong(id));
 
          updateUser.setFirstName(firstName);
          updateUser.setLastName(lastName);
          updateUser.setGender(gender);
-         updateUser.setDateOfBirth(DateTimeUtils.stringToDate(dateOfBirth, "dd/MM/yyyy"));
+         updateUser.setDateOfBirth(DateTimeUtils.stringToDate(dateOfBirth, "yyyy-MM-dd"));
          updateUser.setPhoneNumber(phoneNumber);
          updateUser.setSsn(ssn);
          updateUser.setEmail(email);
-
-         updateUser.setUserType(Cons.User.USER_TYPE_CUSTOMER);
-         updateUser.setUserName(phoneNumber);
-         updateUser.setPassword(HashUtils.getMd5(Base64Utils.encodeFromString(phoneNumber)));
-         updateUser.setStatus(true);
+         updateUser.setImage(image);
 
          Boolean updateResult = UserDAO.getInstance().update(updateUser);
-         if (updateResult == false)
-            result += "false\nError while insert user\n";
 
+         if (updateResult != false) {
+            if (updateUser.getAddressEntities().size() == 0) {
+               updateUser.setAddressEntities(Collections.singletonList(new AddressEntity()));
+            }
+            AddressEntity updateAddress = updateUser.getAddressEntities().get(0);
+
+            updateAddress.setPhoneNumber(phoneNumber);
+            updateAddress.setStreet(addressStreet);
+            updateAddress.setProvinceEntity(ProvinceDAO.getInstance().getById(provinceId));
+            updateAddress.setDistrictEntity(DistrictDAO.getInstance().getById(districtId));
+            updateAddress.setCommuneEntity(CommuneDAO.getInstance().getById(communeId));
+
+            updateAddress.setFullName(lastName + " " + firstName);
+            updateAddress.setAddressName(Cons.Address.DEFAULT_ADDRESS_NAME);
+            updateAddress.setUserId(updateUser.getUserId());
+
+            Boolean updateAddressResult = AddressDAO.getInstance().update(updateAddress);
+            if (updateAddressResult != false) {
+               result += "true\n" + updateUser.getUserId().toString();
+            } else {
+               result += "false\nError while insert address";
+            }
+         } else {
+            result += "false\nError while insert user";
+         }
       } catch (Exception e) {
          result += "false\n" + e.getMessage();
       }
+
       ServletUtils.printWrite(resp, result);
    }
 
