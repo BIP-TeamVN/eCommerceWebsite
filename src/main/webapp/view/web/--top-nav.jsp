@@ -86,7 +86,7 @@
                   <span id="cart-count-noti" class="ml-1 badge badge-md badge-circle badge-floating badge-secondary border-white"></span>
                </a>
                <div class="dropdown-menu dropdown-menu-xl dropdown-menu-right py-0 overflow-auto"
-                    style="height: 30rem;">
+                    style="max-height: 30rem;">
                   <!-- Dropdown header -->
                   <div class="px-3 py-3">
                      <h6 class="text-sm text-muted m-0">

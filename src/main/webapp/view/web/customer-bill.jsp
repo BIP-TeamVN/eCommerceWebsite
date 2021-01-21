@@ -1,6 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8" %>
-<html>
+<html lang="vi">
 <head>
    <%@ include file="../../common/meta-info.jsp" %>
    <title>eCommerce Website</title>
@@ -10,7 +10,6 @@
 </head>
 
 <body>
-
 <!-- Main content -->
 <div class="main-content" id="panel">
    <!--Top navigation-->
@@ -20,25 +19,22 @@
       <div class="container">
          <div class="header-body">
             <div class="row align-items-center py-4">
-               <div class="col-lg-6 col-7">
+               <div class="col-md-6">
                   <nav aria-label="breadcrumb" class="d-none d-md-inline-block">
                      <ol class="breadcrumb breadcrumb-links breadcrumb-dark mb-3">
                         <li class="breadcrumb-item"><a href="/home"><em class="fa fa-home mr-2"></em>Trang chủ</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Địa chỉ</li>
+                        <li class="breadcrumb-item active" aria-current="page">Đơn hàng</li>
                      </ol>
                   </nav>
                </div>
-               <div class="col-lg-6 col-5 text-right">
-                  <%@ include file="/common/customer-bill-filter.jsp" %>
-               </div>
+               <%@ include file="/common/customer-bill-filter.jsp" %>
             </div>
          </div>
       </div>
    </div>
 
    <!-- Page content -->
-   <div class="container-fluid mt--6">
-
+   <div class="container mt--6">
       <!--List employee card-->
       <div class="row">
          <div class="col">
@@ -111,8 +107,6 @@
    </div>
 </div>
 
-<!--Javascript-->
-<%@ include file="../../common/import-js.jsp" %>
 <script>
   let firstPageButton = '<li class="page-item"><button type="button" class="page-link" onclick="goFirst()"><i class="fa fa-angle-double-left"></i><span class="sr-only">Trang đầu tiên</span></button></li>';
   let prevPageButton = '<li class="page-item"><button type="button" class="page-link" onclick="goPrev()"><i class="fa fa-angle-left"></i><span class="sr-only">Trang trước</span></button></li>';
@@ -122,6 +116,7 @@
   let totalPage = ${totalPage};
   let currentPage = ${currentPage};
 
+  changeStatus();
   reloadPage();
 
   function goFirst() {

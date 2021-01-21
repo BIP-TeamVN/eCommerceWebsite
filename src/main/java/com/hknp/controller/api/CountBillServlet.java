@@ -21,11 +21,15 @@ public class CountBillServlet extends HttpServlet {
       HttpSession session = req.getSession();
       Long id = (Long) session.getAttribute("id");
       Integer status = StringUtils.toInt(req.getParameter("status"));
+      String userType = UserDAO.getInstance().getUserType(id);
       Long totalRows;
-      if (UserDAO.getInstance().getUserType(id).equals(Cons.User.USER_TYPE_SELLER)) {
+
+      if (userType.equals(Cons.User.USER_TYPE_SELLER)) {
          totalRows = BillDAO.getInstance().count(id, status);
-      } else {
+      } else if (userType.equals(Cons.User.USER_TYPE_DELIVERY)) {
          totalRows = BillDAO.getInstance().countForShipper(id, status);
+      } else {
+         totalRows = BillDAO.getInstance().countForCustommer(id, status);
       }
 
       String page = req.getParameter("page");

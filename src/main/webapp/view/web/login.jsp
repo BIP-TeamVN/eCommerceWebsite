@@ -1,10 +1,3 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: DELL
-  Date: 12/23/2020
-  Time: 6:13 PM
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html lang="vi">
 <head>
@@ -113,47 +106,10 @@
          </div>
       </div>
    </div>
+
+   <!-- Footer -->
+   <%@ include file="../../common/footer.jsp" %>
 </div>
-<!-- Footer -->
-<footer class="py-5" id="footer-main">
-   <div class="container">
-      <div class="row align-items-center justify-content-xl-between">
-         <div class="col-xl-6">
-            <div class="copyright text-center  text-lg-left  text-muted">
-               &copy; 2020 <a href="https://github.com/HKNP-Team" class="font-weight-bold ml-1" target="_blank">HKNP
-               Team</a>
-               <br/>
-               Argon template by <a href="https://www.creative-tim.com" class="font-weight-bold ml-1" target="_blank">Creative
-               Tim</a>
-            </div>
-         </div>
-         <div class="col-xl-6">
-            <ul class="nav nav-footer justify-content-center justify-content-lg-end">
-               <li class="nav-item">
-                  <a href="https://facebook.com/100006502007619" class="nav-link" target="_blank">Huy Hoàng</a>
-               </li>
-               <li class="nav-item">
-                  <a href="http://facebook.com/100004367534716" class="nav-link" target="_blank">Quốc Khánh</a>
-               </li>
-               <li class="nav-item">
-                  <a href="https://facebook.com/100006455283659" class="nav-link" target="_blank">Quốc Nam</a>
-               </li>
-               <li class="nav-item">
-                  <a href="https://facebook.com/100009205633637" class="nav-link" target="_blank">Trần Phúc</a>
-               </li>
-            </ul>
-         </div>
-      </div>
-   </div>
-</footer>
-<!-- Argon Scripts -->
-<!-- Core -->
-<script src="../../assets/vendor/jquery/dist/jquery.min.js"></script>
-<script src="../../assets/vendor/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-<script src="../../assets/vendor/js-cookie/js.cookie.js"></script>
-<script src="../../assets/vendor/jquery.scrollbar/jquery.scrollbar.min.js"></script>
-<script src="../../assets/vendor/jquery-scroll-lock/dist/jquery-scrollLock.min.js"></script>
-<!-- Argon JS -->
-<script src="../../assets/js/argon.js?v=1.2.0"></script>
+
 </body>
 </html>

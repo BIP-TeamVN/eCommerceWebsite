@@ -2,7 +2,6 @@
 <%@ page import="com.hknp.model.entity.ProductTypeEntity" %>
 <%@ page import="java.util.List" %>
 <%@ page import="java.util.ArrayList" %>
-<%@ page import="java.math.BigDecimal" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8" %>
 
 <% ProductEntity p = (ProductEntity) request.getAttribute("product"); %>

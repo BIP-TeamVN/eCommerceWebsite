@@ -1,6 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8" %>
-<html>
+<html lang="vi">
 <head>
    <%@ include file="../../common/meta-info.jsp" %>
    <title>eCommerce Website</title>
@@ -10,7 +10,6 @@
 </head>
 
 <body>
-
 
 <!-- Main content -->
 <div class="main-content" id="panel">
@@ -26,7 +25,8 @@
                   <nav aria-label="breadcrumb" class="d-none d-md-inline-block">
                      <ol class="breadcrumb breadcrumb-links breadcrumb-dark mb-3">
                         <li class="breadcrumb-item"><a href="/home"><em class="fa fa-home mr-2"></em>Trang chủ</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Chi tiết</li>
+                        <li class="breadcrumb-item"><a href="/customer/bills">Đơn hàng</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Chi tiết đơn hàng</li>
                      </ol>
                   </nav>
                </div>
@@ -36,8 +36,7 @@
    </div>
 
    <!-- Page content -->
-   <div class="container-fluid mt--6">
-
+   <div class="container mt--6">
       <!--List employee card-->
       <div class="row">
          <div class="col">
@@ -102,8 +101,6 @@
    </div>
 </div>
 
-<!--Javascript-->
-<%@ include file="../../common/import-js.jsp" %>
 <script>
   let firstPageButton = '<li class="page-item"><button type="button" class="page-link" onclick="goFirst()"><i class="fa fa-angle-double-left"></i><span class="sr-only">Trang đầu tiên</span></button></li>';
   let prevPageButton = '<li class="page-item"><button type="button" class="page-link" onclick="goPrev()"><i class="fa fa-angle-left"></i><span class="sr-only">Trang trước</span></button></li>';

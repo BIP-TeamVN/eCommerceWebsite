@@ -283,16 +283,15 @@ public class BillDAO implements IRetrieveEntity<BillEntity, Long>, IModifySingle
    public Long count(Long sellerId, Integer status) {
       EntityManager entityMgr = EntityUtils.getEntityManager();
 
-      String queryStr;
-      Query query;
-      queryStr = "SELECT distinct u.billEntity FROM BillDetailEntity AS u " +
+      String queryStr = "SELECT distinct u.billEntity FROM BillDetailEntity AS u " +
               "WHERE u.productTypeEntity.productEntity.sellerEntity.userId = :sellerId " +
               "and u.billEntity.status = :status";
-      query = entityMgr.createQuery(queryStr);
+
+      Query query = entityMgr.createQuery(queryStr);
       query.setParameter("sellerId", sellerId);
       query.setParameter("status", status);
-      ArrayList<BillEntity> result = null;
-      result = new ArrayList<>(query.getResultList());
+
+      ArrayList<BillEntity> result = new ArrayList<>(query.getResultList());
       return (Long) result.stream().count();
    }
 
@@ -310,6 +309,20 @@ public class BillDAO implements IRetrieveEntity<BillEntity, Long>, IModifySingle
       return (Long) query.getSingleResult();
    }
 
+   public Long countForCustommer(Long customerId, Integer status) {
+      EntityManager entityMgr = EntityUtils.getEntityManager();
+
+      String queryStr = "SELECT count(b.billId) from  BillEntity b " +
+              "WHERE b.customerEntity.userId = :customerId " +
+              "and b.status = :status";
+      Query query = entityMgr.createQuery(queryStr);
+      query.setParameter("customerId", customerId);
+      query.setParameter("status", status);
+
+      return (Long) query.getSingleResult();
+   }
+
+
    public Long count(Integer status) {
       EntityManager entityMgr = EntityUtils.getEntityManager();
 
@@ -323,7 +336,7 @@ public class BillDAO implements IRetrieveEntity<BillEntity, Long>, IModifySingle
 
    public Long CountCustomerForSeller(Long sellerId) {
       EntityManager entityMgr = EntityUtils.getEntityManager();
-      String strQuery = "select  distinct b.billEntity.customerEntity from BillDetailEntity AS b " +
+      String strQuery = "select distinct b.billEntity.customerEntity from BillDetailEntity AS b " +
               "where  b.productTypeEntity.productEntity.sellerEntity.userId = :sellerId ";
       Query query = entityMgr.createQuery(strQuery);
       query.setParameter("sellerId", sellerId);
