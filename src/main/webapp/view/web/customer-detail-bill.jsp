@@ -79,11 +79,16 @@
                <!-- Card footer -->
                <div class="card-footer py-4">
                   <div class="row">
-                     <div class="col-md-6 text-md-right text-center mb-sm-3">
-                        <label class="form-control-label">Tổng giá trị đơn hàng: ${total}</label>
+                     <div class="col text-right">
+                        <p class="d-inline-block mr-2 font-weight-light" style="line-height:2.6rem; width:3rem;">Giảm giá</p>
+                        <span class="ml-2 product-detail__price product-detail__price--order">${discount}</span>
                      </div>
-                     <div class="col-md-6 text-md-left text-center">
-                        <label class="form-control-label">Giảm giá: ${discount}</label>
+                  </div>
+
+                  <div class="row">
+                     <div class="col text-right">
+                        <p class="d-inline-block mr-2 font-weight-light" style="line-height:2.6rem; width:3rem;">Tổng cộng</p>
+                        <span class="ml-2 product-detail__price product-detail__price--order">${total}</span>
                      </div>
                   </div>
                   <div class="row">
@@ -169,7 +174,6 @@
 
   function reloadPage() {
     updatePagination();
-
 
     $.ajax({
       url: '/api/bill/view/detail',
