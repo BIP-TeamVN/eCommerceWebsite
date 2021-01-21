@@ -17,7 +17,7 @@
    <%@include file="./--top-nav.jsp" %>
 
    <!-- Page content -->
-   <div class="container-fluid mt--12">
+   <div class="container">
       <!--List employee card-->
       <div class="row-cols-1">
          <div class="col">
