@@ -15,7 +15,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-@WebServlet(urlPatterns = {"/api/deliverybilldelivering"})
+@WebServlet(urlPatterns = { "/api/delivery-bill-delivering" , "/api/deliverybilldelivering"})
 public class DeliveryBillDeliveringServlet extends HttpServlet {
    @Override
    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -31,10 +31,9 @@ public class DeliveryBillDeliveringServlet extends HttpServlet {
       }
       List<BillEntity> listBill = new ArrayList<>();
       List<String> listJsonStr = new ArrayList<>();
-      if(Type == 2){
+      if (Type == 2) {
          listBill = BillDAO.getInstance().gets((page - 1) * 10, 10, Type);
-      }
-      else {
+      } else {
          listBill = BillDAO.getInstance().getsForDelivery((page - 1) * 10, 10, id, Type);
       }
 

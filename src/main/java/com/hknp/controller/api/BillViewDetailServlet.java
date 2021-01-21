@@ -44,8 +44,9 @@ public class BillViewDetailServlet extends HttpServlet {
 
       ServletUtils.printWrite(resp, "[" + String.join(", ", listJsonStr) + "]");
    }
+
    @Override
-   protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException{
+   protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
       String result = "";
       HttpSession session = req.getSession();
       Long id = (Long) session.getAttribute("id");
@@ -56,7 +57,7 @@ public class BillViewDetailServlet extends HttpServlet {
          Integer status = (Integer) parameterMap.get("status");
          String email = (BillDAO.getInstance().getById(StringUtils.toLong(billIdid)).getCustomerEntity().getUserEntity().getEmail());
          String customerName = BillDAO.getInstance().getById(StringUtils.toLong(billIdid)).getCustomerEntity().getUserEntity().getFullName();
-         if(status == 4){
+         if (status == 4) {
             BillEntity updateBill = BillDAO.getInstance().getById(StringUtils.toLong(billIdid));
             updateBill.setDeliveryEntity(DeliveryDAO.getInstance().getById(id));
             updateBill.setStatus(status);
@@ -66,11 +67,10 @@ public class BillViewDetailServlet extends HttpServlet {
             } else {
                result += "false\nError while get bill";
             }
-         }
-         else if(status == 2){
+         } else if (status == 2) {
             BillEntity updateBill = BillDAO.getInstance().getById(StringUtils.toLong(billIdid));
             updateBill.setStatus(status);
-            MailUtils.send(email, "Xac Nhan Don Hang","Chào "+ customerName +", cửa hàng đã duyệt đơn hàng mang mã số "+ billIdid+ " của bạn! <br/> Cảm ơn bạn đã sử dụng dịch vụ của chúng tôi! <br/> Shipper sẽ giao hàng cho bạn trong thời gian sớm nhất!", "text/html" );
+            MailUtils.send(email, "Xac Nhan Don Hang", "Chào " + customerName + ", cửa hàng đã duyệt đơn hàng mang mã số " + billIdid + " của bạn! <br/> Cảm ơn bạn đã sử dụng dịch vụ của chúng tôi! <br/> Shipper sẽ giao hàng cho bạn trong thời gian sớm nhất!", "text/html");
             updateBill.setBillCreateDate(DateTimeUtils.currentDate());
 
             Boolean updateResult = BillDAO.getInstance().update(updateBill);
@@ -80,8 +80,7 @@ public class BillViewDetailServlet extends HttpServlet {
             } else {
                result += "false\nError while confirm bill";
             }
-         }
-         else if(status == 6) {
+         } else if (status == 6) {
             BillEntity updateBill = BillDAO.getInstance().getById(StringUtils.toLong(billIdid));
             updateBill.setStatus(status);
             updateBill.setBillDoneDate(DateTimeUtils.currentDate());
@@ -91,8 +90,7 @@ public class BillViewDetailServlet extends HttpServlet {
             } else {
                result += "false\nError while confirm bill";
             }
-         }
-         else {
+         } else {
             BillEntity updateBill = BillDAO.getInstance().getById(StringUtils.toLong(billIdid));
             updateBill.setStatus(status);
             Boolean updateResult = BillDAO.getInstance().update(updateBill);

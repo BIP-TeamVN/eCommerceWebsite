@@ -14,7 +14,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -29,7 +28,7 @@ public class SellerServlet extends HttpServlet {
 
       if (id != null) {
          String userType = UserDAO.getInstance().getUserType(id);
-         return  userType.equals(Cons.User.USER_TYPE_SELLER);
+         return userType.equals(Cons.User.USER_TYPE_SELLER);
       }
       return false;
    }
@@ -44,6 +43,7 @@ public class SellerServlet extends HttpServlet {
       }
       return false;
    }
+
    @Override
    protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
       if (isAuthentication(req)) {
@@ -77,6 +77,7 @@ public class SellerServlet extends HttpServlet {
          ServletUtils.printWrite(resp, "Access denied");
       }
    }
+
    @Override
    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
       String pagePara = req.getParameter("page");
@@ -92,7 +93,7 @@ public class SellerServlet extends HttpServlet {
       if (page <= 0) {
          page = 1;
       }
-      ArrayList<SellerEntity> listSeller = SellerDAO.getInstance().gets((page - 1) * 10, 10,keyword, status, columnName, typeSort);
+      ArrayList<SellerEntity> listSeller = SellerDAO.getInstance().gets((page - 1) * 10, 10, keyword, status, columnName, typeSort);
       List<String> listJsonStr = new ArrayList<>();
 
       for (SellerEntity seller : listSeller) {
@@ -267,11 +268,8 @@ public class SellerServlet extends HttpServlet {
    }
 
    @Override
-   protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-      resp.setContentType("text/html; charset=UTF-8");
-
-      try (PrintWriter out = resp.getWriter()) {
-         out.write("false");
-      }
+   protected void doDelete(HttpServletRequest req, HttpServletResponse resp)
+           throws ServletException, IOException {
+      ServletUtils.printWrite(resp, "false");
    }
 }

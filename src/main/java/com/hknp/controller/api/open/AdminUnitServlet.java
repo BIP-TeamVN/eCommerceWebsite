@@ -1,4 +1,4 @@
-package com.hknp.controller.api;
+package com.hknp.controller.api.open;
 
 import com.hknp.model.dao.CommuneDAO;
 import com.hknp.model.dao.DistrictDAO;

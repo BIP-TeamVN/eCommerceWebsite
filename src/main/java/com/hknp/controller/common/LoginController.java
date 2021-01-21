@@ -15,12 +15,14 @@ import java.io.IOException;
 @WebServlet(urlPatterns = {"/login"})
 public class LoginController extends HttpServlet {
    @Override
-   protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+   protected void doGet(HttpServletRequest req, HttpServletResponse resp)
+           throws ServletException, IOException {
       doPost(req, resp);
    }
 
    @Override
-   protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+   protected void doPost(HttpServletRequest req, HttpServletResponse resp)
+           throws ServletException, IOException {
       HttpSession session = req.getSession(true);
       Long id = (Long) session.getAttribute("id");
       if (id != null) {
@@ -48,8 +50,7 @@ public class LoginController extends HttpServlet {
                ServletUtils.forward(req, resp, "/login");
                break;
          }
-      }
-      else {
+      } else {
          try {
             String userName = req.getParameter("username");
             String password = req.getParameter("password");
@@ -57,14 +58,12 @@ public class LoginController extends HttpServlet {
             if (id != 0) {
                session.setAttribute("id", id);
                ServletUtils.forward(req, resp, "/login");
-            }
-            else {
+            } else {
                req.setAttribute("user", userName);
                req.setAttribute("pass", password);
                ServletUtils.forward(req, resp, "/view/web/login.jsp");
             }
-         }
-         catch (Exception e1) {
+         } catch (Exception e1) {
             ServletUtils.forward(req, resp, "/view/web/login.jsp");
          }
       }

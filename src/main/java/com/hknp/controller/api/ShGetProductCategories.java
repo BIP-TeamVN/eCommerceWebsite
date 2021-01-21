@@ -20,8 +20,6 @@ import java.util.ArrayList;
 public class ShGetProductCategories extends HttpServlet {
    @Override
    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-      resp.setContentType("text/html; charset=UTF-8");
-
       String productIdPara = req.getParameter("id");
       Long productId = StringUtils.toLong(productIdPara);
 
@@ -33,12 +31,12 @@ public class ShGetProductCategories extends HttpServlet {
 
       try {
          ProductEntity productEntity = ProductDAO.getInstance().getByIdAndSeller(productId, sellerId);
-         ArrayList<ProductCategoryEntity> productCategorySelect = new ArrayList<> (productEntity.getProductCategoryEntities());
+         ArrayList<ProductCategoryEntity> productCategorySelect = new ArrayList<>(productEntity.getProductCategoryEntities());
 
          Boolean temp = false;
-         for (ProductCategoryEntity c: productCategoryEntities) {
+         for (ProductCategoryEntity c : productCategoryEntities) {
             temp = false;
-            for (ProductCategoryEntity s: productCategorySelect) {
+            for (ProductCategoryEntity s : productCategorySelect) {
                if (c.getProductCategoryId() == s.getProductCategoryId()) {
                   result += "<option selected value=\"" + c.getProductCategoryId() + "\">" + c.getProductCategoryName() + "</option>";
                   temp = true;
@@ -51,7 +49,7 @@ public class ShGetProductCategories extends HttpServlet {
          }
       } catch (Exception e) {
          result = "";
-         for (ProductCategoryEntity c: productCategoryEntities) {
+         for (ProductCategoryEntity c : productCategoryEntities) {
             result += "<option value=\"" + c.getProductCategoryId() + "\">" + c.getProductCategoryName() + "</option>";
          }
       }

@@ -122,7 +122,7 @@ public class BrandServlet extends HttpServlet {
       } catch (Exception e) {
          result += "false\n" + e.getMessage();
       }
-      
+
       ServletUtils.printWrite(resp, result);
    }
 

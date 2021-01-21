@@ -2,7 +2,6 @@ package com.hknp.controller.api.open;
 
 import com.hknp.model.dao.*;
 import com.hknp.model.entity.AddressEntity;
-import com.hknp.model.entity.UserEntity;
 import com.hknp.utils.ServletUtils;
 import com.hknp.utils.StringUtils;
 

@@ -1,4 +1,4 @@
-package com.hknp.controller.api;
+package com.hknp.controller.api.open;
 
 import com.hknp.model.dao.ProductCategoryDAO;
 import com.hknp.model.entity.ProductCategoryEntity;
