@@ -41,11 +41,11 @@ public class VerifyProductServlet extends HttpServlet {
    public void mailVerify (Integer status, Long productId) {
       ProductEntity productEntity = ProductDAO.getInstance().getById(productId);
       if (status == Cons.Product.PRODUCT_STATUS_CREATE) {
-         MailUtils.sendPlanText(productEntity.getSellerEntity().getUserEntity().getEmail(), "Khóa sản phẩm", "Sản phẩm: " + productEntity.getProductName() + " Đã bị khóa.\nLiện hệ 0969696029 để biết thêm chi tiết");
+         MailUtils.sendPlanText(productEntity.getSellerEntity().getUserEntity().getEmail(), "Khoa san pham", "Sản phẩm: " + productEntity.getProductName() + " Đã bị khóa.\n\nLiện hệ 0969696029 để biết thêm chi tiết");
       } else if (status == Cons.Product.PRODUCT_STATUS_ACCESS) {
-         MailUtils.sendPlanText(productEntity.getSellerEntity().getUserEntity().getEmail(), "Xác thực sản phẩm", "Sản phẩm: " + productEntity.getProductName() + " Đã được xác thực.\nLiện hệ 0969696029 để biết thêm chi tiết");
+         MailUtils.sendPlanText(productEntity.getSellerEntity().getUserEntity().getEmail(), "Xac thuc san pham", "Sản phẩm: " + productEntity.getProductName() + " Đã được xác thực.\n\nLiện hệ 0969696029 để biết thêm chi tiết");
       } else {
-         MailUtils.sendPlanText(productEntity.getSellerEntity().getUserEntity().getEmail(), "Khóa sản phẩm", "Sản phẩm: " + productEntity.getProductName() + " Đã bị từ chối.\nLiện hệ 0969696029 để biết thêm chi tiết");
+         MailUtils.sendPlanText(productEntity.getSellerEntity().getUserEntity().getEmail(), "Tu choi san pham", "Sản phẩm: " + productEntity.getProductName() + " Đã bị từ chối.\n\nLiện hệ 0969696029 để biết thêm chi tiết");
       }
    }
 
