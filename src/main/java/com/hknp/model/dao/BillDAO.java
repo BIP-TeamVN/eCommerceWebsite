@@ -190,6 +190,35 @@ public class BillDAO implements IRetrieveEntity<BillEntity, Long>, IModifySingle
       return result;
    }
 
+   public ArrayList<BillEntity> getsForCustomer(Integer firstResult, Integer maxResults, Long customerId, Integer status) {
+      EntityManager entityMgr = EntityUtils.getEntityManager();
+
+      String strQuery = "SELECT  u FROM BillEntity AS u " +
+              "WHERE u.customerEntity.userId = :customerId " +
+              "and u.status = :status ";
+
+      Query query = entityMgr.createQuery(strQuery);
+      query.setParameter("customerId", customerId);
+      query.setParameter("status", status);
+
+      if (firstResult != null) {
+         query.setFirstResult(firstResult);
+      }
+      if (maxResults != null) {
+         query.setMaxResults(maxResults);
+      }
+
+      ArrayList<BillEntity> result = null;
+      try {
+         result = new ArrayList<>(query.getResultList());
+      } catch (Exception exception) {
+         exception.printStackTrace();
+      } finally {
+         entityMgr.close();
+      }
+      return result;
+   }
+
    public ArrayList<BillEntity> getsByMonth(String first, String last, String year) {
       EntityManager entityMgr = EntityUtils.getEntityManager();
       String strQuery = null;

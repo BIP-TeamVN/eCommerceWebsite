@@ -127,7 +127,7 @@
                      <i class="ni ni-settings-gear-65"></i>
                      <span>Địa chỉ</span>
                   </a>
-                  <a href="#!" class="dropdown-item">
+                  <a href="/customer/bills" class="dropdown-item">
                      <i class="fa fa-shopping-cart"></i>
                      <span>Đơn hàng</span>
                   </a>

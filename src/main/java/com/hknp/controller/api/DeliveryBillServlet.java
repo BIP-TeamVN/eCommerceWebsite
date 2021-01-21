@@ -42,6 +42,9 @@ public class DeliveryBillServlet extends HttpServlet {
       else if(UserDAO.getInstance().getById(id).getUserType().equals(Cons.User.USER_TYPE_SELLER)){
          listBill = BillDAO.getInstance().getsForSeller((page - 1) * 10, 10, id, stt);
       }
+      else if(UserDAO.getInstance().getById(id).getUserType().equals(Cons.User.USER_TYPE_CUSTOMER)){
+         listBill = BillDAO.getInstance().getsForCustomer((page - 1) * 10, 10, id, stt);
+      }
 
       for (BillEntity bill : listBill) {
          listJsonStr.add(bill.toJson());
