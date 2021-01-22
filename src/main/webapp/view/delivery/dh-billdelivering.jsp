@@ -327,5 +327,6 @@
     alert("Nhận hàng thành công!");
   }
 </script>
+<script src="../../assets/js/validate/validate-get-bill-for-delivery.js"></script>
 </body>
 </html>

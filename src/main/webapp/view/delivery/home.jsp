@@ -219,25 +219,6 @@
     });
   }
 </script>
-<script>
-  function GetBill(billId){
-    let paras = JSON.stringify({
-      'id': billId.toString(),
-      'status': 4
-    })
-    $.ajax({
-      url: "/api/bill/view/detail",
-      method: 'PUT',
-      async: false,
-      cache: false,
-      data: paras,
-      success: function (){
-        $("#hay" + billId).remove();
-        reloadPage();
-      }
-    })
-    alert("Nhận đơn thành công!");
-  }
-</script>
+<script src="../../assets/js/validate/validate-get-bill-for-delivery.js"></script>
 </body>
 </html>

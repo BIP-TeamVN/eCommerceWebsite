@@ -350,4 +350,15 @@ public class BillDAO implements IRetrieveEntity<BillEntity, Long>, IModifySingle
       }
       return result.stream().count();
    }
+   public Long check(Long deliveryId) {
+      EntityManager entityMgr = EntityUtils.getEntityManager();
+
+      String queryStr;
+      Query query;
+      queryStr = "SELECT count(*) from  BillEntity b WHERE b.deliveryEntity.userId = :deliveryId " +
+              "and b.status < 6";
+      query = entityMgr.createQuery(queryStr);
+      query.setParameter("deliveryId", deliveryId);
+      return (Long) query.getSingleResult();
+   }
 }
