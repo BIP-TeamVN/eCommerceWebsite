@@ -192,7 +192,7 @@
          $('#div-button').html(html);
        },
        error: function (jqXHR, textStatus, errorThrown) {
-         alert("Lỗi: " + errorThrown);
+         showMessageModal('fa fa-times text-danger', 'Lỗi kết nối server', errorThrown);
        }
      });
    }
@@ -221,11 +221,11 @@
           }
           $('#modal-product-detail').modal('hide');
         } else {
-          alert("Lỗi: " + result[1]);
+          showMessageModal('fa fa-times text-danger', 'Xảy ra lỗi', result[1]);
         }
       },
       error: function (jqXHR, textStatus, errorThrown) {
-        alert("Lỗi: " + errorThrown);
+        showMessageModal('fa fa-times text-danger', 'Lỗi kết nối server', errorThrown);
       }
     });
   };
@@ -253,11 +253,11 @@
           }
           $('#modal-product-detail').modal('hide');
         } else {
-          alert("Lỗi: " + result[1]);
+          showMessageModal('fa fa-times text-danger', 'Xảy ra lỗi', result[1]);
         }
       },
       error: function (jqXHR, textStatus, errorThrown) {
-        alert("Lỗi: " + errorThrown);
+        showMessageModal('fa fa-times text-danger', 'Lỗi kết nối server', errorThrown);
       }
     });
   };
@@ -285,11 +285,11 @@
           }
           $('#modal-product-detail').modal('hide');
         } else {
-          alert("Lỗi: " + result[1]);
+          showMessageModal('fa fa-times text-danger', 'Xảy ra lỗi', result[1]);
         }
       },
       error: function (jqXHR, textStatus, errorThrown) {
-        alert("Lỗi: " + errorThrown);
+        showMessageModal('fa fa-times text-danger', 'Lỗi kết nối server', errorThrown);
       }
     });
   };

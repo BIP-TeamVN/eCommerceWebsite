@@ -207,8 +207,9 @@
   }
 
   function getbill(){
-    alert("Nhận đơn thành công");
-    $('#tb-list').trigger("reset");
+    showMessageModal('fa fa-check text-success', 'Thông báo', 'Nhận đơn thành công !', 'OK', () => {
+      $('#tb-list').trigger("reset");
+    });
   }
 
   function Back(){
@@ -225,9 +226,10 @@
       async: false,
       cache: false,
       data: paras,
-    })
-    alert('Đã duyệt đơn hàng mã số ' + ${billId}+ ' thành công');
-    window.history.back();
+    });
+    showMessageModal('fa fa-check text-success', 'Thông báo', 'Đã duyệt đơn hàng mã số ' + ${billId}+ ' thành công !', 'OK', () => {
+      window.history.back();
+    });
   }
   function Reject(billId){
     let paras = JSON.stringify({
@@ -240,9 +242,10 @@
       async: false,
       cache: false,
       data: paras,
-    })
-    alert('Hủy đơn hàng mã số ' + ${billId}+ ' thành công');
-    window.history.back();
+    });
+    showMessageModal('fa fa-exclamation text-warning', 'Thông báo', 'Hủy đơn hàng mã số ' + ${billId}+ ' thành công', 'OK', ()=>{
+      window.history.back();
+    });
   }
 </script>
 </body>

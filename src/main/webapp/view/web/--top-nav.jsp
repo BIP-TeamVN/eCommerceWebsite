@@ -511,7 +511,7 @@
         }
       },
       error: function (jqXHR, textStatus, errorThrown) {
-        alert("Lỗi: " + errorThrown);
+        showMessageModal('fa fa-times text-danger', 'Lỗi kết nối server', errorThrown);
       }
     });
   });
@@ -611,7 +611,7 @@
           }
         },
         error: function (jqXHR, textStatus, errorThrown) {
-          alert("Lỗi  xxxx: " + errorThrown);
+          showMessageModal('fa fa-times text-danger', 'Lỗi kết nối server', errorThrown);
         }
       });
     }
@@ -640,7 +640,7 @@
         }
       },
       error: function (jqXHR, textStatus, errorThrown) {
-        alert("Lỗi javascript: " + errorThrown);
+        showMessageModal('fa fa-times text-danger', 'Lỗi kết nối server', errorThrown);
       }
     });
   }
@@ -663,13 +663,13 @@
       success: function (data, textStatus, jqXHR) {
         let result = data.toString().split('\n');
         if (result[0] === 'true') {
-          alert("Tạo tài khoản thành công!")
+          showMessageModal('fa fa-check text-success', 'Thông báo', 'Tạo tài khoản thành công!');
         } else {
-          alert("Lỗi: " + result[1]);
+          showMessageModal('fa fa-times text-danger', 'Xảy ra lỗi', result[1]);
         }
       },
       error: function (jqXHR, textStatus, errorThrown) {
-        alert("Lỗi: " + errorThrown);
+        showMessageModal('fa fa-times text-danger', 'Lỗi kết nối server', errorThrown);
       }
     });
   });

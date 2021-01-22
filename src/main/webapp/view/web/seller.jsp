@@ -162,10 +162,6 @@
   function loadProduct() {
   }
 
-  function addToCart(productId) {
-    alert(productId);
-  }
-
   loadProductCategory();
 </script>
 </body>

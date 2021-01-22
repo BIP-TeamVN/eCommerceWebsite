@@ -270,7 +270,7 @@
         reloadPage();
       }
     })
-    alert("Nhận đơn thành công!");
+    showMessageModal('fa fa-check text-success', 'Thông báo', 'Nhận đơn thành công !');
   }
   function DoneBill(billId){
     let paras = JSON.stringify({
@@ -288,7 +288,7 @@
         reloadPage();
       }
     })
-    alert("Xác nhận đã giao thành công!");
+    showMessageModal('fa fa-check text-success', 'Thông báo', 'Xác nhận đã giao thành công!');
   }
   function FailBill(billId){
     let paras = JSON.stringify({
@@ -306,7 +306,7 @@
         reloadPage();
       }
     })
-    alert("Xác nhận giao thất bại!");
+    showMessageModal('fa fa-exclamation text-warning', 'Thông báo', 'Xác nhận giao thất bại thành công !');
   }
   function RecieveBill(billId){
     let paras = JSON.stringify({
@@ -324,7 +324,7 @@
         reloadPage();
       }
     })
-    alert("Nhận hàng thành công!");
+    showMessageModal('fa fa-check text-success', 'Thông báo', 'Nhận hàng thành công !');
   }
 </script>
 <script src="../../assets/js/validate/validate-get-bill-for-delivery.js"></script>

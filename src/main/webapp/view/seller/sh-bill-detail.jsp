@@ -173,7 +173,6 @@
   function reloadPage() {
     updatePagination();
 
-
     $.ajax({
       url: '/api/bill/view/detail',
       method: 'GET',
@@ -205,8 +204,9 @@
   }
 
   function getbill(){
-    alert("Nhận đơn thành công");
-    $('#tb-list').trigger("reset");
+    showMessageModal('fa fa-check text-success', 'Thông báo', 'Nhận đơn thành công !', 'OK', () => {
+      $('#tb-list').trigger("reset");
+    });
   }
 
   function Back(){

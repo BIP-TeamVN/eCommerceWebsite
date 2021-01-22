@@ -25,16 +25,14 @@ public class CartServlet extends HttpServlet {
    private static final String COOKIE_NAME = "carts";
    private static final Integer COOKIE_AGE = 10 * 3600 * 24;
 
-
    @Override
    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
       String value = CookieUtils.getCookieValue(req, COOKIE_NAME);
 
       if (value.equals("")) {
          ServletUtils.printWrite(resp, "");
       } else {
-         String cookieValue = URLDecoder.decode(value , "utf-8");
+         String cookieValue = URLDecoder.decode(value, "utf-8");
          ServletUtils.printWrite(resp, cookieValue);
       }
    }
@@ -46,13 +44,13 @@ public class CartServlet extends HttpServlet {
          String idProduct = req.getParameter("product-id");
          Long productId = Long.parseLong(idProduct);
 
-         ArrayList<ProductTypeEntity> listProductType = ProductTypeDAO.getInstance().getByProductId(null,null,productId);
+         ArrayList<ProductTypeEntity> listProductType = ProductTypeDAO.getInstance().getByProductId(null, null, productId);
 
          Integer maxQuantity = 0;
          ProductTypeEntity productTypeEntity = new ProductTypeEntity();
          String id = "";
          for (int i = 0; i < listProductType.size(); i++) {
-            if (listProductType.get(i).getQuantity() > maxQuantity){
+            if (listProductType.get(i).getQuantity() > maxQuantity) {
                maxQuantity = listProductType.get(i).getQuantity();
                productTypeEntity = listProductType.get(i);
             }
@@ -61,7 +59,7 @@ public class CartServlet extends HttpServlet {
 
          String value = CookieUtils.getCookieValue(req, COOKIE_NAME);
 
-         value= URLDecoder.decode(value , "utf-8");
+         value = URLDecoder.decode(value, "utf-8");
 
          ArrayList<CartItemDomain> listCartItemDomain = new ArrayList<>();
          CartItemDomain cartItemDomain = new CartItemDomain();
@@ -73,7 +71,7 @@ public class CartServlet extends HttpServlet {
 
             listCartItemDomain.add(cartItemDomain);
             String valueJson = gson.toJson(listCartItemDomain);
-            String encodeCookie = URLEncoder.encode(valueJson,"utf-8");
+            String encodeCookie = URLEncoder.encode(valueJson, "utf-8");
 
             CookieUtils.addCookie(resp, COOKIE_NAME, encodeCookie, COOKIE_AGE);
             result += "true\n" + id;
@@ -105,7 +103,7 @@ public class CartServlet extends HttpServlet {
             } else {
                value = gson.toJson(listCartItem);
             }
-            String encodeCookie = URLEncoder.encode(value,"utf-8");
+            String encodeCookie = URLEncoder.encode(value, "utf-8");
             CookieUtils.updateCookie(req, resp, COOKIE_NAME, encodeCookie, COOKIE_AGE);
          }
 
@@ -117,7 +115,7 @@ public class CartServlet extends HttpServlet {
 
    @Override
    protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-      String result="";
+      String result = "";
       Map<String, Object> parameterMap = ServletUtils.getParametersMap(req);
       try {
          String id = (String) parameterMap.get("product-type-id");
@@ -125,13 +123,13 @@ public class CartServlet extends HttpServlet {
          String boolAdd = (String) parameterMap.get("bool-add");
 
          String value = CookieUtils.getCookieValue(req, COOKIE_NAME);
-         value= URLDecoder.decode(value , "utf-8");
+         value = URLDecoder.decode(value, "utf-8");
 
          ArrayList<CartItemDomain> listCartItemDomain = new ArrayList<>();
          CartItemDomain cartItemDomain = new CartItemDomain();
          Gson gson = new Gson();
 
-         if(boolAdd.equals("them")) {
+         if (boolAdd.equals("them")) {
             final ObjectMapper objectMapper = new ObjectMapper();
             CartItemDomain[] listCartItem = objectMapper.readValue(value, CartItemDomain[].class);
 
@@ -144,14 +142,14 @@ public class CartServlet extends HttpServlet {
                   result += "true\n" + listCartItem[i].getProductTypeId();
                   listCartItem[i].setQuantity(StringUtils.toInt(quantity));
 
-                  if(StringUtils.toInt(quantity) == 0){
+                  if (StringUtils.toInt(quantity) == 0) {
                      flag = 1;
                      listCartItemDomain.remove(i);
                   }
                   break;
                }
             }
-            if(flag == 0 ){
+            if (flag == 0) {
                value = gson.toJson(listCartItem);
             } else {
                value = gson.toJson(listCartItemDomain);
@@ -166,11 +164,11 @@ public class CartServlet extends HttpServlet {
 
                listCartItemDomain.add(cartItemDomain);
                String valueJson = gson.toJson(listCartItemDomain);
-               String encodeCookie = URLEncoder.encode(valueJson,"utf-8");
+               String encodeCookie = URLEncoder.encode(valueJson, "utf-8");
 
                CookieUtils.addCookie(resp, COOKIE_NAME, encodeCookie, COOKIE_AGE);
                result += "true\n" + id;
-            }else {
+            } else {
                final ObjectMapper objectMapper = new ObjectMapper();
                CartItemDomain[] listCartItem = objectMapper.readValue(value, CartItemDomain[].class);
 
@@ -198,7 +196,7 @@ public class CartServlet extends HttpServlet {
                } else {
                   value = gson.toJson(listCartItem);
                }
-               String encodeCookie = URLEncoder.encode(value,"utf-8");
+               String encodeCookie = URLEncoder.encode(value, "utf-8");
                CookieUtils.updateCookie(req, resp, COOKIE_NAME, encodeCookie, COOKIE_AGE);
             }
          }
@@ -210,12 +208,12 @@ public class CartServlet extends HttpServlet {
 
    @Override
    protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-      String result="";
+      String result = "";
       try {
          String id = req.getParameter("product-type-id");
 
          String value = CookieUtils.getCookieValue(req, COOKIE_NAME);
-         value= URLDecoder.decode(value , "utf-8");
+         value = URLDecoder.decode(value, "utf-8");
          ArrayList<CartItemDomain> listCartItemDomain = new ArrayList<>();
 
          final ObjectMapper objectMapper = new ObjectMapper();
@@ -225,7 +223,7 @@ public class CartServlet extends HttpServlet {
             listCartItemDomain.add(cartItem);
          }
          for (int i = 0; i < listCartItemDomain.size(); i++) {
-            if(listCartItem[i].getProductTypeId().equals(id)){
+            if (listCartItem[i].getProductTypeId().equals(id)) {
                result += "true\n" + listCartItemDomain.get(i).getProductTypeId();
                listCartItemDomain.remove(i);
                break;
@@ -233,7 +231,7 @@ public class CartServlet extends HttpServlet {
          }
          Gson gson = new Gson();
          value = gson.toJson(listCartItemDomain);
-         String encodeCookie = URLEncoder.encode(value,"utf-8");
+         String encodeCookie = URLEncoder.encode(value, "utf-8");
          CookieUtils.updateCookie(req, resp, COOKIE_NAME, encodeCookie, COOKIE_AGE);
 
       } catch (Exception e) {

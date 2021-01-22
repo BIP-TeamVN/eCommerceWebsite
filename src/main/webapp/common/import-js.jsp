@@ -11,3 +11,5 @@
 <script src="../../assets/vendor/chart.js/dist/Chart.extension.js"></script>
 <!-- Argon JS -->
 <script src="../../assets/js/argon.js?v=1.2.0"></script>
+<!-- Custom Modal -->
+<script src="../../assets/js/custom-modal.js"></script>

@@ -356,13 +356,13 @@
       success: function (data, textStatus, jqXHR) {
         let result = data.toString().split('\n');
         if (result[0] === 'true') {
-          alert("Thêm sản phẩm thành công");
+          showMessageModal('fa fa-check text-success', 'Thông báo', 'Thêm sản phẩm thành công !');
         } else {
-          alert("Lỗi: " + result[1]);
+          showMessageModal('fa fa-times text-danger', 'Xảy ra lỗi', result[1]);
         }
       },
       error: function (jqXHR, textStatus, errorThrown) {
-        alert("Lỗi: " + errorThrown);
+        showMessageModal('fa fa-times text-danger', 'Lỗi kết nối server', errorThrown);
       }
     });
   }

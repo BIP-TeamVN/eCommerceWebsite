@@ -96,8 +96,9 @@
 
 <script>
   function getbill(){
-    alert("Nhận đơn thành công");
-    $('#tb-list').trigger("reset");
+    showMessageModal('fa fa-check text-success', 'Thông báo', 'Nhận đơn thành công !', 'OK', () => {
+      $('#tb-list').trigger("reset");
+    });
   }
   let firstPageButton = '<li class="page-item"><button type="button" class="page-link" onclick="goFirst()"><i class="fa fa-angle-double-left"></i><span class="sr-only">Trang đầu tiên</span></button></li>';
   let prevPageButton = '<li class="page-item"><button type="button" class="page-link" onclick="goPrev()"><i class="fa fa-angle-left"></i><span class="sr-only">Trang trước</span></button></li>';
