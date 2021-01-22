@@ -223,9 +223,9 @@ public class BillDAO implements IRetrieveEntity<BillEntity, Long>, IModifySingle
       EntityManager entityMgr = EntityUtils.getEntityManager();
       String strQuery = null;
       if (first.equals("12")) {
-         strQuery = "SELECT u FROM BillEntity AS u where u.billCreateDate between '" + year + "-" + first + "-01' and '" + year + "-" + first + "-31' ";
+         strQuery = "SELECT u FROM BillEntity AS u where u.billCreateDate between '" + year + "-" + first + "-01' and '" + year + "-" + first + "-31' and  u.status = 6";
       } else {
-         strQuery = "SELECT u FROM BillEntity AS u where u.billCreateDate between '" + year + "-" + first + "-01' and '" + year + "-" + last + "-01' ";
+         strQuery = "SELECT u FROM BillEntity AS u where u.billCreateDate between '" + year + "-" + first + "-01' and '" + year + "-" + last + "-01' and  u.status = 6 ";
       }
 
       Query query = entityMgr.createQuery(strQuery);

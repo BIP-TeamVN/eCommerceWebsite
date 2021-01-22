@@ -182,7 +182,7 @@
       cache: false,
       success: function (data) {
         let obj = $.parseJSON(data);
-        console.log(obj);
+        //console.log(obj);
         chart.data =  {
           labels: ['T1', 'T2', 'T3', 'T4', 'T5', 'T6', 'T7', 'T8', 'T9', 'T10', 'T11', 'T12'],
           datasets: [{
@@ -245,7 +245,6 @@
       cache: false,
       success: function (data) {
         let obj = $.parseJSON(data);
-        console.log(obj);
         myBarChart.data =  {
           labels: ['T1', 'T2', 'T3', 'T4', 'T5', 'T6', 'T7', 'T8', 'T9', 'T10', 'T11', 'T12'],
           datasets: [{
