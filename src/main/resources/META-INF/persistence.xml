@@ -20,6 +20,9 @@
             <!--Set UTF-8-->
             <property name="hibernate.connection.useUnicode" value="true" />
             <property name="hibernate.connection.characterEncoding" value="UTF-8"/>
+
+            <!--Connection pool size-->
+            <property name="hibernate.connection.pool_size" value="100"/>
         </properties>
     </persistence-unit>
 </persistence>
