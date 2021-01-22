@@ -81,19 +81,15 @@ $('#change-password-form').submit(function (e) {
         let result = data.toString().split('\n');
         if (result[0] === 'true') {
           showMessageModal('fa fa-check text-success', 'Thông báo', 'Thay đổi mật khẩu thành công !', 'OK', () => {
-            $('#current-password').val('');
-            $('#new-password').val('');
-            $('#retype-password').val('');
+            $('#change-password-form').trigger('reset');
             $('#modal-change-password').modal('hide');
           });
         } else {
-          alert("Lỗi: " + result[1]);
-          e.preventDefault();
+          showMessageModal('fa fa-times text-danger', 'Xảy ra lỗi', result[1]);
         }
       },
       error: function (jqXHR, textStatus, errorThrown) {
-        alert("Lỗi javascript: " + errorThrown);
-        e.preventDefault();
+        showMessageModal('fa fa-times text-danger', 'Lỗi kết nối server', errorThrown);
       }
     });
   }

@@ -177,7 +177,6 @@ $('#' + FORM_ID).submit(function (e) {
     },
     async: false,   // wait until done this scope
     success: function (data) {
-      console.log(data);
       if (data.toString() === 'false') {
         setErrorFor(emaill, "Email đã được sử dụng cho tài khoản khác");
       }
@@ -216,11 +215,11 @@ $('#' + FORM_ID).submit(function (e) {
             window.location.href = window.location.origin +  '/home';
           });
         } else {
-          alert("Lỗi: " + result[1]);
+          showMessageModal('fa fa-times text-danger', 'Xảy ra lỗi', result[1]);
         }
       },
       error: function (jqXHR, textStatus, errorThrown) {
-        alert("Lỗi javascript: " + errorThrown);
+        showMessageModal('fa fa-times text-danger', 'Lỗi kết nối server', errorThrown);
       }
     });
   }

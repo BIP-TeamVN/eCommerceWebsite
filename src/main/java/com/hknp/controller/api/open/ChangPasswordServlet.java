@@ -42,11 +42,11 @@ public class ChangPasswordServlet extends HttpServlet {
                result += "true\n" + updateUser.getUserId().toString();
 
             } else {
-               result += "false\nError while change password";
+               result += "false\nXãy ra lỗi khi lưu mật khẩu mới";
             }
 
          } else {
-            result += "false\nOld password is incorrect";
+            result += "false\nMật khẩu hiện tại sai, vui lòng kiểm tra lại !";
          }
 
       } catch (Exception e) {

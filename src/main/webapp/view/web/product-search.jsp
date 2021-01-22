@@ -160,46 +160,46 @@
           page += 1;
         }
         $.each(list, function (index, item) {
-          let priceOrder = parseFloat(item.priceOrder);
-          let priceOrigin = parseFloat(item.priceOrigin);
+          let priceOrder = parseFloat(item.priceOrder).toFixed(0).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.');
+          let priceOrigin = parseFloat(item.priceOrigin).toFixed(0).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.');
           let percentDiscount = (100*(priceOrigin-priceOrder)/priceOrigin).toFixed(0);
-          let html = '<div class="col-lg-3 col-md-6">' +
-            '<a class="product-item" href="/product?id=' + item.id + '">' +
-            '<!--Product image-->' +
-            '<div class="row">' +
-            '<div class="col text-center">' +
-            '<img src="' + item.image0 + '"' +
-            'class="rounded product-item__img" alt="...">' +
-            '</div>' +
-            '</div>' +
-            '<!--Product name-->' +
-            '<div class="row">' +
-            '<div class="col">' +
-            '<p class="product-item__name">' + item.productName + '</p>' +
-            '</div>' +
-            '</div>' +
-            '<!--Price and add to card-->' +
-            '<div class="row mr-0">' +
-            '<!--Price-->' +
-            '<div class="col-8 p-0 text-left">' +
-            '<!--Order price-->' +
-            '<span class="product-item__price product-item__price--order d-block">' + priceOrder.toFixed(0).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.') + '</span>' +
-            '<!--Origin price-->' +
-            '<span class="product-item__price product-item__price--origin">' + priceOrigin.toFixed(0).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.') + '</span>' +
-            '</div>' +
-            '<!--Add to card button-->' +
-            '<div class="col-4 p-0 text-right">' +
-            '<button type="button" onclick="addToCart(\'' + item.id + '\')" class="btn btn-primary" ' +
-            'data-toggle="tooltip" data-placement="top" title="Thêm vào giỏ hàng">' +
-            '<em class="fa fa-cart-plus text-white" style="font-size: 1.2rem;"></em>' +
-            '</button>' +
-            '</div>' +
-            '</div>' +
-            '<!--Deal Percent-->' +
-            '<span class="product-item__price-percent">' + percentDiscount + '%</span>' +
-            '</a>' +
-            '</div>';
-          $('#product-list').append(html);
+
+          $('#product-list').append(
+            '<div class="col-lg-3 col-md-6 mt-3">' +
+            '  <div class="product-item" href="javacript:void(0)">' +
+            '    <div class="row">' +
+            '      <div class="col text-center">' +
+            '        <img src="' + item.image0 + '" class="rounded product-item__img" alt="...">' +
+            '      </div>' +
+            '    </div>' +
+            '    <!--Product name-->' +
+            '    <div class="row">' +
+            '      <div class="col">' +
+            '          <a href="/product?id=' + item.id + '" class="product-item__name">' + item.productName + '</a>' +
+            '      </div>' +
+            '    </div>' +
+            '    <!--Price and add to card-->' +
+            '    <div class="row mr-0">' +
+            '      <!--Price-->' +
+            '      <div class="col-8 p-0 text-left">' +
+            '        <!--Order price-->' +
+            '        <span class="product-item__price product-item__price--order d-block">' + priceOrder + '</span>' +
+            '        <!--Origin price-->' +
+            '        <span class="product-item__price product-item__price--origin">' + priceOrigin + '</span>' +
+            '      </div>' +
+            '      <!--Add to card button-->' +
+            '      <div class="col-4 p-0 text-right">' +
+            '        <button type="button" onclick="addToCart(\'' + item.id + '\')" class="btn btn-primary" ' +
+            '                data-toggle="tooltip" data-placement="top" title="Thêm vào giỏ hàng">' +
+            '          <em class="fa fa-cart-plus text-white" style="font-size: 1.2rem;"></em>' +
+            '        </button>' +
+            '      </div>' +
+            '    </div>' +
+            '    <!--Deal Percent-->' +
+            '    <span class="product-item__price-percent">' + percentDiscount + '%</span>' +
+            '  </div>' +
+            '</div>'
+          );
         });
       }
     });
@@ -211,7 +211,7 @@
       method: 'POST',
       async: false,
       data: {
-        'product-type-id': productTypeId
+        'product-id': productTypeId
       },
       success: function (data, textStatus, jqXHR) {
         let result = data.toString().split('\n');
@@ -219,12 +219,10 @@
           showMessageModal('fa fa-check text-success', 'Thông báo', 'Thêm sản phẩm thành công !');
         } else {
           showMessageModal('fa fa-times text-danger', 'Xảy ra lỗi', result[1]);
-          e.preventDefault();
         }
       },
       error: function (jqXHR, textStatus, errorThrown) {
         showMessageModal('fa fa-times text-danger', 'Lỗi kết nối server', errorThrown);
-        e.preventDefault();
       }
     });
   }

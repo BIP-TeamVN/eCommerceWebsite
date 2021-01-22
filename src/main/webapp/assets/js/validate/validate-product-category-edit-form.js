@@ -79,13 +79,11 @@ $('#' + FORM_ID).submit(function (e) {
             window.location.href = window.location.origin +  '/admin/category';
           });
         } else {
-          alert("Lỗi: " + result[1]);
-          e.preventDefault();
+          showMessageModal('fa fa-times text-danger', 'Xảy ra lỗi', result[1]);
         }
       },
       error: function (jqXHR, textStatus, errorThrown) {
         alert("Lỗi: " + errorThrown);
-        e.preventDefault();
       }
     });
   }

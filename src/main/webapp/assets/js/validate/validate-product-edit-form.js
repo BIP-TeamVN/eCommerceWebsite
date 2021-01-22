@@ -157,9 +157,7 @@ $('#' + FORM_ID).submit(function (e) {
   }
 
   checkInputs();
-  if (!isValidate){
-    e.preventDefault();
-  } else {
+  if (isValidate) {
     paras = JSON.stringify({
       'id': $('#id').val(),
       'product-name': productName.value.trim(),
@@ -191,13 +189,11 @@ $('#' + FORM_ID).submit(function (e) {
         if (result[0] === 'true') {
           $('#successful-modal').modal('show');
         } else {
-          alert("Lỗi: " + result[1]);
-          e.preventDefault();
+          showMessageModal('fa fa-times text-danger', 'Xảy ra lỗi', result[1]);
         }
       },
       error: function (jqXHR, textStatus, errorThrown) {
         alert("Lỗi: " + errorThrown);
-        e.preventDefault();
       }
     });
   }

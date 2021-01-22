@@ -216,11 +216,11 @@ $('#' + FORM_IDs).submit(function (e) {
             window.location.href = window.location.origin +  '/admin';
           });
         } else {
-          alert("Lỗi: " + result[1]);
+          showMessageModal('fa fa-times text-danger', 'Xảy ra lỗi', result[1]);
         }
       },
       error: function (jqXHR, textStatus, errorThrown) {
-        alert("Lỗi javascript: " + errorThrown);
+        showMessageModal('fa fa-times text-danger', 'Lỗi kết nối server', errorThrown);
       }
     });
   }
