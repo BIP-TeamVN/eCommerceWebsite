@@ -81,6 +81,9 @@ $('#change-password-form').submit(function (e) {
         let result = data.toString().split('\n');
         if (result[0] === 'true') {
           showMessageModal('fa fa-check text-success', 'Thông báo', 'Thay đổi mật khẩu thành công !', 'OK', () => {
+            $('#current-password').val('');
+            $('#new-password').val('');
+            $('#retype-password').val('');
             $('#modal-change-password').modal('hide');
           });
         } else {
