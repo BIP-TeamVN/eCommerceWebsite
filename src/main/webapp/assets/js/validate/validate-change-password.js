@@ -65,7 +65,6 @@ $('#change-password-form').submit(function (e) {
   e.preventDefault();
   checkInputPassword();
 
-
   let paras = JSON.stringify({
     'current-password': password.value.trim(),
     'new-password': newPassword.value.trim()
@@ -73,7 +72,7 @@ $('#change-password-form').submit(function (e) {
 
   if (isValidatePassword) {
     $.ajax({
-      url: 'api/change-password',
+      url: '/api/change-password',
       method: 'PUT',
       async: false,
       cache: false,
@@ -81,10 +80,8 @@ $('#change-password-form').submit(function (e) {
       success: function (data, textStatus, jqXHR) {
         let result = data.toString().split('\n');
         if (result[0] === 'true') {
-          $('#modal-change-password').modal('hide');
-          $('#changed-password-successful-modal').modal('show');
-          $('#changed-password-successful-modal').on('hidden.bs.modal', function () {
-            window.location.href = window.location.origin +  '/admin';
+          showMessageModal('fa fa-check text-success', 'Thông báo', 'Thay đổi mật khẩu thành công !', 'OK', () => {
+            $('#modal-change-password').modal('hide');
           });
         } else {
           alert("Lỗi: " + result[1]);

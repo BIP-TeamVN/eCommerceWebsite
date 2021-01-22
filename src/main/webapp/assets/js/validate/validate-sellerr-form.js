@@ -176,6 +176,7 @@ function encodeImgToBase64(element) {
 }
 
 $('#' + FORM_ID).submit(function (e) {
+  e.preventDefault();
   checkInputs();
 
   // check phone number exits
@@ -214,9 +215,7 @@ $('#' + FORM_ID).submit(function (e) {
     cache: false
   });
 
-  if (!isValidate) {
-    e.preventDefault();
-  } else {
+  if (isValidate) {
     $.ajax({
       url: '/api/seller',
       method: 'POST',
@@ -249,12 +248,10 @@ $('#' + FORM_ID).submit(function (e) {
           });
         } else {
           alert("Lỗi: " + result[1]);
-          e.preventDefault();
         }
       },
       error: function (jqXHR, textStatus, errorThrown) {
         alert("Lỗi: " + errorThrown);
-        e.preventDefault();
       }
     });
   }

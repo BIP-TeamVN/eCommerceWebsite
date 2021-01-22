@@ -137,7 +137,7 @@
                   aria-expanded="false">
                   <div class="media align-items-center">
                   <span class="avatar avatar-sm rounded-circle">
-                    <img alt="Image placeholder" src="<%=image%>">
+                    <img alt="Image placeholder" class="avatar" src="<%=image%>">
                   </span>
                      <div class="media-body  ml-2  d-none d-lg-block">
                         <span class="mb-0 text-sm  font-weight-bold"><%=fullName%></span>
@@ -164,7 +164,7 @@
                      <i class="ni ni-support-16"></i>
                      <span>Hỗ trợ</span>
                   </a>
-                  <a href="#!" class="dropdown-item">
+                  <a href="javascript:void(0)" class="dropdown-item" data-toggle="modal" data-target="#modal-change-password">
                      <i class="fa fa-key"></i>
                      <span>Đổi mật khẩu</span>
                   </a>
@@ -179,3 +179,5 @@
       </div>
    </div>
 </nav>
+
+<%@include file="../../common/form-change-password.jsp" %>

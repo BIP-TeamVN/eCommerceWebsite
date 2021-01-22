@@ -303,19 +303,18 @@
           let priceOrder = parseFloat(item.priceOrder);
           let priceOrigin = parseFloat(item.priceOrigin);
           let percentDiscount = (100*(priceOrigin-priceOrder)/priceOrigin).toFixed(0);
-          let html = '<div class="col-lg-3 col-md-6">' +
-            '<a class="product-item" href="/product?id=' + item.id + '">' +
+          let html = '<div class="col-lg-3 col-md-6 mt-3">' +
+            '<div class="product-item" href="javacript:void(0)">' +
             '<!--Product image-->' +
             '<div class="row">' +
             '<div class="col text-center">' +
-            '<img src="' + item.image0 + '"' +
-            'class="rounded product-item__img" alt="...">' +
+            '<img src="' + item.image0 + '" class="rounded product-item__img" alt="...">' +
             '</div>' +
             '</div>' +
             '<!--Product name-->' +
             '<div class="row">' +
             '<div class="col">' +
-            '<p class="product-item__name">' + item.productName + '</p>' +
+            '<a href="/product?id=' + item.id + '" class="product-item__name">' + item.productName + '</a>' +
             '</div>' +
             '</div>' +
             '<!--Price and add to card-->' +
@@ -337,7 +336,7 @@
             '</div>' +
             '<!--Deal Percent-->' +
             '<span class="product-item__price-percent">' + percentDiscount + '%</span>' +
-            '</a>' +
+            '</div>' +
             '</div>';
           $('#product-list').append(html);
         });
