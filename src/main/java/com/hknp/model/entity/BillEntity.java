@@ -4,6 +4,7 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.sql.Date;
+import java.text.DecimalFormat;
 import java.util.List;
 
 @Entity
@@ -138,7 +139,7 @@ public class BillEntity implements Serializable {
               addressEntity.getCommuneEntity().getCommuneFullName() + ", " +
               addressEntity.getDistrictEntity().getDistrictFullName() + ", " +
               addressEntity.getProvinceEntity().getProvinceFullName() + "\"," +
-              "\"total\":\"" + getTotal() + "\"" +
+              "\"total\":\"" + new DecimalFormat("###,###").format(getTotal()) + "\"" +
               "}";
    }
 }

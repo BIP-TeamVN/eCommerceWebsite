@@ -36,11 +36,9 @@ public class Statists extends HttpServlet {
          }
       } else {
          for (int i = 1; i < 13; i++) {
-            BigDecimal totalEachMonth = new BigDecimal(0);
             String first = String.valueOf(i);
             String last = String.valueOf(i + 1);
             List<BillEntity> listBill = BillDAO.getInstance().getsByMonth(first, last, year);
-
             String s = "" + listBill.size();
             listJsonStr.add(s);
          }

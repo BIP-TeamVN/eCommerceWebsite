@@ -3,6 +3,7 @@ package com.hknp.model.entity;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.text.DecimalFormat;
 
 @Entity
 @Table(name = "BILL_DETAIL")
@@ -66,8 +67,8 @@ public class BillDetailEntity implements Serializable {
               "\"productImage\":\"" + productTypeEntity.getProductEntity().getImage0() + "\"," +
               "\"productTypeName\":\"" + productTypeEntity.getProductTypeName() + "\"," +
               "\"quantity\":\"" + quantity + "\"," +
-              "\"price\":\"" + productTypeEntity.getProductEntity().getPriceOrder() + "\"," +
-              "\"Amount\":\"" + getAmount() + "\"" +
+              "\"price\":\"" + productTypeEntity.getProductEntity().getPriceOrderDisplay() + "\"," +
+              "\"Amount\":\"" + new DecimalFormat("###,###").format(getAmount()) + "\"" +
               "}";
    }
 }

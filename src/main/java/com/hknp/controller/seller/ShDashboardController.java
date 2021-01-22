@@ -16,6 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.math.BigDecimal;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -60,7 +61,7 @@ public class ShDashboardController extends HttpServlet {
       }
       totalBill = listBill.stream().count();
 
-      req.setAttribute("totalSale", totalSale);
+      req.setAttribute("totalSale", new DecimalFormat("###,###").format(totalSale));
       req.setAttribute("totalBill", totalBill);
 
       ServletUtils.forward(req, resp, "/view/seller/sh-dashboard.jsp");

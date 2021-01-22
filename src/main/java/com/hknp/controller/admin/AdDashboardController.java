@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.math.BigDecimal;
+import java.text.DecimalFormat;
 import java.util.List;
 
 @WebServlet(urlPatterns = {"/admin"})
@@ -43,7 +44,7 @@ public class AdDashboardController extends HttpServlet {
          }
       }
 
-      req.setAttribute("totalSale", totalSale);
+      req.setAttribute("totalSale", new DecimalFormat("###,###").format(totalSale));
 
       ServletUtils.forward(req, resp, "/view/admin/ad-dashboard.jsp");
    }

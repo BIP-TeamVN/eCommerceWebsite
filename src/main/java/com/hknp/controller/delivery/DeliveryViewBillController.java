@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.math.BigDecimal;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -62,8 +63,8 @@ public class DeliveryViewBillController extends HttpServlet {
       }
       total = total.subtract(discount);
 
-      req.setAttribute("total", total);
-      req.setAttribute("discount", discount);
+      req.setAttribute("total", new DecimalFormat("###,###").format(total));
+      req.setAttribute("discount", new DecimalFormat("###,###").format(discount));
 
       req.setAttribute("totalPage", totalPage);
       req.setAttribute("currentPage", currentPage);
