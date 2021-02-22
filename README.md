@@ -96,19 +96,3 @@
 
 <br>
 <br>
-
-## Project Team Member
-
-| Name                  | Role              |
-| ----------------------|-------------------|
-| **Hoang** Ho Huy      | Frontend + Test   |
-| **Khanh** Lam Quoc    | Frontend + Test   |
-| **Nam** Tran Quoc     | Backend           |
-| **Phuc** Nguyen Tran  | Backend           |
-
-<br>
-<br>
-
-## Detail Plan
-
-[File Word](./Plan.docx)
