@@ -6,6 +6,14 @@ public class CartItemDomain {
    private String productTypeId;
    private Integer quantity;
 
+   public CartItemDomain() {
+   }
+
+   public CartItemDomain(String productTypeId, String quantity) {
+      this.productTypeId = productTypeId;
+      this.quantity = StringUtils.toInt(quantity);
+   }
+
    public String getProductTypeId() {
       return productTypeId;
    }
@@ -20,15 +28,6 @@ public class CartItemDomain {
 
    public void setQuantity(Integer quantity) {
       this.quantity = quantity;
-   }
-
-   public CartItemDomain() {
-   }
-
-
-   public CartItemDomain(String productTypeId, String quantity) {
-      this.productTypeId = productTypeId;
-      this.quantity = StringUtils.toInt(quantity);
    }
 
 }

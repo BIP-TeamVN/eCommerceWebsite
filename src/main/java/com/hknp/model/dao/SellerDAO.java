@@ -139,11 +139,7 @@ public class SellerDAO implements IRetrieveEntity<SellerEntity, Long>, IModifySi
                  "or u.bankAccountId like :searchKeyword " + sortColumn(sortColumnName, typeSort);
          query = entityMgr.createQuery(queryStr, SellerEntity.class);
       } else {
-         if (status == 1) {
-            temp = true;
-         } else {
-            temp = false;
-         }
+         temp = status == 1;
          queryStr = "SELECT u FROM SellerEntity  u " +
                  "where u.userEntity.status = :statusPara " +
                  "and (concat(u.userEntity.firstName , ' ', u.userEntity.lastName) like :searchKeyword " +
@@ -198,11 +194,7 @@ public class SellerDAO implements IRetrieveEntity<SellerEntity, Long>, IModifySi
          query = entityMgr.createQuery(queryStr);
          query.setParameter("searchKeyword", "%" + keyword + "%");
       } else {
-         if (status == 1) {
-            temp = true;
-         } else {
-            temp = false;
-         }
+         temp = status == 1;
          queryStr = String.format("SELECT COUNT(*) FROM SellerEntity  u " +
                  "where u.userEntity.status = :statusPara " +
                  "and (concat(u.userEntity.firstName , ' ', u.userEntity.lastName) like :searchKeyword " +

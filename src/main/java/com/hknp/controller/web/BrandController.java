@@ -20,12 +20,11 @@ public class BrandController extends HttpServlet {
       Long brandId = StringUtils.toLong(idPara);
       BrandEntity brandEntity = BrandDAO.getInstance().getById(brandId);
 
-      if(brandEntity != null){
+      if (brandEntity != null) {
          /* Set attribute */
-         ServletUtils.forward(req, resp,"/view/web/brand.jsp");
-      }
-      else {
-         ServletUtils.forward(req, resp,"/view/web/home.jsp");
+         ServletUtils.forward(req, resp, "/view/web/brand.jsp");
+      } else {
+         ServletUtils.forward(req, resp, "/view/web/home.jsp");
       }
    }
 

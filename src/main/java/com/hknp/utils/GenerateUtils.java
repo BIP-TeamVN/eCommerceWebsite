@@ -7,13 +7,13 @@ import java.util.Random;
  */
 public class GenerateUtils {
    private static final String RANDOM_SOUR = "1234567890";
-   private static Random randomInstance = new Random();
+   private static final Random randomInstance = new Random();
 
    /**
     * Generate one time password
     *
-    * @param length     length of OTP code
-    * @return           OTP code
+    * @param length length of OTP code
+    * @return OTP code
     */
    public static String oneTimePassword(int length) {
       String otpCode = "";

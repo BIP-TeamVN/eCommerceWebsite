@@ -36,8 +36,7 @@ public class ProductController extends HttpServlet {
          } else {
             ServletUtils.forward(req, resp, "/home");
          }
-      }
-      catch (Exception e){
+      } catch (Exception e) {
          ServletUtils.forward(req, resp, "/home");
       }
    }

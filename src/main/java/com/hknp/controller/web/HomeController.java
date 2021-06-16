@@ -13,7 +13,7 @@ import java.io.IOException;
 public class HomeController extends HttpServlet {
    @Override
    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-      ServletUtils.forward(req, resp,"/view/web/home.jsp");
+      ServletUtils.forward(req, resp, "/view/web/home.jsp");
    }
 
    @Override

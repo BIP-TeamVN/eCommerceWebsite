@@ -29,9 +29,9 @@ public class HomeFilter implements Filter {
          String userType = UserDAO.getInstance().getUserType(id);
          if (userType.equals(Cons.User.USER_TYPE_CUSTOMER)) {
             UserEntity user = UserDAO.getInstance().getById(id);
-            httpReq.setAttribute("result", ("true@ab" + user.getFullName() + "@ab" + user.getImageSrc()).toString());
+            httpReq.setAttribute("result", ("true@ab" + user.getFullName() + "@ab" + user.getImageSrc()));
          } else {
-            httpReq.setAttribute("result", "false".toString());
+            httpReq.setAttribute("result", "false");
          }
       }
       chain.doFilter(httpReq, httpResp);

@@ -17,7 +17,6 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
-import java.util.ArrayList;
 import java.util.List;
 
 @WebServlet(urlPatterns = {"/seller"})

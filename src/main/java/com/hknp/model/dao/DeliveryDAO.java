@@ -3,7 +3,6 @@ package com.hknp.model.dao;
 import com.hknp.interfaces.IModifySingleEntityAutoIncrement;
 import com.hknp.interfaces.IRetrieveEntity;
 import com.hknp.model.entity.DeliveryEntity;
-import com.hknp.model.entity.EmployeeEntity;
 import com.hknp.model.entity.UserEntity;
 import com.hknp.utils.EntityUtils;
 
@@ -139,11 +138,7 @@ public class DeliveryDAO implements IRetrieveEntity<DeliveryEntity, Long>, IModi
                  "or u.salary like :searchKeyword " + sortColumn(sortColumnName, typeSort);
          query = entityMgr.createQuery(queryStr, DeliveryEntity.class);
       } else {
-         if (status == 1) {
-            temp = true;
-         } else {
-            temp = false;
-         }
+         temp = status == 1;
          queryStr = "SELECT u FROM DeliveryEntity  u " +
                  "where u.userEntity.status = :statusPara " +
                  "and (concat(u.userEntity.firstName , ' ', u.userEntity.lastName) like :searchKeyword " +
@@ -198,11 +193,7 @@ public class DeliveryDAO implements IRetrieveEntity<DeliveryEntity, Long>, IModi
          query = entityMgr.createQuery(queryStr);
          query.setParameter("searchKeyword", "%" + keyword + "%");
       } else {
-         if (status == 1) {
-            temp = true;
-         } else {
-            temp = false;
-         }
+         temp = status == 1;
          queryStr = String.format("SELECT count(*) FROM DeliveryEntity  u " +
                  "where u.userEntity.status = :statusPara " +
                  "and (concat(u.userEntity.firstName , ' ', u.userEntity.lastName) like :searchKeyword " +

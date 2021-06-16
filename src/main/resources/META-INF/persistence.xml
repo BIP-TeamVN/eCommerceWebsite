@@ -18,7 +18,7 @@
             <property name = "hibernate.connection.password" value="hknp_ecommerce"/>-->
 
             <!--Set UTF-8-->
-            <property name="hibernate.connection.useUnicode" value="true" />
+            <property name="hibernate.connection.useUnicode" value="true"/>
             <property name="hibernate.connection.characterEncoding" value="UTF-8"/>
 
             <!--Connection pool size-->

@@ -24,7 +24,7 @@ public class AdDeliveryEditController extends HttpServlet {
       Long deliveryId = StringUtils.toLong(deliveryIdPara);
       DeliveryEntity deliveryEdit = null;
 
-      if(deliveryId != 0) {
+      if (deliveryId != 0) {
          deliveryEdit = DeliveryDAO.getInstance().getById(deliveryId);
          if (deliveryEdit != null) {
             if (deliveryEdit.getUserEntity().getAddressEntities().size() == 0) {

@@ -26,14 +26,14 @@ public class AdDashboardController extends HttpServlet {
          UserEntity user = UserDAO.getInstance().getById(id);
          req.setAttribute("id", id);
       }
-      
-      Long totalCustomer = (Long) CustomerDAO.getInstance().count();
+
+      Long totalCustomer = CustomerDAO.getInstance().count();
       req.setAttribute("totalCustomer", totalCustomer);
 
-      Long totalEmployee = (Long) EmployeeDAO.getInstance().count();
+      Long totalEmployee = EmployeeDAO.getInstance().count();
       req.setAttribute("totalEmployee", totalEmployee);
 
-      Long totalSeller = (Long) SellerDAO.getInstance().count();
+      Long totalSeller = SellerDAO.getInstance().count();
       req.setAttribute("totalSeller", totalSeller);
 
       BigDecimal totalSale = new BigDecimal(0);

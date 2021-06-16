@@ -20,12 +20,11 @@ public class ShopController extends HttpServlet {
       Long sellerId = StringUtils.toLong(idPara);
       SellerEntity sellerEntity = SellerDAO.getInstance().getById(sellerId);
 
-      if(sellerEntity != null){
+      if (sellerEntity != null) {
          /* Set attribute */
-         ServletUtils.forward(req, resp,"/view/web/seller.jsp");
-      }
-      else {
-         ServletUtils.forward(req, resp,"/view/web/home.jsp");
+         ServletUtils.forward(req, resp, "/view/web/seller.jsp");
+      } else {
+         ServletUtils.forward(req, resp, "/view/web/home.jsp");
       }
    }
 

@@ -1,11 +1,9 @@
 package com.hknp.controller.api;
 
 import com.hknp.model.dao.BillDAO;
-import com.hknp.model.dao.ProductCategoryDAO;
 import com.hknp.model.dao.UserDAO;
 import com.hknp.model.entity.Cons;
 import com.hknp.utils.ServletUtils;
-import com.hknp.utils.StringUtils;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -23,11 +21,12 @@ public class CheckNumberForDeliveryServlet extends HttpServlet {
 
       if (id != null) {
          String userType = UserDAO.getInstance().getUserType(id);
-         return userType.equals(Cons.User.USER_TYPE_DELIVERY) ;
+         return userType.equals(Cons.User.USER_TYPE_DELIVERY);
       }
 
       return false;
    }
+
    @Override
    protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
       if (isAuthentication(req)) {
@@ -49,7 +48,7 @@ public class CheckNumberForDeliveryServlet extends HttpServlet {
       HttpSession session = req.getSession();
       Long id = (Long) session.getAttribute("id");
       Long number = BillDAO.getInstance().check(id);
-      if(number < 5){
+      if (number < 5) {
          result += "true";
       }
 

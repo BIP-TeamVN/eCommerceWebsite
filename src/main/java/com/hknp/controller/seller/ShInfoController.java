@@ -1,13 +1,10 @@
 package com.hknp.controller.seller;
 
 import com.hknp.model.dao.AddressDAO;
-import com.hknp.model.dao.EmployeeDAO;
 import com.hknp.model.dao.SellerDAO;
 import com.hknp.model.entity.AddressEntity;
-import com.hknp.model.entity.EmployeeEntity;
 import com.hknp.model.entity.SellerEntity;
 import com.hknp.utils.ServletUtils;
-import com.hknp.utils.StringUtils;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -25,7 +22,7 @@ public class ShInfoController extends HttpServlet {
       HttpSession session = req.getSession();
       Long sellerId = (Long) session.getAttribute("id");
       SellerEntity sellerEdit = null;
-      if(sellerId != 0) {
+      if (sellerId != 0) {
          sellerEdit = SellerDAO.getInstance().getById(sellerId);
          if (sellerEdit != null) {
             if (sellerEdit.getUserEntity().getAddressEntities().size() == 0) {

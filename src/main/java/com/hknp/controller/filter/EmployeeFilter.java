@@ -12,7 +12,7 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 @WebFilter(urlPatterns = {"/employee/*"})
-public class EmployeeFilter implements Filter{
+public class EmployeeFilter implements Filter {
    @Override
    public void init(FilterConfig filterConfig) throws ServletException {
 
@@ -26,10 +26,9 @@ public class EmployeeFilter implements Filter{
       try {
          Long id = (Long) session.getAttribute("id");
          String userType = UserDAO.getInstance().getById(id).getUserType();
-         if (userType.equals(Cons.User.USER_TYPE_EMPLOYEE)){
+         if (userType.equals(Cons.User.USER_TYPE_EMPLOYEE)) {
             chain.doFilter(req, resp);
-         }
-         else {
+         } else {
             ServletUtils.forward(httpReq, httpResp, "/logout");
          }
       } catch (Exception e) {

@@ -36,7 +36,7 @@ public class CheckOutServlet extends HttpServlet {
       if (value.equals("")) {
          ServletUtils.printWrite(resp, "");
       } else {
-         String cookieValue = URLDecoder.decode(value , "utf-8");
+         String cookieValue = URLDecoder.decode(value, "utf-8");
 
          ArrayList<CartItemDomain> listCartItemDomain = new ArrayList<>();
 
@@ -49,7 +49,7 @@ public class CheckOutServlet extends HttpServlet {
 
          ArrayList<ProductInCartItemDomain> productInCartItemDomainArrayList = new ArrayList<>();
 
-         for (CartItemDomain product: listCartItemDomain) {
+         for (CartItemDomain product : listCartItemDomain) {
 
             ProductInCartItemDomain productInCartItemDomain = new ProductInCartItemDomain();
             ProductTypeEntity productTypeEntity = ProductTypeDAO.getInstance().getById(StringUtils.toLong(product.getProductTypeId()));
@@ -75,7 +75,7 @@ public class CheckOutServlet extends HttpServlet {
                  collect(Collectors.groupingBy(ProductInCartItemDomain::getSellerId));
          List<List<ProductInCartItemDomain>> productList = new ArrayList<>();
 
-         result.forEach((k,v) -> {
+         result.forEach((k, v) -> {
 
             List<ProductInCartItemDomain> product = new ArrayList<>();
 
@@ -109,13 +109,12 @@ public class CheckOutServlet extends HttpServlet {
       String result = "";
       if (id != null) {
          String userType = UserDAO.getInstance().getUserType(id);
-         if(userType.equals(Cons.User.USER_TYPE_CUSTOMER)){
+         if (userType.equals(Cons.User.USER_TYPE_CUSTOMER)) {
             session.setAttribute("id", id);
-            result += "true\n" ;
+            result += "true\n";
          }
-      }
-      else {
-         result += "false\n" ;
+      } else {
+         result += "false\n";
       }
       ServletUtils.printWrite(resp, result);
    }

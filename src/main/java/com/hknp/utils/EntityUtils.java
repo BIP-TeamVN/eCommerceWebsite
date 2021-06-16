@@ -15,8 +15,8 @@ public class EntityUtils {
    /**
     * Get a entity manager
     *
-    * @return        {@link javax.persistence.EntityManager} object
-    * @see           EntityManagerFactory#createEntityManager()
+    * @return {@link javax.persistence.EntityManager} object
+    * @see EntityManagerFactory#createEntityManager()
     */
    public static EntityManager getEntityManager() {
       EntityManager entityMgr = entityMgrFactory.createEntityManager();
@@ -26,9 +26,9 @@ public class EntityUtils {
    /**
     * Merge the state of the given entity into the current persistence context.
     *
-    * @param entity  entity instance
-    * @return        <code>true</code> if updated successfully;<br>
-    *                <code>false</code> otherwise.
+    * @param entity entity instance
+    * @return <code>true</code> if updated successfully;<br>
+    * <code>false</code> otherwise.
     * @see javax.persistence.EntityManager#merge(Object)
     */
    public static boolean merge(Object entity) {
@@ -59,8 +59,8 @@ public class EntityUtils {
    /**
     * Count number of row is contained in the persistence context
     *
-    * @param table   name of table in database
-    * @return        no of rows
+    * @param table name of table in database
+    * @return no of rows
     */
    public static Long count(String table) {
       EntityManager entityMgr = EntityUtils.getEntityManager();

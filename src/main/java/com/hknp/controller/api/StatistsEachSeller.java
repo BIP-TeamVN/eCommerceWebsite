@@ -48,7 +48,7 @@ public class StatistsEachSeller extends HttpServlet {
             listJsonStr.add(s);
          }
       }
-      
+
       ServletUtils.printWrite(resp, "[" + String.join(", ", listJsonStr) + "]");
    }
 }

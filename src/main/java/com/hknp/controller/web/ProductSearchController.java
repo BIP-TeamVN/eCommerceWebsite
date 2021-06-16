@@ -131,8 +131,7 @@ public class ProductSearchController extends HttpServlet {
          req.setAttribute("keyword", keyword.replace("'", "\\'"));
 
          ServletUtils.forward(req, resp, "/view/web/product-search.jsp");
-      }
-      catch (Exception e){
+      } catch (Exception e) {
          ServletUtils.forward(req, resp, "/home");
       }
    }

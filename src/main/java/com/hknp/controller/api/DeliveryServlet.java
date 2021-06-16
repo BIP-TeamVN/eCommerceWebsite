@@ -28,15 +28,15 @@ public class DeliveryServlet extends HttpServlet {
 
       if (id != null) {
          String userType = UserDAO.getInstance().getUserType(id);
-         if(userType.equals(Cons.User.USER_TYPE_DELIVERY))
-         {
-            return  userType.equals(Cons.User.USER_TYPE_DELIVERY);
+         if (userType.equals(Cons.User.USER_TYPE_DELIVERY)) {
+            return userType.equals(Cons.User.USER_TYPE_DELIVERY);
          }
          return userType.equals(Cons.User.USER_TYPE_ADMIN) || userType.equals(Cons.User.USER_TYPE_EMPLOYEE);
       }
 
       return false;
    }
+
    @Override
    protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
       if (isAuthentication(req)) {
@@ -61,12 +61,13 @@ public class DeliveryServlet extends HttpServlet {
          ServletUtils.printWrite(resp, "Access denied");
       }
    }
+
    @Override
    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
       String pagePara = req.getParameter("page");
 
       HttpSession session = req.getSession();
-      Long id = (Long) session.getAttribute("id") ;
+      Long id = (Long) session.getAttribute("id");
       Integer status = StringUtils.toInt(req.getParameter("status"));
       String keyword = req.getParameter("keyword").trim();
       String columnName = req.getParameter("columnName");
@@ -152,7 +153,7 @@ public class DeliveryServlet extends HttpServlet {
                user.setAddressEntities(Collections.singletonList(AddressDAO.getInstance().getById(newAddressId)));
                UserDAO.getInstance().update(user);
 
-               result += "true\n" + newDeliveryId.toString();
+               result += "true\n" + newDeliveryId;
             } else {
                result += "false\nError while insert address";
             }

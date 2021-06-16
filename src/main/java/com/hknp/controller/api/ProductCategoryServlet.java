@@ -117,7 +117,7 @@ public class ProductCategoryServlet extends HttpServlet {
          Long newProductCategoryId = ProductCategoryDAO.getInstance().insert(newProductCategory);
 
          if (newProductCategoryId != 0) {
-            result += "true\n" + newProductCategoryId.toString();
+            result += "true\n" + newProductCategoryId;
          } else {
             result += "false\nError while insert product-category";
          }

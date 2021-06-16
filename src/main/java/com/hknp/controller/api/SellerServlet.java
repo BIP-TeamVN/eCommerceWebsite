@@ -178,7 +178,7 @@ public class SellerServlet extends HttpServlet {
                user.setAddressEntities(Collections.singletonList(AddressDAO.getInstance().getById(newAddressId)));
                UserDAO.getInstance().update(user);
 
-               result += "true\n" + newSellerId.toString();
+               result += "true\n" + newSellerId;
             } else {
                result += "false\nError while insert address";
             }

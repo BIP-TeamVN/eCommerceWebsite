@@ -21,7 +21,7 @@ import java.util.Map;
 public class VerifyProductServlet extends HttpServlet {
    @Override
    protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-      Map<String,Object> parameterMap = ServletUtils.getParametersMap(req);
+      Map<String, Object> parameterMap = ServletUtils.getParametersMap(req);
       if (isAuthentication(req)) {
          String idPara = (String) parameterMap.get("id");
          String statusPara = (String) parameterMap.get("status");
@@ -38,7 +38,7 @@ public class VerifyProductServlet extends HttpServlet {
       }
    }
 
-   public void mailVerify (Integer status, Long productId) {
+   public void mailVerify(Integer status, Long productId) {
       ProductEntity productEntity = ProductDAO.getInstance().getById(productId);
       if (status == Cons.Product.PRODUCT_STATUS_CREATE) {
          MailUtils.sendPlanText(productEntity.getSellerEntity().getUserEntity().getEmail(), "Khoa san pham", "Sản phẩm: " + productEntity.getProductName() + " Đã bị khóa.\n\nLiện hệ 0969696029 để biết thêm chi tiết");

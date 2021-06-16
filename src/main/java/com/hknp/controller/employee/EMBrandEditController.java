@@ -22,7 +22,7 @@ public class EMBrandEditController extends HttpServlet {
       Long brandId = StringUtils.toLong(brandIdPara);
       BrandEntity brandEdit = null;
 
-      if(brandId != 0) {
+      if (brandId != 0) {
          brandEdit = BrandDAO.getInstance().getById(brandId);
          if (brandEdit != null) {
             req.setAttribute("brandEdit", brandEdit);

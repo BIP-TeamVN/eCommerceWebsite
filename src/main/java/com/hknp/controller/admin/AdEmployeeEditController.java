@@ -23,7 +23,7 @@ public class AdEmployeeEditController extends HttpServlet {
       Long employeeId = StringUtils.toLong(employeeIdPara);
       EmployeeEntity employeeEdit = null;
 
-      if(employeeId != 0) {
+      if (employeeId != 0) {
          employeeEdit = EmployeeDAO.getInstance().getById(employeeId);
          if (employeeEdit != null) {
             if (employeeEdit.getUserEntity().getAddressEntities().size() == 0) {

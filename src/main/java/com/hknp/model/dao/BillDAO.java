@@ -292,7 +292,7 @@ public class BillDAO implements IRetrieveEntity<BillEntity, Long>, IModifySingle
       query.setParameter("status", status);
 
       ArrayList<BillEntity> result = new ArrayList<>(query.getResultList());
-      return (Long) result.stream().count();
+      return result.stream().count();
    }
 
    public Long countForShipper(Long deliveryId, Integer status) {
@@ -350,6 +350,7 @@ public class BillDAO implements IRetrieveEntity<BillEntity, Long>, IModifySingle
       }
       return result.stream().count();
    }
+
    public Long check(Long deliveryId) {
       EntityManager entityMgr = EntityUtils.getEntityManager();
 

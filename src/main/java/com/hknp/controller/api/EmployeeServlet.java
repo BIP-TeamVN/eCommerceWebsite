@@ -66,7 +66,7 @@ public class EmployeeServlet extends HttpServlet {
       String typeSort = req.getParameter("typeSort");
       Integer status = StringUtils.toInt(req.getParameter("status"));
 
-      if(keyword == null){
+      if (keyword == null) {
          keyword = "";
       }
 
@@ -153,7 +153,7 @@ public class EmployeeServlet extends HttpServlet {
                user.setAddressEntities(Collections.singletonList(AddressDAO.getInstance().getById(newAddressId)));
                UserDAO.getInstance().update(user);
 
-               result += "true\n" + newEmployeeId.toString();
+               result += "true\n" + newEmployeeId;
             } else {
                result += "false\nError while insert address";
             }

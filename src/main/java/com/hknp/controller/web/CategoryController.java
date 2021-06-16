@@ -20,12 +20,11 @@ public class CategoryController extends HttpServlet {
       Long categoryId = StringUtils.toLong(idPara);
       ProductCategoryEntity categoryEntity = ProductCategoryDAO.getInstance().getById(categoryId);
 
-      if(categoryEntity != null){
+      if (categoryEntity != null) {
          /* Set attribute */
-         ServletUtils.forward(req, resp,"/view/web/category.jsp");
-      }
-      else {
-         ServletUtils.forward(req, resp,"/view/web/home.jsp");
+         ServletUtils.forward(req, resp, "/view/web/category.jsp");
+      } else {
+         ServletUtils.forward(req, resp, "/view/web/home.jsp");
       }
    }
 

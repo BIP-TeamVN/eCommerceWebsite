@@ -27,6 +27,7 @@ public class CountBrandServlet extends HttpServlet {
 
       return false;
    }
+
    @Override
    protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
       if (isAuthentication(req)) {

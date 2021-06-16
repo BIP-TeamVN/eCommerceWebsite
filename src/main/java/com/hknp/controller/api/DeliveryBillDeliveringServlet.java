@@ -15,7 +15,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-@WebServlet(urlPatterns = { "/api/delivery-bill-delivering" , "/api/deliverybilldelivering"})
+@WebServlet(urlPatterns = {"/api/delivery-bill-delivering", "/api/deliverybilldelivering"})
 public class DeliveryBillDeliveringServlet extends HttpServlet {
    @Override
    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

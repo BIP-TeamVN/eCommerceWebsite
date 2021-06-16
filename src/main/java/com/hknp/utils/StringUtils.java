@@ -12,9 +12,9 @@ public class StringUtils {
    /**
     * Remove non-digit character from string
     *
-    * @param str     string to remove non-digit character
-    * @return        <code>digit string</code> (without non-digit char)<br>
-    *                <code>0</code> if null or empty
+    * @param str string to remove non-digit character
+    * @return <code>digit string</code> (without non-digit char)<br>
+    * <code>0</code> if null or empty
     */
    public static String removeNonDigit(String str) {
       if (str == null || str.isEmpty()) {
@@ -32,9 +32,9 @@ public class StringUtils {
    /**
     * Convert String to BigDecimal
     *
-    * @param str     string to convert
-    * @return        <code>BigDecimal value</code> if converted successfully<br>
-    *                <code>0</code> otherwise
+    * @param str string to convert
+    * @return <code>BigDecimal value</code> if converted successfully<br>
+    * <code>0</code> otherwise
     */
    public static BigDecimal toBigDecimal(String str) {
       BigDecimal result;
@@ -52,9 +52,9 @@ public class StringUtils {
    /**
     * Convert String to Long
     *
-    * @param str     string to convert
-    * @return        <code>Long value</code> if converted successfully<br>
-    *                <code>0</code> otherwise
+    * @param str string to convert
+    * @return <code>Long value</code> if converted successfully<br>
+    * <code>0</code> otherwise
     */
    public static Long toLong(String str) {
       Long result;
@@ -72,9 +72,9 @@ public class StringUtils {
    /**
     * Convert String to Long
     *
-    * @param str     string to convert
-    * @return        <code>Integer value</code> if converted successfully<br>
-    *                <code>0</code> otherwise
+    * @param str string to convert
+    * @return <code>Integer value</code> if converted successfully<br>
+    * <code>0</code> otherwise
     */
    public static Integer toInt(String str) {
       Integer result;
@@ -92,10 +92,10 @@ public class StringUtils {
    /**
     * Split string to {@link List}&#60;{@link String}&#62;
     *
-    * @param str     string to split
-    * @param regex   the delimiting regular expression
-    * @return        <code>{@link List}&#60;{@link String}&#62;</code> if split successfully<br>
-    *                <code>Empty list</code> otherwise
+    * @param str   string to split
+    * @param regex the delimiting regular expression
+    * @return <code>{@link List}&#60;{@link String}&#62;</code> if split successfully<br>
+    * <code>Empty list</code> otherwise
     */
    public static List<String> splitToList(String str, String regex) {
       if (str == null || str.isEmpty()) {

@@ -22,7 +22,7 @@ public class AdProductCategoryEditController extends HttpServlet {
       Long productCategoryId = StringUtils.toLong(productCategoryIdPara);
       ProductCategoryEntity productCategoryEdit = null;
 
-      if(productCategoryId != 0) {
+      if (productCategoryId != 0) {
          productCategoryEdit = ProductCategoryDAO.getInstance().getById(productCategoryId);
          if (productCategoryEdit != null) {
             req.setAttribute("productCategoryEdit", productCategoryEdit);

@@ -30,8 +30,8 @@ import java.util.stream.Collectors;
 
 @WebServlet(urlPatterns = {"/api/home-order"})
 public class OrderServlet extends HttpServlet {
-   private String COOKIE_NAME = "carts";
-   private Integer COOKIE_AGE = 10 * 3600 * 24;
+   private final String COOKIE_NAME = "carts";
+   private final Integer COOKIE_AGE = 10 * 3600 * 24;
 
    @Override
    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -122,7 +122,7 @@ public class OrderServlet extends HttpServlet {
                         BillDetailDAO.getInstance().insert(billDetailEntity);
                         result += "true";
                         for (int k = 0; k < listCartItemDomain.size(); k++) {
-                           if(listCartItemDomain.get(k).getProductTypeId().equals(productList.get(i).get(j).getProductTypeId())){
+                           if (listCartItemDomain.get(k).getProductTypeId().equals(productList.get(i).get(j).getProductTypeId())) {
                               listCartItemDomain.remove(k);
                               break;
                            }
@@ -138,7 +138,7 @@ public class OrderServlet extends HttpServlet {
 
          Gson gson = new Gson();
          String valueNew = gson.toJson(listCartItemDomain);
-         String encodeCookie = URLEncoder.encode(valueNew,"utf-8");
+         String encodeCookie = URLEncoder.encode(valueNew, "utf-8");
          CookieUtils.updateCookie(req, resp, COOKIE_NAME, encodeCookie, COOKIE_AGE);
 
       } else {

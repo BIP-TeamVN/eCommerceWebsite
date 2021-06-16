@@ -11,11 +11,11 @@ public class HashUtils {
    /**
     * Hash plain text to MD5 code
     *
-    * @param plainText                    String for hash
-    * @return                             MD5 string which has 32 characters
-    * @throws NoSuchAlgorithmException    This exception is thrown when a particular
-    *                                     cryptographic algorithm is requested
-    *                                     but is not available in the environment.
+    * @param plainText String for hash
+    * @return MD5 string which has 32 characters
+    * @throws NoSuchAlgorithmException This exception is thrown when a particular
+    *                                  cryptographic algorithm is requested
+    *                                  but is not available in the environment.
     * @see java.security.NoSuchAlgorithmException
     */
    public static String getMd5(String plainText) {

@@ -24,7 +24,7 @@ public class EmProductDetailController extends HttpServlet {
       Long productId = StringUtils.toLong(productIdPara);
       ProductEntity productEntity = null;
 
-      if(productId != 0) {
+      if (productId != 0) {
          productEntity = ProductDAO.getInstance().getById(productId);
          if (productEntity != null) {
             Integer countType = productEntity.getProductTypeEntities().size();
@@ -32,7 +32,7 @@ public class EmProductDetailController extends HttpServlet {
                     .map(ProductTypeEntity::getProductTypeName)
                     .collect(Collectors.joining("@$3,"));
             ArrayList<String> listQuantities = new ArrayList<>(countType);
-            for (ProductTypeEntity p: productEntity.getProductTypeEntities()) {
+            for (ProductTypeEntity p : productEntity.getProductTypeEntities()) {
                listQuantities.add(String.valueOf(p.getQuantity()));
             }
             String quantities = String.join("@$3,", listQuantities);

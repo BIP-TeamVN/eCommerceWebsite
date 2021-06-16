@@ -23,7 +23,7 @@ public class AddressEditOfCustomerController extends HttpServlet {
          Long addressId = StringUtils.toLong(req.getParameter("id"));
 
          AddressEntity addressEntity = AddressDAO.getInstance().getById(addressId);
-         if ((addressEntity.getUserId()-userId) == 0){
+         if ((addressEntity.getUserId() - userId) == 0) {
             req.setAttribute("address", addressEntity);
             ServletUtils.forward(req, resp, "/view/web/customer-edit-address.jsp");
          } else {

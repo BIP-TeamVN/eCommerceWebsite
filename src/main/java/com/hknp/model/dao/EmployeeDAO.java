@@ -9,9 +9,7 @@ import com.hknp.utils.EntityUtils;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
-import javax.persistence.TypedQuery;
 import java.util.ArrayList;
-import java.util.Queue;
 
 public class EmployeeDAO implements IRetrieveEntity<EmployeeEntity, Long>, IModifySingleEntityAutoIncrement<EmployeeEntity, Long> {
    private static EmployeeDAO instance = null;
@@ -112,11 +110,7 @@ public class EmployeeDAO implements IRetrieveEntity<EmployeeEntity, Long>, IModi
                  "or u.salary like :searchKeyword " + sortColumn(sortColumnName, typeSort);
          query = entityMgr.createQuery(queryStr, EmployeeEntity.class);
       } else {
-         if (status == 1) {
-            temp = true;
-         } else {
-            temp = false;
-         }
+         temp = status == 1;
          queryStr = "SELECT u FROM EmployeeEntity  u " +
                  "where u.userEntity.status = :statusPara " +
                  "and (concat(u.userEntity.firstName , ' ', u.userEntity.lastName) like :searchKeyword " +
@@ -171,11 +165,7 @@ public class EmployeeDAO implements IRetrieveEntity<EmployeeEntity, Long>, IModi
          query = entityMgr.createQuery(queryStr);
          query.setParameter("searchKeyword", "%" + keyword + "%");
       } else {
-         if (status == 1) {
-            temp = true;
-         } else {
-            temp = false;
-         }
+         temp = status == 1;
          queryStr = String.format("SELECT count(*) FROM EmployeeEntity  u " +
                  "where u.userEntity.status = :statusPara " +
                  "and (concat(u.userEntity.firstName , ' ', u.userEntity.lastName) like :searchKeyword " +

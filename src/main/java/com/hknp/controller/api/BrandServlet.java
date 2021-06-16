@@ -115,7 +115,7 @@ public class BrandServlet extends HttpServlet {
 
          Long newBrandId = BrandDAO.getInstance().insert(newBrand);
          if (newBrandId != 0) {
-            result += "true\n" + newBrandId.toString();
+            result += "true\n" + newBrandId;
          } else {
             result += "false\nError while insert brand";
          }

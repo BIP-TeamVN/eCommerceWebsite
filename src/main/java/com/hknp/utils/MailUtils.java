@@ -55,12 +55,12 @@ public class MailUtils {
     * Send email using SMTP Java mail <br/>
     * with default <code>contentType</code> = <code>text/plain</code>
     *
-    * @param receiveEmail  recipient email address
-    * @param subject       email subject
-    * @param body          email body
-    * @return              <code>true</code> if sent email successfully<br>
-    *                      <code>false</code> otherwise
-    * @see #send(String, String, Object, String) 
+    * @param receiveEmail recipient email address
+    * @param subject      email subject
+    * @param body         email body
+    * @return <code>true</code> if sent email successfully<br>
+    * <code>false</code> otherwise
+    * @see #send(String, String, Object, String)
     */
    public static boolean sendPlanText(String receiveEmail, String subject, Object body) {
       return send(receiveEmail, subject, body, "text/plain");
@@ -70,13 +70,12 @@ public class MailUtils {
     * Send email using SMTP Java mail <br/>
     * with default <code>contentType</code> = <code>text/html</code>
     *
-    * @param receiveEmail  recipient email address
-    * @param subject       email subject
-    * @param body          email body
-    * @return              <code>true</code> if sent email successfully<br>
-    *                      <code>false</code> otherwise
-    *                      
-    * @see #send(String, String, Object, String) 
+    * @param receiveEmail recipient email address
+    * @param subject      email subject
+    * @param body         email body
+    * @return <code>true</code> if sent email successfully<br>
+    * <code>false</code> otherwise
+    * @see #send(String, String, Object, String)
     */
    public static boolean sendHtmlText(String receiveEmail, String subject, Object body) {
       return send(receiveEmail, subject, body, "text/html");
@@ -85,12 +84,12 @@ public class MailUtils {
    /**
     * Send email using SMTP Java mail
     *
-    * @param receiveEmail  recipient email address
-    * @param subject       email subject
-    * @param body          email body
-    * @param contentType   type of email body
-    * @return              <code>true</code> if sent email successfully<br>
-    *                      <code>false</code> otherwise
+    * @param receiveEmail recipient email address
+    * @param subject      email subject
+    * @param body         email body
+    * @param contentType  type of email body
+    * @return <code>true</code> if sent email successfully<br>
+    * <code>false</code> otherwise
     */
    public static boolean send(String receiveEmail, String subject, Object body, String contentType) {
       Session session = Session.getInstance(getProperties(), getAuthenticator());

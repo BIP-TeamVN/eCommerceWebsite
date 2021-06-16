@@ -24,7 +24,7 @@ public class ShProductEditController extends HttpServlet {
       HttpSession session = req.getSession();
       Long sellerId = (Long) session.getAttribute("id");
 
-      if(productId != 0) {
+      if (productId != 0) {
          productEntity = ProductDAO.getInstance().getByIdAndSeller(productId, sellerId);
          if (productEntity != null) {
             req.setAttribute("productEntity", productEntity);

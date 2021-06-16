@@ -174,7 +174,7 @@ public class BrandDAO implements IRetrieveEntity<BrandEntity, Long>, IModifySing
       if (!columnName.equals("")) {
          result = " ORDER BY u." + columnName + " " + typeSort;
       }
-      
+
       return result;
    }
 }

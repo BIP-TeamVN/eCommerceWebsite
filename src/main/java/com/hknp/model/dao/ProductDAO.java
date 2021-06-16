@@ -5,16 +5,11 @@ import com.hknp.interfaces.IRetrieveEntity;
 import com.hknp.model.entity.ProductCategoryEntity;
 import com.hknp.model.entity.ProductEntity;
 import com.hknp.model.entity.ProductTypeEntity;
-import com.hknp.model.entity.UserEntity;
-import com.hknp.utils.Base64Utils;
 import com.hknp.utils.EntityUtils;
-import com.hknp.utils.HashUtils;
-import org.hibernate.SessionFactory;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
-import javax.persistence.TypedQuery;
 import java.util.ArrayList;
 import java.util.List;
 

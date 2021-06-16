@@ -52,7 +52,7 @@ public class ChangPasswordServlet extends HttpServlet {
       } catch (Exception e) {
          result += "false\n" + e.getMessage();
       }
-      
+
       ServletUtils.printWrite(resp, result);
    }
 }

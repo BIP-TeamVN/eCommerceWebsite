@@ -23,18 +23,16 @@ public class ServletUtils {
     * This method allows one servlet to do preliminary processing of
     * a request and another resource to generate the response.
     *
-    * @param req                 {@link HttpServletRequest}
-    *                            request information for HTTP servlets.
-    * @param resp                {@link HttpServletResponse}
-    *                            HTTP-specific functionality in sending a response.
-    * @param url                 forward URL
-    *
-    * @throws ServletException   Defines a general exception a servlet can throw when it
-    *                            encounters difficulty.
-    * @throws IOException        Signals that an I/O exception of some sort has occurred
-    *
-    * @see                       HttpServletRequest#getRequestDispatcher(String)
-    * @see                       RequestDispatcher#forward(ServletRequest, ServletResponse)
+    * @param req  {@link HttpServletRequest}
+    *             request information for HTTP servlets.
+    * @param resp {@link HttpServletResponse}
+    *             HTTP-specific functionality in sending a response.
+    * @param url  forward URL
+    * @throws ServletException Defines a general exception a servlet can throw when it
+    *                          encounters difficulty.
+    * @throws IOException      Signals that an I/O exception of some sort has occurred
+    * @see HttpServletRequest#getRequestDispatcher(String)
+    * @see RequestDispatcher#forward(ServletRequest, ServletResponse)
     */
    public static void forward(HttpServletRequest req, HttpServletResponse resp, String url)
            throws ServletException, IOException {
@@ -46,13 +44,12 @@ public class ServletUtils {
     * Sets the content type of the response being sent to
     * the client to UTF-8 and write content to response
     *
-    * @param resp                {@link HttpServletResponse}
-    *                            HTTP-specific functionality in sending a response.
-    * @param content             String to be written
-    * @throws IOException        Signals that an I/O exception of some sort has occurred
-    *
-    * @see                       PrintWriter#write(String)
-    * @see                       HttpServletResponse#setContentType(String)
+    * @param resp    {@link HttpServletResponse}
+    *                HTTP-specific functionality in sending a response.
+    * @param content String to be written
+    * @throws IOException Signals that an I/O exception of some sort has occurred
+    * @see PrintWriter#write(String)
+    * @see HttpServletResponse#setContentType(String)
     */
    public static void printWrite(HttpServletResponse resp, String content) throws IOException {
       resp.setContentType("text/html; charset=UTF-8");
@@ -65,16 +62,13 @@ public class ServletUtils {
    /**
     * Get Parameters map from Servlet request
     *
-    * @param req                 {@link HttpServletRequest}
-    *                            request information for HTTP servlets.
-    *
-    * @return                    <code>Map<String, Object></code> if get successfully<br>
-    *                            <code>empty map</code> otherwise
-    *                            
-    * @throws IOException        Signals that an I/O exception of some sort has occurred
-    * 
-    * @see                       HttpServletRequest#getInputStream()
-    * @see                       ObjectMapper#readValue(String, Class)
+    * @param req {@link HttpServletRequest}
+    *            request information for HTTP servlets.
+    * @return <code>Map<String, Object></code> if get successfully<br>
+    * <code>empty map</code> otherwise
+    * @throws IOException Signals that an I/O exception of some sort has occurred
+    * @see HttpServletRequest#getInputStream()
+    * @see ObjectMapper#readValue(String, Class)
     */
    public static Map<String, Object> getParametersMap(HttpServletRequest req) throws IOException {
       InputStream inputStream = req.getInputStream();

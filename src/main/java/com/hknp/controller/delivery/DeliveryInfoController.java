@@ -20,7 +20,7 @@ public class DeliveryInfoController extends HttpServlet {
       Long deliveryId = (Long) session.getAttribute("id");
       DeliveryEntity deliveryEntity = null;
 
-      if(deliveryId != 0) {
+      if (deliveryId != 0) {
          deliveryEntity = DeliveryDAO.getInstance().getById(deliveryId);
          if (deliveryEntity != null) {
             req.setAttribute("deliveryEntity", deliveryEntity);

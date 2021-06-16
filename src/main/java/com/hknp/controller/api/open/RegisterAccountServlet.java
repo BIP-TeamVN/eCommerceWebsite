@@ -39,7 +39,7 @@ public class RegisterAccountServlet extends HttpServlet {
       String result = "";
       Map<String, Object> parameterMap = ServletUtils.getParametersMap(req);
       try {
-         String code =  (String) parameterMap.get("signup-verified-code");
+         String code = (String) parameterMap.get("signup-verified-code");
          String otp = CookieUtils.getCookieValue(req, "otp");
          if (HashUtils.getMd5(code).equals(otp)) {
             result += "true\n";

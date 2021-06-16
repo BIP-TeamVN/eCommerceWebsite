@@ -27,7 +27,7 @@ public class AdInformationController extends HttpServlet {
       Long userId = (Long) session.getAttribute("id");
       UserEntity userEdit = null;
 
-      if(userId != 0) {
+      if (userId != 0) {
          userEdit = UserDAO.getInstance().getById(userId);
          if (userEdit != null) {
 

@@ -27,10 +27,9 @@ public class SellerFilter implements Filter {
       try {
          Long id = (Long) session.getAttribute("id");
          String userType = UserDAO.getInstance().getById(id).getUserType();
-         if (userType.equals(Cons.User.USER_TYPE_SELLER)){
+         if (userType.equals(Cons.User.USER_TYPE_SELLER)) {
             chain.doFilter(req, resp);
-         }
-         else {
+         } else {
             ServletUtils.forward(httpReq, httpResp, "/logout");
          }
       } catch (Exception e) {

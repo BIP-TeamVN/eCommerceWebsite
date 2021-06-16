@@ -1,13 +1,10 @@
 package com.hknp.controller.web;
 
 import com.hknp.model.dao.AddressDAO;
-import com.hknp.model.dao.EmployeeDAO;
 import com.hknp.model.dao.UserDAO;
 import com.hknp.model.entity.AddressEntity;
-import com.hknp.model.entity.EmployeeEntity;
 import com.hknp.model.entity.UserEntity;
 import com.hknp.utils.ServletUtils;
-import com.hknp.utils.StringUtils;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -27,7 +24,7 @@ public class InfoEditOfCustomerController extends HttpServlet {
          Long userId = (Long) session.getAttribute("id");
          UserEntity customerEdit = null;
 
-         if(userId != 0) {
+         if (userId != 0) {
             customerEdit = UserDAO.getInstance().getById(userId);
             if (customerEdit != null) {
                if (customerEdit.getAddressEntities().size() == 0) {
@@ -42,7 +39,7 @@ public class InfoEditOfCustomerController extends HttpServlet {
                return;
             }
          }
-      }catch (Exception e){
+      } catch (Exception e) {
          ServletUtils.forward(req, resp, "/info/address");
       }
    }

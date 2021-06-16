@@ -28,11 +28,11 @@ public class ProductInCartServlet extends HttpServlet {
    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
       String value = CookieUtils.getCookieValue(req, COOKIE_NAME);
-      value= URLDecoder.decode(value , "utf-8");
+      value = URLDecoder.decode(value, "utf-8");
       if (value.equals("")) {
          ServletUtils.printWrite(resp, "");
       } else {
-         String cookieValue = URLDecoder.decode(value , "utf-8");
+         String cookieValue = URLDecoder.decode(value, "utf-8");
          ArrayList<CartItemDomain> listCartItemDomain = new ArrayList<>();
          final ObjectMapper objectMapper = new ObjectMapper();
          CartItemDomain[] listCartItem = objectMapper.readValue(cookieValue, CartItemDomain[].class);
@@ -44,7 +44,7 @@ public class ProductInCartServlet extends HttpServlet {
          ArrayList<ProductInCartItemDomain> productInCartItemDomainArrayList = new ArrayList<>();
 
 
-         for (CartItemDomain product: listCartItemDomain) {
+         for (CartItemDomain product : listCartItemDomain) {
             ProductInCartItemDomain productInCartItemDomain = new ProductInCartItemDomain();
             ProductTypeEntity productTypeEntity = ProductTypeDAO.getInstance().getById(StringUtils.toLong(product.getProductTypeId()));
 

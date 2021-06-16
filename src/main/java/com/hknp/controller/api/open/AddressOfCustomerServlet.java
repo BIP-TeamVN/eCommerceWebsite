@@ -21,16 +21,16 @@ public class AddressOfCustomerServlet extends HttpServlet {
    @Override
    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-         HttpSession session = req.getSession(false);
-         Long userId = (Long) session.getAttribute("id");
+      HttpSession session = req.getSession(false);
+      Long userId = (Long) session.getAttribute("id");
 
-         List<AddressEntity> addressEntities = UserDAO.getInstance().getById(userId).getAddressEntities();
-         List<String> listJsonStr = new ArrayList<>();
-         for (AddressEntity a: addressEntities) {
-            a.setStreet(a.getStreet().replace("\n", "<br>"));
-            listJsonStr.add(a.toJson1());
-         }
-         ServletUtils.printWrite(resp, "[" + String.join(", ", listJsonStr) + "]");
+      List<AddressEntity> addressEntities = UserDAO.getInstance().getById(userId).getAddressEntities();
+      List<String> listJsonStr = new ArrayList<>();
+      for (AddressEntity a : addressEntities) {
+         a.setStreet(a.getStreet().replace("\n", "<br>"));
+         listJsonStr.add(a.toJson1());
+      }
+      ServletUtils.printWrite(resp, "[" + String.join(", ", listJsonStr) + "]");
    }
 
    @Override
@@ -56,8 +56,7 @@ public class AddressOfCustomerServlet extends HttpServlet {
          } else {
             result += "false\nError while insert address";
          }
-      }
-      catch (Exception e) {
+      } catch (Exception e) {
          result += "false\n" + e.getMessage();
       }
 
@@ -97,8 +96,7 @@ public class AddressOfCustomerServlet extends HttpServlet {
          } else {
             result += "false\nError while insert address";
          }
-      }
-      catch (Exception e) {
+      } catch (Exception e) {
          result += "false\n" + e.getMessage();
       }
 

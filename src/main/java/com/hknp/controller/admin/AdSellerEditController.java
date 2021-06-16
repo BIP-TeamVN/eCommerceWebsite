@@ -22,7 +22,7 @@ public class AdSellerEditController extends HttpServlet {
       String sellerIdPara = req.getParameter("id");
       Long sellerId = StringUtils.toLong(sellerIdPara);
       SellerEntity sellerEdit = null;
-      if(sellerId != 0) {
+      if (sellerId != 0) {
          sellerEdit = SellerDAO.getInstance().getById(sellerId);
          if (sellerEdit != null) {
             if (sellerEdit.getUserEntity().getAddressEntities().size() == 0) {

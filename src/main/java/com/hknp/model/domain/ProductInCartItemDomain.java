@@ -14,6 +14,20 @@ public class ProductInCartItemDomain {
    private String shopName;
    private String sellerId;
 
+   public ProductInCartItemDomain() {
+   }
+
+   public ProductInCartItemDomain(String productId, String image, String name, String price, String nameDetail, String quantity, String shopName, String sellerId) {
+      this.productId = productId;
+      this.image = image;
+      this.name = name;
+      this.price = price;
+      this.nameDetail = nameDetail;
+      this.quantity = StringUtils.toInt(quantity);
+      this.shopName = shopName;
+      this.sellerId = sellerId;
+   }
+
    public String getProductTypeId() {
       return productTypeId;
    }
@@ -62,7 +76,9 @@ public class ProductInCartItemDomain {
       this.name = name;
    }
 
-   public String getPrice() {return price; }
+   public String getPrice() {
+      return price;
+   }
 
    public void setPrice(String price) {
       this.price = price;
@@ -96,6 +112,7 @@ public class ProductInCartItemDomain {
               "\"quantity\":\"" + quantity + "\"" +
               "}";
    }
+
    public String toJsonOne() {
       return "{" +
               "\"productId\":\"" + productId + "\"," +
@@ -108,21 +125,19 @@ public class ProductInCartItemDomain {
               "}";
    }
 
-
-
    public String toJson(String shopName, Long sellerId) {
       return "{" +
               "\"shopName\":\"" + shopName + "\"," +
               "\"sellerId\":\"" + sellerId + "\"," +
               "\"carts\":" +
-                  "[{" +
-                    "\"productId\":\"" + productId + "\"," +
-                    "\"image\":\"" + image + "\"," +
-                    "\"name\":\"" + name + "\"," +
-                    "\"price\":\"" + price + "\"," +
-                    "\"nameDetail\":\"" + nameDetail + "\"," +
-                    "\"quantity\":\"" + quantity + "\"," +
-                  "}]" +
+              "[{" +
+              "\"productId\":\"" + productId + "\"," +
+              "\"image\":\"" + image + "\"," +
+              "\"name\":\"" + name + "\"," +
+              "\"price\":\"" + price + "\"," +
+              "\"nameDetail\":\"" + nameDetail + "\"," +
+              "\"quantity\":\"" + quantity + "\"," +
+              "}]" +
               "}";
    }
 
@@ -131,33 +146,5 @@ public class ProductInCartItemDomain {
               "\"shopName\":\"" + shopName + "\"," +
               "\"sellerId\":\"" + sellerId + "\"," +
               "\"carts\":" + str + "}";
-   }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-   public ProductInCartItemDomain() {
-   }
-
-   public ProductInCartItemDomain(String productId, String image, String name, String price, String nameDetail, String quantity, String shopName, String sellerId) {
-      this.productId = productId;
-      this.image = image;
-      this.name = name;
-      this.price = price;
-      this.nameDetail = nameDetail;
-      this.quantity = StringUtils.toInt(quantity);
-      this.shopName = shopName;
-      this.sellerId = sellerId;
    }
 }

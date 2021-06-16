@@ -1,7 +1,10 @@
 package com.hknp.controller.api;
 
 import com.hknp.model.dao.*;
-import com.hknp.model.entity.*;
+import com.hknp.model.entity.AddressEntity;
+import com.hknp.model.entity.Cons;
+import com.hknp.model.entity.CustomerEntity;
+import com.hknp.model.entity.UserEntity;
 import com.hknp.utils.*;
 
 import javax.servlet.ServletException;
@@ -38,7 +41,7 @@ public class CustomerServlet extends HttpServlet {
 
       listCustomer = CustomerDAO.getInstance().gets((page - 1) * 10, 10, keyword, columnName, typeSort);
 
-      for (CustomerEntity Cus: listCustomer) {
+      for (CustomerEntity Cus : listCustomer) {
          listJsonStr.add(Cus.toJson());
       }
 
@@ -78,10 +81,9 @@ public class CustomerServlet extends HttpServlet {
          newCustomer.setRegisterDate(DateTimeUtils.currentDate());
 
          Long newUserId = CustomerDAO.getInstance().insert(newCustomer);
-         if(newUserId != 0){
-            result += "true\n" + newUserId.toString();
-         }
-         else {
+         if (newUserId != 0) {
+            result += "true\n" + newUserId;
+         } else {
             result += "false\n";
          }
 
