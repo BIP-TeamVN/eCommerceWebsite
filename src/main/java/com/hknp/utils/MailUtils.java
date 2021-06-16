@@ -9,16 +9,16 @@ import java.util.Properties;
  * This class provide methods that help you to work with <b>Java mail API</b>
  */
 public class MailUtils {
-   static final String SMTP_HOST = "smtp.gmail.com";
-   static final String SMTP_PORT = "587";
+   static final String SMTP_HOST = System.getenv("SMTP_HOST") == null ? "smtp.gmail.com" : System.getenv("SMTP_HOST");
+   static final String SMTP_PORT = System.getenv("SMTP_PORT") == null ? "587" : System.getenv("SMTP_PORT");
 
-   static final String AUTH_MAIL_ADDRESS = "ecommerce.webservice@gmail.com";
-   static final String AUTH_MAIL_USERNAME = "ecommerce.webservice";
-   static final String AUTH_MAIL_PASSWORD = "hknp0000";
+   static final String SMTP_ADDRESS = System.getenv("SMTP_ADDRESS");
+   static final String SMTP_USERNAME = System.getenv("SMTP_USERNAME");
+   static final String SMTP_PASSWORD = System.getenv("SMTP_PASSWORD");
 
    /**
-    * Get Authenticator by {@link #AUTH_MAIL_USERNAME}
-    * and {@link #AUTH_MAIL_PASSWORD}
+    * Get Authenticator by {@link #SMTP_USERNAME}
+    * and {@link #SMTP_PASSWORD}
     *
     * @return {@link javax.mail.Authenticator} object
     */
@@ -26,8 +26,8 @@ public class MailUtils {
       return new javax.mail.Authenticator() {
          protected PasswordAuthentication getPasswordAuthentication() {
             return new PasswordAuthentication(
-                    AUTH_MAIL_USERNAME,
-                    AUTH_MAIL_PASSWORD
+                    SMTP_USERNAME,
+                    SMTP_PASSWORD
             );
          }
       };
@@ -96,7 +96,7 @@ public class MailUtils {
       try {
          Message message = new MimeMessage(session);
 
-         message.setFrom(new InternetAddress(AUTH_MAIL_ADDRESS));
+         message.setFrom(new InternetAddress(SMTP_ADDRESS));
          message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(receiveEmail));
          message.setSubject(subject);
          message.setContent(body, contentType + "; charset=UTF-8");

@@ -11,14 +11,14 @@
 
 <br>
 
-![GitHub contributors](https://img.shields.io/github/contributors/HKNP-Team/eCommerceWebsite) 
-![GitHub issues](https://img.shields.io/github/issues/HKNP-Team/eCommerceWebsite?color=red) 
-![GitHub top language](https://img.shields.io/github/languages/top/HKNP-Team/eCommerceWebsite?color=cyan) 
-![GitHub repo size](https://img.shields.io/github/repo-size/HKNP-Team/eCommerceWebsite) 
-![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/HKNP-Team/eCommerceWebsite) 
+![GitHub contributors](https://img.shields.io/github/contributors/HKNP-Team/eCommerceWebsite)
+![GitHub issues](https://img.shields.io/github/issues/HKNP-Team/eCommerceWebsite?color=red)
+![GitHub top language](https://img.shields.io/github/languages/top/HKNP-Team/eCommerceWebsite?color=cyan)
+![GitHub repo size](https://img.shields.io/github/repo-size/HKNP-Team/eCommerceWebsite)
+![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/HKNP-Team/eCommerceWebsite)
 ![Github total lines](https://sloc.xyz/github/HKNP-Team/eCommerceWebsite)
-![GitHub commit activity](https://img.shields.io/github/commit-activity/m/HKNP-Team/eCommerceWebsite?color=g) 
-![GitHub last commit](https://img.shields.io/github/last-commit/HKNP-Team/eCommerceWebsite?color=yellow) 
+![GitHub commit activity](https://img.shields.io/github/commit-activity/m/HKNP-Team/eCommerceWebsite?color=g)
+![GitHub last commit](https://img.shields.io/github/last-commit/HKNP-Team/eCommerceWebsite?color=yellow)
 ![GitHub release (latest by date)](https://img.shields.io/github/v/release/HKNP-Team/eCommerceWebsite)
 
 <br>
@@ -29,21 +29,23 @@
 - Technical: **JSP** (**J**akarta **S**erver **P**ages) and **Servlet**
 
 - Database:
-  - Relational database management system : **MySQL 5.7**
-  - Object-relational mapping : **Hibernate 5.4.10.Final**
-  - Administrative units of Vietnam in database get from [GENERAL STATISTICS OFFICE OF VIETNAM](https://www.gso.gov.vn/en/homepage/)
+    - Relational database management system : **MySQL 5.7**
+    - Object-relational mapping : **Hibernate 5.4.10.Final**
+    - Administrative units of Vietnam in database get
+      from [GENERAL STATISTICS OFFICE OF VIETNAM](https://www.gso.gov.vn/en/homepage/)
 
 - Front-end frameworks :
-  - [**Bootstrap 4.5.3**](https://getbootstrap.com/docs/4.5/getting-started/introduction/) - Open source front end framework
-  - [**jQuery 3.5.1**](https://jquery.com/) - Fast, small, and feature-rich JavaScript library
-  - [**AJAX**]() (**A**synchronous **J**avaScript **a**nd **X**ML) -  send and retrieve data from a server asynchronously without interfering with the display and behaviour of the existing page.
-  - [**Slim Select 2**](https://slimselectjs.com/) - Slim advanced select dropdown
-  - [**Argon dashboard**](https://www.creative-tim.com/product/argon-dashboard/) by [Creative Tim](https://www.creative-tim.com/)
-  
+    - [**Bootstrap 4.5.3**](https://getbootstrap.com/docs/4.5/getting-started/introduction/) - Open source front end
+      framework
+    - [**jQuery 3.5.1**](https://jquery.com/) - Fast, small, and feature-rich JavaScript library
+    - [**AJAX**]() (**A**synchronous **J**avaScript **a**nd **X**ML) - send and retrieve data from a server
+      asynchronously without interfering with the display and behaviour of the existing page.
+    - [**Slim Select 2**](https://slimselectjs.com/) - Slim advanced select dropdown
+    - [**Argon dashboard**](https://www.creative-tim.com/product/argon-dashboard/)
+      by [Creative Tim](https://www.creative-tim.com/)
+
 - Design pattern : **Model - View - Controller (MVC)**
 - Integrated development environment (IDE) : **IntelliJ IDEA 2020**
-
-
 
 <br>
 <br>
@@ -96,3 +98,22 @@
 
 <br>
 <br>
+
+## How to run
+
+Please set environment variables for SMTP mail before run.
+
+|Variables       |Require |Description                                                                               |Default         |
+|----------------|--------|------------------------------------------------------------------------------------------|----------------|
+|SMTP_HOST       |❌      |The SMTP server to connect to                                                             |smtp.gmail.com  |
+|SMTP_PORT       |❌      |The SMTP server port to connect to, if the connect() method doesn't explicitly specify one|587             |
+|SMTP_USERNAME   |✔      |Username for SMTP Authenticator                                                           |                |
+|SMTP_PASSWORD   |✔      |Password for SMTP Authenticator                                                           |                |
+|SMTP_ADDRESS    |✔      |Email address to use for SMTP MAIL command. This sets the envelope return address         |                |
+
+If use Tomcat on window, set environment variables by add this line below to file setenv.bat
+```
+set "SMTP_USERNAME=<YOUR_SMTP_USERNAME>"
+set "SMTP_PASSWORD=<YOUR_SMTP_PASSWORD>"
+set "SMTP_ADDRESS=<YOUR_SMTP_PASSWORD>"
+```
