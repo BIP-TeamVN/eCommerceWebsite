@@ -55,6 +55,7 @@ public class ServletUtils {
       resp.setContentType("text/html; charset=UTF-8");
 
       try (PrintWriter out = resp.getWriter()) {
+         content = StringUtils.stripXSS(content);
          out.write(content);
       }
    }
@@ -82,6 +83,12 @@ public class ServletUtils {
          parameterMap = new ObjectMapper().readValue(parameterJson, HashMap.class);
       } catch (Exception e) {
          e.printStackTrace();
+      }
+
+      if (parameterMap.size() > 0) {
+         for (Map.Entry<String, Object> entry : parameterMap.entrySet()) {
+            parameterMap.put(entry.getKey(), StringUtils.stripXSS((String) entry.getValue()));
+         }
       }
 
       return parameterMap;

@@ -1,3 +1,4 @@
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page import="com.hknp.model.entity.ProductEntity" %>
 <%@ page import="com.hknp.model.entity.ProductTypeEntity" %>
 <%@ page import="java.util.List" %>
@@ -87,7 +88,7 @@
                      <!--Product info-->
                      <div class="col-md-5 col-sm-12">
                         <form id="add-to-card-form">
-                           <h1 class="product-item__name" style="font-size: 1.25rem; line-height: 2rem;">${product.productName} </h1>
+                           <h1 class="product-item__name" style="font-size: 1.25rem; line-height: 2rem;"><c:out value="${product.productName}"/> </h1>
 
                            <div class="my-5 btn-group btn-group-toggle d-block" data-toggle="buttons"
                                 style="flex-direction: column;" id="list-type-product">
@@ -98,14 +99,14 @@
 
                            <!--Origin price and Deal Percent-->
                            <div class="row mt-5 mb-0">
-                              <div class="col-8"><span class="product-detail__price product-detail__price--origin">${product.getPriceOriginDisplay()}</span></div>
+                              <div class="col-8"><span class="product-detail__price product-detail__price--origin"><c:out value="${product.getPriceOriginDisplay()}"/></span></div>
                               <div class="col-3"><span class="product-detail__price--percent">${percent}%</span></div>
                            </div>
 
                            <!--Order price-->
                            <div class="row mt-0 mb-5">
                               <div class="col">
-                                 <span class="product-detail__price product-detail__price--order">${product.getPriceOrderDisplay()}</span>
+                                 <span class="product-detail__price product-detail__price--order"><c:out value="${product.getPriceOrderDisplay()}"/></span>
                               </div>
                            </div>
 
@@ -139,7 +140,7 @@
                <!--Product main content-->
                <div class="card-body">
                   <div class="row">
-                     <div class="col"><p>${product.productDesc}</p></div>
+                     <div class="col"><p><c:out value="${product.productDesc}"/></p></div>
                   </div>
                </div>
             </div>
