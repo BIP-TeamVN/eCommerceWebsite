@@ -12,6 +12,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
@@ -22,6 +23,9 @@ import java.util.List;
 public class CustomerDetailBillController extends HttpServlet {
    @Override
    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+      HttpSession session = req.getSession(false);
+      Long userId = (Long) session.getAttribute("id");
+
       Long totalRows = BillDAO.getInstance().count();
 
       String page = req.getParameter("page");
@@ -52,27 +56,30 @@ public class CustomerDetailBillController extends HttpServlet {
       List<BillDetailEntity> listBillDetail = new ArrayList<>();
       List<String> listJsonStr = new ArrayList<>();
 
-      listBillDetail = BillDetailDAO.getInstance().gets(0, 10, billId);
+      listBillDetail = BillDetailDAO.getInstance().gets(0, 10, billId, userId);
 
-      for (BillDetailEntity billdetail : listBillDetail) {
-         quantity = billdetail.getQuantity();
-         BigDecimal q = new BigDecimal(quantity);
-         price = billdetail.getProductTypeEntity().getProductEntity().getPriceOrder();
-         BigDecimal tempt = q.multiply(price);
-         total = total.add(tempt);
+      if (listBillDetail.size() != 0) {
+         for (BillDetailEntity billdetail : listBillDetail) {
+            quantity = billdetail.getQuantity();
+            BigDecimal q = new BigDecimal(quantity);
+            price = billdetail.getProductTypeEntity().getProductEntity().getPriceOrder();
+            BigDecimal tempt = q.multiply(price);
+            total = total.add(tempt);
+         }
+         total = total.subtract(discount);
+
+         req.setAttribute("total", new DecimalFormat("###,###").format(total));
+         req.setAttribute("discount", new DecimalFormat("###,###").format(discount));
+
+         req.setAttribute("totalPage", totalPage);
+         req.setAttribute("currentPage", currentPage);
+
+         req.setAttribute("billId", id);
+         req.setAttribute("status", bill.getStatus());
+         ServletUtils.forward(req, resp, "/view/web/customer-detail-bill.jsp");
+      } else {
+         ServletUtils.forward(req, resp, "/customer/bills");
       }
-      total = total.subtract(discount);
-
-      req.setAttribute("total", new DecimalFormat("###,###").format(total));
-      req.setAttribute("discount", new DecimalFormat("###,###").format(discount));
-
-      req.setAttribute("totalPage", totalPage);
-      req.setAttribute("currentPage", currentPage);
-
-      req.setAttribute("billId", id);
-      req.setAttribute("status", bill.getStatus());
-      ServletUtils.forward(req, resp, "/view/web/customer-detail-bill.jsp");
-
    }
 
    @Override
