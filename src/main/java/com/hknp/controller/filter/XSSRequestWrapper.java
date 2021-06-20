@@ -6,6 +6,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletRequestWrapper;
 import java.util.Enumeration;
 import java.util.HashMap;
+import java.util.Map;
 
 public class XSSRequestWrapper extends HttpServletRequestWrapper {
 
@@ -34,7 +35,7 @@ public class XSSRequestWrapper extends HttpServletRequestWrapper {
       if (para.length() > 5000) {
          para = para.substring(0, 5000);
       }
-      return para
+      return para;
    }
 
    @Override
