@@ -32,7 +32,7 @@ public class XSSRequestWrapper extends HttpServletRequestWrapper {
    @Override
    public String getParameter(String name) {
       String para = StringUtils.stripXSS(super.getParameter(name));
-      if (para.length() > 5000) {
+      if (para != null && para.length() > 5000) {
          para = para.substring(0, 5000);
       }
       return para;
@@ -47,7 +47,7 @@ public class XSSRequestWrapper extends HttpServletRequestWrapper {
 
          for (int i = 0; i < values.length; i++) {
             String para = StringUtils.stripXSS(values[i]);
-            if (para.length() > 5000) {
+            if (para != null && para.length() > 5000) {
                para = para.substring(0, 5000);
             }
             values[i] = StringUtils.stripXSS(para);
