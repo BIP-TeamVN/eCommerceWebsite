@@ -15,7 +15,7 @@ public class XSSRequestWrapper extends HttpServletRequestWrapper {
 
    @Override
    public String getParameter(String name) {
-      return StringUtils.stripXSS(super.getParameter(name));
+      return StringUtils.stripXSS(super.getParameter(name)).substring(0,20000);
    }
 
    @Override
@@ -26,7 +26,7 @@ public class XSSRequestWrapper extends HttpServletRequestWrapper {
          String[] values = filteredMap.get(entry.getKey());
 
          for (int i = 0; i < values.length; i++) {
-            values[i] = StringUtils.stripXSS(values[i]);
+            values[i] = StringUtils.stripXSS(values[i]).substring(0,20000);
          }
 
          filteredMap.put(entry.getKey(), values);
