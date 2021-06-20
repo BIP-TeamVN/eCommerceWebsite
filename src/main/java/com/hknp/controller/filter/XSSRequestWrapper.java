@@ -4,6 +4,7 @@ import com.hknp.utils.StringUtils;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletRequestWrapper;
+import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -14,8 +15,27 @@ public class XSSRequestWrapper extends HttpServletRequestWrapper {
    }
 
    @Override
+   public String getHeader(String name) {
+      return super.getHeader(name);
+   }
+
+   @Override
+   public Enumeration<String> getHeaderNames() {
+      return super.getHeaderNames();
+   }
+
+   @Override
+   public int getIntHeader(String name) {
+      return super.getIntHeader(name);
+   }
+
+   @Override
    public String getParameter(String name) {
-      return StringUtils.stripXSS(super.getParameter(name));
+      String para = StringUtils.stripXSS(super.getParameter(name));
+      if (para.length() > 5000) {
+         para = para.substring(0, 5000);
+      }
+      return para;
    }
 
    @Override
@@ -26,7 +46,11 @@ public class XSSRequestWrapper extends HttpServletRequestWrapper {
          String[] values = filteredMap.get(entry.getKey());
 
          for (int i = 0; i < values.length; i++) {
-            values[i] = StringUtils.stripXSS(values[i]);
+            String para = StringUtils.stripXSS(values[i]);
+            if (para.length() > 5000) {
+               para = para.substring(0, 5000);
+            }
+            values[i] = StringUtils.stripXSS(para);
          }
 
          filteredMap.put(entry.getKey(), values);

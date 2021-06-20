@@ -1,3 +1,4 @@
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html lang="vi">
 <head>
@@ -82,7 +83,8 @@
                                        <div class="input-group-prepend">
                                           <span class="input-group-text"><i class="ni ni-email-83"></i></span>
                                        </div>
-                                       <input class="form-control" placeholder="Tài khoản" type="text" name="username" value="${user}">
+                                       <input class="form-control" placeholder="Tài khoản" type="text" name="username"
+                                              value="<c:out value="${user}"/>">
                                     </div>
                                  </div>
                                  <div class="form-group">
@@ -90,7 +92,8 @@
                                        <div class="input-group-prepend">
                                           <span class="input-group-text"><i class="ni ni-lock-circle-open"></i></span>
                                        </div>
-                                       <input class="form-control" placeholder="Mật khẩu" type="password" name="password" value="${pass}">
+                                       <input class="form-control" placeholder="Mật khẩu" type="password"
+                                              name="password" value="<c:out value="${pass}"/>">
                                     </div>
                                  </div>
                                  <div class="text-center">
