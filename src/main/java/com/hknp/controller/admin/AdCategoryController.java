@@ -12,30 +12,16 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 @WebServlet(urlPatterns = {"/admin/category"})
-public class AdCategoryController extends HttpServlet {
+public class AdCategoryController implements HttpServletCon{
    @Override
-   protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+   public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-      Long totalRows = ProductCategoryDAO.getInstance().count();
-      String page = req.getParameter("page");
-
-      Long currentPage = StringUtils.toLong(page);
-      Long totalPage = (totalRows / 10) + ((totalRows % 10 == 0) ? 0 : 1);
-
-      if (currentPage > totalPage) {
-         currentPage = totalPage;
-      }
-      if (currentPage < 1) {
-         currentPage = 1L;
-      }
-
-      req.setAttribute("totalPage", totalPage);
-      req.setAttribute("currentPage", currentPage);
+      HttpServletCon.setPagesCountByPageParam(req);
       ServletUtils.forward(req, resp, "/view/admin/ad-category.jsp");
    }
 
    @Override
-   protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+   public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
       doGet(req, resp);
    }
 }

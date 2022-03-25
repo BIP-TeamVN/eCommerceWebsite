@@ -11,26 +11,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+import static com.hknp.controller.admin.HttpServletCon.setPagesCountByPageParam;
+
 @WebServlet(urlPatterns = {"/admin/delivery"})
 public class AdDeliveryController extends HttpServlet {
    @Override
    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-      Long totalRows = DeliveryDAO.getInstance().count();
-      String page = req.getParameter("page");
-
-      Long currentPage = StringUtils.toLong(page);
-      Long totalPage = (totalRows / 10) + ((totalRows % 10 == 0) ? 0 : 1);
-
-      if (currentPage > totalPage) {
-         currentPage = totalPage;
-      }
-      if (currentPage < 1) {
-         currentPage = 1L;
-      }
-
-      req.setAttribute("totalPage", totalPage);
-      req.setAttribute("currentPage", currentPage);
+      setPagesCountByPageParam(req);
       ServletUtils.forward(req, resp, "/view/admin/ad-delivery.jsp");
    }
 
