@@ -70,4 +70,14 @@ public class EntityUtils {
 
       return count;
    }
+
+   public String sortColumn(String columnName, String typeSort) {
+      String result = "";
+
+      if (!columnName.equals("")) {
+         result = " ORDER BY u." + columnName + " " + typeSort;
+      }
+
+      return result;
+   }
 }

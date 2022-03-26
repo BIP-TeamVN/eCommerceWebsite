@@ -1,6 +1,7 @@
 package com.hknp.controller.api.open;
 
 import com.hknp.model.dao.UserDAO;
+import com.hknp.utils.MailUtils;
 import com.hknp.utils.ServletUtils;
 import com.hknp.utils.StringUtils;
 
@@ -23,7 +24,7 @@ public class UserCheckInfoServlet extends HttpServlet {
       String result = "true";
 
       if (infoType.equals("email")) {
-         result = UserDAO.getInstance().checkEmail(userId, checkValue).toString();
+         result = new MailUtils().checkEmail(userId, checkValue).toString();
       } else if (infoType.equals("phone-number")) {
          result = UserDAO.getInstance().checkPhoneNumber(userId, checkValue).toString();
       }

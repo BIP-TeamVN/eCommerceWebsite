@@ -158,28 +158,6 @@ public class UserDAO implements IRetrieveEntity<UserEntity, Long>, IModifySingle
    }
 
    /**
-    * Check email exist in User table on database
-    *
-    * @param userId Id of user, pass <code>0</code> if null
-    * @param email  Email value to check
-    * @return <code>true</code> if email not exits in the persistence context<br>
-    * <code>false</code> otherwise
-    * @return true if email not exist in database else false
-    */
-   public Boolean checkEmail(Long userId, String email) {
-      EntityManager entityMgr = EntityUtils.getEntityManager();
-      String queryStr = "select count(*) from UserEntity user where user.userId <> :userIdPara " +
-              "and user.email = :emailPara";
-
-      Query query = entityMgr.createQuery(queryStr);
-      query.setParameter("userIdPara", userId);
-      query.setParameter("emailPara", email);
-
-      Long count = (Long) query.getSingleResult();
-      return count == 0;
-   }
-
-   /**
     * Check phone number exist in User table on database
     *
     * @param userId      Id of user, pass <code>0</code> if null

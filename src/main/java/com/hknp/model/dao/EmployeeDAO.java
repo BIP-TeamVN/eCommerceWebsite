@@ -98,6 +98,7 @@ public class EmployeeDAO implements IRetrieveEntity<EmployeeEntity, Long>, IModi
    public ArrayList<EmployeeEntity> gets(Integer firstResult, Integer maxResults, String searchKeyword, Integer status, String sortColumnName, String typeSort) {
       EntityManager entityMgr = EntityUtils.getEntityManager();
 
+      EntityUtils utils = new EntityUtils();
       Query query;
       String queryStr;
       Boolean temp;
@@ -107,7 +108,7 @@ public class EmployeeDAO implements IRetrieveEntity<EmployeeEntity, Long>, IModi
                  "or u.userEntity.phoneNumber like :searchKeyword " +
                  "or  u.userEntity.email like :searchKeyword " +
                  "or u.userEntity.gender like :searchKeyword " +
-                 "or u.salary like :searchKeyword " + sortColumn(sortColumnName, typeSort);
+                 "or u.salary like :searchKeyword " + utils.sortColumn(sortColumnName, typeSort);
          query = entityMgr.createQuery(queryStr, EmployeeEntity.class);
       } else {
          temp = status == 1;
@@ -117,7 +118,7 @@ public class EmployeeDAO implements IRetrieveEntity<EmployeeEntity, Long>, IModi
                  "or u.userEntity.phoneNumber like :searchKeyword " +
                  "or  u.userEntity.email like :searchKeyword " +
                  "or u.userEntity.gender like :searchKeyword " +
-                 "or u.salary like :searchKeyword) " + sortColumn(sortColumnName, typeSort);
+                 "or u.salary like :searchKeyword) " + utils.sortColumn(sortColumnName, typeSort);
          query = entityMgr.createQuery(queryStr, EmployeeEntity.class);
          query.setParameter("statusPara", temp);
       }
@@ -137,14 +138,6 @@ public class EmployeeDAO implements IRetrieveEntity<EmployeeEntity, Long>, IModi
          exception.printStackTrace();
       } finally {
          entityMgr.close();
-      }
-      return result;
-   }
-
-   public String sortColumn(String columnName, String typeSort) {
-      String result = "";
-      if (!columnName.equals("")) {
-         result = " ORDER BY u." + columnName + " " + typeSort;
       }
       return result;
    }

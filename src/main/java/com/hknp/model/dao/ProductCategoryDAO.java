@@ -138,11 +138,12 @@ public class ProductCategoryDAO implements IRetrieveEntity<ProductCategoryEntity
    public ArrayList<ProductCategoryEntity> gets(Integer firstResult, Integer maxResults, String keyword, String columnName, String typeSort) {
       EntityManager entityMgr = EntityUtils.getEntityManager();
 
+      EntityUtils utils = new EntityUtils();
       Query query;
       String queryStr;
 
       queryStr = "select u from ProductCategoryEntity u " +
-              "where u.productCategoryName like :keywordPara" + sortColumn(columnName, typeSort);
+              "where u.productCategoryName like :keywordPara" + utils.sortColumn(columnName, typeSort);
 
       query = entityMgr.createQuery(queryStr, ProductCategoryEntity.class);
 
@@ -162,14 +163,6 @@ public class ProductCategoryDAO implements IRetrieveEntity<ProductCategoryEntity
          exception.printStackTrace();
       } finally {
          entityMgr.close();
-      }
-      return result;
-   }
-
-   public String sortColumn(String columnName, String typeSort) {
-      String result = "";
-      if (!columnName.equals("")) {
-         result = " ORDER BY u." + columnName + " " + typeSort;
       }
       return result;
    }

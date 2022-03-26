@@ -3,6 +3,8 @@ package com.hknp.utils;
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
+import javax.persistence.EntityManager;
+import javax.persistence.Query;
 import java.util.Properties;
 
 /**
@@ -108,5 +110,27 @@ public class MailUtils {
          e.printStackTrace();
          return false;
       }
+   }
+
+   /**
+    * Check email exist in User table on database
+    *
+    * @param userId Id of user, pass <code>0</code> if null
+    * @param email  Email value to check
+    * @return <code>true</code> if email not exits in the persistence context<br>
+    * <code>false</code> otherwise
+    * @return true if email not exist in database else false
+    */
+   public Boolean checkEmail(Long userId, String email) {
+      EntityManager entityMgr = EntityUtils.getEntityManager();
+      String queryStr = "select count(*) from UserEntity user where user.userId <> :userIdPara " +
+              "and user.email = :emailPara";
+
+      Query query = entityMgr.createQuery(queryStr);
+      query.setParameter("userIdPara", userId);
+      query.setParameter("emailPara", email);
+
+      Long count = (Long) query.getSingleResult();
+      return count == 0;
    }
 }
