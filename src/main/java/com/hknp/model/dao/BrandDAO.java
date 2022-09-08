@@ -138,13 +138,13 @@ public class BrandDAO implements IRetrieveEntity<BrandEntity, Long>, IModifySing
 
    public ArrayList<BrandEntity> gets(Integer firstResult, Integer maxResults, String keyword, String columnName, String typeSort) {
       EntityManager entityMgr = EntityUtils.getEntityManager();
-
+      EntityUtils utils = new EntityUtils();
       Query query;
       String queryStr;
 
       queryStr = "select u from BrandEntity u " +
               "where u.brandName like :keywordPara " +
-              "or u.brandOrigin like :keywordPara " + sortColumn(columnName, typeSort);
+              "or u.brandOrigin like :keywordPara " + utils.sortColumn(columnName, typeSort);
 
       query = entityMgr.createQuery(queryStr, BrandEntity.class);
 
@@ -165,16 +165,6 @@ public class BrandDAO implements IRetrieveEntity<BrandEntity, Long>, IModifySing
       } finally {
          entityMgr.close();
       }
-      return result;
-   }
-
-   public String sortColumn(String columnName, String typeSort) {
-      String result = "";
-
-      if (!columnName.equals("")) {
-         result = " ORDER BY u." + columnName + " " + typeSort;
-      }
-
       return result;
    }
 }

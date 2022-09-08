@@ -6,6 +6,7 @@ import com.hknp.model.domain.CartItemDomain;
 import com.hknp.model.domain.ProductInCartItemDomain;
 import com.hknp.model.entity.ProductTypeEntity;
 import com.hknp.utils.CookieUtils;
+import com.hknp.utils.JsonUtils;
 import com.hknp.utils.ServletUtils;
 import com.hknp.utils.StringUtils;
 
@@ -63,7 +64,8 @@ public class ProductInCartServlet extends HttpServlet {
             productInCartItemDomain.setSellerId(sellerId.toString());
 
             productInCartItemDomainArrayList.add(productInCartItemDomain);
-            listJsonStr.add(productInCartItemDomain.toJson());
+            JsonUtils jsonUtils = new JsonUtils();
+            listJsonStr.add(jsonUtils.toJson(productInCartItemDomain));
          }
          ServletUtils.printWrite(resp, "[" + String.join(", ", listJsonStr) + "]");
       }

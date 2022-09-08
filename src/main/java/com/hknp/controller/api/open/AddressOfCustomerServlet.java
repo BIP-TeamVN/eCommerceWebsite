@@ -7,7 +7,6 @@ import com.hknp.utils.StringUtils;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -17,10 +16,9 @@ import java.util.List;
 import java.util.Map;
 
 @WebServlet(urlPatterns = {"/api/info/address"})
-public class AddressOfCustomerServlet extends HttpServlet {
+public abstract class AddressOfCustomerServlet extends ServletConnection {
    @Override
-   protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
+   public void doGetAddressById(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
       HttpSession session = req.getSession(false);
       Long userId = (Long) session.getAttribute("id");
 
@@ -34,7 +32,7 @@ public class AddressOfCustomerServlet extends HttpServlet {
    }
 
    @Override
-   protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+   public void doPostAddressById(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
       String result = "";
 
       try {
@@ -64,7 +62,7 @@ public class AddressOfCustomerServlet extends HttpServlet {
    }
 
    @Override
-   protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+   public void doPutAddressById(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
       String result = "";
       Map<String, Object> parameterMap = ServletUtils.getParametersMap(req);
 

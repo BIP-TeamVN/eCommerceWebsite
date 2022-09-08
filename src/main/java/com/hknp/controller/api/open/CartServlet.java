@@ -11,7 +11,6 @@ import com.hknp.utils.StringUtils;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -21,12 +20,12 @@ import java.util.ArrayList;
 import java.util.Map;
 
 @WebServlet(urlPatterns = {"/api/carts"})
-public class CartServlet extends HttpServlet {
+public abstract class CartServlet extends ServletConnection {
    private static final String COOKIE_NAME = "carts";
    private static final Integer COOKIE_AGE = 10 * 3600 * 24;
 
    @Override
-   protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+   protected void doGetCartItems(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
       String value = CookieUtils.getCookieValue(req, COOKIE_NAME);
 
       if (value.equals("")) {
@@ -38,7 +37,7 @@ public class CartServlet extends HttpServlet {
    }
 
    @Override
-   protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+   protected void doPostCartItems(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
       String result = "";
       try {
          String idProduct = req.getParameter("product-id");
@@ -114,7 +113,7 @@ public class CartServlet extends HttpServlet {
    }
 
    @Override
-   protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+   protected void doPutCartItems(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
       String result = "";
       Map<String, Object> parameterMap = ServletUtils.getParametersMap(req);
       try {
@@ -207,7 +206,7 @@ public class CartServlet extends HttpServlet {
    }
 
    @Override
-   protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+   protected void doDeleteCartItems(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
       String result = "";
       try {
          String id = req.getParameter("product-type-id");

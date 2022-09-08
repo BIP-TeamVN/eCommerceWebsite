@@ -8,6 +8,7 @@ import com.hknp.model.domain.ProductInCartItemDomain;
 import com.hknp.model.entity.Cons;
 import com.hknp.model.entity.ProductTypeEntity;
 import com.hknp.utils.CookieUtils;
+import com.hknp.utils.JsonUtils;
 import com.hknp.utils.ServletUtils;
 import com.hknp.utils.StringUtils;
 
@@ -91,11 +92,13 @@ public class CheckOutServlet extends HttpServlet {
 
             List<String> listJsonStr = new ArrayList<>();
             for (int j = 0; j < productDetail.size(); j++) {
-               listJsonStr.add(productDetail.get(j).toJsonOne());
+               JsonUtils jsonUtils = new JsonUtils();
+               listJsonStr.add(jsonUtils.toJsonOne(productDetail.get(j)));
             }
 
             String temp = "[" + String.join(", ", listJsonStr) + "]";
-            listJsonStrFull.add(productList.get(i).get(0).toJson(temp));
+            JsonUtils jsonUtils = new JsonUtils();
+            listJsonStrFull.add(jsonUtils.toJson(productList.get(i).get(0),temp));
          }
 
          ServletUtils.printWrite(resp, "[" + String.join(", ", listJsonStrFull) + "]");

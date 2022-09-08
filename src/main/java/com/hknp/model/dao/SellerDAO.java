@@ -126,6 +126,7 @@ public class SellerDAO implements IRetrieveEntity<SellerEntity, Long>, IModifySi
    public ArrayList<SellerEntity> gets(Integer firstResult, Integer maxResults, String searchKeyword, Integer status, String sortColumnName, String typeSort) {
       EntityManager entityMgr = EntityUtils.getEntityManager();
 
+      EntityUtils utils = new EntityUtils();
       Query query;
       String queryStr;
       Boolean temp;
@@ -136,7 +137,7 @@ public class SellerDAO implements IRetrieveEntity<SellerEntity, Long>, IModifySi
                  "or  u.storeName like :searchKeyword " +
                  "or u.storeLink like :searchKeyword " +
                  "or u.businessLicenseId like :searchKeyword " +
-                 "or u.bankAccountId like :searchKeyword " + sortColumn(sortColumnName, typeSort);
+                 "or u.bankAccountId like :searchKeyword " + utils.sortColumn(sortColumnName, typeSort);
          query = entityMgr.createQuery(queryStr, SellerEntity.class);
       } else {
          temp = status == 1;
@@ -147,7 +148,7 @@ public class SellerDAO implements IRetrieveEntity<SellerEntity, Long>, IModifySi
                  "or  u.storeName like :searchKeyword " +
                  "or u.storeLink like :searchKeyword " +
                  "or  u.businessLicenseId like :searchKeyword " +
-                 "or u.bankAccountId like :searchKeyword) " + sortColumn(sortColumnName, typeSort);
+                 "or u.bankAccountId like :searchKeyword) " + utils.sortColumn(sortColumnName, typeSort);
          query = entityMgr.createQuery(queryStr, SellerEntity.class);
          query.setParameter("statusPara", temp);
       }
@@ -167,14 +168,6 @@ public class SellerDAO implements IRetrieveEntity<SellerEntity, Long>, IModifySi
          exception.printStackTrace();
       } finally {
          entityMgr.close();
-      }
-      return result;
-   }
-
-   public String sortColumn(String columnName, String typeSort) {
-      String result = "";
-      if (!columnName.equals("")) {
-         result = " ORDER BY u." + columnName + " " + typeSort;
       }
       return result;
    }

@@ -1,5 +1,6 @@
 package com.hknp.controller.employee;
 
+import com.hknp.controller.admin.HttpServletCon;
 import com.hknp.model.dao.ProductDAO;
 import com.hknp.utils.ServletUtils;
 import com.hknp.utils.StringUtils;
@@ -12,30 +13,15 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 @WebServlet(urlPatterns = {"/employee"})
-public class EmDashboardController extends HttpServlet {
+public class EmDashboardController implements HttpServletCon {
    @Override
-   protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-      Long totalRows = ProductDAO.getInstance().count();
-
-      String page = req.getParameter("page");
-
-      Long currentPage = StringUtils.toLong(page);
-      Long totalPage = (totalRows / 10) + ((totalRows % 10 == 0) ? 0 : 1);
-
-      if (currentPage > totalPage) {
-         currentPage = totalPage;
-      }
-      if (currentPage < 1) {
-         currentPage = 1L;
-      }
-
-      req.setAttribute("totalPage", totalPage);
-      req.setAttribute("currentPage", currentPage);
+   public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+      HttpServletCon.setPagesCountByPageParam(req);
       ServletUtils.forward(req, resp, "/view/employee/em-product.jsp");
    }
 
    @Override
-   protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+   public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
       doGet(req, resp);
    }
 }

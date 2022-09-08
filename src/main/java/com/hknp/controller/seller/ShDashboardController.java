@@ -1,5 +1,6 @@
 package com.hknp.controller.seller;
 
+import com.hknp.controller.admin.HttpServletCon;
 import com.hknp.model.dao.BillDAO;
 import com.hknp.model.dao.ProductCategoryDAO;
 import com.hknp.model.dao.ProductDAO;
@@ -20,24 +21,10 @@ import java.text.DecimalFormat;
 import java.util.List;
 
 @WebServlet(urlPatterns = {"/seller"})
-public class ShDashboardController extends HttpServlet {
+public class ShDashboardController implements HttpServletCon {
    @Override
-   protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-      Long totalRows = ProductCategoryDAO.getInstance().count();
-      String page = req.getParameter("page");
-
-      Long currentPage = StringUtils.toLong(page);
-      Long totalPage = (totalRows / 10) + ((totalRows % 10 == 0) ? 0 : 1);
-
-      if (currentPage > totalPage) {
-         currentPage = totalPage;
-      }
-      if (currentPage < 1) {
-         currentPage = 1L;
-      }
-
-      req.setAttribute("totalPage", totalPage);
-      req.setAttribute("currentPage", currentPage);
+   public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+      HttpServletCon.setPagesCountByPageParam(req);
 
       HttpSession session = req.getSession();
       Long sellerId = (Long) session.getAttribute("id");
@@ -67,7 +54,7 @@ public class ShDashboardController extends HttpServlet {
    }
 
    @Override
-   protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+   public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
       doGet(req, resp);
    }
 }

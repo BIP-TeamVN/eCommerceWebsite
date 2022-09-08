@@ -148,6 +148,7 @@ public class CustomerDAO implements IRetrieveEntity<CustomerEntity, Long>, IModi
    public ArrayList<CustomerEntity> gets(Integer firstResult, Integer maxResults, String keyword, String columnName, String typeSort) {
       EntityManager entityMgr = EntityUtils.getEntityManager();
 
+      EntityUtils utils = new EntityUtils();
       Query query;
       String queryStr;
 
@@ -155,7 +156,7 @@ public class CustomerDAO implements IRetrieveEntity<CustomerEntity, Long>, IModi
               "where concat(u.userEntity.firstName, ' ', u.userEntity.lastName) like :keywordPara " +
               "or u.userEntity.gender like :keywordPara " +
               "or u.userEntity.phoneNumber like :keywordPara " +
-              "or u.userEntity.email like :keywordPara" + sortColumn(columnName, typeSort);
+              "or u.userEntity.email like :keywordPara" + utils.sortColumn(columnName, typeSort);
 
       query = entityMgr.createQuery(queryStr, CustomerEntity.class);
 
@@ -175,14 +176,6 @@ public class CustomerDAO implements IRetrieveEntity<CustomerEntity, Long>, IModi
          exception.printStackTrace();
       } finally {
          entityMgr.close();
-      }
-      return result;
-   }
-
-   public String sortColumn(String columnName, String typeSort) {
-      String result = "";
-      if (!columnName.equals("")) {
-         result = " ORDER BY u." + columnName + " " + typeSort;
       }
       return result;
    }

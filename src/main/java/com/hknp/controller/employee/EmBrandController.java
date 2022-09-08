@@ -1,5 +1,7 @@
 package com.hknp.controller.employee;
 
+import com.hknp.controller.admin.AdBrandController;
+import com.hknp.controller.admin.HttpServletCon;
 import com.hknp.model.dao.BrandDAO;
 import com.hknp.utils.ServletUtils;
 import com.hknp.utils.StringUtils;
@@ -12,30 +14,16 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 @WebServlet(urlPatterns = {"/employee/brand"})
-public class EmBrandController extends HttpServlet {
+public class EmBrandController implements HttpServletCon {
    @Override
-   protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+   public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-      Long totalRows = BrandDAO.getInstance().count();
-      String page = req.getParameter("page");
-
-      Long currentPage = StringUtils.toLong(page);
-      Long totalPage = (totalRows / 10) + ((totalRows % 10 == 0) ? 0 : 1);
-
-      if (currentPage > totalPage) {
-         currentPage = totalPage;
-      }
-      if (currentPage < 1) {
-         currentPage = 1L;
-      }
-
-      req.setAttribute("totalPage", totalPage);
-      req.setAttribute("currentPage", currentPage);
-      ServletUtils.forward(req, resp, "/view/employee/em-brand.jsp");
+       HttpServletCon.setPagesCountByPageParam(req);
+       ServletUtils.forward(req, resp, "/view/employee/em-brand.jsp");
    }
 
    @Override
-   protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+   public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
       doGet(req, resp);
    }
 }
